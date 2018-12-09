@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
 import NavStyles from './styles/NavStyles'
-import Logo from './styles/Logo'
 
 class Nav extends Component {
   render() {
