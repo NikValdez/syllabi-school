@@ -12,3 +12,17 @@ type Mutation {
 type Query {
   items: [Item]!
 }
+
+type Mutation {
+  createCourse(
+    title: String!
+    description: String!
+    courseCode: String!
+    credits: Int
+    image: String
+  ): Course!
+}
+
+type Query {
+  courses: [Course]!
+}
