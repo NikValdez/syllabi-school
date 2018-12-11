@@ -7,13 +7,6 @@ type Mutation {
     image: String
     largeImage: String
   ): Item!
-}
-
-type Query {
-  items: [Item]!
-}
-
-type Mutation {
   createCourse(
     title: String!
     description: String!
@@ -21,8 +14,10 @@ type Mutation {
     credits: Int
     image: String
   ): Course!
+  deleteCourse(id: ID!): Course
 }
 
 type Query {
+  items: [Item]!
   courses: [Course]!
 }

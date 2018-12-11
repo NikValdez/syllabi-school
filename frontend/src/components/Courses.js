@@ -4,6 +4,7 @@ import gql from 'graphql-tag'
 import styled from 'styled-components'
 import Course from './Course'
 import Calendar from './Calendar'
+import { Link } from 'react-router-dom'
 
 const ALL_COURSES_QUERY = gql`
   query ALL_COURSES_QUERY {
@@ -33,6 +34,7 @@ class Courses extends Component {
     return (
       <Center>
         <h3>Course List</h3>
+        <Link to="/create_course">Create Course</Link>
         <Query query={ALL_COURSES_QUERY}>
           {({ data, error, loading }) => {
             if (loading) return <p>Loading...</p>

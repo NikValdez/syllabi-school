@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
+import Form from './styles/Form'
+import { ALL_COURSES_QUERY } from './Courses'
 
 const CREATE_COURSE_MUTATION = gql`
   mutation CREATE_COURSE_MUTATION(
@@ -38,9 +40,13 @@ class CreateCourse extends Component {
   }
   render() {
     return (
-      <Mutation mutation={CREATE_COURSE_MUTATION} variables={this.state}>
+      <Mutation
+        mutation={CREATE_COURSE_MUTATION}
+        variables={this.state}
+        refetchQueries={[{ query: ALL_COURSES_QUERY }]}
+      >
         {(createCourse, { loading, error }) => (
-          <form
+          <Form
             onSubmit={async e => {
               e.preventDefault()
               const res = await createCourse()
@@ -73,6 +79,18 @@ class CreateCourse extends Component {
                   onChange={this.handleChange}
                 />
               </label>
+              <label htmlFor="credits">
+                Credits
+                <input
+                  type="text"
+                  id="credits"
+                  name="credits"
+                  placeholder="Credits"
+                  required
+                  value={this.state.credits}
+                  onChange={this.handleChange}
+                />
+              </label>
               <label htmlFor="description">
                 Description
                 <textarea
@@ -87,7 +105,7 @@ class CreateCourse extends Component {
               </label>
               <button type="submit">Submit</button>
             </fieldset>
-          </form>
+          </Form>
         )}
       </Mutation>
     )
