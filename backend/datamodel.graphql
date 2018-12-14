@@ -11,8 +11,6 @@ type Item {
   image: String
   largeImage: String
   price: Int!
-  createdAt: DateTime!
-  updatedAt: DateTime!
   # user: User!
 }
 
@@ -23,6 +21,15 @@ type Course {
   courseCode: String!
   credits: Int
   image: String
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  events: [Event!]!
+}
+
+type Event {
+  id: ID! @unique
+  title: String!
+  description: String!
+  start: DateTime!
+  end: DateTime!
+  allDay: Boolean
+  course: Course!
 }

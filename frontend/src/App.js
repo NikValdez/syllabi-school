@@ -6,6 +6,8 @@ import ApolloClient from 'apollo-boost'
 import Courses from './components/Courses'
 import Course from './components/Course'
 import CreateCourse from './components/CreateCourse'
+import CreateEvent from './components/CreateEvent'
+import SingleCourse from './components/SingleCourse'
 import Container from './components/styles/Container'
 import Header from './components/Header'
 
@@ -23,8 +25,9 @@ class App extends Component {
           <Container>
             <Header />
             <Route exact path="/" component={Courses} />
-            <Route path="/course/:id" component={Course} />
+            <Route path="/courses/:id" component={SingleCourse} />
             <Route path="/create_course" component={CreateCourse} />
+            <Route path="/create_event" component={CreateEvent} />
           </Container>
         </Router>
       </ApolloProvider>

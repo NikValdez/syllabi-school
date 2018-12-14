@@ -15,9 +15,38 @@ type Mutation {
     image: String
   ): Course!
   deleteCourse(id: ID!): Course
+  createEvent(
+    title: String!
+    description: String!
+    start: DateTime!
+    end: DateTime!
+    allDay: Boolean
+  ): Event
 }
 
 type Query {
   items: [Item]!
   courses: [Course]!
+  course(where: ItemWhereUniqueInput!): Course
+  events: [Event]!
+}
+
+type Course {
+  id: ID!
+  title: String!
+  description: String!
+  courseCode: String!
+  credits: Int
+  image: String
+  events: [Event!]!
+}
+
+type Event {
+  id: ID!
+  title: String!
+  description: String!
+  start: DateTime!
+  end: DateTime!
+  allDay: Boolean
+  course: Course!
 }

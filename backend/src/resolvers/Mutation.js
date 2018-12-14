@@ -30,6 +30,26 @@ const Mutations = {
 
     //Delete it
     return ctx.db.mutation.deleteCourse({ where }, info)
+  },
+
+  //create an event
+  async createEvent(parent, args, ctx, info) {
+    console.log(args)
+    const event = await ctx.db.mutation.createEvent(
+      {
+        data: {
+          //This creates the relationship between the event and course
+          course: {
+            connect: {
+              id: args.course
+            }
+          },
+          ...args
+        }
+      },
+      info
+    )
+    return event
   }
 }
 
