@@ -21,7 +21,7 @@ type Course {
   courseCode: String!
   credits: Int
   image: String
-  events: [Event!]!
+  events: [Event]!
 }
 
 type Event {

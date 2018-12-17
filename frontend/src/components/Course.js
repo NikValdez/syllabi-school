@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import DeleteCourse from './DeleteCourse'
-import CreateEvent from './CreateEvent'
 
 class Course extends Component {
   render() {
@@ -16,7 +15,6 @@ class Course extends Component {
         <p>{course.description}</p>
         <p>Credits: {course.credits}</p>
         <DeleteCourse id={course.id}>Delete Course ❌</DeleteCourse>
-        <CreateEvent course={course.id} />
       </div>
     )
   }

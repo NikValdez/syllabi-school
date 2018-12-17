@@ -33,15 +33,14 @@ const Mutations = {
   },
 
   //create an event
-  async createEvent(parent, args, ctx, info) {
-    console.log(args)
+  async createEvent(parent, { course, ...args }, ctx, info) {
     const event = await ctx.db.mutation.createEvent(
       {
         data: {
           //This creates the relationship between the event and course
           course: {
             connect: {
-              id: args.course
+              id: course
             }
           },
           ...args

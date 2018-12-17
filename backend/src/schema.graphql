@@ -21,32 +21,13 @@ type Mutation {
     start: DateTime!
     end: DateTime!
     allDay: Boolean
+    course: ID!
   ): Event
 }
 
 type Query {
   items: [Item]!
   courses: [Course]!
-  course(where: ItemWhereUniqueInput!): Course
+  course(where: CourseWhereUniqueInput!): Course
   events: [Event]!
-}
-
-type Course {
-  id: ID!
-  title: String!
-  description: String!
-  courseCode: String!
-  credits: Int
-  image: String
-  events: [Event!]!
-}
-
-type Event {
-  id: ID!
-  title: String!
-  description: String!
-  start: DateTime!
-  end: DateTime!
-  allDay: Boolean
-  course: Course!
 }
