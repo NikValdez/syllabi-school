@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import Form from './styles/Form'
+import { SINGLE_COURSE_QUERY } from './SingleCourse'
 
 const CREATE_EVENT_MUTATION = gql`
   mutation CREATE_EVENT_MUTATION(
@@ -43,7 +44,13 @@ class CreateEvent extends Component {
   render() {
     // console.log(this.props.course)
     return (
-      <Mutation mutation={CREATE_EVENT_MUTATION} variables={this.state}>
+      <Mutation
+        mutation={CREATE_EVENT_MUTATION}
+        variables={this.state}
+        refetchQueries={[
+          { query: SINGLE_COURSE_QUERY, variables: { id: this.props.course } }
+        ]}
+      >
         {(createEvent, { loading, error }) => (
           <Form
             onSubmit={async e => {

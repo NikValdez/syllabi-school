@@ -3,6 +3,8 @@ import gql from 'graphql-tag'
 import { Query } from 'react-apollo'
 import styled from 'styled-components'
 import CreateEvent from './CreateEvent'
+import moment from 'moment'
+import { TableStyles, TdSyles, ThSyles, TrSyles } from './styles/Table'
 
 const SingleCourseStyles = styled.div`
   max-width: 1200px;
@@ -31,6 +33,13 @@ const SINGLE_COURSE_QUERY = gql`
       description
       courseCode
       credits
+      events {
+        id
+        title
+        description
+        start
+        end
+      }
     }
   }
 `
@@ -61,6 +70,31 @@ class SingleCourse extends Component {
                 <p>Course Code: {course.courseCode}</p>
                 <h3>Create Event</h3>
                 <CreateEvent course={course.id} />
+                <h2>Events</h2>
+                <TableStyles style={{ border: '1px solid black' }}>
+                  <tbody>
+                    <tr>
+                      <ThSyles>Title</ThSyles>
+                      <ThSyles>Description</ThSyles>
+                      <ThSyles>Start</ThSyles>
+                      <ThSyles>End</ThSyles>
+                    </tr>
+                    {course.events.map(
+                      ({ title, description, start, end, id }) => (
+                        <TrSyles key={id}>
+                          <TdSyles>{title}</TdSyles>
+                          <TdSyles>{description}</TdSyles>
+                          <TdSyles>
+                            {moment({ start }).format('MMM Do YYYY')}{' '}
+                          </TdSyles>
+                          <TdSyles>
+                            {moment({ end }).format('MMM Do YYYY')}{' '}
+                          </TdSyles>
+                        </TrSyles>
+                      )
+                    )}
+                  </tbody>
+                </TableStyles>
               </div>
             </SingleCourseStyles>
           )
