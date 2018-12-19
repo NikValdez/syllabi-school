@@ -79,17 +79,16 @@ class SingleCourse extends Component {
                       <ThSyles>Start</ThSyles>
                       <ThSyles>End</ThSyles>
                     </tr>
+
                     {course.events.map(
                       ({ title, description, start, end, id }) => (
                         <TrSyles key={id}>
                           <TdSyles>{title}</TdSyles>
                           <TdSyles>{description}</TdSyles>
                           <TdSyles>
-                            {moment({ start }).format('MMM Do YYYY')}{' '}
+                            {moment(start).format('MMM Do YYYY')}
                           </TdSyles>
-                          <TdSyles>
-                            {moment({ end }).format('MMM Do YYYY')}{' '}
-                          </TdSyles>
+                          <TdSyles>{moment(end).format('MMM Do YYYY')}</TdSyles>
                         </TrSyles>
                       )
                     )}

@@ -1,8 +1,15 @@
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
 import Form from './styles/Form'
 import { SINGLE_COURSE_QUERY } from './SingleCourse'
+import styled from 'styled-components'
+
+const DatePick = styled.div`
+  padding: 10px;
+`
 
 const CREATE_EVENT_MUTATION = gql`
   mutation CREATE_EVENT_MUTATION(
@@ -30,8 +37,8 @@ class CreateEvent extends Component {
   state = {
     title: '',
     description: '',
-    start: '',
-    end: '',
+    start: null,
+    end: null,
     allDay: false,
     course: this.props.course
   }
@@ -40,6 +47,16 @@ class CreateEvent extends Component {
     const { name, type, value } = e.target
     const val = type === 'number' ? parseFloat(value) : value
     this.setState({ [name]: val })
+  }
+  handleStartDateChange = date => {
+    this.setState({
+      start: date
+    })
+  }
+  handleEndDateChange = date => {
+    this.setState({
+      end: date
+    })
   }
   render() {
     // console.log(this.props.course)
@@ -60,8 +77,8 @@ class CreateEvent extends Component {
               this.setState({
                 title: '',
                 description: '',
-                start: '',
-                end: '',
+                start: null,
+                end: null,
                 allDay: false
               })
               // this.props.history.push(`/`)
@@ -81,27 +98,19 @@ class CreateEvent extends Component {
                 />
               </label>
               <label htmlFor="start">
-                Event Start
-                <input
-                  type="text"
-                  id="start"
-                  name="start"
-                  placeholder="Start"
-                  required
-                  value={this.state.start}
-                  onChange={this.handleChange}
+                <DatePick>Event Start</DatePick>
+                <DatePicker
+                  selected={this.state.start}
+                  onChange={this.handleStartDateChange}
+                  placeholderText="Click to select start date"
                 />
               </label>
               <label htmlFor="end">
-                Event End
-                <input
-                  type="text"
-                  id="end"
-                  name="end"
-                  placeholder="End"
-                  required
-                  value={this.state.end}
-                  onChange={this.handleChange}
+                <DatePick>Event End</DatePick>
+                <DatePicker
+                  selected={this.state.end}
+                  onChange={this.handleEndDateChange}
+                  placeholderText="Click to select end date"
                 />
               </label>
               <label htmlFor="description">

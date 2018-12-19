@@ -21,7 +21,7 @@ type Course {
   courseCode: String!
   credits: Int
   image: String
-  events: [Event]!
+  events: [Event!]! @relation(name: "CourseEvents", onDelete: CASCADE)
 }
 
 type Event {
@@ -31,5 +31,5 @@ type Event {
   start: DateTime!
   end: DateTime!
   allDay: Boolean
-  course: Course!
+  course: Course! @relation(name: "CourseEvents")
 }

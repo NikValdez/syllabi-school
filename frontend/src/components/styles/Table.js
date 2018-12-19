@@ -9,7 +9,7 @@ export const TdSyles = styled.td`
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
-  font-size: 20px;
+  font-size: 18px;
 `
 export const ThSyles = styled.th`
   border: 1px solid #dddddd;
