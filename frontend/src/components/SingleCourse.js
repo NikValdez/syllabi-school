@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import CreateEvent from './CreateEvent'
 import moment from 'moment'
 import { TableStyles, TdSyles, ThSyles, TrSyles } from './styles/Table'
+import DeleteEvent from './DeleteEvent'
 
 const SingleCourseStyles = styled.div`
   max-width: 1200px;
@@ -89,6 +90,11 @@ class SingleCourse extends Component {
                             {moment(start).format('MMM Do YYYY')}
                           </TdSyles>
                           <TdSyles>{moment(end).format('MMM Do YYYY')}</TdSyles>
+                          <TdSyles>
+                            <DeleteEvent id={id} course={course.id}>
+                              Delete Event ❌
+                            </DeleteEvent>
+                          </TdSyles>
                         </TrSyles>
                       )
                     )}

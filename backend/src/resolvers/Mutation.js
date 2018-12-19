@@ -49,6 +49,15 @@ const Mutations = {
       info
     )
     return event
+  },
+  async deleteEvent(parent, args, ctx, info) {
+    const where = { id: args.id }
+    //find the event
+    const event = await ctx.db.query.event({ where }, `{id title}`)
+    //check if they own that event or have permission
+
+    //Delete it
+    return ctx.db.mutation.deleteEvent({ where }, info)
   }
 }
 

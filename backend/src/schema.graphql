@@ -23,6 +23,7 @@ type Mutation {
     allDay: Boolean
     course: ID!
   ): Event
+  deleteEvent(id: ID!): Event
 }
 
 type Query {

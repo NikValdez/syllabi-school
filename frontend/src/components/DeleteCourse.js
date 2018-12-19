@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import { ALL_COURSES_QUERY } from './Courses'
+import DeleteButton from './styles/DeleteButton'
 
 const DELETE_COURSE_MUTATION = gql`
   mutation DELETE_COURSE_MUTATION($id: ID!) {
@@ -20,17 +21,17 @@ export class DeleteCourse extends Component {
         refetchQueries={[{ query: ALL_COURSES_QUERY }]}
       >
         {(deleteCourse, { error }) => (
-          <button
+          <DeleteButton
             onClick={() => {
               if (
-                window.confirm('Are you sure you want to delete this item?')
+                window.confirm('Are you sure you want to delete this Course?')
               ) {
                 deleteCourse()
               }
             }}
           >
             {this.props.children}
-          </button>
+          </DeleteButton>
         )}
       </Mutation>
     )
