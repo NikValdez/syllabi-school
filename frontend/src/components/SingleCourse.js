@@ -92,7 +92,7 @@ class SingleCourse extends Component {
                           <TdSyles>{moment(end).format('MMM Do YYYY')}</TdSyles>
                           <TdSyles>
                             <DeleteEvent id={id} course={course.id}>
-                              Delete Event ❌
+                              Delete ❌
                             </DeleteEvent>
                           </TdSyles>
                         </TrSyles>

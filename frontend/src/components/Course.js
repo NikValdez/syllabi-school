@@ -14,7 +14,7 @@ class Course extends Component {
         <h6>{course.courseCode}</h6>
         <p>{course.description}</p>
         <p>Credits: {course.credits}</p>
-        <DeleteCourse id={course.id}>Delete Course ❌</DeleteCourse>
+        <DeleteCourse id={course.id}>Delete ❌</DeleteCourse>
       </div>
     )
   }

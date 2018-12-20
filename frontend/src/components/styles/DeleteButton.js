@@ -11,9 +11,9 @@ const DeleteButton = styled.button`
   font-weight: bold;
   padding: 1rem 0.2rem;
   text-decoration: none;
-  color: white;
+  color: #e81c0dad;
   transition: 0.4s;
-  background: #e81c0dad;
+  background: white;
 
   &:before {
     position: absolute;

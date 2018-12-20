@@ -1,16 +1,7 @@
-const Mutations = {
-  async createItem(parent, args, ctx, info) {
-    const item = await ctx.db.mutation.createItem(
-      {
-        data: {
-          ...args
-        }
-      },
-      info
-    )
-    return item
-  },
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
+const Mutations = {
   async createCourse(parent, args, ctx, info) {
     const course = await ctx.db.mutation.createCourse(
       {
@@ -58,6 +49,30 @@ const Mutations = {
 
     //Delete it
     return ctx.db.mutation.deleteEvent({ where }, info)
+  },
+  async signup(parent, args, ctx, info) {
+    args.email = args.email.toLowerCase()
+    //hash password
+    const password = await bcrypt.hash(args.password, 10)
+    //create user
+    const user = await ctx.db.mutation.createUser(
+      {
+        data: {
+          ...args,
+          password,
+          permissions: { set: ['USER'] }
+        }
+      },
+      info
+    )
+    //create JWT token
+    const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET)
+    //Set the JWT as cookie on response
+    ctx.response.cookie('token', token, {
+      httpOnly: true,
+      maxAge: 1000 * 60 * 60 * 24 * 365 //1 year
+    })
+    return user
   }
 }
 
