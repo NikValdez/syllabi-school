@@ -10,11 +10,13 @@ import SingleCourse from './components/SingleCourse'
 import Container from './components/styles/Container'
 import Header from './components/Header'
 import Signup from './components/Signup'
+import Signin from './components/Signin'
 
 import './App.css'
 
 const client = new ApolloClient({
-  uri: endpoint
+  uri: endpoint,
+  credentials: 'include'
 })
 
 class App extends Component {
@@ -26,6 +28,7 @@ class App extends Component {
             <Header />
             <Route exact path="/" component={Courses} />
             <Route exact path="/signup" component={Signup} />
+            <Route exact path="/signin" component={Signin} />
             <Route path="/courses/:id" component={SingleCourse} />
             <Route path="/create_course" component={CreateCourse} />
             <Route path="/create_event" component={CreateEvent} />

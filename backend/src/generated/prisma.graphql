@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/nikvaldez-073802/schedule/dev
-# timestamp: Wed Dec 19 2018 15:15:07 GMT-0800 (PST)
+# timestamp: Thu Dec 20 2018 15:27:58 GMT-0800 (PST)
 
 type AggregateCourse {
   count: Int!
@@ -1013,6 +1013,7 @@ type PageInfo {
 enum Permission {
   ADMIN
   USER
+  PERMISSIONUPDATE
 }
 
 type Query {

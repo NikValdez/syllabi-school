@@ -18,10 +18,12 @@ type Mutation {
   ): Event
   deleteEvent(id: ID!): Event
   signup(email: String!, password: String!, name: String!): User!
+  signin(email: String!, password: String!): User!
 }
 
 type Query {
   courses: [Course]!
   course(where: CourseWhereUniqueInput!): Course
   events: [Event]!
+  me: User
 }

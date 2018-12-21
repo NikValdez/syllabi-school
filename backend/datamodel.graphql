@@ -1,6 +1,7 @@
 enum Permission {
   ADMIN
   USER
+  PERMISSIONUPDATE
 }
 
 type User {
