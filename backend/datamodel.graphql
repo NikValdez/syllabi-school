@@ -31,5 +31,6 @@ type Event {
   start: DateTime!
   end: DateTime!
   allDay: Boolean
+  upload: String
   course: Course! @relation(name: "CourseEvents")
 }

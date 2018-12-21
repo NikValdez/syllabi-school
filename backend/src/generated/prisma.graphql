@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/nikvaldez-073802/schedule/dev
-# timestamp: Thu Dec 20 2018 15:27:58 GMT-0800 (PST)
+# timestamp: Fri Dec 21 2018 12:03:33 GMT-0800 (PST)
 
 type AggregateCourse {
   count: Int!
@@ -422,6 +422,7 @@ type Event implements Node {
   start: DateTime!
   end: DateTime!
   allDay: Boolean
+  upload: String
   course: Course!
 }
 
@@ -441,6 +442,7 @@ input EventCreateInput {
   start: DateTime!
   end: DateTime!
   allDay: Boolean
+  upload: String
   course: CourseCreateOneWithoutEventsInput!
 }
 
@@ -455,6 +457,7 @@ input EventCreateWithoutCourseInput {
   start: DateTime!
   end: DateTime!
   allDay: Boolean
+  upload: String
 }
 
 """An edge in a connection."""
@@ -479,6 +482,8 @@ enum EventOrderByInput {
   end_DESC
   allDay_ASC
   allDay_DESC
+  upload_ASC
+  upload_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -492,6 +497,7 @@ type EventPreviousValues {
   start: DateTime!
   end: DateTime!
   allDay: Boolean
+  upload: String
 }
 
 input EventScalarWhereInput {
@@ -671,6 +677,46 @@ input EventScalarWhereInput {
 
   """All values that are not equal to given value."""
   allDay_not: Boolean
+  upload: String
+
+  """All values that are not equal to given value."""
+  upload_not: String
+
+  """All values that are contained in given list."""
+  upload_in: [String!]
+
+  """All values that are not contained in given list."""
+  upload_not_in: [String!]
+
+  """All values less than the given value."""
+  upload_lt: String
+
+  """All values less than or equal the given value."""
+  upload_lte: String
+
+  """All values greater than the given value."""
+  upload_gt: String
+
+  """All values greater than or equal the given value."""
+  upload_gte: String
+
+  """All values containing the given string."""
+  upload_contains: String
+
+  """All values not containing the given string."""
+  upload_not_contains: String
+
+  """All values starting with the given string."""
+  upload_starts_with: String
+
+  """All values not starting with the given string."""
+  upload_not_starts_with: String
+
+  """All values ending with the given string."""
+  upload_ends_with: String
+
+  """All values not ending with the given string."""
+  upload_not_ends_with: String
 }
 
 type EventSubscriptionPayload {
@@ -718,6 +764,7 @@ input EventUpdateInput {
   start: DateTime
   end: DateTime
   allDay: Boolean
+  upload: String
   course: CourseUpdateOneRequiredWithoutEventsInput
 }
 
@@ -727,6 +774,7 @@ input EventUpdateManyDataInput {
   start: DateTime
   end: DateTime
   allDay: Boolean
+  upload: String
 }
 
 input EventUpdateManyMutationInput {
@@ -735,6 +783,7 @@ input EventUpdateManyMutationInput {
   start: DateTime
   end: DateTime
   allDay: Boolean
+  upload: String
 }
 
 input EventUpdateManyWithoutCourseInput {
@@ -759,6 +808,7 @@ input EventUpdateWithoutCourseDataInput {
   start: DateTime
   end: DateTime
   allDay: Boolean
+  upload: String
 }
 
 input EventUpdateWithWhereUniqueWithoutCourseInput {
@@ -949,6 +999,46 @@ input EventWhereInput {
 
   """All values that are not equal to given value."""
   allDay_not: Boolean
+  upload: String
+
+  """All values that are not equal to given value."""
+  upload_not: String
+
+  """All values that are contained in given list."""
+  upload_in: [String!]
+
+  """All values that are not contained in given list."""
+  upload_not_in: [String!]
+
+  """All values less than the given value."""
+  upload_lt: String
+
+  """All values less than or equal the given value."""
+  upload_lte: String
+
+  """All values greater than the given value."""
+  upload_gt: String
+
+  """All values greater than or equal the given value."""
+  upload_gte: String
+
+  """All values containing the given string."""
+  upload_contains: String
+
+  """All values not containing the given string."""
+  upload_not_contains: String
+
+  """All values starting with the given string."""
+  upload_starts_with: String
+
+  """All values not starting with the given string."""
+  upload_not_starts_with: String
+
+  """All values ending with the given string."""
+  upload_ends_with: String
+
+  """All values not ending with the given string."""
+  upload_not_ends_with: String
   course: CourseWhereInput
 }
 

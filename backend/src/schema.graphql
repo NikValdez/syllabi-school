@@ -1,4 +1,9 @@
 # import * from './generated/prisma.graphql'
+
+type SuccessMessage {
+  message: String
+}
+
 type Mutation {
   createCourse(
     title: String!
@@ -14,11 +19,13 @@ type Mutation {
     start: DateTime!
     end: DateTime!
     allDay: Boolean
+    upload: String
     course: ID!
   ): Event
   deleteEvent(id: ID!): Event
   signup(email: String!, password: String!, name: String!): User!
   signin(email: String!, password: String!): User!
+  signout: SuccessMessage
 }
 
 type Query {

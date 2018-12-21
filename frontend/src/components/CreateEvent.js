@@ -10,6 +10,9 @@ import styled from 'styled-components'
 const DatePick = styled.div`
   padding: 10px;
 `
+const UploadPreview = styled.div`
+  width: 200px;
+`
 
 const CREATE_EVENT_MUTATION = gql`
   mutation CREATE_EVENT_MUTATION(
@@ -40,6 +43,7 @@ class CreateEvent extends Component {
     start: null,
     end: null,
     allDay: false,
+    upload: '',
     course: this.props.course
   }
 
@@ -58,6 +62,27 @@ class CreateEvent extends Component {
       end: date
     })
   }
+
+  uploadFile = async e => {
+    console.log('uploading file...')
+    const files = e.target.files
+    const data = new FormData()
+    data.append('file', files[0])
+    data.append('upload_preset', 'schedule')
+    const res = await fetch(
+      'https://api.cloudinary.com/v1_1/nikcochran/image/upload/',
+      {
+        method: 'POST',
+        body: data
+      }
+    )
+    const file = await res.json()
+    console.log(file)
+    this.setState({
+      upload: file.secure_url
+    })
+  }
+
   render() {
     // console.log(this.props.course)
     return (
@@ -124,6 +149,22 @@ class CreateEvent extends Component {
                   value={this.state.description}
                   onChange={this.handleChange}
                 />
+              </label>
+              <label htmlFor="file">
+                Upload
+                <input
+                  type="file"
+                  id="file"
+                  name="file"
+                  placeholder="Upload a file or image"
+                  required
+                  onChange={this.uploadFile}
+                />
+                {this.state.upload && (
+                  <UploadPreview>
+                    <img src={this.state.upload} alt="Upload Preview" />
+                  </UploadPreview>
+                )}
               </label>
               <button type="submit">Submit</button>
             </fieldset>
