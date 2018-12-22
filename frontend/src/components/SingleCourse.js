@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import gql from 'graphql-tag'
 import { Query } from 'react-apollo'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 import CreateEvent from './CreateEvent'
 import moment from 'moment'
 import { TableStyles, TdSyles, ThSyles, TrSyles } from './styles/Table'
@@ -74,6 +75,7 @@ class SingleCourse extends Component {
                 <p>Description: {course.description}</p>
                 <p>Credits: {course.credits}</p>
                 <p>Course Code: {course.courseCode}</p>
+                <Link to={`/update/${course.id}`}>Update Course </Link>
                 <h3>Create Event</h3>
                 <CreateEvent course={course.id} />
                 <h2>Events</h2>

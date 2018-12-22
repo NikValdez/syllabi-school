@@ -13,6 +13,13 @@ type Mutation {
     image: String
   ): Course!
   deleteCourse(id: ID!): Course
+  updateCourse(
+    id: ID!
+    title: String
+    description: String
+    courseCode: String
+    credits: Int
+  ): Course!
   createEvent(
     title: String!
     description: String!

@@ -24,6 +24,24 @@ const Mutations = {
     return ctx.db.mutation.deleteCourse({ where }, info)
   },
 
+  //update course
+
+  updateCourse(parent, args, ctx, info) {
+    const updates = { ...args }
+    //remove update ID
+    delete updates.id
+    //run update method
+    return ctx.db.mutation.updateCourse(
+      {
+        data: updates,
+        where: {
+          id: args.id
+        }
+      },
+      info
+    )
+  },
+
   //create an event
   async createEvent(parent, { course, ...args }, ctx, info) {
     const event = await ctx.db.mutation.createEvent(

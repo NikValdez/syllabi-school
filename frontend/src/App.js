@@ -5,6 +5,8 @@ import { endpoint } from './config'
 import ApolloClient from 'apollo-boost'
 import Courses from './components/Courses'
 import CreateCourse from './components/CreateCourse'
+import UpdateCourse from './components/UpdateCourse'
+
 import CreateEvent from './components/CreateEvent'
 import SingleCourse from './components/SingleCourse'
 import Container from './components/styles/Container'
@@ -30,6 +32,7 @@ class App extends Component {
             <Route exact path="/signup" component={Signup} />
             <Route exact path="/signin" component={Signin} />
             <Route path="/courses/:id" component={SingleCourse} />
+            <Route path="/update/:id" component={UpdateCourse} />
             <Route path="/create_course" component={CreateCourse} />
             <Route path="/create_event" component={CreateEvent} />
           </Container>
