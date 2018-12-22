@@ -25,6 +25,10 @@ const SingleCourseStyles = styled.div`
     font-size: 2rem;
   }
 `
+const Upload = styled.div`
+  width: 100px;
+  height: 100px;
+`
 
 const SINGLE_COURSE_QUERY = gql`
   query SINGLE_COURSE_QUERY($id: ID!) {
@@ -40,6 +44,7 @@ const SINGLE_COURSE_QUERY = gql`
         description
         start
         end
+        upload
       }
     }
   }
@@ -79,10 +84,11 @@ class SingleCourse extends Component {
                       <ThSyles>Description</ThSyles>
                       <ThSyles>Start</ThSyles>
                       <ThSyles>End</ThSyles>
+                      <ThSyles>Upload</ThSyles>
                     </tr>
 
                     {course.events.map(
-                      ({ title, description, start, end, id }) => (
+                      ({ title, description, start, end, id, upload }) => (
                         <TrSyles key={id}>
                           <TdSyles>{title}</TdSyles>
                           <TdSyles>{description}</TdSyles>
@@ -90,6 +96,11 @@ class SingleCourse extends Component {
                             {moment(start).format('MMM Do YYYY')}
                           </TdSyles>
                           <TdSyles>{moment(end).format('MMM Do YYYY')}</TdSyles>
+                          <TdSyles>
+                            <Upload>
+                              {upload && <img src={upload} alt={title} />}
+                            </Upload>
+                          </TdSyles>
                           <TdSyles>
                             <DeleteEvent id={id} course={course.id}>
                               Delete ❌

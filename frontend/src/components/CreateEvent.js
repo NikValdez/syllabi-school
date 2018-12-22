@@ -21,6 +21,7 @@ const CREATE_EVENT_MUTATION = gql`
     $start: DateTime!
     $end: DateTime!
     $allDay: Boolean
+    $upload: String
     $course: ID!
   ) {
     createEvent(
@@ -29,6 +30,7 @@ const CREATE_EVENT_MUTATION = gql`
       start: $start
       end: $end
       allDay: $allDay
+      upload: $upload
       course: $course
     ) {
       id
@@ -44,7 +46,8 @@ class CreateEvent extends Component {
     end: null,
     allDay: false,
     upload: '',
-    course: this.props.course
+    course: this.props.course,
+    loading: false
   }
 
   handleChange = e => {
@@ -64,11 +67,11 @@ class CreateEvent extends Component {
   }
 
   uploadFile = async e => {
-    console.log('uploading file...')
     const files = e.target.files
     const data = new FormData()
     data.append('file', files[0])
     data.append('upload_preset', 'schedule')
+    this.setState({ loading: true })
     const res = await fetch(
       'https://api.cloudinary.com/v1_1/nikcochran/image/upload/',
       {
@@ -79,7 +82,8 @@ class CreateEvent extends Component {
     const file = await res.json()
     console.log(file)
     this.setState({
-      upload: file.secure_url
+      upload: file.secure_url,
+      loading: false
     })
   }
 
@@ -104,7 +108,8 @@ class CreateEvent extends Component {
                 description: '',
                 start: null,
                 end: null,
-                allDay: false
+                allDay: false,
+                upload: ''
               })
               // this.props.history.push(`/`)
             }}
@@ -160,13 +165,16 @@ class CreateEvent extends Component {
                   required
                   onChange={this.uploadFile}
                 />
+                {this.state.loading ? <p>Loading...</p> : null}
                 {this.state.upload && (
                   <UploadPreview>
                     <img src={this.state.upload} alt="Upload Preview" />
                   </UploadPreview>
                 )}
               </label>
-              <button type="submit">Submit</button>
+              <button type="submit" disabled={this.state.loading}>
+                Submit
+              </button>
             </fieldset>
           </Form>
         )}
