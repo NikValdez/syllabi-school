@@ -12,6 +12,7 @@ type User {
   resetToken: String
   resetTokenExpiry: Float
   permissions: [Permission]
+  courses: [Course!]!
 }
 
 type Course {
@@ -22,6 +23,7 @@ type Course {
   credits: Int
   image: String
   events: [Event!]! @relation(name: "CourseEvents", onDelete: CASCADE)
+  user: User!
 }
 
 type Event {

@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/nikvaldez-073802/schedule/dev
-# timestamp: Fri Dec 21 2018 12:03:33 GMT-0800 (PST)
+# timestamp: Thu Dec 27 2018 11:43:12 GMT-0800 (PST)
 
 type AggregateCourse {
   count: Int!
@@ -26,6 +26,7 @@ type Course implements Node {
   credits: Int
   image: String
   events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event!]
+  user: User!
 }
 
 """A connection to a list of items."""
@@ -45,6 +46,12 @@ input CourseCreateInput {
   credits: Int
   image: String
   events: EventCreateManyWithoutCourseInput
+  user: UserCreateOneWithoutCoursesInput!
+}
+
+input CourseCreateManyWithoutUserInput {
+  create: [CourseCreateWithoutUserInput!]
+  connect: [CourseWhereUniqueInput!]
 }
 
 input CourseCreateOneWithoutEventsInput {
@@ -58,6 +65,16 @@ input CourseCreateWithoutEventsInput {
   courseCode: String!
   credits: Int
   image: String
+  user: UserCreateOneWithoutCoursesInput!
+}
+
+input CourseCreateWithoutUserInput {
+  title: String!
+  description: String!
+  courseCode: String!
+  credits: Int
+  image: String
+  events: EventCreateManyWithoutCourseInput
 }
 
 """An edge in a connection."""
@@ -95,6 +112,239 @@ type CoursePreviousValues {
   courseCode: String!
   credits: Int
   image: String
+}
+
+input CourseScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [CourseScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [CourseScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [CourseScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  title: String
+
+  """All values that are not equal to given value."""
+  title_not: String
+
+  """All values that are contained in given list."""
+  title_in: [String!]
+
+  """All values that are not contained in given list."""
+  title_not_in: [String!]
+
+  """All values less than the given value."""
+  title_lt: String
+
+  """All values less than or equal the given value."""
+  title_lte: String
+
+  """All values greater than the given value."""
+  title_gt: String
+
+  """All values greater than or equal the given value."""
+  title_gte: String
+
+  """All values containing the given string."""
+  title_contains: String
+
+  """All values not containing the given string."""
+  title_not_contains: String
+
+  """All values starting with the given string."""
+  title_starts_with: String
+
+  """All values not starting with the given string."""
+  title_not_starts_with: String
+
+  """All values ending with the given string."""
+  title_ends_with: String
+
+  """All values not ending with the given string."""
+  title_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
+  courseCode: String
+
+  """All values that are not equal to given value."""
+  courseCode_not: String
+
+  """All values that are contained in given list."""
+  courseCode_in: [String!]
+
+  """All values that are not contained in given list."""
+  courseCode_not_in: [String!]
+
+  """All values less than the given value."""
+  courseCode_lt: String
+
+  """All values less than or equal the given value."""
+  courseCode_lte: String
+
+  """All values greater than the given value."""
+  courseCode_gt: String
+
+  """All values greater than or equal the given value."""
+  courseCode_gte: String
+
+  """All values containing the given string."""
+  courseCode_contains: String
+
+  """All values not containing the given string."""
+  courseCode_not_contains: String
+
+  """All values starting with the given string."""
+  courseCode_starts_with: String
+
+  """All values not starting with the given string."""
+  courseCode_not_starts_with: String
+
+  """All values ending with the given string."""
+  courseCode_ends_with: String
+
+  """All values not ending with the given string."""
+  courseCode_not_ends_with: String
+  credits: Int
+
+  """All values that are not equal to given value."""
+  credits_not: Int
+
+  """All values that are contained in given list."""
+  credits_in: [Int!]
+
+  """All values that are not contained in given list."""
+  credits_not_in: [Int!]
+
+  """All values less than the given value."""
+  credits_lt: Int
+
+  """All values less than or equal the given value."""
+  credits_lte: Int
+
+  """All values greater than the given value."""
+  credits_gt: Int
+
+  """All values greater than or equal the given value."""
+  credits_gte: Int
+  image: String
+
+  """All values that are not equal to given value."""
+  image_not: String
+
+  """All values that are contained in given list."""
+  image_in: [String!]
+
+  """All values that are not contained in given list."""
+  image_not_in: [String!]
+
+  """All values less than the given value."""
+  image_lt: String
+
+  """All values less than or equal the given value."""
+  image_lte: String
+
+  """All values greater than the given value."""
+  image_gt: String
+
+  """All values greater than or equal the given value."""
+  image_gte: String
+
+  """All values containing the given string."""
+  image_contains: String
+
+  """All values not containing the given string."""
+  image_not_contains: String
+
+  """All values starting with the given string."""
+  image_starts_with: String
+
+  """All values not starting with the given string."""
+  image_not_starts_with: String
+
+  """All values ending with the given string."""
+  image_ends_with: String
+
+  """All values not ending with the given string."""
+  image_not_ends_with: String
 }
 
 type CourseSubscriptionPayload {
@@ -143,6 +393,15 @@ input CourseUpdateInput {
   credits: Int
   image: String
   events: EventUpdateManyWithoutCourseInput
+  user: UserUpdateOneRequiredWithoutCoursesInput
+}
+
+input CourseUpdateManyDataInput {
+  title: String
+  description: String
+  courseCode: String
+  credits: Int
+  image: String
 }
 
 input CourseUpdateManyMutationInput {
@@ -151,6 +410,22 @@ input CourseUpdateManyMutationInput {
   courseCode: String
   credits: Int
   image: String
+}
+
+input CourseUpdateManyWithoutUserInput {
+  create: [CourseCreateWithoutUserInput!]
+  connect: [CourseWhereUniqueInput!]
+  disconnect: [CourseWhereUniqueInput!]
+  delete: [CourseWhereUniqueInput!]
+  update: [CourseUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [CourseUpdateManyWithWhereNestedInput!]
+  deleteMany: [CourseScalarWhereInput!]
+  upsert: [CourseUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input CourseUpdateManyWithWhereNestedInput {
+  where: CourseScalarWhereInput!
+  data: CourseUpdateManyDataInput!
 }
 
 input CourseUpdateOneRequiredWithoutEventsInput {
@@ -166,11 +441,32 @@ input CourseUpdateWithoutEventsDataInput {
   courseCode: String
   credits: Int
   image: String
+  user: UserUpdateOneRequiredWithoutCoursesInput
+}
+
+input CourseUpdateWithoutUserDataInput {
+  title: String
+  description: String
+  courseCode: String
+  credits: Int
+  image: String
+  events: EventUpdateManyWithoutCourseInput
+}
+
+input CourseUpdateWithWhereUniqueWithoutUserInput {
+  where: CourseWhereUniqueInput!
+  data: CourseUpdateWithoutUserDataInput!
 }
 
 input CourseUpsertWithoutEventsInput {
   update: CourseUpdateWithoutEventsDataInput!
   create: CourseCreateWithoutEventsInput!
+}
+
+input CourseUpsertWithWhereUniqueWithoutUserInput {
+  where: CourseWhereUniqueInput!
+  update: CourseUpdateWithoutUserDataInput!
+  create: CourseCreateWithoutUserInput!
 }
 
 input CourseWhereInput {
@@ -407,6 +703,7 @@ input CourseWhereInput {
   events_every: EventWhereInput
   events_some: EventWhereInput
   events_none: EventWhereInput
+  user: UserWhereInput
 }
 
 input CourseWhereUniqueInput {
@@ -1138,6 +1435,7 @@ type User implements Node {
   resetToken: String
   resetTokenExpiry: Float
   permissions: [Permission!]!
+  courses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course!]
 }
 
 """A connection to a list of items."""
@@ -1157,10 +1455,25 @@ input UserCreateInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
+  courses: CourseCreateManyWithoutUserInput
+}
+
+input UserCreateOneWithoutCoursesInput {
+  create: UserCreateWithoutCoursesInput
+  connect: UserWhereUniqueInput
 }
 
 input UserCreatepermissionsInput {
   set: [Permission!]
+}
+
+input UserCreateWithoutCoursesInput {
+  name: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserCreatepermissionsInput
 }
 
 """An edge in a connection."""
@@ -1247,6 +1560,7 @@ input UserUpdateInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
+  courses: CourseUpdateManyWithoutUserInput
 }
 
 input UserUpdateManyMutationInput {
@@ -1258,8 +1572,29 @@ input UserUpdateManyMutationInput {
   permissions: UserUpdatepermissionsInput
 }
 
+input UserUpdateOneRequiredWithoutCoursesInput {
+  create: UserCreateWithoutCoursesInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutCoursesDataInput
+  upsert: UserUpsertWithoutCoursesInput
+}
+
 input UserUpdatepermissionsInput {
   set: [Permission!]
+}
+
+input UserUpdateWithoutCoursesDataInput {
+  name: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserUpdatepermissionsInput
+}
+
+input UserUpsertWithoutCoursesInput {
+  update: UserUpdateWithoutCoursesDataInput!
+  create: UserCreateWithoutCoursesInput!
 }
 
 input UserWhereInput {
@@ -1493,6 +1828,9 @@ input UserWhereInput {
 
   """All values greater than or equal the given value."""
   resetTokenExpiry_gte: Float
+  courses_every: CourseWhereInput
+  courses_some: CourseWhereInput
+  courses_none: CourseWhereInput
 }
 
 input UserWhereUniqueInput {

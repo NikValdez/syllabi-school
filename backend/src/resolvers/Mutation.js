@@ -3,9 +3,13 @@ const jwt = require('jsonwebtoken')
 const { randomBytes } = require('crypto')
 const { promisify } = require('util')
 const { hasPermission } = require('../utils')
+const { transport, makeANiceEmail } = require('../mail')
 
 const Mutations = {
   async createCourse(parent, args, ctx, info) {
+    if (!ctx.request.userId) {
+      throw new Error('You must be logged in to do that!')
+    }
     const course = await ctx.db.mutation.createCourse(
       {
         data: {
@@ -132,9 +136,19 @@ const Mutations = {
       where: { email: args.email },
       data: { resetToken, resetTokenExpiry }
     })
-    console.log(res)
-    return { message: 'Thanks' }
+
     //3.Email them that reset token
+    const mailRes = await transport.sendMail({
+      from: 'schedule@schedule.com',
+      to: user.email,
+      subject: 'Your password reset token',
+      html: makeANiceEmail(`Your Password Reset Token is Here! 
+      \n\n 
+      <a href="${
+        process.env.FRONTEND_URL
+      }/reset/${resetToken}">Click Here to Reset</a>`)
+    })
+    return { message: 'Thanks' }
   },
   async resetPassword(parent, args, ctx, info) {
     if (args.password !== args.confirmPassword) {

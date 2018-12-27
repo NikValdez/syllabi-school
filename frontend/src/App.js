@@ -13,6 +13,8 @@ import Container from './components/styles/Container'
 import Header from './components/Header'
 import Signup from './components/Signup'
 import Signin from './components/Signin'
+import RequestReset from './components/RequestReset'
+import Reset from './components/Reset'
 
 import './App.css'
 
@@ -35,6 +37,8 @@ class App extends Component {
             <Route path="/update/:id" component={UpdateCourse} />
             <Route path="/create_course" component={CreateCourse} />
             <Route path="/create_event" component={CreateEvent} />
+            <Route path="/request_reset" component={RequestReset} />
+            <Route path="/reset/:resetToken" component={Reset} />
           </Container>
         </Router>
       </ApolloProvider>

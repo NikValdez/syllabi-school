@@ -3,6 +3,7 @@ import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import Form from './styles/Form'
 import { ALL_COURSES_QUERY } from './Courses'
+import Error from './ErrorMessage'
 
 const CREATE_COURSE_MUTATION = gql`
   mutation CREATE_COURSE_MUTATION(
@@ -54,6 +55,7 @@ class CreateCourse extends Component {
               this.props.history.push(`/`)
             }}
           >
+            <Error error={error} />
             <fieldset disabled={loading} aria-busy={loading}>
               <label htmlFor="title">
                 Title
