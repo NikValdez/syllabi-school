@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import CreateEvent from './CreateEvent'
 import moment from 'moment'
-import { TableStyles, TdSyles, ThSyles, TrSyles } from './styles/Table'
+import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
 import DeleteEvent from './DeleteEvent'
 
 const SingleCourseStyles = styled.div`
@@ -82,33 +82,35 @@ class SingleCourse extends Component {
                 <TableStyles style={{ border: '1px solid black' }}>
                   <tbody>
                     <tr>
-                      <ThSyles>Title</ThSyles>
-                      <ThSyles>Description</ThSyles>
-                      <ThSyles>Start</ThSyles>
-                      <ThSyles>End</ThSyles>
-                      <ThSyles>Upload</ThSyles>
+                      <ThStyles>Title</ThStyles>
+                      <ThStyles>Description</ThStyles>
+                      <ThStyles>Start</ThStyles>
+                      <ThStyles>End</ThStyles>
+                      <ThStyles>Upload</ThStyles>
                     </tr>
 
                     {course.events.map(
                       ({ title, description, start, end, id, upload }) => (
-                        <TrSyles key={id}>
-                          <TdSyles>{title}</TdSyles>
-                          <TdSyles>{description}</TdSyles>
-                          <TdSyles>
+                        <TrStyles key={id}>
+                          <TdStyles>{title}</TdStyles>
+                          <TdStyles>{description}</TdStyles>
+                          <TdStyles>
                             {moment(start).format('MMM Do YYYY')}
-                          </TdSyles>
-                          <TdSyles>{moment(end).format('MMM Do YYYY')}</TdSyles>
-                          <TdSyles>
+                          </TdStyles>
+                          <TdStyles>
+                            {moment(end).format('MMM Do YYYY')}
+                          </TdStyles>
+                          <TdStyles>
                             <Upload>
                               {upload && <img src={upload} alt={title} />}
                             </Upload>
-                          </TdSyles>
-                          <TdSyles>
+                          </TdStyles>
+                          <TdStyles>
                             <DeleteEvent id={id} course={course.id}>
                               Delete ❌
                             </DeleteEvent>
-                          </TdSyles>
-                        </TrSyles>
+                          </TdStyles>
+                        </TrStyles>
                       )
                     )}
                   </tbody>

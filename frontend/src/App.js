@@ -15,6 +15,7 @@ import Signup from './components/Signup'
 import Signin from './components/Signin'
 import RequestReset from './components/RequestReset'
 import Reset from './components/Reset'
+import Permissions from './components/Permissions'
 
 import './App.css'
 
@@ -39,6 +40,7 @@ class App extends Component {
             <Route path="/create_event" component={CreateEvent} />
             <Route path="/request_reset" component={RequestReset} />
             <Route path="/reset/:resetToken" component={Reset} />
+            <Route path="/permissions" component={Permissions} />
           </Container>
         </Router>
       </ApolloProvider>

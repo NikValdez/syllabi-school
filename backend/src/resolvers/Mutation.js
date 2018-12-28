@@ -13,6 +13,11 @@ const Mutations = {
     const course = await ctx.db.mutation.createCourse(
       {
         data: {
+          user: {
+            connect: {
+              id: ctx.request.userId
+            }
+          },
           ...args
         }
       },
@@ -179,6 +184,37 @@ const Mutations = {
       maxAge: 1000 * 60 * 60 * 24 * 265
     })
     return updatedUser
+  },
+  async updatePermissions(parent, args, ctx, info) {
+    //1. Check if logged in
+    if (!ctx.request.userId) {
+      throw new Error('You must be logged in!')
+    }
+    //2. Query the current user
+    const currentUser = await ctx.db.query.user(
+      {
+        where: {
+          id: ctx.request.userId
+        }
+      },
+      info
+    )
+    //3. check if they have permissions to do this
+    hasPermission(currentUser, ['ADIMN', 'PERMISSIONUPDATE'])
+    //4. Update the permission
+    return ctx.db.mutation.updateUser(
+      {
+        data: {
+          permissions: {
+            set: args.permissions
+          }
+        },
+        where: {
+          id: args.userId
+        }
+      },
+      info
+    )
   }
 }
 

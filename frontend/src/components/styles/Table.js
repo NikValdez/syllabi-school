@@ -5,18 +5,23 @@ export const TableStyles = styled.table`
   border-collapse: collapse;
   width: 100%;
 `
-export const TdSyles = styled.td`
+export const TdStyles = styled.td`
   border: 1px solid #dddddd;
-  text-align: left;
+  text-align: center;
   padding: 8px;
   font-size: 18px;
+  label {
+    display: block;
+    padding: 10px 5px;
+  }
 `
-export const ThSyles = styled.th`
+export const ThStyles = styled.th`
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
+  text-align: center;
 `
-export const TrSyles = styled.tr`
+export const TrStyles = styled.tr`
   &:nth-child(even) {
     background: #f9c32117;
   }
