@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import Course from './Course'
 import Calendar from './Calendar'
 import { Link } from 'react-router-dom'
-import User from './User'
+import { CURRENT_USER_QUERY } from './User'
 
 const ALL_COURSES_QUERY = gql`
   query ALL_COURSES_QUERY {
@@ -35,14 +35,27 @@ class Courses extends Component {
     return (
       <Center>
         <h3>Course List</h3>
-
-        <Link to="/create_course">Create Course</Link>
+        <Query query={CURRENT_USER_QUERY}>
+          {({ data, error, loading }) => {
+            if (loading) return null
+            if (error) return <p>Error : {error.message}</p>
+            if (
+              data.me.permissions.some(permission =>
+                ['ADIMN', 'TEACHER'].includes(permission)
+              )
+            ) {
+              return <Link to="/create_course">Create Course</Link>
+            } else {
+              return null
+            }
+          }}
+        </Query>
 
         <Query query={ALL_COURSES_QUERY}>
           {({ data, error, loading }) => {
             if (loading) return <p>Loading...</p>
             if (error) return <p>Error : {error.message}</p>
-            console.log(data)
+            // console.log(data)
             return (
               <CoursesList>
                 {data.courses.map(course => (
