@@ -10,6 +10,12 @@ const Mutations = {
     if (!ctx.request.userId) {
       throw new Error('You must be logged in to do that!')
     }
+    const hasPermissions = ctx.request.user.permissions.some(permission =>
+      ['ADIMN', 'TEACHER'].includes(permission)
+    )
+    if (!hasPermissions) {
+      throw new Error("You don't have permission to do that")
+    }
     const course = await ctx.db.mutation.createCourse(
       {
         data: {
@@ -28,19 +34,36 @@ const Mutations = {
   async deleteCourse(parent, args, ctx, info) {
     const where = { id: args.id }
     //find the course
-    const course = await ctx.db.query.course({ where }, `{id title}`)
+    const course = await ctx.db.query.course({ where }, `{id title user {id}}`)
     //check if they own that course or have permission
-
+    const ownsCourse = course.user.id === ctx.request.userId
+    const hasPermissions = ctx.request.user.permissions.some(permission =>
+      ['ADIMN', 'TEACHER'].includes(permission)
+    )
+    if (!ownsCourse && !hasPermissions) {
+      throw new Error("You don't have permission to do that")
+    }
     //Delete it
     return ctx.db.mutation.deleteCourse({ where }, info)
   },
 
   //update course
-
-  updateCourse(parent, args, ctx, info) {
+  async updateCourse(parent, args, ctx, info) {
+    const where = { id: args.id }
+    //find the course
+    const course = await ctx.db.query.course({ where }, `{id title user {id}}`)
+    //check if they own that course or have permission
+    const ownsCourse = course.user.id === ctx.request.userId
+    const hasPermissions = ctx.request.user.permissions.some(permission =>
+      ['ADIMN', 'TEACHER'].includes(permission)
+    )
+    if (!ownsCourse && !hasPermissions) {
+      throw new Error("You don't have permission to do that")
+    }
     const updates = { ...args }
     //remove update ID
     delete updates.id
+
     //run update method
     return ctx.db.mutation.updateCourse(
       {

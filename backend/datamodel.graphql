@@ -1,6 +1,7 @@
 enum Permission {
   ADMIN
   USER
+  TEACHER
   PERMISSIONUPDATE
 }
 

@@ -6,7 +6,7 @@ import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
 import Button from './styles/Button'
 import PropTypes from 'prop-types'
 
-const possiblePermissions = ['ADMIN', 'USER', 'PERMISSIONUPDATE']
+const possiblePermissions = ['ADMIN', 'TEACHER', 'USER', 'PERMISSIONUPDATE']
 
 const UPDATE_PERMISSIONS_MUTATION = gql`
   mutation updatePermissions($permissions: [Permission], $userId: ID!) {

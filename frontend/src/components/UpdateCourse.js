@@ -77,7 +77,13 @@ class UpdateCourse extends Component {
               refetchQueries={[{ query: ALL_COURSES_QUERY }]}
             >
               {(updateCourse, { loading, error }) => (
-                <Form onSubmit={e => this.updateCourse(e, updateCourse)}>
+                <Form
+                  onSubmit={e =>
+                    this.updateCourse(e, updateCourse).catch(err => {
+                      alert(err.message)
+                    })
+                  }
+                >
                   <fieldset disabled={loading} aria-busy={loading}>
                     <label htmlFor="title">
                       Title

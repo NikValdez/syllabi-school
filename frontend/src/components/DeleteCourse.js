@@ -26,7 +26,9 @@ export class DeleteCourse extends Component {
               if (
                 window.confirm('Are you sure you want to delete this Course?')
               ) {
-                deleteCourse()
+                deleteCourse().catch(err => {
+                  alert(err.message)
+                })
               }
             }}
           >
