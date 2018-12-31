@@ -1,11 +1,15 @@
 # source: https://us1.prisma.sh/nikvaldez-073802/schedule/dev
-# timestamp: Sat Dec 29 2018 13:37:23 GMT-0800 (PST)
+# timestamp: Mon Dec 31 2018 13:09:16 GMT-0800 (PST)
 
 type AggregateCourse {
   count: Int!
 }
 
 type AggregateEvent {
+  count: Int!
+}
+
+type AggregateMyCourse {
   count: Int!
 }
 
@@ -27,6 +31,7 @@ type Course implements Node {
   image: String
   events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event!]
   user: User!
+  myCourse: MyCourse!
 }
 
 """A connection to a list of items."""
@@ -47,6 +52,12 @@ input CourseCreateInput {
   image: String
   events: EventCreateManyWithoutCourseInput
   user: UserCreateOneWithoutCoursesInput!
+  myCourse: MyCourseCreateOneWithoutCoursesInput!
+}
+
+input CourseCreateManyWithoutMyCourseInput {
+  create: [CourseCreateWithoutMyCourseInput!]
+  connect: [CourseWhereUniqueInput!]
 }
 
 input CourseCreateManyWithoutUserInput {
@@ -66,6 +77,17 @@ input CourseCreateWithoutEventsInput {
   credits: Int
   image: String
   user: UserCreateOneWithoutCoursesInput!
+  myCourse: MyCourseCreateOneWithoutCoursesInput!
+}
+
+input CourseCreateWithoutMyCourseInput {
+  title: String!
+  description: String!
+  courseCode: String!
+  credits: Int
+  image: String
+  events: EventCreateManyWithoutCourseInput
+  user: UserCreateOneWithoutCoursesInput!
 }
 
 input CourseCreateWithoutUserInput {
@@ -75,6 +97,7 @@ input CourseCreateWithoutUserInput {
   credits: Int
   image: String
   events: EventCreateManyWithoutCourseInput
+  myCourse: MyCourseCreateOneWithoutCoursesInput!
 }
 
 """An edge in a connection."""
@@ -394,6 +417,7 @@ input CourseUpdateInput {
   image: String
   events: EventUpdateManyWithoutCourseInput
   user: UserUpdateOneRequiredWithoutCoursesInput
+  myCourse: MyCourseUpdateOneRequiredWithoutCoursesInput
 }
 
 input CourseUpdateManyDataInput {
@@ -410,6 +434,17 @@ input CourseUpdateManyMutationInput {
   courseCode: String
   credits: Int
   image: String
+}
+
+input CourseUpdateManyWithoutMyCourseInput {
+  create: [CourseCreateWithoutMyCourseInput!]
+  connect: [CourseWhereUniqueInput!]
+  disconnect: [CourseWhereUniqueInput!]
+  delete: [CourseWhereUniqueInput!]
+  update: [CourseUpdateWithWhereUniqueWithoutMyCourseInput!]
+  updateMany: [CourseUpdateManyWithWhereNestedInput!]
+  deleteMany: [CourseScalarWhereInput!]
+  upsert: [CourseUpsertWithWhereUniqueWithoutMyCourseInput!]
 }
 
 input CourseUpdateManyWithoutUserInput {
@@ -442,6 +477,17 @@ input CourseUpdateWithoutEventsDataInput {
   credits: Int
   image: String
   user: UserUpdateOneRequiredWithoutCoursesInput
+  myCourse: MyCourseUpdateOneRequiredWithoutCoursesInput
+}
+
+input CourseUpdateWithoutMyCourseDataInput {
+  title: String
+  description: String
+  courseCode: String
+  credits: Int
+  image: String
+  events: EventUpdateManyWithoutCourseInput
+  user: UserUpdateOneRequiredWithoutCoursesInput
 }
 
 input CourseUpdateWithoutUserDataInput {
@@ -451,6 +497,12 @@ input CourseUpdateWithoutUserDataInput {
   credits: Int
   image: String
   events: EventUpdateManyWithoutCourseInput
+  myCourse: MyCourseUpdateOneRequiredWithoutCoursesInput
+}
+
+input CourseUpdateWithWhereUniqueWithoutMyCourseInput {
+  where: CourseWhereUniqueInput!
+  data: CourseUpdateWithoutMyCourseDataInput!
 }
 
 input CourseUpdateWithWhereUniqueWithoutUserInput {
@@ -461,6 +513,12 @@ input CourseUpdateWithWhereUniqueWithoutUserInput {
 input CourseUpsertWithoutEventsInput {
   update: CourseUpdateWithoutEventsDataInput!
   create: CourseCreateWithoutEventsInput!
+}
+
+input CourseUpsertWithWhereUniqueWithoutMyCourseInput {
+  where: CourseWhereUniqueInput!
+  update: CourseUpdateWithoutMyCourseDataInput!
+  create: CourseCreateWithoutMyCourseInput!
 }
 
 input CourseUpsertWithWhereUniqueWithoutUserInput {
@@ -704,6 +762,7 @@ input CourseWhereInput {
   events_some: EventWhereInput
   events_none: EventWhereInput
   user: UserWhereInput
+  myCourse: MyCourseWhereInput
 }
 
 input CourseWhereUniqueInput {
@@ -1352,21 +1411,26 @@ scalar Long
 type Mutation {
   createUser(data: UserCreateInput!): User!
   createCourse(data: CourseCreateInput!): Course!
+  createMyCourse(data: MyCourseCreateInput!): MyCourse!
   createEvent(data: EventCreateInput!): Event!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateCourse(data: CourseUpdateInput!, where: CourseWhereUniqueInput!): Course
+  updateMyCourse(data: MyCourseUpdateInput!, where: MyCourseWhereUniqueInput!): MyCourse
   updateEvent(data: EventUpdateInput!, where: EventWhereUniqueInput!): Event
   deleteUser(where: UserWhereUniqueInput!): User
   deleteCourse(where: CourseWhereUniqueInput!): Course
+  deleteMyCourse(where: MyCourseWhereUniqueInput!): MyCourse
   deleteEvent(where: EventWhereUniqueInput!): Event
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertCourse(where: CourseWhereUniqueInput!, create: CourseCreateInput!, update: CourseUpdateInput!): Course!
+  upsertMyCourse(where: MyCourseWhereUniqueInput!, create: MyCourseCreateInput!, update: MyCourseUpdateInput!): MyCourse!
   upsertEvent(where: EventWhereUniqueInput!, create: EventCreateInput!, update: EventUpdateInput!): Event!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyCourses(data: CourseUpdateManyMutationInput!, where: CourseWhereInput): BatchPayload!
   updateManyEvents(data: EventUpdateManyMutationInput!, where: EventWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyCourses(where: CourseWhereInput): BatchPayload!
+  deleteManyMyCourses(where: MyCourseWhereInput): BatchPayload!
   deleteManyEvents(where: EventWhereInput): BatchPayload!
 }
 
@@ -1374,6 +1438,262 @@ enum MutationType {
   CREATED
   UPDATED
   DELETED
+}
+
+type MyCourse implements Node {
+  id: ID!
+  user: User!
+  courses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course!]
+}
+
+"""A connection to a list of items."""
+type MyCourseConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [MyCourseEdge]!
+  aggregate: AggregateMyCourse!
+}
+
+input MyCourseCreateInput {
+  user: UserCreateOneWithoutMyCoursesInput!
+  courses: CourseCreateManyWithoutMyCourseInput
+}
+
+input MyCourseCreateManyWithoutUserInput {
+  create: [MyCourseCreateWithoutUserInput!]
+  connect: [MyCourseWhereUniqueInput!]
+}
+
+input MyCourseCreateOneWithoutCoursesInput {
+  create: MyCourseCreateWithoutCoursesInput
+  connect: MyCourseWhereUniqueInput
+}
+
+input MyCourseCreateWithoutCoursesInput {
+  user: UserCreateOneWithoutMyCoursesInput!
+}
+
+input MyCourseCreateWithoutUserInput {
+  courses: CourseCreateManyWithoutMyCourseInput
+}
+
+"""An edge in a connection."""
+type MyCourseEdge {
+  """The item at the end of the edge."""
+  node: MyCourse!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum MyCourseOrderByInput {
+  id_ASC
+  id_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type MyCoursePreviousValues {
+  id: ID!
+}
+
+input MyCourseScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MyCourseScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MyCourseScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MyCourseScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+}
+
+type MyCourseSubscriptionPayload {
+  mutation: MutationType!
+  node: MyCourse
+  updatedFields: [String!]
+  previousValues: MyCoursePreviousValues
+}
+
+input MyCourseSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MyCourseSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MyCourseSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MyCourseSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: MyCourseWhereInput
+}
+
+input MyCourseUpdateInput {
+  user: UserUpdateOneRequiredWithoutMyCoursesInput
+  courses: CourseUpdateManyWithoutMyCourseInput
+}
+
+input MyCourseUpdateManyWithoutUserInput {
+  create: [MyCourseCreateWithoutUserInput!]
+  connect: [MyCourseWhereUniqueInput!]
+  disconnect: [MyCourseWhereUniqueInput!]
+  delete: [MyCourseWhereUniqueInput!]
+  update: [MyCourseUpdateWithWhereUniqueWithoutUserInput!]
+  deleteMany: [MyCourseScalarWhereInput!]
+  upsert: [MyCourseUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input MyCourseUpdateOneRequiredWithoutCoursesInput {
+  create: MyCourseCreateWithoutCoursesInput
+  connect: MyCourseWhereUniqueInput
+  update: MyCourseUpdateWithoutCoursesDataInput
+  upsert: MyCourseUpsertWithoutCoursesInput
+}
+
+input MyCourseUpdateWithoutCoursesDataInput {
+  user: UserUpdateOneRequiredWithoutMyCoursesInput
+}
+
+input MyCourseUpdateWithoutUserDataInput {
+  courses: CourseUpdateManyWithoutMyCourseInput
+}
+
+input MyCourseUpdateWithWhereUniqueWithoutUserInput {
+  where: MyCourseWhereUniqueInput!
+  data: MyCourseUpdateWithoutUserDataInput!
+}
+
+input MyCourseUpsertWithoutCoursesInput {
+  update: MyCourseUpdateWithoutCoursesDataInput!
+  create: MyCourseCreateWithoutCoursesInput!
+}
+
+input MyCourseUpsertWithWhereUniqueWithoutUserInput {
+  where: MyCourseWhereUniqueInput!
+  update: MyCourseUpdateWithoutUserDataInput!
+  create: MyCourseCreateWithoutUserInput!
+}
+
+input MyCourseWhereInput {
+  """Logical AND on all given filters."""
+  AND: [MyCourseWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [MyCourseWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [MyCourseWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  user: UserWhereInput
+  courses_every: CourseWhereInput
+  courses_some: CourseWhereInput
+  courses_none: CourseWhereInput
+}
+
+input MyCourseWhereUniqueInput {
+  id: ID
 }
 
 """An object with an ID"""
@@ -1407,12 +1727,15 @@ enum Permission {
 type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   courses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course]!
+  myCourses(where: MyCourseWhereInput, orderBy: MyCourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MyCourse]!
   events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event]!
   user(where: UserWhereUniqueInput!): User
   course(where: CourseWhereUniqueInput!): Course
+  myCourse(where: MyCourseWhereUniqueInput!): MyCourse
   event(where: EventWhereUniqueInput!): Event
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   coursesConnection(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CourseConnection!
+  myCoursesConnection(where: MyCourseWhereInput, orderBy: MyCourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MyCourseConnection!
   eventsConnection(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EventConnection!
 
   """Fetches an object given its ID"""
@@ -1425,6 +1748,7 @@ type Query {
 type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   course(where: CourseSubscriptionWhereInput): CourseSubscriptionPayload
+  myCourse(where: MyCourseSubscriptionWhereInput): MyCourseSubscriptionPayload
   event(where: EventSubscriptionWhereInput): EventSubscriptionPayload
 }
 
@@ -1437,6 +1761,7 @@ type User implements Node {
   resetTokenExpiry: Float
   permissions: [Permission!]!
   courses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course!]
+  MyCourses(where: MyCourseWhereInput, orderBy: MyCourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MyCourse!]
 }
 
 """A connection to a list of items."""
@@ -1457,10 +1782,16 @@ input UserCreateInput {
   resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
   courses: CourseCreateManyWithoutUserInput
+  MyCourses: MyCourseCreateManyWithoutUserInput
 }
 
 input UserCreateOneWithoutCoursesInput {
   create: UserCreateWithoutCoursesInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutMyCoursesInput {
+  create: UserCreateWithoutMyCoursesInput
   connect: UserWhereUniqueInput
 }
 
@@ -1475,6 +1806,17 @@ input UserCreateWithoutCoursesInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
+  MyCourses: MyCourseCreateManyWithoutUserInput
+}
+
+input UserCreateWithoutMyCoursesInput {
+  name: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserCreatepermissionsInput
+  courses: CourseCreateManyWithoutUserInput
 }
 
 """An edge in a connection."""
@@ -1562,6 +1904,7 @@ input UserUpdateInput {
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
   courses: CourseUpdateManyWithoutUserInput
+  MyCourses: MyCourseUpdateManyWithoutUserInput
 }
 
 input UserUpdateManyMutationInput {
@@ -1580,6 +1923,13 @@ input UserUpdateOneRequiredWithoutCoursesInput {
   upsert: UserUpsertWithoutCoursesInput
 }
 
+input UserUpdateOneRequiredWithoutMyCoursesInput {
+  create: UserCreateWithoutMyCoursesInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutMyCoursesDataInput
+  upsert: UserUpsertWithoutMyCoursesInput
+}
+
 input UserUpdatepermissionsInput {
   set: [Permission!]
 }
@@ -1591,11 +1941,27 @@ input UserUpdateWithoutCoursesDataInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
+  MyCourses: MyCourseUpdateManyWithoutUserInput
+}
+
+input UserUpdateWithoutMyCoursesDataInput {
+  name: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserUpdatepermissionsInput
+  courses: CourseUpdateManyWithoutUserInput
 }
 
 input UserUpsertWithoutCoursesInput {
   update: UserUpdateWithoutCoursesDataInput!
   create: UserCreateWithoutCoursesInput!
+}
+
+input UserUpsertWithoutMyCoursesInput {
+  update: UserUpdateWithoutMyCoursesDataInput!
+  create: UserCreateWithoutMyCoursesInput!
 }
 
 input UserWhereInput {
@@ -1832,6 +2198,9 @@ input UserWhereInput {
   courses_every: CourseWhereInput
   courses_some: CourseWhereInput
   courses_none: CourseWhereInput
+  MyCourses_every: MyCourseWhereInput
+  MyCourses_some: MyCourseWhereInput
+  MyCourses_none: MyCourseWhereInput
 }
 
 input UserWhereUniqueInput {

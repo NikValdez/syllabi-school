@@ -238,6 +238,21 @@ const Mutations = {
       },
       info
     )
+  },
+  async addCourseToUser(parent, args, ctx, info) {
+    return ctx.db.mutation.createMyCourse(
+      {
+        data: {
+          user: {
+            connect: { id: ctx.request.userId }
+          },
+          courses: {
+            connect: { id: args.id }
+          }
+        }
+      },
+      info
+    )
   }
 }
 

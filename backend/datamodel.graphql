@@ -14,6 +14,7 @@ type User {
   resetTokenExpiry: Float
   permissions: [Permission]
   courses: [Course!]!
+  MyCourses: [MyCourse!]!
 }
 
 type Course {
@@ -25,6 +26,13 @@ type Course {
   image: String
   events: [Event!]! @relation(name: "CourseEvents", onDelete: CASCADE)
   user: User!
+  myCourse: MyCourse!
+}
+
+type MyCourse {
+  id: ID! @unique
+  user: User!
+  courses: [Course!]!
 }
 
 type Event {

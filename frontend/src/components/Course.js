@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import DeleteCourse from './DeleteCourse'
+import AddCourse from './AddCourse'
 
 class Course extends Component {
   render() {
@@ -15,6 +16,7 @@ class Course extends Component {
         <p>{course.description}</p>
         <p>Credits: {course.credits}</p>
         <DeleteCourse id={course.id}>Delete ❌</DeleteCourse>
+        <AddCourse id={course.id} />
       </div>
     )
   }
