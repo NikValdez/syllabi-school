@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/nikvaldez-073802/schedule/dev
-# timestamp: Mon Dec 31 2018 13:09:16 GMT-0800 (PST)
+# timestamp: Mon Dec 31 2018 18:13:33 GMT-0800 (PST)
 
 type AggregateCourse {
   count: Int!
@@ -31,7 +31,7 @@ type Course implements Node {
   image: String
   events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event!]
   user: User!
-  myCourse: MyCourse!
+  myCourse: MyCourse
 }
 
 """A connection to a list of items."""
@@ -52,12 +52,7 @@ input CourseCreateInput {
   image: String
   events: EventCreateManyWithoutCourseInput
   user: UserCreateOneWithoutCoursesInput!
-  myCourse: MyCourseCreateOneWithoutCoursesInput!
-}
-
-input CourseCreateManyWithoutMyCourseInput {
-  create: [CourseCreateWithoutMyCourseInput!]
-  connect: [CourseWhereUniqueInput!]
+  myCourse: MyCourseCreateOneWithoutCoursesInput
 }
 
 input CourseCreateManyWithoutUserInput {
@@ -70,6 +65,11 @@ input CourseCreateOneWithoutEventsInput {
   connect: CourseWhereUniqueInput
 }
 
+input CourseCreateOneWithoutMyCourseInput {
+  create: CourseCreateWithoutMyCourseInput
+  connect: CourseWhereUniqueInput
+}
+
 input CourseCreateWithoutEventsInput {
   title: String!
   description: String!
@@ -77,7 +77,7 @@ input CourseCreateWithoutEventsInput {
   credits: Int
   image: String
   user: UserCreateOneWithoutCoursesInput!
-  myCourse: MyCourseCreateOneWithoutCoursesInput!
+  myCourse: MyCourseCreateOneWithoutCoursesInput
 }
 
 input CourseCreateWithoutMyCourseInput {
@@ -97,7 +97,7 @@ input CourseCreateWithoutUserInput {
   credits: Int
   image: String
   events: EventCreateManyWithoutCourseInput
-  myCourse: MyCourseCreateOneWithoutCoursesInput!
+  myCourse: MyCourseCreateOneWithoutCoursesInput
 }
 
 """An edge in a connection."""
@@ -417,7 +417,7 @@ input CourseUpdateInput {
   image: String
   events: EventUpdateManyWithoutCourseInput
   user: UserUpdateOneRequiredWithoutCoursesInput
-  myCourse: MyCourseUpdateOneRequiredWithoutCoursesInput
+  myCourse: MyCourseUpdateOneWithoutCoursesInput
 }
 
 input CourseUpdateManyDataInput {
@@ -434,17 +434,6 @@ input CourseUpdateManyMutationInput {
   courseCode: String
   credits: Int
   image: String
-}
-
-input CourseUpdateManyWithoutMyCourseInput {
-  create: [CourseCreateWithoutMyCourseInput!]
-  connect: [CourseWhereUniqueInput!]
-  disconnect: [CourseWhereUniqueInput!]
-  delete: [CourseWhereUniqueInput!]
-  update: [CourseUpdateWithWhereUniqueWithoutMyCourseInput!]
-  updateMany: [CourseUpdateManyWithWhereNestedInput!]
-  deleteMany: [CourseScalarWhereInput!]
-  upsert: [CourseUpsertWithWhereUniqueWithoutMyCourseInput!]
 }
 
 input CourseUpdateManyWithoutUserInput {
@@ -470,6 +459,15 @@ input CourseUpdateOneRequiredWithoutEventsInput {
   upsert: CourseUpsertWithoutEventsInput
 }
 
+input CourseUpdateOneWithoutMyCourseInput {
+  create: CourseCreateWithoutMyCourseInput
+  connect: CourseWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: CourseUpdateWithoutMyCourseDataInput
+  upsert: CourseUpsertWithoutMyCourseInput
+}
+
 input CourseUpdateWithoutEventsDataInput {
   title: String
   description: String
@@ -477,7 +475,7 @@ input CourseUpdateWithoutEventsDataInput {
   credits: Int
   image: String
   user: UserUpdateOneRequiredWithoutCoursesInput
-  myCourse: MyCourseUpdateOneRequiredWithoutCoursesInput
+  myCourse: MyCourseUpdateOneWithoutCoursesInput
 }
 
 input CourseUpdateWithoutMyCourseDataInput {
@@ -497,12 +495,7 @@ input CourseUpdateWithoutUserDataInput {
   credits: Int
   image: String
   events: EventUpdateManyWithoutCourseInput
-  myCourse: MyCourseUpdateOneRequiredWithoutCoursesInput
-}
-
-input CourseUpdateWithWhereUniqueWithoutMyCourseInput {
-  where: CourseWhereUniqueInput!
-  data: CourseUpdateWithoutMyCourseDataInput!
+  myCourse: MyCourseUpdateOneWithoutCoursesInput
 }
 
 input CourseUpdateWithWhereUniqueWithoutUserInput {
@@ -515,8 +508,7 @@ input CourseUpsertWithoutEventsInput {
   create: CourseCreateWithoutEventsInput!
 }
 
-input CourseUpsertWithWhereUniqueWithoutMyCourseInput {
-  where: CourseWhereUniqueInput!
+input CourseUpsertWithoutMyCourseInput {
   update: CourseUpdateWithoutMyCourseDataInput!
   create: CourseCreateWithoutMyCourseInput!
 }
@@ -1443,7 +1435,7 @@ enum MutationType {
 type MyCourse implements Node {
   id: ID!
   user: User!
-  courses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course!]
+  courses: Course
 }
 
 """A connection to a list of items."""
@@ -1458,7 +1450,7 @@ type MyCourseConnection {
 
 input MyCourseCreateInput {
   user: UserCreateOneWithoutMyCoursesInput!
-  courses: CourseCreateManyWithoutMyCourseInput
+  courses: CourseCreateOneWithoutMyCourseInput
 }
 
 input MyCourseCreateManyWithoutUserInput {
@@ -1476,7 +1468,7 @@ input MyCourseCreateWithoutCoursesInput {
 }
 
 input MyCourseCreateWithoutUserInput {
-  courses: CourseCreateManyWithoutMyCourseInput
+  courses: CourseCreateOneWithoutMyCourseInput
 }
 
 """An edge in a connection."""
@@ -1593,7 +1585,7 @@ input MyCourseSubscriptionWhereInput {
 
 input MyCourseUpdateInput {
   user: UserUpdateOneRequiredWithoutMyCoursesInput
-  courses: CourseUpdateManyWithoutMyCourseInput
+  courses: CourseUpdateOneWithoutMyCourseInput
 }
 
 input MyCourseUpdateManyWithoutUserInput {
@@ -1606,9 +1598,11 @@ input MyCourseUpdateManyWithoutUserInput {
   upsert: [MyCourseUpsertWithWhereUniqueWithoutUserInput!]
 }
 
-input MyCourseUpdateOneRequiredWithoutCoursesInput {
+input MyCourseUpdateOneWithoutCoursesInput {
   create: MyCourseCreateWithoutCoursesInput
   connect: MyCourseWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
   update: MyCourseUpdateWithoutCoursesDataInput
   upsert: MyCourseUpsertWithoutCoursesInput
 }
@@ -1618,7 +1612,7 @@ input MyCourseUpdateWithoutCoursesDataInput {
 }
 
 input MyCourseUpdateWithoutUserDataInput {
-  courses: CourseUpdateManyWithoutMyCourseInput
+  courses: CourseUpdateOneWithoutMyCourseInput
 }
 
 input MyCourseUpdateWithWhereUniqueWithoutUserInput {
@@ -1687,9 +1681,7 @@ input MyCourseWhereInput {
   """All values not ending with the given string."""
   id_not_ends_with: ID
   user: UserWhereInput
-  courses_every: CourseWhereInput
-  courses_some: CourseWhereInput
-  courses_none: CourseWhereInput
+  courses: CourseWhereInput
 }
 
 input MyCourseWhereUniqueInput {

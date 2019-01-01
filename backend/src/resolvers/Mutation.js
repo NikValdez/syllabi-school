@@ -240,19 +240,34 @@ const Mutations = {
     )
   },
   async addCourseToUser(parent, args, ctx, info) {
-    return ctx.db.mutation.createMyCourse(
-      {
-        data: {
-          user: {
-            connect: { id: ctx.request.userId }
-          },
-          courses: {
-            connect: { id: args.id }
+    const { userId } = ctx.request
+    if (!userId) {
+      throw new Error('You must be signed in')
+    }
+
+    const [existingMyCourse] = await ctx.db.query.myCourses({
+      where: {
+        courses: { id: args.id }
+      }
+    })
+
+    if (!existingMyCourse) {
+      return ctx.db.mutation.createMyCourse(
+        {
+          data: {
+            user: {
+              connect: { id: userId }
+            },
+            courses: {
+              connect: { id: args.id }
+            }
           }
-        }
-      },
-      info
-    )
+        },
+        info
+      )
+    } else {
+      throw new Error('You already added this course!')
+    }
   }
 }
 
