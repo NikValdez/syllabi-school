@@ -16,6 +16,7 @@ const Query = {
       info
     )
   },
+
   async users(parent, args, ctx, info) {
     //1. check if they are logged in
     if (!ctx.request.userId) {

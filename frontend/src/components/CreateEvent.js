@@ -80,7 +80,7 @@ class CreateEvent extends Component {
       }
     )
     const file = await res.json()
-    console.log(file)
+    // console.log(file)
     this.setState({
       upload: file.secure_url,
       loading: false
@@ -162,7 +162,6 @@ class CreateEvent extends Component {
                   id="file"
                   name="file"
                   placeholder="Upload a file or image"
-                  required
                   onChange={this.uploadFile}
                 />
                 {this.state.loading ? <p>Loading...</p> : null}

@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/nikvaldez-073802/schedule/dev
-# timestamp: Mon Dec 31 2018 18:13:33 GMT-0800 (PST)
+# timestamp: Tue Jan 01 2019 12:47:43 GMT-0800 (PST)
 
 type AggregateCourse {
   count: Int!
@@ -1753,7 +1753,7 @@ type User implements Node {
   resetTokenExpiry: Float
   permissions: [Permission!]!
   courses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course!]
-  MyCourses(where: MyCourseWhereInput, orderBy: MyCourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MyCourse!]
+  myCourses(where: MyCourseWhereInput, orderBy: MyCourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MyCourse!]
 }
 
 """A connection to a list of items."""
@@ -1774,7 +1774,7 @@ input UserCreateInput {
   resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
   courses: CourseCreateManyWithoutUserInput
-  MyCourses: MyCourseCreateManyWithoutUserInput
+  myCourses: MyCourseCreateManyWithoutUserInput
 }
 
 input UserCreateOneWithoutCoursesInput {
@@ -1798,7 +1798,7 @@ input UserCreateWithoutCoursesInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
-  MyCourses: MyCourseCreateManyWithoutUserInput
+  myCourses: MyCourseCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutMyCoursesInput {
@@ -1896,7 +1896,7 @@ input UserUpdateInput {
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
   courses: CourseUpdateManyWithoutUserInput
-  MyCourses: MyCourseUpdateManyWithoutUserInput
+  myCourses: MyCourseUpdateManyWithoutUserInput
 }
 
 input UserUpdateManyMutationInput {
@@ -1933,7 +1933,7 @@ input UserUpdateWithoutCoursesDataInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
-  MyCourses: MyCourseUpdateManyWithoutUserInput
+  myCourses: MyCourseUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutMyCoursesDataInput {
@@ -2190,9 +2190,9 @@ input UserWhereInput {
   courses_every: CourseWhereInput
   courses_some: CourseWhereInput
   courses_none: CourseWhereInput
-  MyCourses_every: MyCourseWhereInput
-  MyCourses_some: MyCourseWhereInput
-  MyCourses_none: MyCourseWhereInput
+  myCourses_every: MyCourseWhereInput
+  myCourses_some: MyCourseWhereInput
+  myCourses_none: MyCourseWhereInput
 }
 
 input UserWhereUniqueInput {

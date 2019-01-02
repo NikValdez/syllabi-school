@@ -6,6 +6,7 @@ import Course from './Course'
 import Calendar from './Calendar'
 import { Link } from 'react-router-dom'
 import { CURRENT_USER_QUERY } from './User'
+import MyCourses from './MyCourses'
 
 const ALL_COURSES_QUERY = gql`
   query ALL_COURSES_QUERY {
@@ -66,6 +67,7 @@ class Courses extends Component {
           }}
         </Query>
         <Calendar />
+        <MyCourses />
       </Center>
     )
   }

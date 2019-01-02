@@ -9,11 +9,6 @@ const localizer = BigCalendar.momentLocalizer(moment)
 const allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k])
 
 class Calendar extends Component {
-  // state = {
-  //   view: 'month',
-  //   date: new Date(2018, 10, 12)
-  // }
-
   render() {
     return (
       <div>

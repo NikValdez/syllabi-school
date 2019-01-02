@@ -32,12 +32,12 @@ class App extends Component {
           <Container>
             <Header />
             <Switch>
-              <Route exact path="/" component={Courses} />
               <Route exact path="/signup" component={Signup} />
               <Route exact path="/signin" component={Signin} />
               <Route path="/request_reset" component={RequestReset} />
               <Route path="/reset/:resetToken" component={Reset} />
               <PleaseSignIn>
+                <Route exact path="/" component={Courses} />
                 <Route path="/courses/:id" component={SingleCourse} />
                 <Route path="/update/:id" component={UpdateCourse} />
                 <Route path="/create_course" component={CreateCourse} />

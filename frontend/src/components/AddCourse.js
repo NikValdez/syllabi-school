@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
+import Error from './ErrorMessage'
 
 const ADD_COURSE_MUTATION = gql`
   mutation addCourseToUser($id: ID!) {
@@ -20,11 +21,14 @@ class AddCourse extends Component {
           id
         }}
       >
-        {(addCourseToUser, { loading }) => (
-          <button disabled={loading} onClick={addCourseToUser}>
-            Add{loading && 'ing'} Course
-          </button>
-        )}
+        {(addCourseToUser, { loading, error }) => {
+          if (error) return <Error error={error} />
+          return (
+            <button disabled={loading} onClick={addCourseToUser}>
+              Add{loading && 'ing'} Course
+            </button>
+          )
+        }}
       </Mutation>
     )
   }
