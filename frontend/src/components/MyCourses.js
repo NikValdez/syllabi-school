@@ -3,7 +3,7 @@ import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import { Link } from 'react-router-dom'
 
-const CURRENT_USER_QUERY = gql`
+const CURRENT_USER_QUERY_COURSES_EVENTS = gql`
   query {
     me {
       id
@@ -32,13 +32,12 @@ const CURRENT_USER_QUERY = gql`
 class MyCourses extends Component {
   render() {
     return (
-      <Query query={CURRENT_USER_QUERY}>
+      <Query query={CURRENT_USER_QUERY_COURSES_EVENTS}>
         {({ data, error, loading }) => {
           if (loading) return <p>Loading...</p>
           if (error) return <p>Error : {error.message}</p>
           const courseData = data.me.myCourses.map(course => course.courses)
           const eventData = courseData.map(course => course.events)
-          console.log(eventData)
 
           return courseData.map(course => (
             <ul key={course.id}>
@@ -54,3 +53,4 @@ class MyCourses extends Component {
 }
 
 export default MyCourses
+export { CURRENT_USER_QUERY_COURSES_EVENTS }
