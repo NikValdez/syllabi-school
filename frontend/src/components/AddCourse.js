@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Mutation } from 'react-apollo'
+import { Mutation, Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import Error from './ErrorMessage'
+import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
 
 const ADD_COURSE_MUTATION = gql`
   mutation addCourseToUser($id: ID!) {
@@ -20,6 +21,7 @@ class AddCourse extends Component {
         variables={{
           id
         }}
+        refetchQueries={[{ query: CURRENT_USER_QUERY_COURSES_EVENTS }]}
       >
         {(addCourseToUser, { loading, error }) => {
           if (error) return <Error error={error} />

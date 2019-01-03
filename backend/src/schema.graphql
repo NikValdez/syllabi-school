@@ -44,7 +44,15 @@ type Mutation {
 }
 
 type Query {
-  courses: [Course]!
+  courses(
+    where: CourseWhereInput
+    orderBy: CourseOrderByInput
+    skip: Int
+    after: String
+    before: String
+    first: Int
+    last: Int
+  ): [Course]!
   course(where: CourseWhereUniqueInput!): Course
   events: [Event]!
   me: User

@@ -7,6 +7,7 @@ import Calendar from './Calendar'
 import { Link } from 'react-router-dom'
 import { CURRENT_USER_QUERY } from './User'
 import MyCourses from './MyCourses'
+import Search from './Search'
 
 const ALL_COURSES_QUERY = gql`
   query ALL_COURSES_QUERY {
@@ -36,6 +37,7 @@ class Courses extends Component {
     return (
       <Center>
         <h3>Course List</h3>
+        <Search />
         <Query query={CURRENT_USER_QUERY}>
           {({ data, error, loading }) => {
             if (loading) return null
@@ -66,6 +68,7 @@ class Courses extends Component {
             )
           }}
         </Query>
+
         <Calendar />
         <MyCourses />
       </Center>
