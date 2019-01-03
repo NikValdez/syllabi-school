@@ -5,6 +5,12 @@ import gql from 'graphql-tag'
 import debounce from 'lodash.debounce'
 import { DropDown, DropDownItem, SearchStyles } from './styles/DropDown'
 import { Link } from 'react-router-dom'
+import AddCourse from './AddCourse'
+import styled from 'styled-components'
+
+const LinkStyles = styled.div`
+  justify-self: start;
+`
 
 const SEARCH_COURSES_QUERY = gql`
   query SEARCH_COURSES_QUERY($searchTerm: String!) {
@@ -53,7 +59,6 @@ class Search extends Component {
               <ApolloConsumer>
                 {client => (
                   <input
-                    type="search"
                     {...getInputProps({
                       type: 'search',
                       placeholder: 'Search for a Course...',
@@ -73,9 +78,12 @@ class Search extends Component {
                     <DropDownItem
                       {...getItemProps({ item })}
                       key={item.id}
-                      highlightedIndex={index === highlightedIndex}
+                      highlighted={index === highlightedIndex}
                     >
-                      <Link to={`/courses/${item.id}`}>{item.title}</Link>
+                      <LinkStyles>
+                        <Link to={`/courses/${item.id}`}>{item.title}</Link>
+                      </LinkStyles>
+                      <AddCourse id={item.id} />
                     </DropDownItem>
                   ))}
                   {!this.state.courses.length && !this.state.loading && (

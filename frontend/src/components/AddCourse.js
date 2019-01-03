@@ -3,6 +3,24 @@ import { Mutation, Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import Error from './ErrorMessage'
 import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
+import styled from 'styled-components'
+
+const AddButton = styled.button`
+  justify-self: end;
+  background: #f9c321;
+  color: white;
+  font-weight: 500;
+  border: 0;
+  border-radius: 0;
+  text-transform: uppercase;
+  font-size: 1rem;
+  padding: 0.3rem 0.8rem;
+  transform: skew(-2deg);
+  transition: all 0.5s;
+  &[disabled] {
+    opacity: 0.5;
+  }
+`
 
 const ADD_COURSE_MUTATION = gql`
   mutation addCourseToUser($id: ID!) {
@@ -26,9 +44,9 @@ class AddCourse extends Component {
         {(addCourseToUser, { loading, error }) => {
           if (error) return <Error error={error} />
           return (
-            <button disabled={loading} onClick={addCourseToUser}>
-              Add{loading && 'ing'} Course
-            </button>
+            <AddButton disabled={loading} onClick={addCourseToUser}>
+              Add{loading && 'ing'} ➕
+            </AddButton>
           )
         }}
       </Mutation>

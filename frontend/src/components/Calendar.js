@@ -29,6 +29,11 @@ const BigCalStyles = styled.div`
     font-size: 1.5rem;
     font-weight: 700;
   }
+  .rbc-btn-group {
+    button:hover {
+      background: #f9c32136;
+    }
+  }
 `
 
 const localizer = BigCalendar.momentLocalizer(moment)

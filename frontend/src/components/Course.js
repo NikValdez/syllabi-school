@@ -6,7 +6,7 @@ import AddCourse from './AddCourse'
 class Course extends Component {
   render() {
     const { course } = this.props
-    console.log(course.id)
+    // console.log(course.id)
     return (
       <div>
         <Link to={`/courses/${course.id}`}>
