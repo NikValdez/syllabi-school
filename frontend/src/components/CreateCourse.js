@@ -51,7 +51,7 @@ class CreateCourse extends Component {
             onSubmit={async e => {
               e.preventDefault()
               const res = await createCourse()
-              this.props.history.push(`/`)
+              this.props.history.push(`/courses/${res.data.createCourse.id}`)
             }}
           >
             <Error error={error} />

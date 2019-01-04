@@ -7,6 +7,7 @@ import CreateEvent from './CreateEvent'
 import moment from 'moment'
 import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
 import DeleteEvent from './DeleteEvent'
+import DeleteCourse from './DeleteCourse'
 
 const SingleCourseStyles = styled.div`
   max-width: 1200px;
@@ -76,6 +77,7 @@ class SingleCourse extends Component {
                 <p>Credits: {course.credits}</p>
                 <p>Course Code: {course.courseCode}</p>
                 <Link to={`/update/${course.id}`}>Update Course </Link>
+                <DeleteCourse id={this.state.id}>Delete ❌</DeleteCourse>
                 <h3>Create Event</h3>
                 <CreateEvent course={course.id} />
                 <h2>Events</h2>

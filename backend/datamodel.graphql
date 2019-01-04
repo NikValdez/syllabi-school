@@ -26,13 +26,13 @@ type Course {
   image: String
   events: [Event!]! @relation(name: "CourseEvents", onDelete: CASCADE)
   user: User!
-  myCourse: MyCourse
+  myCourse: MyCourse @relation(name: "MyCourse", onDelete: CASCADE)
 }
 
 type MyCourse {
   id: ID! @unique
   user: User!
-  courses: Course
+  courses: Course @relation(name: "MyCourse")
 }
 
 type Event {

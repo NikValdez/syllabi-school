@@ -3,6 +3,7 @@ import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import { ALL_COURSES_QUERY } from './Courses'
 import DeleteButton from './styles/DeleteButton'
+import { withRouter } from 'react-router-dom'
 
 const DELETE_COURSE_MUTATION = gql`
   mutation DELETE_COURSE_MUTATION($id: ID!) {
@@ -26,9 +27,11 @@ export class DeleteCourse extends Component {
               if (
                 window.confirm('Are you sure you want to delete this Course?')
               ) {
-                deleteCourse().catch(err => {
-                  alert(err.message)
-                })
+                deleteCourse()
+                  .then(() => this.props.history.push('/'))
+                  .catch(err => {
+                    alert(err.message)
+                  })
               }
             }}
           >
@@ -40,4 +43,4 @@ export class DeleteCourse extends Component {
   }
 }
 
-export default DeleteCourse
+export default withRouter(DeleteCourse)

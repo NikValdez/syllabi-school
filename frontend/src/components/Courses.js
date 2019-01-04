@@ -36,7 +36,6 @@ class Courses extends Component {
   render() {
     return (
       <Center>
-        <h3>Course List</h3>
         <Search />
         <Query query={CURRENT_USER_QUERY}>
           {({ data, error, loading }) => {
@@ -54,7 +53,7 @@ class Courses extends Component {
           }}
         </Query>
 
-        <Query query={ALL_COURSES_QUERY}>
+        {/* <Query query={ALL_COURSES_QUERY}>
           {({ data, error, loading }) => {
             if (loading) return <p>Loading...</p>
             if (error) return <p>Error : {error.message}</p>
@@ -67,7 +66,7 @@ class Courses extends Component {
               </CoursesList>
             )
           }}
-        </Query>
+        </Query> */}
 
         <Calendar />
         <MyCourses />
