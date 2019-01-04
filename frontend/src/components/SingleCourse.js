@@ -8,6 +8,7 @@ import moment from 'moment'
 import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
 import DeleteEvent from './DeleteEvent'
 import DeleteCourse from './DeleteCourse'
+import IsAdminTeacher from './IsAdminTeacher'
 
 const SingleCourseStyles = styled.div`
   max-width: 1200px;
@@ -76,9 +77,10 @@ class SingleCourse extends Component {
                 <p>Description: {course.description}</p>
                 <p>Credits: {course.credits}</p>
                 <p>Course Code: {course.courseCode}</p>
-                <Link to={`/update/${course.id}`}>Update Course </Link>
-                <DeleteCourse id={this.state.id}>Delete ❌</DeleteCourse>
-                <h3>Create Event</h3>
+                <IsAdminTeacher>
+                  <Link to={`/update/${course.id}`}>Update Course </Link>
+                  <DeleteCourse id={this.state.id}>Delete ❌</DeleteCourse>
+                </IsAdminTeacher>
                 <CreateEvent course={course.id} />
                 <h2>Events</h2>
                 <TableStyles style={{ border: '1px solid black' }}>
@@ -108,9 +110,11 @@ class SingleCourse extends Component {
                             </Upload>
                           </TdStyles>
                           <TdStyles>
-                            <DeleteEvent id={id} course={course.id}>
-                              Delete ❌
-                            </DeleteEvent>
+                            <IsAdminTeacher>
+                              <DeleteEvent id={id} course={course.id}>
+                                Delete ❌
+                              </DeleteEvent>
+                            </IsAdminTeacher>
                           </TdStyles>
                         </TrStyles>
                       )

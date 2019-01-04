@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom'
 import { CURRENT_USER_QUERY } from './User'
 import MyCourses from './MyCourses'
 import Search from './Search'
+import IsAdminTeacher from './IsAdminTeacher'
 
 const ALL_COURSES_QUERY = gql`
   query ALL_COURSES_QUERY {
@@ -22,36 +23,28 @@ const ALL_COURSES_QUERY = gql`
   }
 `
 const Center = styled.div`
-  text-align: center;
+  display: grid;
+
+  grid-gap: 10px;
+`
+const LeftSide = styled.div`
+  grid-column: 1 / 4;
+  grid-row: 1;
 `
 
-const CoursesList = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 60px;
-  max-width: 1000px;
+const RightSide = styled.div`
+  grid-column: 3 / 4;
+  grid-row: 1 / 4;
 `
 
 class Courses extends Component {
   render() {
     return (
       <Center>
-        <Search />
-        <Query query={CURRENT_USER_QUERY}>
-          {({ data, error, loading }) => {
-            if (loading) return null
-            if (error) return <p>Error : {error.message}</p>
-            if (
-              data.me.permissions.some(permission =>
-                ['ADIMN', 'TEACHER'].includes(permission)
-              )
-            ) {
-              return <Link to="/create_course">Create Course</Link>
-            } else {
-              return null
-            }
-          }}
-        </Query>
+        <LeftSide>
+          <Search />
+          <MyCourses />
+        </LeftSide>
 
         {/* <Query query={ALL_COURSES_QUERY}>
           {({ data, error, loading }) => {
@@ -67,9 +60,9 @@ class Courses extends Component {
             )
           }}
         </Query> */}
-
-        <Calendar />
-        <MyCourses />
+        <RightSide>
+          <Calendar />
+        </RightSide>
       </Center>
     )
   }

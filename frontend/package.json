@@ -23,7 +23,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "NODE_ENV=test jest --watch",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -34,5 +34,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "jest": "^23.6.0"
+  }
 }
