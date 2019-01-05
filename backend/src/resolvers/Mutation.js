@@ -268,6 +268,15 @@ const Mutations = {
     } else {
       throw new Error('You already added this course!')
     }
+  },
+  async deleteMyCourse(parent, args, ctx, info) {
+    const where = { id: args.id }
+    //find the Course
+    const myCourse = await ctx.db.query.myCourse({ where }, `{id}`)
+    //check if they own that course or have permission
+
+    //Delete it
+    return ctx.db.mutation.deleteMyCourse({ where }, info)
   }
 }
 

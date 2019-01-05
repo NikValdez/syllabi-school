@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/nikvaldez-073802/schedule/dev
-# timestamp: Tue Jan 01 2019 12:47:43 GMT-0800 (PST)
+# timestamp: Fri Jan 04 2019 15:15:34 GMT-0800 (PST)
 
 type AggregateCourse {
   count: Int!
@@ -459,11 +459,9 @@ input CourseUpdateOneRequiredWithoutEventsInput {
   upsert: CourseUpsertWithoutEventsInput
 }
 
-input CourseUpdateOneWithoutMyCourseInput {
+input CourseUpdateOneRequiredWithoutMyCourseInput {
   create: CourseCreateWithoutMyCourseInput
   connect: CourseWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
   update: CourseUpdateWithoutMyCourseDataInput
   upsert: CourseUpsertWithoutMyCourseInput
 }
@@ -1435,7 +1433,7 @@ enum MutationType {
 type MyCourse implements Node {
   id: ID!
   user: User!
-  courses: Course
+  courses: Course!
 }
 
 """A connection to a list of items."""
@@ -1450,7 +1448,7 @@ type MyCourseConnection {
 
 input MyCourseCreateInput {
   user: UserCreateOneWithoutMyCoursesInput!
-  courses: CourseCreateOneWithoutMyCourseInput
+  courses: CourseCreateOneWithoutMyCourseInput!
 }
 
 input MyCourseCreateManyWithoutUserInput {
@@ -1468,7 +1466,7 @@ input MyCourseCreateWithoutCoursesInput {
 }
 
 input MyCourseCreateWithoutUserInput {
-  courses: CourseCreateOneWithoutMyCourseInput
+  courses: CourseCreateOneWithoutMyCourseInput!
 }
 
 """An edge in a connection."""
@@ -1585,7 +1583,7 @@ input MyCourseSubscriptionWhereInput {
 
 input MyCourseUpdateInput {
   user: UserUpdateOneRequiredWithoutMyCoursesInput
-  courses: CourseUpdateOneWithoutMyCourseInput
+  courses: CourseUpdateOneRequiredWithoutMyCourseInput
 }
 
 input MyCourseUpdateManyWithoutUserInput {
@@ -1612,7 +1610,7 @@ input MyCourseUpdateWithoutCoursesDataInput {
 }
 
 input MyCourseUpdateWithoutUserDataInput {
-  courses: CourseUpdateOneWithoutMyCourseInput
+  courses: CourseUpdateOneRequiredWithoutMyCourseInput
 }
 
 input MyCourseUpdateWithWhereUniqueWithoutUserInput {

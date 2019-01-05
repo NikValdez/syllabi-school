@@ -41,6 +41,7 @@ type Mutation {
   ): User!
   updatePermissions(permissions: [Permission], userId: ID!): User
   addCourseToUser(id: ID!): MyCourse
+  deleteMyCourse(id: ID!): MyCourse
 }
 
 type Query {

@@ -32,7 +32,7 @@ type Course {
 type MyCourse {
   id: ID! @unique
   user: User!
-  courses: Course @relation(name: "MyCourse")
+  courses: Course! @relation(name: "MyCourse")
 }
 
 type Event {

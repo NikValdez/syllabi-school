@@ -24,17 +24,17 @@ const ALL_COURSES_QUERY = gql`
 `
 const Center = styled.div`
   display: grid;
-
-  grid-gap: 10px;
+  grid-template-columns: repeat(6, 1fr);
+  @media (max-width: 620px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
 `
 const LeftSide = styled.div`
-  grid-column: 1 / 4;
-  grid-row: 1;
+  grid-column-start: span 2;
 `
 
 const RightSide = styled.div`
-  grid-column: 3 / 4;
-  grid-row: 1 / 4;
+  grid-column-end: span 4;
 `
 
 class Courses extends Component {

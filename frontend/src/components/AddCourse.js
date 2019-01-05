@@ -23,7 +23,7 @@ const AddButton = styled.button`
 `
 
 const ADD_COURSE_MUTATION = gql`
-  mutation addCourseToUser($id: ID!) {
+  mutation ADD_COURSE_MUTATION($id: ID!) {
     addCourseToUser(id: $id) {
       id
     }
@@ -33,6 +33,7 @@ const ADD_COURSE_MUTATION = gql`
 class AddCourse extends Component {
   render() {
     const { id } = this.props
+
     return (
       <Mutation
         mutation={ADD_COURSE_MUTATION}
