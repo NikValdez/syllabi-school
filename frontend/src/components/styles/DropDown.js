@@ -2,7 +2,7 @@ import styled, { keyframes } from 'styled-components'
 
 const DropDown = styled.div`
   position: relative;
-  width: 50%;
+  width: 70%;
   z-index: 2;
   border: 1px solid #f9c321;
   a {
@@ -19,7 +19,6 @@ const DropDownItem = styled.div`
   ${props => (props.highlighted ? 'padding-left: 2rem;' : null)};
   display: grid;
   grid-template-columns: (1fr);
-
   border-left: 10px solid ${props => (props.highlighted ? '#f9c321' : 'white')};
 `
 

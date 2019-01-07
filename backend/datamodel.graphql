@@ -15,6 +15,13 @@ type User {
   permissions: [Permission]
   courses: [Course!]!
   myCourses: [MyCourse!]!
+  notes: [Note!]!
+}
+
+type Note {
+  id: ID! @unique
+  note: String!
+  user: User!
 }
 
 type Course {

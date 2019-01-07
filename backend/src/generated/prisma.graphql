@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/nikvaldez-073802/schedule/dev
-# timestamp: Fri Jan 04 2019 15:15:34 GMT-0800 (PST)
+# timestamp: Sat Jan 05 2019 20:27:23 GMT-0800 (PST)
 
 type AggregateCourse {
   count: Int!
@@ -10,6 +10,10 @@ type AggregateEvent {
 }
 
 type AggregateMyCourse {
+  count: Int!
+}
+
+type AggregateNote {
   count: Int!
 }
 
@@ -1400,25 +1404,31 @@ scalar Long
 
 type Mutation {
   createUser(data: UserCreateInput!): User!
+  createNote(data: NoteCreateInput!): Note!
   createCourse(data: CourseCreateInput!): Course!
   createMyCourse(data: MyCourseCreateInput!): MyCourse!
   createEvent(data: EventCreateInput!): Event!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  updateNote(data: NoteUpdateInput!, where: NoteWhereUniqueInput!): Note
   updateCourse(data: CourseUpdateInput!, where: CourseWhereUniqueInput!): Course
   updateMyCourse(data: MyCourseUpdateInput!, where: MyCourseWhereUniqueInput!): MyCourse
   updateEvent(data: EventUpdateInput!, where: EventWhereUniqueInput!): Event
   deleteUser(where: UserWhereUniqueInput!): User
+  deleteNote(where: NoteWhereUniqueInput!): Note
   deleteCourse(where: CourseWhereUniqueInput!): Course
   deleteMyCourse(where: MyCourseWhereUniqueInput!): MyCourse
   deleteEvent(where: EventWhereUniqueInput!): Event
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  upsertNote(where: NoteWhereUniqueInput!, create: NoteCreateInput!, update: NoteUpdateInput!): Note!
   upsertCourse(where: CourseWhereUniqueInput!, create: CourseCreateInput!, update: CourseUpdateInput!): Course!
   upsertMyCourse(where: MyCourseWhereUniqueInput!, create: MyCourseCreateInput!, update: MyCourseUpdateInput!): MyCourse!
   upsertEvent(where: EventWhereUniqueInput!, create: EventCreateInput!, update: EventUpdateInput!): Event!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  updateManyNotes(data: NoteUpdateManyMutationInput!, where: NoteWhereInput): BatchPayload!
   updateManyCourses(data: CourseUpdateManyMutationInput!, where: CourseWhereInput): BatchPayload!
   updateManyEvents(data: EventUpdateManyMutationInput!, where: EventWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
+  deleteManyNotes(where: NoteWhereInput): BatchPayload!
   deleteManyCourses(where: CourseWhereInput): BatchPayload!
   deleteManyMyCourses(where: MyCourseWhereInput): BatchPayload!
   deleteManyEvents(where: EventWhereInput): BatchPayload!
@@ -1692,6 +1702,331 @@ interface Node {
   id: ID!
 }
 
+type Note implements Node {
+  id: ID!
+  note: String!
+  user: User!
+}
+
+"""A connection to a list of items."""
+type NoteConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [NoteEdge]!
+  aggregate: AggregateNote!
+}
+
+input NoteCreateInput {
+  note: String!
+  user: UserCreateOneWithoutNotesInput!
+}
+
+input NoteCreateManyWithoutUserInput {
+  create: [NoteCreateWithoutUserInput!]
+  connect: [NoteWhereUniqueInput!]
+}
+
+input NoteCreateWithoutUserInput {
+  note: String!
+}
+
+"""An edge in a connection."""
+type NoteEdge {
+  """The item at the end of the edge."""
+  node: Note!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum NoteOrderByInput {
+  id_ASC
+  id_DESC
+  note_ASC
+  note_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type NotePreviousValues {
+  id: ID!
+  note: String!
+}
+
+input NoteScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [NoteScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [NoteScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [NoteScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  note: String
+
+  """All values that are not equal to given value."""
+  note_not: String
+
+  """All values that are contained in given list."""
+  note_in: [String!]
+
+  """All values that are not contained in given list."""
+  note_not_in: [String!]
+
+  """All values less than the given value."""
+  note_lt: String
+
+  """All values less than or equal the given value."""
+  note_lte: String
+
+  """All values greater than the given value."""
+  note_gt: String
+
+  """All values greater than or equal the given value."""
+  note_gte: String
+
+  """All values containing the given string."""
+  note_contains: String
+
+  """All values not containing the given string."""
+  note_not_contains: String
+
+  """All values starting with the given string."""
+  note_starts_with: String
+
+  """All values not starting with the given string."""
+  note_not_starts_with: String
+
+  """All values ending with the given string."""
+  note_ends_with: String
+
+  """All values not ending with the given string."""
+  note_not_ends_with: String
+}
+
+type NoteSubscriptionPayload {
+  mutation: MutationType!
+  node: Note
+  updatedFields: [String!]
+  previousValues: NotePreviousValues
+}
+
+input NoteSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [NoteSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [NoteSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [NoteSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: NoteWhereInput
+}
+
+input NoteUpdateInput {
+  note: String
+  user: UserUpdateOneRequiredWithoutNotesInput
+}
+
+input NoteUpdateManyDataInput {
+  note: String
+}
+
+input NoteUpdateManyMutationInput {
+  note: String
+}
+
+input NoteUpdateManyWithoutUserInput {
+  create: [NoteCreateWithoutUserInput!]
+  connect: [NoteWhereUniqueInput!]
+  disconnect: [NoteWhereUniqueInput!]
+  delete: [NoteWhereUniqueInput!]
+  update: [NoteUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [NoteUpdateManyWithWhereNestedInput!]
+  deleteMany: [NoteScalarWhereInput!]
+  upsert: [NoteUpsertWithWhereUniqueWithoutUserInput!]
+}
+
+input NoteUpdateManyWithWhereNestedInput {
+  where: NoteScalarWhereInput!
+  data: NoteUpdateManyDataInput!
+}
+
+input NoteUpdateWithoutUserDataInput {
+  note: String
+}
+
+input NoteUpdateWithWhereUniqueWithoutUserInput {
+  where: NoteWhereUniqueInput!
+  data: NoteUpdateWithoutUserDataInput!
+}
+
+input NoteUpsertWithWhereUniqueWithoutUserInput {
+  where: NoteWhereUniqueInput!
+  update: NoteUpdateWithoutUserDataInput!
+  create: NoteCreateWithoutUserInput!
+}
+
+input NoteWhereInput {
+  """Logical AND on all given filters."""
+  AND: [NoteWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [NoteWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [NoteWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  note: String
+
+  """All values that are not equal to given value."""
+  note_not: String
+
+  """All values that are contained in given list."""
+  note_in: [String!]
+
+  """All values that are not contained in given list."""
+  note_not_in: [String!]
+
+  """All values less than the given value."""
+  note_lt: String
+
+  """All values less than or equal the given value."""
+  note_lte: String
+
+  """All values greater than the given value."""
+  note_gt: String
+
+  """All values greater than or equal the given value."""
+  note_gte: String
+
+  """All values containing the given string."""
+  note_contains: String
+
+  """All values not containing the given string."""
+  note_not_contains: String
+
+  """All values starting with the given string."""
+  note_starts_with: String
+
+  """All values not starting with the given string."""
+  note_not_starts_with: String
+
+  """All values ending with the given string."""
+  note_ends_with: String
+
+  """All values not ending with the given string."""
+  note_not_ends_with: String
+  user: UserWhereInput
+}
+
+input NoteWhereUniqueInput {
+  id: ID
+}
+
 """Information about pagination in a connection."""
 type PageInfo {
   """When paginating forwards, are there more items?"""
@@ -1716,14 +2051,17 @@ enum Permission {
 
 type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  notes(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Note]!
   courses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course]!
   myCourses(where: MyCourseWhereInput, orderBy: MyCourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MyCourse]!
   events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event]!
   user(where: UserWhereUniqueInput!): User
+  note(where: NoteWhereUniqueInput!): Note
   course(where: CourseWhereUniqueInput!): Course
   myCourse(where: MyCourseWhereUniqueInput!): MyCourse
   event(where: EventWhereUniqueInput!): Event
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
+  notesConnection(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NoteConnection!
   coursesConnection(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CourseConnection!
   myCoursesConnection(where: MyCourseWhereInput, orderBy: MyCourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MyCourseConnection!
   eventsConnection(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EventConnection!
@@ -1737,6 +2075,7 @@ type Query {
 
 type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
+  note(where: NoteSubscriptionWhereInput): NoteSubscriptionPayload
   course(where: CourseSubscriptionWhereInput): CourseSubscriptionPayload
   myCourse(where: MyCourseSubscriptionWhereInput): MyCourseSubscriptionPayload
   event(where: EventSubscriptionWhereInput): EventSubscriptionPayload
@@ -1752,6 +2091,7 @@ type User implements Node {
   permissions: [Permission!]!
   courses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course!]
   myCourses(where: MyCourseWhereInput, orderBy: MyCourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MyCourse!]
+  notes(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Note!]
 }
 
 """A connection to a list of items."""
@@ -1773,6 +2113,7 @@ input UserCreateInput {
   permissions: UserCreatepermissionsInput
   courses: CourseCreateManyWithoutUserInput
   myCourses: MyCourseCreateManyWithoutUserInput
+  notes: NoteCreateManyWithoutUserInput
 }
 
 input UserCreateOneWithoutCoursesInput {
@@ -1782,6 +2123,11 @@ input UserCreateOneWithoutCoursesInput {
 
 input UserCreateOneWithoutMyCoursesInput {
   create: UserCreateWithoutMyCoursesInput
+  connect: UserWhereUniqueInput
+}
+
+input UserCreateOneWithoutNotesInput {
+  create: UserCreateWithoutNotesInput
   connect: UserWhereUniqueInput
 }
 
@@ -1797,6 +2143,7 @@ input UserCreateWithoutCoursesInput {
   resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
   myCourses: MyCourseCreateManyWithoutUserInput
+  notes: NoteCreateManyWithoutUserInput
 }
 
 input UserCreateWithoutMyCoursesInput {
@@ -1807,6 +2154,18 @@ input UserCreateWithoutMyCoursesInput {
   resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
   courses: CourseCreateManyWithoutUserInput
+  notes: NoteCreateManyWithoutUserInput
+}
+
+input UserCreateWithoutNotesInput {
+  name: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserCreatepermissionsInput
+  courses: CourseCreateManyWithoutUserInput
+  myCourses: MyCourseCreateManyWithoutUserInput
 }
 
 """An edge in a connection."""
@@ -1895,6 +2254,7 @@ input UserUpdateInput {
   permissions: UserUpdatepermissionsInput
   courses: CourseUpdateManyWithoutUserInput
   myCourses: MyCourseUpdateManyWithoutUserInput
+  notes: NoteUpdateManyWithoutUserInput
 }
 
 input UserUpdateManyMutationInput {
@@ -1920,6 +2280,13 @@ input UserUpdateOneRequiredWithoutMyCoursesInput {
   upsert: UserUpsertWithoutMyCoursesInput
 }
 
+input UserUpdateOneRequiredWithoutNotesInput {
+  create: UserCreateWithoutNotesInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutNotesDataInput
+  upsert: UserUpsertWithoutNotesInput
+}
+
 input UserUpdatepermissionsInput {
   set: [Permission!]
 }
@@ -1932,6 +2299,7 @@ input UserUpdateWithoutCoursesDataInput {
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
   myCourses: MyCourseUpdateManyWithoutUserInput
+  notes: NoteUpdateManyWithoutUserInput
 }
 
 input UserUpdateWithoutMyCoursesDataInput {
@@ -1942,6 +2310,18 @@ input UserUpdateWithoutMyCoursesDataInput {
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
   courses: CourseUpdateManyWithoutUserInput
+  notes: NoteUpdateManyWithoutUserInput
+}
+
+input UserUpdateWithoutNotesDataInput {
+  name: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserUpdatepermissionsInput
+  courses: CourseUpdateManyWithoutUserInput
+  myCourses: MyCourseUpdateManyWithoutUserInput
 }
 
 input UserUpsertWithoutCoursesInput {
@@ -1952,6 +2332,11 @@ input UserUpsertWithoutCoursesInput {
 input UserUpsertWithoutMyCoursesInput {
   update: UserUpdateWithoutMyCoursesDataInput!
   create: UserCreateWithoutMyCoursesInput!
+}
+
+input UserUpsertWithoutNotesInput {
+  update: UserUpdateWithoutNotesDataInput!
+  create: UserCreateWithoutNotesInput!
 }
 
 input UserWhereInput {
@@ -2191,6 +2576,9 @@ input UserWhereInput {
   myCourses_every: MyCourseWhereInput
   myCourses_some: MyCourseWhereInput
   myCourses_none: MyCourseWhereInput
+  notes_every: NoteWhereInput
+  notes_some: NoteWhereInput
+  notes_none: NoteWhereInput
 }
 
 input UserWhereUniqueInput {

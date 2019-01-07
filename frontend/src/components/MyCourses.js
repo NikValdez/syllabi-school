@@ -28,6 +28,10 @@ const MyCoursesStyles = styled.div`
     transition: width 0.3s;
     margin-bottom: -4rem;
   }
+  ul {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
 `
 
 const CURRENT_USER_QUERY_COURSES_EVENTS = gql`
