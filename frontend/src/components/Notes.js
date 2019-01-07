@@ -1,8 +1,15 @@
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
+import DeleteNote from './DeleteNote'
 import styled from 'styled-components'
-import { link } from 'fs'
+
+const NotesStyles = styled.div`
+  li {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+`
 
 const NOTES_QUERY = gql`
   query {
@@ -20,7 +27,7 @@ const NOTES_QUERY = gql`
 class Notes extends Component {
   render() {
     return (
-      <>
+      <NotesStyles>
         <h3>Notes</h3>
         <Query query={NOTES_QUERY}>
           {({ data, error, loading }) => {
@@ -35,12 +42,13 @@ class Notes extends Component {
                   }}
                 >
                   {note.note}
+                  <DeleteNote id={note.id} />
                 </li>
               </ul>
             ))
           }}
         </Query>
-      </>
+      </NotesStyles>
     )
   }
 }

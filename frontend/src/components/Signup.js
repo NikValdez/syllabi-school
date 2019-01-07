@@ -42,6 +42,7 @@ class Signup extends Component {
               e.preventDefault()
               await signup()
               this.setState({ name: '', email: '', password: '' })
+              this.props.history.push(`/`)
             }}
           >
             <fieldset disabled={loading} aria-busy={loading}>

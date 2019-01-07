@@ -43,6 +43,7 @@ type Mutation {
   addCourseToUser(id: ID!): MyCourse
   deleteMyCourse(id: ID!): MyCourse
   createNote(note: String!): Note!
+  deleteNote(id: ID!): Note
 }
 
 type Query {

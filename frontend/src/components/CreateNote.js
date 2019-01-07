@@ -36,8 +36,10 @@ class CreateNote extends Component {
               <form
                 onSubmit={async e => {
                   e.preventDefault()
-                  const res = await createNote()
-                  this.setState({ note: '' })
+                  if (this.state.note.length > 0) {
+                    const res = await createNote()
+                    this.setState({ note: '' })
+                  }
                 }}
               >
                 <Error error={error} />

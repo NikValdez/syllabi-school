@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Mutation, Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
+import { DeleteXStyles } from './DeleteNote'
 
 const DELETE_MYCOURSE_MUTATION = gql`
   mutation DELETE_MYCOURSE_MUTATION($id: ID!) {
@@ -20,7 +21,7 @@ export class DeleteMyCourse extends Component {
         refetchQueries={[{ query: CURRENT_USER_QUERY_COURSES_EVENTS }]}
       >
         {(deleteMyCourse, { error }) => (
-          <span
+          <DeleteXStyles
             style={{ marginTop: '1rem' }}
             onClick={() => {
               if (
@@ -31,11 +32,9 @@ export class DeleteMyCourse extends Component {
             }}
           >
             ✖️
-          </span>
+          </DeleteXStyles>
         )}
       </Mutation>
     )
   }
 }
-
-export default DeleteMyCourse

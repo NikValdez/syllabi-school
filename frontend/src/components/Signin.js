@@ -4,6 +4,7 @@ import gql from 'graphql-tag'
 import Form from './styles/Form'
 import Error from './ErrorMessage'
 import { CURRENT_USER_QUERY } from './User'
+import { Link } from 'react-router-dom'
 
 const SIGNIN_MUTATION = gql`
   mutation SIGNIN_MUTATION($email: String!, $password: String!) {
@@ -67,6 +68,17 @@ class Signin extends Component {
 
               <button type="submit">Sign In!</button>
             </fieldset>
+            <Link to="/signup">
+              <button
+                style={{
+                  marginTop: '10px',
+                  background: 'black',
+                  fontSize: '13px'
+                }}
+              >
+                Sign Up
+              </button>
+            </Link>
           </Form>
         )}
       </Mutation>

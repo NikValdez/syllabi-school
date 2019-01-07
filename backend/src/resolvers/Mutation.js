@@ -247,7 +247,8 @@ const Mutations = {
 
     const [existingMyCourse] = await ctx.db.query.myCourses({
       where: {
-        courses: { id: args.id }
+        courses: { id: args.id },
+        user: { id: userId }
       }
     })
 
@@ -297,6 +298,15 @@ const Mutations = {
       info
     )
     return note
+  },
+  async deleteNote(parent, args, ctx, info) {
+    const where = { id: args.id }
+    //find the Course
+    const note = await ctx.db.query.note({ where }, `{id}`)
+    //check if they own that course or have permission
+
+    //Delete it
+    return ctx.db.mutation.deleteNote({ where }, info)
   }
 }
 
