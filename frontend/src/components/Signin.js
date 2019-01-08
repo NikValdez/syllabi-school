@@ -79,6 +79,17 @@ class Signin extends Component {
                 Sign Up
               </button>
             </Link>
+            <Link to="/request_reset">
+              <button
+                style={{
+                  margin: '12px',
+                  background: 'black',
+                  fontSize: '10px'
+                }}
+              >
+                Forgot Password?
+              </button>
+            </Link>
           </Form>
         )}
       </Mutation>

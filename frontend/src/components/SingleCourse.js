@@ -15,9 +15,15 @@ const SingleCourseStyles = styled.div`
   margin: 2rem auto;
   box-shadow: '0 12px 24px 0 rgba(0, 0, 0, 0.09)';
   display: grid;
-  grid-auto-columns: 1fr;
-  grid-auto-flow: column;
+  grid-auto-columns: 2fr;
   min-height: 800px;
+  .update-delete {
+    float: right;
+    a {
+      margin-right: 2rem;
+      color: black;
+    }
+  }
   img {
     width: 100%;
     height: 100%;
@@ -73,14 +79,16 @@ class SingleCourse extends Component {
           return (
             <SingleCourseStyles>
               <div className="details">
+                <IsAdminTeacher>
+                  <div className="update-delete">
+                    <Link to={`/update/${course.id}`}>Update Course </Link>
+                    <DeleteCourse id={this.state.id}>Delete ❌</DeleteCourse>
+                  </div>
+                </IsAdminTeacher>
                 <h2>Course Title: {course.title}</h2>
                 <p>Description: {course.description}</p>
                 <p>Credits: {course.credits}</p>
                 <p>Course Code: {course.courseCode}</p>
-                <IsAdminTeacher>
-                  <Link to={`/update/${course.id}`}>Update Course </Link>
-                  <DeleteCourse id={this.state.id}>Delete ❌</DeleteCourse>
-                </IsAdminTeacher>
                 <CreateEvent course={course.id} />
                 <h2>Events</h2>
                 <TableStyles style={{ border: '1px solid black' }}>
