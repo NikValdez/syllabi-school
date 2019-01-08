@@ -10,7 +10,6 @@ import MyCourses from './MyCourses'
 import Search from './Search'
 import IsAdminTeacher from './IsAdminTeacher'
 import CreateNote from './CreateNote'
-import SchedulePDF from './SchedulePDF'
 
 const ALL_COURSES_QUERY = gql`
   query ALL_COURSES_QUERY {
@@ -63,10 +62,10 @@ class Courses extends Component {
             )
           }}
         </Query> */}
+
         <RightSide>
           <Calendar />
         </RightSide>
-        <SchedulePDF />
       </Center>
     )
   }

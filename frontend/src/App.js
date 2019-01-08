@@ -16,6 +16,7 @@ import RequestReset from './components/RequestReset'
 import Reset from './components/Reset'
 import Permissions from './components/Permissions'
 import PleaseSignIn from './components/PleaseSignIn'
+import SchedulePDF from './components/SchedulePDF'
 
 import './App.css'
 
@@ -43,6 +44,7 @@ class App extends Component {
                 <Route path="/create_course" component={CreateCourse} />
                 <Route path="/create_event" component={CreateEvent} />
                 <Route path="/permissions" component={Permissions} />
+                <Route path="/schedule" component={SchedulePDF} />
               </PleaseSignIn>
             </Switch>
           </Container>

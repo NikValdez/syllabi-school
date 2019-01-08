@@ -1,47 +1,32 @@
-import React, { Component } from 'react'
-import {
-  Page,
-  Text,
-  View,
-  Document,
-  StyleSheet,
-  PDFDownloadLink
-} from '@react-pdf/renderer'
+import React, { Component, PropTypes } from 'react'
+import html2canvas from 'html2canvas'
+import * as jsPDF from 'jspdf'
+import MyCourses from './MyCourses'
 
-const styles = StyleSheet.create({
-  page: {
-    flexDirection: 'row',
-    backgroundColor: '#E4E4E4'
-  },
-  section: {
-    margin: 10,
-    padding: 10,
-    flexGrow: 1
+export default class SchedulePDF extends Component {
+  downloadDocument() {
+    const input = document.getElementById('divToDownload')
+    html2canvas(input).then(canvas => {
+      const imgData = canvas.toDataURL('image/png')
+      const pdf = new jsPDF()
+      pdf.addImage(imgData, 'JPEG', 0, 0)
+      // pdf.output('dataurlnewwindow');
+      pdf.save('download.pdf')
+    })
   }
-})
 
-const MyDoc = (
-  <Document>
-    <Page size="A4" style={styles.page}>
-      <View style={styles.section}>
-        <Text>Section #1</Text>
-      </View>
-      <View style={styles.section}>
-        <Text>Section #2</Text>
-      </View>
-    </Page>
-  </Document>
-)
-
-// Create Document Component
-const SchedulePDF = () => (
-  <div>
-    <PDFDownloadLink document={MyDoc} fileName="MySchedule.pdf">
-      {({ blob, url, loading, error }) =>
-        loading ? 'Loading document...' : 'Download Schedule PDF'
-      }
-    </PDFDownloadLink>
-  </div>
-)
-
-export default SchedulePDF
+  render() {
+    return (
+      <>
+        <div className="mb5">
+          <button onClick={this.downloadDocument}>
+            Download Schedule as PDF
+          </button>
+        </div>
+        <div id="divToDownload" className="mt4">
+          <MyCourses />
+        </div>
+      </>
+    )
+  }
+}
