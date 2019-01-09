@@ -30,8 +30,8 @@ const SingleCourseStyles = styled.div`
     object-fit: contain;
   }
   .details {
-    margin: 3rem;
-    font-size: 2rem;
+    /* margin: 3rem; */
+    /* font-size: 2rem; */
   }
 `
 const Upload = styled.div`

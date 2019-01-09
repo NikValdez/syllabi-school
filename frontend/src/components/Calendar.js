@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import events from '../lib/events'
 import BigCalendar from 'react-big-calendar'
 import moment from 'moment'
 import { Query } from 'react-apollo'

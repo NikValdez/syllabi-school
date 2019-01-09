@@ -8,8 +8,8 @@ export const TableStyles = styled.table`
 export const TdStyles = styled.td`
   border: 1px solid #dddddd;
   text-align: center;
-  padding: 8px;
-  font-size: 18px;
+  padding: 2px;
+  font-size: 14px;
   label {
     display: block;
     padding: 10px 5px;
@@ -18,7 +18,7 @@ export const TdStyles = styled.td`
 export const ThStyles = styled.th`
   border: 1px solid #dddddd;
   text-align: left;
-  padding: 8px;
+  padding: 2px;
   text-align: center;
 `
 export const TrStyles = styled.tr`

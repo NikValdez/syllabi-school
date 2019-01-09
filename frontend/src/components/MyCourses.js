@@ -47,6 +47,7 @@ const CURRENT_USER_QUERY_COURSES_EVENTS = gql`
           id
           title
           description
+          credits
           courseCode
           events {
             id
@@ -54,6 +55,7 @@ const CURRENT_USER_QUERY_COURSES_EVENTS = gql`
             description
             start
             end
+            upload
           }
         }
       }
