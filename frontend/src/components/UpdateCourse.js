@@ -3,6 +3,7 @@ import { Mutation, Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import Form from './styles/Form'
 import { ALL_COURSES_QUERY } from './Courses'
+import htmlToText from 'html-to-text'
 
 const EDIT_COURSE_QUERY = gql`
   query EDIT_COURSE_QUERY($id: ID!) {
@@ -129,7 +130,9 @@ class UpdateCourse extends Component {
                         name="description"
                         placeholder="description"
                         required
-                        defaultValue={data.course.description}
+                        defaultValue={htmlToText.fromString(
+                          data.course.description
+                        )}
                         onChange={this.handleChange}
                       />
                     </label>

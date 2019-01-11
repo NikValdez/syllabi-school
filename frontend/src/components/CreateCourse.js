@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 import Form from './styles/Form'
 import { ALL_COURSES_QUERY } from './Courses'
 import Error from './ErrorMessage'
 import IsAdminTeacher from './IsAdminTeacher'
+import { Quill } from './CreateEvent'
 
 const CREATE_COURSE_MUTATION = gql`
   mutation CREATE_COURSE_MUTATION(
@@ -39,6 +42,12 @@ class CreateCourse extends Component {
     const { name, type, value } = e.target
     const val = type === 'number' ? parseFloat(value) : value
     this.setState({ [name]: val })
+  }
+
+  onDescriptionChange = value => {
+    this.setState({
+      description: value
+    })
   }
   render() {
     return (
@@ -96,15 +105,16 @@ class CreateCourse extends Component {
                 </label>
                 <label htmlFor="description">
                   Description
-                  <textarea
-                    type="text"
-                    id="description"
-                    name="description"
-                    placeholder="description"
-                    required
-                    value={this.state.description}
-                    onChange={this.handleChange}
-                  />
+                  <Quill>
+                    <ReactQuill
+                      placeholder="Add a description..."
+                      theme="snow"
+                      value={this.state.description}
+                      onChange={this.onDescriptionChange}
+                      modules={CreateCourse.modules}
+                      formats={CreateCourse.formats}
+                    />
+                  </Quill>
                 </label>
                 <button type="submit">Submit</button>
               </fieldset>
@@ -115,6 +125,38 @@ class CreateCourse extends Component {
     )
   }
 }
+
+CreateCourse.modules = {
+  toolbar: [
+    [{ header: [1, 2, false] }],
+    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    [
+      { list: 'ordered' },
+      { list: 'bullet' },
+      { indent: '-1' },
+      { indent: '+1' }
+    ],
+    [{ font: [] }],
+    ['link'],
+    ['clean']
+  ]
+}
+
+CreateCourse.formats = [
+  'header',
+  'font',
+  'size',
+  'bold',
+  'italic',
+  'underline',
+  'strike',
+  'blockquote',
+  'list',
+  'bullet',
+  'indent',
+  'link',
+  'color'
+]
 
 export default CreateCourse
 export { CREATE_COURSE_MUTATION }

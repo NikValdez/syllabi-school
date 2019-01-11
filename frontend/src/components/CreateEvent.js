@@ -10,13 +10,39 @@ import Form from './styles/Form'
 import { SINGLE_COURSE_QUERY } from './SingleCourse'
 import styled from 'styled-components'
 
+const UploadButton = styled.div`
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+
+  button {
+    background: black;
+    color: white;
+    font-weight: 500;
+    border: 0;
+    border-radius: 0;
+    text-transform: uppercase;
+    font-size: 1rem;
+    padding: 0.5rem 1.2rem;
+    display: inline-block;
+  }
+
+  input[type='file'] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+`
+
 const DatePick = styled.div`
   padding: 10px;
 `
 const UploadPreview = styled.div`
   width: 200px;
 `
-const Quill = styled.div`
+export const Quill = styled.div`
   .quill {
     height: 10rem;
     margin-bottom: 5rem;
@@ -162,22 +188,26 @@ class CreateEvent extends Component {
                   Description
                   <Quill>
                     <ReactQuill
+                      placeholder="Add a description..."
                       theme="snow"
                       value={this.state.description}
                       onChange={this.onDescriptionChange}
-                      placeholder="Add a description..."
+                      modules={CreateEvent.modules}
+                      formats={CreateEvent.formats}
                     />
                   </Quill>
                 </label>
                 <label htmlFor="file">
-                  Upload
-                  <input
-                    type="file"
-                    id="file"
-                    name="file"
-                    placeholder="Upload a file or image"
-                    onChange={this.uploadFile}
-                  />
+                  <UploadButton>
+                    <button>Upload a File ⬆️</button>
+                    <input
+                      type="file"
+                      id="file"
+                      name="file"
+                      placeholder="Upload a file or image"
+                      onChange={this.uploadFile}
+                    />
+                  </UploadButton>
                   {this.state.loading ? <p>Loading...</p> : null}
                   {this.state.upload && (
                     <UploadPreview>
@@ -196,6 +226,38 @@ class CreateEvent extends Component {
     )
   }
 }
+
+CreateEvent.modules = {
+  toolbar: [
+    [{ header: [1, 2, false] }],
+    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    [
+      { list: 'ordered' },
+      { list: 'bullet' },
+      { indent: '-1' },
+      { indent: '+1' }
+    ],
+    [{ font: [] }],
+    ['link'],
+    ['clean']
+  ]
+}
+
+CreateEvent.formats = [
+  'header',
+  'font',
+  'size',
+  'bold',
+  'italic',
+  'underline',
+  'strike',
+  'blockquote',
+  'list',
+  'bullet',
+  'indent',
+  'link',
+  'color'
+]
 
 export default CreateEvent
 export { CREATE_EVENT_MUTATION }

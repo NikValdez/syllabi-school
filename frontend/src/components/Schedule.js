@@ -35,7 +35,7 @@ export class Schedule extends Component {
               <>
                 <div key={course.id}>
                   <h3> {course.courses.title}</h3>
-                  <li>Description: {course.courses.description}</li>
+                  <li>{htmlToText.fromString(course.courses.description)}</li>
                   <li>Course Code: {course.courses.courseCode}</li>
                   <li>Credits: {course.courses.credits}</li>
                 </div>

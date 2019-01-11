@@ -25,7 +25,16 @@ const SingleCourseStyles = styled.div`
     float: right;
     a {
       margin-right: 2rem;
-      color: black;
+      background: black;
+      color: white;
+      font-weight: 500;
+      border: 0;
+      border-radius: 0;
+      text-transform: uppercase;
+      font-size: 1rem;
+      padding: 0.5rem 1.2rem;
+      display: inline-block;
+      text-decoration: none;
     }
   }
   img {
@@ -90,7 +99,7 @@ class SingleCourse extends Component {
                   </div>
                 </IsAdminTeacher>
                 <h2>Course Title: {course.title}</h2>
-                <p>Description: {course.description}</p>
+                <p>Description: {htmlToText.fromString(course.description)}</p>
                 <p>Credits: {course.credits}</p>
                 <p>Course Code: {course.courseCode}</p>
                 <CreateEvent course={course.id} />
