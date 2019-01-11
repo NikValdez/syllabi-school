@@ -3,6 +3,7 @@ import gql from 'graphql-tag'
 import { Query } from 'react-apollo'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import htmlToText from 'html-to-text'
 import CreateEvent from './CreateEvent'
 import moment from 'moment'
 import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
@@ -17,6 +18,9 @@ const SingleCourseStyles = styled.div`
   display: grid;
   grid-auto-columns: 2fr;
   min-height: 800px;
+  a {
+    color: black;
+  }
   .update-delete {
     float: right;
     a {
@@ -105,7 +109,9 @@ class SingleCourse extends Component {
                       ({ title, description, start, end, id, upload }) => (
                         <TrStyles key={id}>
                           <TdStyles>{title}</TdStyles>
-                          <TdStyles>{description}</TdStyles>
+                          <TdStyles>
+                            {htmlToText.fromString(description)}
+                          </TdStyles>
                           <TdStyles>
                             {moment(start).format('MMM Do YYYY')}
                           </TdStyles>
@@ -113,9 +119,7 @@ class SingleCourse extends Component {
                             {moment(end).format('MMM Do YYYY')}
                           </TdStyles>
                           <TdStyles>
-                            <Upload>
-                              {upload && <img src={upload} alt={title} />}
-                            </Upload>
+                            {upload && <a href={upload}>{title}-Upload</a>}
                           </TdStyles>
                           <TdStyles>
                             <IsAdminTeacher>

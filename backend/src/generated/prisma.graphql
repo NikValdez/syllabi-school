@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/nikvaldez-073802/schedule/dev
-# timestamp: Mon Jan 07 2019 12:57:54 GMT-0800 (PST)
+# timestamp: Thu Jan 10 2019 15:27:02 GMT-0800 (PST)
 
 type AggregateCourse {
   count: Int!
@@ -443,6 +443,7 @@ input CourseUpdateManyMutationInput {
 input CourseUpdateManyWithoutUserInput {
   create: [CourseCreateWithoutUserInput!]
   connect: [CourseWhereUniqueInput!]
+  set: [CourseWhereUniqueInput!]
   disconnect: [CourseWhereUniqueInput!]
   delete: [CourseWhereUniqueInput!]
   update: [CourseUpdateWithWhereUniqueWithoutUserInput!]
@@ -1141,6 +1142,7 @@ input EventUpdateManyMutationInput {
 input EventUpdateManyWithoutCourseInput {
   create: [EventCreateWithoutCourseInput!]
   connect: [EventWhereUniqueInput!]
+  set: [EventWhereUniqueInput!]
   disconnect: [EventWhereUniqueInput!]
   delete: [EventWhereUniqueInput!]
   update: [EventUpdateWithWhereUniqueWithoutCourseInput!]
@@ -1601,6 +1603,7 @@ input MyCourseUpdateInput {
 input MyCourseUpdateManyWithoutUserInput {
   create: [MyCourseCreateWithoutUserInput!]
   connect: [MyCourseWhereUniqueInput!]
+  set: [MyCourseWhereUniqueInput!]
   disconnect: [MyCourseWhereUniqueInput!]
   delete: [MyCourseWhereUniqueInput!]
   update: [MyCourseUpdateWithWhereUniqueWithoutUserInput!]
@@ -1905,6 +1908,7 @@ input NoteUpdateManyMutationInput {
 input NoteUpdateManyWithoutUserInput {
   create: [NoteCreateWithoutUserInput!]
   connect: [NoteWhereUniqueInput!]
+  set: [NoteWhereUniqueInput!]
   disconnect: [NoteWhereUniqueInput!]
   delete: [NoteWhereUniqueInput!]
   update: [NoteUpdateWithWhereUniqueWithoutUserInput!]

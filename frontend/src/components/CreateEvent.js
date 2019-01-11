@@ -3,6 +3,8 @@ import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 import IsAdminTeacher from './IsAdminTeacher'
 import Form from './styles/Form'
 import { SINGLE_COURSE_QUERY } from './SingleCourse'
@@ -13,6 +15,12 @@ const DatePick = styled.div`
 `
 const UploadPreview = styled.div`
   width: 200px;
+`
+const Quill = styled.div`
+  .quill {
+    height: 10rem;
+    margin-bottom: 5rem;
+  }
 `
 
 const CREATE_EVENT_MUTATION = gql`
@@ -74,7 +82,7 @@ class CreateEvent extends Component {
     data.append('upload_preset', 'schedule')
     this.setState({ loading: true })
     const res = await fetch(
-      'https://api.cloudinary.com/v1_1/nikcochran/image/upload/',
+      'https://api.cloudinary.com/v1_1/nikcochran/raw/upload/',
       {
         method: 'POST',
         body: data
@@ -88,8 +96,14 @@ class CreateEvent extends Component {
     })
   }
 
+  onDescriptionChange = value => {
+    this.setState({
+      description: value
+    })
+  }
+
   render() {
-    // console.log(this.props.course)
+    const { description } = this.state
     return (
       <IsAdminTeacher>
         <h3>Create Event</h3>
@@ -105,7 +119,6 @@ class CreateEvent extends Component {
               onSubmit={async e => {
                 e.preventDefault()
                 const res = await createEvent()
-                console.log(res)
                 this.setState({
                   title: '',
                   description: '',
@@ -114,7 +127,6 @@ class CreateEvent extends Component {
                   allDay: false,
                   upload: ''
                 })
-                // this.props.history.push(`/`)
               }}
             >
               <fieldset disabled={loading} aria-busy={loading}>
@@ -148,15 +160,14 @@ class CreateEvent extends Component {
                 </label>
                 <label htmlFor="description">
                   Description
-                  <textarea
-                    type="text"
-                    id="description"
-                    name="description"
-                    placeholder="description"
-                    required
-                    value={this.state.description}
-                    onChange={this.handleChange}
-                  />
+                  <Quill>
+                    <ReactQuill
+                      theme="snow"
+                      value={this.state.description}
+                      onChange={this.onDescriptionChange}
+                      placeholder="Add a description..."
+                    />
+                  </Quill>
                 </label>
                 <label htmlFor="file">
                   Upload

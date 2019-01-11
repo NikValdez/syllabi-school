@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from 'react'
 import html2canvas from 'html2canvas'
 import * as jsPDF from 'jspdf'
 import Schedule from './Schedule'
+import Button from './styles/Button'
 
 export default class SchedulePDF extends Component {
   downloadDocument() {
@@ -18,9 +19,9 @@ export default class SchedulePDF extends Component {
     return (
       <>
         <div className="mb5">
-          <button onClick={this.downloadDocument}>
-            Download Schedule as PDF
-          </button>
+          <Button onClick={this.downloadDocument} style={{ marginTop: '1rem' }}>
+            Export as PDF 📄
+          </Button>
         </div>
         <div id="divToDownload" className="mt4">
           <Schedule />

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
 import moment from 'moment'
+import htmlToText from 'html-to-text'
 import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
 import styled from 'styled-components'
 
@@ -14,6 +15,9 @@ const ScheduleStyles = styled.div`
   li {
     list-style-type: none;
     margin: 1rem;
+  }
+  a {
+    color: black;
   }
 `
 
@@ -52,7 +56,9 @@ export class Schedule extends Component {
                       ({ title, description, start, end, id, upload }) => (
                         <TrStyles key={id}>
                           <TdStyles>{title}</TdStyles>
-                          <TdStyles>{description}</TdStyles>
+                          <TdStyles>
+                            {htmlToText.fromString(description)}
+                          </TdStyles>
                           <TdStyles>
                             {moment(start).format('MMM Do YYYY')}
                           </TdStyles>
@@ -60,13 +66,7 @@ export class Schedule extends Component {
                             {moment(end).format('MMM Do YYYY')}
                           </TdStyles>
                           <TdStyles>
-                            {upload && (
-                              <img
-                                src={upload}
-                                alt={title}
-                                style={{ width: '100px' }}
-                              />
-                            )}
+                            {upload && <a href={upload}>{title}-Upload</a>}
                           </TdStyles>
                           <TdStyles />
                         </TrStyles>
