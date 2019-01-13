@@ -5,6 +5,7 @@ import moment from 'moment'
 import htmlToText from 'html-to-text'
 import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
 import styled from 'styled-components'
+import Book from '../book.gif'
 
 const ScheduleStyles = styled.div`
   display: grid;
@@ -27,7 +28,7 @@ export class Schedule extends Component {
       <ScheduleStyles>
         <Query query={CURRENT_USER_QUERY_COURSES_EVENTS}>
           {({ data, error, loading }) => {
-            if (loading) return <p>Loading...</p>
+            if (loading) return <img src={Book} alt="Loading" />
             if (error) return <p>Error : {error.message}</p>
             const courseData = data.me.myCourses.map(course => course)
             // const eventData = courseData.map(course => course.events

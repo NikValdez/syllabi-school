@@ -35,9 +35,15 @@ const BigCalStyles = styled.div`
   }
 `
 
-const localizer = BigCalendar.momentLocalizer(moment)
+const palette = [
+  '#FFE7ED', //pink
+  '#D9FFF7', //teal
+  '#CBF3FF', //blue
+  '#FCE8FF', //purple
+  '#DAFFB5' //green
+]
 
-const allViews = Object.keys(BigCalendar.Views).map(k => BigCalendar.Views[k])
+const localizer = BigCalendar.momentLocalizer(moment)
 
 class Calendar extends Component {
   render() {
@@ -45,11 +51,12 @@ class Calendar extends Component {
       <>
         <Query query={CURRENT_USER_QUERY_COURSES_EVENTS}>
           {({ data, error, loading }) => {
-            if (loading) return <p>Loading...</p>
+            if (loading) return <p />
             if (error) return <p>Error : {error.message}</p>
             const courseData = data.me.myCourses.map(course => course.courses)
             const eventData = courseData.map(course => course.events)
             const calEvents = [].concat.apply([], eventData)
+            console.log(calEvents)
 
             return (
               <BigCalStyles>
@@ -59,6 +66,11 @@ class Calendar extends Component {
                   events={calEvents}
                   startAccessor="start"
                   endAccessor="end"
+                  eventPropGetter={events => ({
+                    style: {
+                      backgroundColor: events.color
+                    }
+                  })}
                 />
               </BigCalStyles>
             )

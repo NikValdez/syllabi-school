@@ -7,6 +7,7 @@ import { DropDown, DropDownItem, SearchStyles } from './styles/DropDown'
 import { Link } from 'react-router-dom'
 import AddCourse from './AddCourse'
 import styled from 'styled-components'
+import Book from '../book.gif'
 
 const LinkStyles = styled.div`
   justify-self: start;
@@ -63,7 +64,11 @@ class Search extends Component {
                       type: 'search',
                       placeholder: 'Search Courses...',
                       id: 'search',
-                      className: this.state.loading ? 'loading' : '',
+                      className: this.state.loading ? (
+                        <img src={Book} alt="Loading" />
+                      ) : (
+                        ''
+                      ),
                       onChange: e => {
                         e.persist()
                         this.onChange(e, client)

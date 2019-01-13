@@ -9,6 +9,7 @@ import IsAdminTeacher from './IsAdminTeacher'
 import Form from './styles/Form'
 import { SINGLE_COURSE_QUERY } from './SingleCourse'
 import styled from 'styled-components'
+import Book from '../book.gif'
 
 const UploadButton = styled.div`
   position: relative;
@@ -57,6 +58,7 @@ const CREATE_EVENT_MUTATION = gql`
     $end: DateTime!
     $allDay: Boolean
     $upload: String
+    $color: String
     $course: ID!
   ) {
     createEvent(
@@ -66,6 +68,7 @@ const CREATE_EVENT_MUTATION = gql`
       end: $end
       allDay: $allDay
       upload: $upload
+      color: $color
       course: $course
     ) {
       id
@@ -81,7 +84,8 @@ class CreateEvent extends Component {
     end: null,
     allDay: false,
     upload: '',
-    course: this.props.course,
+    color: this.props.course.color,
+    course: this.props.course.id,
     loading: false
   }
 
@@ -129,7 +133,7 @@ class CreateEvent extends Component {
   }
 
   render() {
-    const { description } = this.state
+    console.log(this.state.color)
     return (
       <IsAdminTeacher>
         <h3>Create Event</h3>
@@ -137,14 +141,17 @@ class CreateEvent extends Component {
           mutation={CREATE_EVENT_MUTATION}
           variables={this.state}
           refetchQueries={[
-            { query: SINGLE_COURSE_QUERY, variables: { id: this.props.course } }
+            {
+              query: SINGLE_COURSE_QUERY,
+              variables: { id: this.props.course.id }
+            }
           ]}
         >
           {(createEvent, { loading, error }) => (
             <Form
               onSubmit={async e => {
                 e.preventDefault()
-                const res = await createEvent()
+                await createEvent()
                 this.setState({
                   title: '',
                   description: '',
@@ -208,10 +215,12 @@ class CreateEvent extends Component {
                       onChange={this.uploadFile}
                     />
                   </UploadButton>
-                  {this.state.loading ? <p>Loading...</p> : null}
+                  {this.state.loading ? (
+                    <img src={Book} alt="Loading" style={{ width: '100px' }} />
+                  ) : null}
                   {this.state.upload && (
                     <UploadPreview>
-                      <img src={this.state.upload} alt="Upload Preview" />
+                      <a href={this.state.upload}>{this.state.title}-Upload</a>
                     </UploadPreview>
                   )}
                 </label>
@@ -230,7 +239,7 @@ class CreateEvent extends Component {
 CreateEvent.modules = {
   toolbar: [
     [{ header: [1, 2, false] }],
-    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    ['bold', 'italic', 'underline', 'strike'],
     [
       { list: 'ordered' },
       { list: 'bullet' },
@@ -251,7 +260,6 @@ CreateEvent.formats = [
   'italic',
   'underline',
   'strike',
-  'blockquote',
   'list',
   'bullet',
   'indent',

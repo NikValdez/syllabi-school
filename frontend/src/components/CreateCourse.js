@@ -16,6 +16,7 @@ const CREATE_COURSE_MUTATION = gql`
     $credits: Int!
     $courseCode: String!
     $image: String
+    $color: String
   ) {
     createCourse(
       title: $title
@@ -23,6 +24,7 @@ const CREATE_COURSE_MUTATION = gql`
       credits: $credits
       courseCode: $courseCode
       image: $image
+      color: $color
     ) {
       id
     }
@@ -35,13 +37,22 @@ class CreateCourse extends Component {
     description: '',
     credits: 0,
     courseCode: '',
-    image: ''
+    image: '',
+    color: ''
   }
 
+  getRandomColor = () => {
+    let letters = '0123456789ABCDEF'
+    let color = '#'
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)]
+    }
+    return color
+  }
   handleChange = e => {
     const { name, type, value } = e.target
     const val = type === 'number' ? parseFloat(value) : value
-    this.setState({ [name]: val })
+    this.setState({ [name]: val, color: this.getRandomColor() })
   }
 
   onDescriptionChange = value => {
@@ -129,7 +140,7 @@ class CreateCourse extends Component {
 CreateCourse.modules = {
   toolbar: [
     [{ header: [1, 2, false] }],
-    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+    ['bold', 'italic', 'underline', 'strike'],
     [
       { list: 'ordered' },
       { list: 'bullet' },
@@ -150,7 +161,6 @@ CreateCourse.formats = [
   'italic',
   'underline',
   'strike',
-  'blockquote',
   'list',
   'bullet',
   'indent',

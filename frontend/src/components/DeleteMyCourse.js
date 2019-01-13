@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Mutation, Query } from 'react-apollo'
+import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
 import { DeleteXStyles } from './DeleteNote'

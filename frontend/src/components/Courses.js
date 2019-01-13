@@ -1,14 +1,9 @@
 import React, { Component } from 'react'
-import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 import styled from 'styled-components'
-import Course from './Course'
 import Calendar from './Calendar'
-import { Link } from 'react-router-dom'
-import { CURRENT_USER_QUERY } from './User'
 import MyCourses from './MyCourses'
 import Search from './Search'
-import IsAdminTeacher from './IsAdminTeacher'
 import CreateNote from './CreateNote'
 
 const ALL_COURSES_QUERY = gql`
@@ -47,22 +42,6 @@ class Courses extends Component {
           <MyCourses />
           <CreateNote />
         </LeftSide>
-
-        {/* <Query query={ALL_COURSES_QUERY}>
-          {({ data, error, loading }) => {
-            if (loading) return <p>Loading...</p>
-            if (error) return <p>Error : {error.message}</p>
-            // console.log(data)
-            return (
-              <CoursesList>
-                {data.courses.map(course => (
-                  <Course course={course} key={course.id} />
-                ))}
-              </CoursesList>
-            )
-          }}
-        </Query> */}
-
         <RightSide>
           <Calendar />
         </RightSide>

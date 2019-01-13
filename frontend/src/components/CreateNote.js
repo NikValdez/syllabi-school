@@ -20,7 +20,7 @@ class CreateNote extends Component {
   }
 
   handleChange = e => {
-    const { name, type, value } = e.target
+    const { name, value } = e.target
     this.setState({ [name]: value })
   }
   render() {
@@ -37,7 +37,7 @@ class CreateNote extends Component {
                 onSubmit={async e => {
                   e.preventDefault()
                   if (this.state.note.length > 0) {
-                    const res = await createNote()
+                    await createNote()
                     this.setState({ note: '' })
                   }
                 }}

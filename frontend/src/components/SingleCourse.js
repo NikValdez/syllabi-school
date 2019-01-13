@@ -10,6 +10,8 @@ import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
 import DeleteEvent from './DeleteEvent'
 import DeleteCourse from './DeleteCourse'
 import IsAdminTeacher from './IsAdminTeacher'
+import Book from '../book.gif'
+import Courses from './Courses'
 
 const SingleCourseStyles = styled.div`
   max-width: 1200px;
@@ -47,10 +49,6 @@ const SingleCourseStyles = styled.div`
     /* font-size: 2rem; */
   }
 `
-const Upload = styled.div`
-  width: 100px;
-  height: 100px;
-`
 
 const SINGLE_COURSE_QUERY = gql`
   query SINGLE_COURSE_QUERY($id: ID!) {
@@ -60,6 +58,7 @@ const SINGLE_COURSE_QUERY = gql`
       description
       courseCode
       credits
+      color
       events {
         id
         title
@@ -67,6 +66,7 @@ const SINGLE_COURSE_QUERY = gql`
         start
         end
         upload
+        color
       }
     }
   }
@@ -86,9 +86,10 @@ class SingleCourse extends Component {
       >
         {({ error, loading, data }) => {
           if (error) return <p>Error</p>
-          if (loading) return <p>Loading...</p>
+          if (loading) return <img src={Book} alt="Loading" />
           if (!data.course) return <p>No Course Found for {this.state.id}</p>
           const course = data.course
+
           return (
             <SingleCourseStyles>
               <div className="details">
@@ -102,7 +103,7 @@ class SingleCourse extends Component {
                 <p>Description: {htmlToText.fromString(course.description)}</p>
                 <p>Credits: {course.credits}</p>
                 <p>Course Code: {course.courseCode}</p>
-                <CreateEvent course={course.id} />
+                <CreateEvent course={course} />
                 <h2>Events</h2>
                 <TableStyles style={{ border: '1px solid black' }}>
                   <tbody>
@@ -115,7 +116,15 @@ class SingleCourse extends Component {
                     </tr>
 
                     {course.events.map(
-                      ({ title, description, start, end, id, upload }) => (
+                      ({
+                        title,
+                        description,
+                        start,
+                        end,
+                        id,
+                        color,
+                        upload
+                      }) => (
                         <TrStyles key={id}>
                           <TdStyles>{title}</TdStyles>
                           <TdStyles>
@@ -123,6 +132,9 @@ class SingleCourse extends Component {
                           </TdStyles>
                           <TdStyles>
                             {moment(start).format('MMM Do YYYY')}
+                          </TdStyles>
+                          <TdStyles>
+                            {moment(end).format('MMM Do YYYY')}
                           </TdStyles>
                           <TdStyles>
                             {moment(end).format('MMM Do YYYY')}

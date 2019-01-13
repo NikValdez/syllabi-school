@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import html2canvas from 'html2canvas'
 import * as jsPDF from 'jspdf'
 import Schedule from './Schedule'
@@ -24,6 +24,7 @@ export default class SchedulePDF extends Component {
           </Button>
         </div>
         <div id="divToDownload" className="mt4">
+          <h1 style={{ textAlign: 'center' }}>My Schedule</h1>
           <Schedule />
         </div>
       </>

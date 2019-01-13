@@ -5,6 +5,7 @@ import gql from 'graphql-tag'
 import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
 import Button from './styles/Button'
 import PropTypes from 'prop-types'
+import Book from '../book.gif'
 
 const possiblePermissions = ['ADMIN', 'TEACHER', 'USER', 'PERMISSIONUPDATE']
 
@@ -33,7 +34,7 @@ const ALL_USERS_QUERY = gql`
 const Permissions = props => (
   <Query query={ALL_USERS_QUERY}>
     {({ data, loading, error }) => {
-      if (loading) return <p>Loading...</p>
+      if (loading) return <img src={Book} alt="Loading" />
       return (
         <div>
           <Error error={error} />

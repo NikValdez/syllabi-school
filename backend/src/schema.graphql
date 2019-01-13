@@ -11,6 +11,7 @@ type Mutation {
     courseCode: String!
     credits: Int
     image: String
+    color: String
   ): Course!
   deleteCourse(id: ID!): Course
   updateCourse(
@@ -27,6 +28,7 @@ type Mutation {
     end: DateTime!
     allDay: Boolean
     upload: String
+    color: String
     course: ID!
   ): Event
   deleteEvent(id: ID!): Event

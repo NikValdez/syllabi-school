@@ -4,6 +4,7 @@ import gql from 'graphql-tag'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { DeleteMyCourse } from './DeleteMyCourse'
+import Book from '../book.gif'
 
 const MyCoursesStyles = styled.div`
   margin-top: 3rem;
@@ -49,12 +50,14 @@ const CURRENT_USER_QUERY_COURSES_EVENTS = gql`
           description
           credits
           courseCode
+          color
           events {
             id
             title
             description
             start
             end
+            color
             upload
           }
         }
@@ -70,14 +73,26 @@ class MyCourses extends Component {
         <h3>My Courses</h3>
         <Query query={CURRENT_USER_QUERY_COURSES_EVENTS}>
           {({ data, error, loading }) => {
-            if (loading) return <p>Loading...</p>
+            if (loading) return <p />
             if (error) return <p>Error : {error.message}</p>
             const courseData = data.me.myCourses.map(course => course)
             // const eventData = courseData.map(course => course.events
             return courseData.map(course => (
               <ul key={course.id}>
                 <Link to={`/courses/${course.courses.id}`}>
-                  <h3>{course.courses.title}</h3>
+                  <h3>
+                    <span
+                      style={{
+                        height: '1rem',
+                        width: '1rem',
+                        background: course.courses.color,
+                        float: 'left',
+                        marginRight: '1rem',
+                        marginTop: '3px'
+                      }}
+                    />
+                    {course.courses.title}
+                  </h3>
                 </Link>
                 <DeleteMyCourse id={course.id} />
               </ul>

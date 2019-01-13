@@ -4,6 +4,7 @@ import gql from 'graphql-tag'
 import Form from './styles/Form'
 import { ALL_COURSES_QUERY } from './Courses'
 import htmlToText from 'html-to-text'
+import Book from '../book.gif'
 
 const EDIT_COURSE_QUERY = gql`
   query EDIT_COURSE_QUERY($id: ID!) {
@@ -51,7 +52,7 @@ class UpdateCourse extends Component {
 
   updateCourse = async (e, updateCourseMutation) => {
     e.preventDefault()
-    const res = await updateCourseMutation({
+    await updateCourseMutation({
       variables: {
         id: this.props.match.params.id,
         ...this.state
@@ -68,7 +69,7 @@ class UpdateCourse extends Component {
         }}
       >
         {({ data, loading }) => {
-          if (loading) return <p>Loading...</p>
+          if (loading) return <img src={Book} alt="Loading" />
           if (!data.course)
             return <p>No Course Found For ID {this.props.match.params.id}</p>
           return (
