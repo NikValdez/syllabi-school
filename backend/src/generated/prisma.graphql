@@ -1,5 +1,9 @@
 # source: https://us1.prisma.sh/nikvaldez-073802/schedule/dev
-# timestamp: Sat Jan 12 2019 17:18:31 GMT-0800 (PST)
+# timestamp: Mon Jan 14 2019 12:42:07 GMT-0800 (PST)
+
+type AggregateAnnouncement {
+  count: Int!
+}
 
 type AggregateCourse {
   count: Int!
@@ -21,6 +25,404 @@ type AggregateUser {
   count: Int!
 }
 
+type Announcement implements Node {
+  id: ID!
+  text: String!
+  date: DateTime!
+  clicked: Boolean
+  course: Course!
+}
+
+"""A connection to a list of items."""
+type AnnouncementConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [AnnouncementEdge]!
+  aggregate: AggregateAnnouncement!
+}
+
+input AnnouncementCreateInput {
+  text: String!
+  date: DateTime!
+  clicked: Boolean
+  course: CourseCreateOneWithoutAnnouncementsInput!
+}
+
+input AnnouncementCreateManyWithoutCourseInput {
+  create: [AnnouncementCreateWithoutCourseInput!]
+  connect: [AnnouncementWhereUniqueInput!]
+}
+
+input AnnouncementCreateWithoutCourseInput {
+  text: String!
+  date: DateTime!
+  clicked: Boolean
+}
+
+"""An edge in a connection."""
+type AnnouncementEdge {
+  """The item at the end of the edge."""
+  node: Announcement!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum AnnouncementOrderByInput {
+  id_ASC
+  id_DESC
+  text_ASC
+  text_DESC
+  date_ASC
+  date_DESC
+  clicked_ASC
+  clicked_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type AnnouncementPreviousValues {
+  id: ID!
+  text: String!
+  date: DateTime!
+  clicked: Boolean
+}
+
+input AnnouncementScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AnnouncementScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AnnouncementScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AnnouncementScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  text: String
+
+  """All values that are not equal to given value."""
+  text_not: String
+
+  """All values that are contained in given list."""
+  text_in: [String!]
+
+  """All values that are not contained in given list."""
+  text_not_in: [String!]
+
+  """All values less than the given value."""
+  text_lt: String
+
+  """All values less than or equal the given value."""
+  text_lte: String
+
+  """All values greater than the given value."""
+  text_gt: String
+
+  """All values greater than or equal the given value."""
+  text_gte: String
+
+  """All values containing the given string."""
+  text_contains: String
+
+  """All values not containing the given string."""
+  text_not_contains: String
+
+  """All values starting with the given string."""
+  text_starts_with: String
+
+  """All values not starting with the given string."""
+  text_not_starts_with: String
+
+  """All values ending with the given string."""
+  text_ends_with: String
+
+  """All values not ending with the given string."""
+  text_not_ends_with: String
+  date: DateTime
+
+  """All values that are not equal to given value."""
+  date_not: DateTime
+
+  """All values that are contained in given list."""
+  date_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  date_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  date_lt: DateTime
+
+  """All values less than or equal the given value."""
+  date_lte: DateTime
+
+  """All values greater than the given value."""
+  date_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  date_gte: DateTime
+  clicked: Boolean
+
+  """All values that are not equal to given value."""
+  clicked_not: Boolean
+}
+
+type AnnouncementSubscriptionPayload {
+  mutation: MutationType!
+  node: Announcement
+  updatedFields: [String!]
+  previousValues: AnnouncementPreviousValues
+}
+
+input AnnouncementSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AnnouncementSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AnnouncementSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AnnouncementSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: AnnouncementWhereInput
+}
+
+input AnnouncementUpdateInput {
+  text: String
+  date: DateTime
+  clicked: Boolean
+  course: CourseUpdateOneRequiredWithoutAnnouncementsInput
+}
+
+input AnnouncementUpdateManyDataInput {
+  text: String
+  date: DateTime
+  clicked: Boolean
+}
+
+input AnnouncementUpdateManyMutationInput {
+  text: String
+  date: DateTime
+  clicked: Boolean
+}
+
+input AnnouncementUpdateManyWithoutCourseInput {
+  create: [AnnouncementCreateWithoutCourseInput!]
+  connect: [AnnouncementWhereUniqueInput!]
+  set: [AnnouncementWhereUniqueInput!]
+  disconnect: [AnnouncementWhereUniqueInput!]
+  delete: [AnnouncementWhereUniqueInput!]
+  update: [AnnouncementUpdateWithWhereUniqueWithoutCourseInput!]
+  updateMany: [AnnouncementUpdateManyWithWhereNestedInput!]
+  deleteMany: [AnnouncementScalarWhereInput!]
+  upsert: [AnnouncementUpsertWithWhereUniqueWithoutCourseInput!]
+}
+
+input AnnouncementUpdateManyWithWhereNestedInput {
+  where: AnnouncementScalarWhereInput!
+  data: AnnouncementUpdateManyDataInput!
+}
+
+input AnnouncementUpdateWithoutCourseDataInput {
+  text: String
+  date: DateTime
+  clicked: Boolean
+}
+
+input AnnouncementUpdateWithWhereUniqueWithoutCourseInput {
+  where: AnnouncementWhereUniqueInput!
+  data: AnnouncementUpdateWithoutCourseDataInput!
+}
+
+input AnnouncementUpsertWithWhereUniqueWithoutCourseInput {
+  where: AnnouncementWhereUniqueInput!
+  update: AnnouncementUpdateWithoutCourseDataInput!
+  create: AnnouncementCreateWithoutCourseInput!
+}
+
+input AnnouncementWhereInput {
+  """Logical AND on all given filters."""
+  AND: [AnnouncementWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [AnnouncementWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [AnnouncementWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  text: String
+
+  """All values that are not equal to given value."""
+  text_not: String
+
+  """All values that are contained in given list."""
+  text_in: [String!]
+
+  """All values that are not contained in given list."""
+  text_not_in: [String!]
+
+  """All values less than the given value."""
+  text_lt: String
+
+  """All values less than or equal the given value."""
+  text_lte: String
+
+  """All values greater than the given value."""
+  text_gt: String
+
+  """All values greater than or equal the given value."""
+  text_gte: String
+
+  """All values containing the given string."""
+  text_contains: String
+
+  """All values not containing the given string."""
+  text_not_contains: String
+
+  """All values starting with the given string."""
+  text_starts_with: String
+
+  """All values not starting with the given string."""
+  text_not_starts_with: String
+
+  """All values ending with the given string."""
+  text_ends_with: String
+
+  """All values not ending with the given string."""
+  text_not_ends_with: String
+  date: DateTime
+
+  """All values that are not equal to given value."""
+  date_not: DateTime
+
+  """All values that are contained in given list."""
+  date_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  date_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  date_lt: DateTime
+
+  """All values less than or equal the given value."""
+  date_lte: DateTime
+
+  """All values greater than the given value."""
+  date_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  date_gte: DateTime
+  clicked: Boolean
+
+  """All values that are not equal to given value."""
+  clicked_not: Boolean
+  course: CourseWhereInput
+}
+
+input AnnouncementWhereUniqueInput {
+  id: ID
+}
+
 type BatchPayload {
   """The number of nodes that have been affected by the Batch operation."""
   count: Long!
@@ -35,6 +437,7 @@ type Course implements Node {
   image: String
   color: String
   events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event!]
+  announcements(where: AnnouncementWhereInput, orderBy: AnnouncementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Announcement!]
   user: User!
   myCourse: MyCourse
 }
@@ -57,6 +460,7 @@ input CourseCreateInput {
   image: String
   color: String
   events: EventCreateManyWithoutCourseInput
+  announcements: AnnouncementCreateManyWithoutCourseInput
   user: UserCreateOneWithoutCoursesInput!
   myCourse: MyCourseCreateOneWithoutCoursesInput
 }
@@ -64,6 +468,11 @@ input CourseCreateInput {
 input CourseCreateManyWithoutUserInput {
   create: [CourseCreateWithoutUserInput!]
   connect: [CourseWhereUniqueInput!]
+}
+
+input CourseCreateOneWithoutAnnouncementsInput {
+  create: CourseCreateWithoutAnnouncementsInput
+  connect: CourseWhereUniqueInput
 }
 
 input CourseCreateOneWithoutEventsInput {
@@ -76,6 +485,18 @@ input CourseCreateOneWithoutMyCourseInput {
   connect: CourseWhereUniqueInput
 }
 
+input CourseCreateWithoutAnnouncementsInput {
+  title: String!
+  description: String!
+  courseCode: String!
+  credits: Int
+  image: String
+  color: String
+  events: EventCreateManyWithoutCourseInput
+  user: UserCreateOneWithoutCoursesInput!
+  myCourse: MyCourseCreateOneWithoutCoursesInput
+}
+
 input CourseCreateWithoutEventsInput {
   title: String!
   description: String!
@@ -83,6 +504,7 @@ input CourseCreateWithoutEventsInput {
   credits: Int
   image: String
   color: String
+  announcements: AnnouncementCreateManyWithoutCourseInput
   user: UserCreateOneWithoutCoursesInput!
   myCourse: MyCourseCreateOneWithoutCoursesInput
 }
@@ -95,6 +517,7 @@ input CourseCreateWithoutMyCourseInput {
   image: String
   color: String
   events: EventCreateManyWithoutCourseInput
+  announcements: AnnouncementCreateManyWithoutCourseInput
   user: UserCreateOneWithoutCoursesInput!
 }
 
@@ -106,6 +529,7 @@ input CourseCreateWithoutUserInput {
   image: String
   color: String
   events: EventCreateManyWithoutCourseInput
+  announcements: AnnouncementCreateManyWithoutCourseInput
   myCourse: MyCourseCreateOneWithoutCoursesInput
 }
 
@@ -469,6 +893,7 @@ input CourseUpdateInput {
   image: String
   color: String
   events: EventUpdateManyWithoutCourseInput
+  announcements: AnnouncementUpdateManyWithoutCourseInput
   user: UserUpdateOneRequiredWithoutCoursesInput
   myCourse: MyCourseUpdateOneWithoutCoursesInput
 }
@@ -508,6 +933,13 @@ input CourseUpdateManyWithWhereNestedInput {
   data: CourseUpdateManyDataInput!
 }
 
+input CourseUpdateOneRequiredWithoutAnnouncementsInput {
+  create: CourseCreateWithoutAnnouncementsInput
+  connect: CourseWhereUniqueInput
+  update: CourseUpdateWithoutAnnouncementsDataInput
+  upsert: CourseUpsertWithoutAnnouncementsInput
+}
+
 input CourseUpdateOneRequiredWithoutEventsInput {
   create: CourseCreateWithoutEventsInput
   connect: CourseWhereUniqueInput
@@ -524,6 +956,18 @@ input CourseUpdateOneWithoutMyCourseInput {
   upsert: CourseUpsertWithoutMyCourseInput
 }
 
+input CourseUpdateWithoutAnnouncementsDataInput {
+  title: String
+  description: String
+  courseCode: String
+  credits: Int
+  image: String
+  color: String
+  events: EventUpdateManyWithoutCourseInput
+  user: UserUpdateOneRequiredWithoutCoursesInput
+  myCourse: MyCourseUpdateOneWithoutCoursesInput
+}
+
 input CourseUpdateWithoutEventsDataInput {
   title: String
   description: String
@@ -531,6 +975,7 @@ input CourseUpdateWithoutEventsDataInput {
   credits: Int
   image: String
   color: String
+  announcements: AnnouncementUpdateManyWithoutCourseInput
   user: UserUpdateOneRequiredWithoutCoursesInput
   myCourse: MyCourseUpdateOneWithoutCoursesInput
 }
@@ -543,6 +988,7 @@ input CourseUpdateWithoutMyCourseDataInput {
   image: String
   color: String
   events: EventUpdateManyWithoutCourseInput
+  announcements: AnnouncementUpdateManyWithoutCourseInput
   user: UserUpdateOneRequiredWithoutCoursesInput
 }
 
@@ -554,12 +1000,18 @@ input CourseUpdateWithoutUserDataInput {
   image: String
   color: String
   events: EventUpdateManyWithoutCourseInput
+  announcements: AnnouncementUpdateManyWithoutCourseInput
   myCourse: MyCourseUpdateOneWithoutCoursesInput
 }
 
 input CourseUpdateWithWhereUniqueWithoutUserInput {
   where: CourseWhereUniqueInput!
   data: CourseUpdateWithoutUserDataInput!
+}
+
+input CourseUpsertWithoutAnnouncementsInput {
+  update: CourseUpdateWithoutAnnouncementsDataInput!
+  create: CourseCreateWithoutAnnouncementsInput!
 }
 
 input CourseUpsertWithoutEventsInput {
@@ -852,6 +1304,9 @@ input CourseWhereInput {
   events_every: EventWhereInput
   events_some: EventWhereInput
   events_none: EventWhereInput
+  announcements_every: AnnouncementWhereInput
+  announcements_some: AnnouncementWhereInput
+  announcements_none: AnnouncementWhereInput
   user: UserWhereInput
   myCourse: MyCourseWhereInput
 }
@@ -1595,30 +2050,36 @@ type Mutation {
   createNote(data: NoteCreateInput!): Note!
   createCourse(data: CourseCreateInput!): Course!
   createMyCourse(data: MyCourseCreateInput!): MyCourse!
+  createAnnouncement(data: AnnouncementCreateInput!): Announcement!
   createEvent(data: EventCreateInput!): Event!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateNote(data: NoteUpdateInput!, where: NoteWhereUniqueInput!): Note
   updateCourse(data: CourseUpdateInput!, where: CourseWhereUniqueInput!): Course
   updateMyCourse(data: MyCourseUpdateInput!, where: MyCourseWhereUniqueInput!): MyCourse
+  updateAnnouncement(data: AnnouncementUpdateInput!, where: AnnouncementWhereUniqueInput!): Announcement
   updateEvent(data: EventUpdateInput!, where: EventWhereUniqueInput!): Event
   deleteUser(where: UserWhereUniqueInput!): User
   deleteNote(where: NoteWhereUniqueInput!): Note
   deleteCourse(where: CourseWhereUniqueInput!): Course
   deleteMyCourse(where: MyCourseWhereUniqueInput!): MyCourse
+  deleteAnnouncement(where: AnnouncementWhereUniqueInput!): Announcement
   deleteEvent(where: EventWhereUniqueInput!): Event
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertNote(where: NoteWhereUniqueInput!, create: NoteCreateInput!, update: NoteUpdateInput!): Note!
   upsertCourse(where: CourseWhereUniqueInput!, create: CourseCreateInput!, update: CourseUpdateInput!): Course!
   upsertMyCourse(where: MyCourseWhereUniqueInput!, create: MyCourseCreateInput!, update: MyCourseUpdateInput!): MyCourse!
+  upsertAnnouncement(where: AnnouncementWhereUniqueInput!, create: AnnouncementCreateInput!, update: AnnouncementUpdateInput!): Announcement!
   upsertEvent(where: EventWhereUniqueInput!, create: EventCreateInput!, update: EventUpdateInput!): Event!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyNotes(data: NoteUpdateManyMutationInput!, where: NoteWhereInput): BatchPayload!
   updateManyCourses(data: CourseUpdateManyMutationInput!, where: CourseWhereInput): BatchPayload!
+  updateManyAnnouncements(data: AnnouncementUpdateManyMutationInput!, where: AnnouncementWhereInput): BatchPayload!
   updateManyEvents(data: EventUpdateManyMutationInput!, where: EventWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyNotes(where: NoteWhereInput): BatchPayload!
   deleteManyCourses(where: CourseWhereInput): BatchPayload!
   deleteManyMyCourses(where: MyCourseWhereInput): BatchPayload!
+  deleteManyAnnouncements(where: AnnouncementWhereInput): BatchPayload!
   deleteManyEvents(where: EventWhereInput): BatchPayload!
 }
 
@@ -2244,16 +2705,19 @@ type Query {
   notes(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Note]!
   courses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course]!
   myCourses(where: MyCourseWhereInput, orderBy: MyCourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MyCourse]!
+  announcements(where: AnnouncementWhereInput, orderBy: AnnouncementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Announcement]!
   events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event]!
   user(where: UserWhereUniqueInput!): User
   note(where: NoteWhereUniqueInput!): Note
   course(where: CourseWhereUniqueInput!): Course
   myCourse(where: MyCourseWhereUniqueInput!): MyCourse
+  announcement(where: AnnouncementWhereUniqueInput!): Announcement
   event(where: EventWhereUniqueInput!): Event
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   notesConnection(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NoteConnection!
   coursesConnection(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CourseConnection!
   myCoursesConnection(where: MyCourseWhereInput, orderBy: MyCourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MyCourseConnection!
+  announcementsConnection(where: AnnouncementWhereInput, orderBy: AnnouncementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AnnouncementConnection!
   eventsConnection(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EventConnection!
 
   """Fetches an object given its ID"""
@@ -2268,6 +2732,7 @@ type Subscription {
   note(where: NoteSubscriptionWhereInput): NoteSubscriptionPayload
   course(where: CourseSubscriptionWhereInput): CourseSubscriptionPayload
   myCourse(where: MyCourseSubscriptionWhereInput): MyCourseSubscriptionPayload
+  announcement(where: AnnouncementSubscriptionWhereInput): AnnouncementSubscriptionPayload
   event(where: EventSubscriptionWhereInput): EventSubscriptionPayload
 }
 

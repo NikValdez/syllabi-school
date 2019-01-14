@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import { ALL_COURSES_QUERY } from './Courses'
+import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
 import DeleteButton from './styles/DeleteButton'
 import { withRouter } from 'react-router-dom'
 
@@ -19,7 +20,9 @@ export class DeleteCourse extends Component {
       <Mutation
         mutation={DELETE_COURSE_MUTATION}
         variables={{ id: this.props.id }}
-        refetchQueries={[{ query: ALL_COURSES_QUERY }]}
+        refetchQueries={[
+          { query: ALL_COURSES_QUERY, query: CURRENT_USER_QUERY_COURSES_EVENTS }
+        ]}
       >
         {(deleteCourse, { error }) => (
           <DeleteButton

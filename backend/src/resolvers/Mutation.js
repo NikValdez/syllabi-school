@@ -307,6 +307,32 @@ const Mutations = {
 
     //Delete it
     return ctx.db.mutation.deleteNote({ where }, info)
+  },
+  async createAnnouncement(parent, { course, ...args }, ctx, info) {
+    if (!ctx.request.userId) {
+      throw new Error('You must be logged in to do that!')
+    }
+    const hasPermissions = ctx.request.user.permissions.some(permission =>
+      ['ADIMN', 'TEACHER'].includes(permission)
+    )
+    if (!hasPermissions) {
+      throw new Error("You don't have permission to do that")
+    }
+
+    const announcement = await ctx.db.mutation.createAnnouncement(
+      {
+        data: {
+          course: {
+            connect: {
+              id: course
+            }
+          },
+          ...args
+        }
+      },
+      info
+    )
+    return announcement
   }
 }
 

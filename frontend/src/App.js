@@ -17,7 +17,7 @@ import Reset from './components/Reset'
 import Permissions from './components/Permissions'
 import PleaseSignIn from './components/PleaseSignIn'
 import SchedulePDF from './components/SchedulePDF'
-
+import CreateAnnouncement from './components/CreateAnnouncement'
 import './App.css'
 
 const client = new ApolloClient({
@@ -45,6 +45,10 @@ class App extends Component {
                 <Route path="/create_event" component={CreateEvent} />
                 <Route path="/permissions" component={Permissions} />
                 <Route path="/schedule" component={SchedulePDF} />
+                <Route
+                  path="/create_announcement"
+                  component={CreateAnnouncement}
+                />
               </PleaseSignIn>
             </Switch>
           </Container>

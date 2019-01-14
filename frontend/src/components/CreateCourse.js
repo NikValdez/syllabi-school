@@ -42,12 +42,9 @@ class CreateCourse extends Component {
   }
 
   getRandomColor = () => {
-    let letters = '0123456789ABCDEF'
-    let color = '#'
-    for (let i = 0; i < 6; i++) {
-      color += letters[Math.floor(Math.random() * 16)]
-    }
-    return color
+    let hue = Math.floor(Math.random() * 360)
+    let pastel = 'hsl(' + hue + ', 100%, 87.5%)'
+    return pastel
   }
   handleChange = e => {
     const { name, type, value } = e.target

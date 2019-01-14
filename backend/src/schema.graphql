@@ -46,6 +46,12 @@ type Mutation {
   deleteMyCourse(id: ID!): MyCourse
   createNote(note: String!): Note!
   deleteNote(id: ID!): Note
+  createAnnouncement(
+    text: String!
+    clicked: Boolean
+    date: DateTime!
+    course: ID!
+  ): Announcement!
 }
 
 type Query {
@@ -64,6 +70,7 @@ type Query {
   users: [User]!
   myCourses: MyCourse
   notes: Note
+  announcements: [Announcement]!
 }
 
 type User {

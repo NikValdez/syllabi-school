@@ -133,7 +133,6 @@ class CreateEvent extends Component {
   }
 
   render() {
-    console.log(this.state.color)
     return (
       <IsAdminTeacher>
         <h3>Create Event</h3>

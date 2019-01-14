@@ -35,14 +35,6 @@ const BigCalStyles = styled.div`
   }
 `
 
-const palette = [
-  '#FFE7ED', //pink
-  '#D9FFF7', //teal
-  '#CBF3FF', //blue
-  '#FCE8FF', //purple
-  '#DAFFB5' //green
-]
-
 const localizer = BigCalendar.momentLocalizer(moment)
 
 class Calendar extends Component {

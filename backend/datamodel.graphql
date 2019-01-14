@@ -33,6 +33,8 @@ type Course {
   image: String
   color: String
   events: [Event!]! @relation(name: "CourseEvents", onDelete: CASCADE)
+  announcements: [Announcement!]!
+    @relation(name: "CourseAnnouncements", onDelete: CASCADE)
   user: User!
   myCourse: MyCourse @relation(name: "MyCourse", onDelete: CASCADE)
 }
@@ -41,6 +43,14 @@ type MyCourse {
   id: ID! @unique
   user: User!
   courses: Course @relation(name: "MyCourse")
+}
+
+type Announcement {
+  id: ID! @unique
+  text: String!
+  date: DateTime!
+  clicked: Boolean
+  course: Course! @relation(name: "CourseAnnouncements")
 }
 
 type Event {

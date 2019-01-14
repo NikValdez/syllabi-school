@@ -34,13 +34,18 @@ export class Schedule extends Component {
             // const eventData = courseData.map(course => course.events
             return courseData.map(course => (
               <>
-                <div key={course.id}>
+                <div
+                  key={course.id}
+                  style={{
+                    borderBottom: '1px solid #f9c321',
+                    borderTop: '1px solid #f9c321'
+                  }}
+                >
                   <h3> {course.courses.title}</h3>
                   <li>{htmlToText.fromString(course.courses.description)}</li>
                   <li>Course Code: {course.courses.courseCode}</li>
                   <li>Credits: {course.courses.credits}</li>
                 </div>
-
                 <TableStyles
                   style={{ border: '1px solid black', margin: '10px' }}
                 >

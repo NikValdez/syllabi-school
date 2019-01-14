@@ -4,7 +4,6 @@ import gql from 'graphql-tag'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { DeleteMyCourse } from './DeleteMyCourse'
-import Book from '../book.gif'
 
 const MyCoursesStyles = styled.div`
   margin-top: 3rem;
