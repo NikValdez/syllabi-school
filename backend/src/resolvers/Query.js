@@ -5,6 +5,7 @@ const Query = {
   course: forwardTo('db'),
   events: forwardTo('db'),
   myCourses: forwardTo('db'),
+  announcements: forwardTo('db'),
   me(parent, args, ctx, info) {
     //check if there is a current user ID
     if (!ctx.request.userId) {

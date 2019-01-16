@@ -26,6 +26,7 @@ const UploadButton = styled.div`
     font-size: 1rem;
     padding: 0.5rem 1.2rem;
     display: inline-block;
+    margin-top: 2rem;
   }
 
   input[type='file'] {

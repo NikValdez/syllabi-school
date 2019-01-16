@@ -50,7 +50,9 @@ const SingleCourseStyles = styled.div`
   }
 `
 
-const EventAnnouncent = styled.div`
+const AnnouncementStyles = styled.div``
+
+const EventAnnouncement = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 `
@@ -78,6 +80,11 @@ const SINGLE_COURSE_QUERY = gql`
         end
         upload
         color
+      }
+      announcements {
+        id
+        text
+        date
       }
     }
   }
@@ -114,14 +121,33 @@ class SingleCourse extends Component {
                 <p>Description: {htmlToText.fromString(course.description)}</p>
                 <p>Credits: {course.credits}</p>
                 <p>Course Code: {course.courseCode}</p>
-                <EventAnnouncent>
+                <EventAnnouncement>
                   <CreateEventStyles>
                     <CreateEvent course={course} />
                   </CreateEventStyles>
                   <CreateAnnouncementStyles>
                     <CreateAnnouncement course={course} />
+                    <h2>Announcements</h2>
+                    <TableStyles style={{ border: '1px solid black' }}>
+                      <tbody>
+                        <tr>
+                          <ThStyles>Announcement</ThStyles>
+                          <ThStyles>Date</ThStyles>
+                        </tr>
+
+                        {course.announcements.map(({ text, date, id }) => (
+                          <TrStyles key={id}>
+                            <TdStyles>{htmlToText.fromString(text)}</TdStyles>
+                            <TdStyles>
+                              {moment(date).format('MMM Do YYYY')}
+                            </TdStyles>
+                          </TrStyles>
+                        ))}
+                      </tbody>
+                    </TableStyles>
                   </CreateAnnouncementStyles>
-                </EventAnnouncent>
+                </EventAnnouncement>
+
                 <h2>Events</h2>
                 <TableStyles style={{ border: '1px solid black' }}>
                   <tbody>

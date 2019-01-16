@@ -52,6 +52,7 @@ type Mutation {
     date: DateTime!
     course: ID!
   ): Announcement!
+  updateAnnouncement(id: ID!, clicked: Boolean): Announcement!
 }
 
 type Query {
@@ -70,7 +71,7 @@ type Query {
   users: [User]!
   myCourses: MyCourse
   notes: Note
-  announcements: [Announcement]!
+  announcements: Announcement
 }
 
 type User {

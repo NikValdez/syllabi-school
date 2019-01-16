@@ -8,6 +8,7 @@ import 'react-quill/dist/quill.snow.css'
 import IsAdminTeacher from './IsAdminTeacher'
 import Form from './styles/Form'
 import styled from 'styled-components'
+import { SINGLE_COURSE_QUERY } from './SingleCourse'
 
 const DatePick = styled.div`
   padding: 10px;
@@ -41,7 +42,7 @@ class createAnnouncement extends Component {
   state = {
     text: '',
     date: null,
-    clicked: false,
+    clicked: true,
     course: this.props.course.id,
     loading: false
   }
@@ -65,6 +66,12 @@ class createAnnouncement extends Component {
         <Mutation
           mutation={CREATE_ANNOUNCEMENT_MUTATION}
           variables={this.state}
+          refetchQueries={[
+            {
+              query: SINGLE_COURSE_QUERY,
+              variables: { id: this.props.course.id }
+            }
+          ]}
         >
           {(createAnnouncement, { loading, error }) => (
             <Form

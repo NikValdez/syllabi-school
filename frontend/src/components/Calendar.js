@@ -48,8 +48,6 @@ class Calendar extends Component {
             const courseData = data.me.myCourses.map(course => course.courses)
             const eventData = courseData.map(course => course.events)
             const calEvents = [].concat.apply([], eventData)
-            console.log(calEvents)
-
             return (
               <BigCalStyles>
                 <BigCalendar

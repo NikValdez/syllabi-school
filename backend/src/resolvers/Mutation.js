@@ -333,6 +333,22 @@ const Mutations = {
       info
     )
     return announcement
+  },
+  async updateAnnouncement(parent, args, ctx, info) {
+    const updates = { ...args }
+    //remove update ID
+    delete updates.id
+
+    //run update method
+    return ctx.db.mutation.updateAnnouncement(
+      {
+        data: updates,
+        where: {
+          id: args.id
+        }
+      },
+      info
+    )
   }
 }
 
