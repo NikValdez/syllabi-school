@@ -7,6 +7,7 @@ import { DeleteMyCourse } from './DeleteMyCourse'
 import ReactModal from 'react-modal'
 import htmlToText from 'html-to-text'
 import './styles/Modal.css'
+import XIcon from './styles/XIcon'
 
 const MyCoursesStyles = styled.div`
   margin-top: 3rem;
@@ -128,7 +129,7 @@ class MyCourses extends Component {
                           <span
                             onClick={() => {
                               this.handleOpenModal()
-                              updateAnnouncement()
+                              // updateAnnouncement()
                             }}
                             className="mega-phone"
                           >
@@ -144,9 +145,9 @@ class MyCourses extends Component {
                           >
                             <span
                               onClick={this.handleCloseModal}
-                              style={{ margin: '1rem' }}
+                              style={{ margin: '1rem', float: 'right' }}
                             >
-                              ❌
+                              <XIcon />
                             </span>
                             <div style={{ textAlign: 'center' }}>
                               <h1 style={{ borderBottom: '1px solid #f9c321' }}>
@@ -161,7 +162,6 @@ class MyCourses extends Component {
                       )}
                     </Mutation>
                   ))}
-
                   <span
                     style={{
                       height: '1rem',
@@ -172,6 +172,7 @@ class MyCourses extends Component {
                       marginTop: '3px'
                     }}
                   />
+
                   <Link to={`/courses/${course.courses.id}`}>
                     {course.courses.title}
                   </Link>

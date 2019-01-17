@@ -128,65 +128,73 @@ class SingleCourse extends Component {
                   <CreateAnnouncementStyles>
                     <CreateAnnouncement course={course} />
                     <h2>Announcements</h2>
-                    <TableStyles style={{ border: '1px solid black' }}>
-                      <tbody>
-                        <tr>
-                          <ThStyles>Announcement</ThStyles>
-                          <ThStyles>Date</ThStyles>
-                        </tr>
+                    {course.announcements.length < 1 ? (
+                      <p>No Announcements Currently</p>
+                    ) : (
+                      <TableStyles style={{ border: '1px solid black' }}>
+                        <tbody>
+                          <tr>
+                            <ThStyles>Announcement</ThStyles>
+                            <ThStyles>Date</ThStyles>
+                          </tr>
 
-                        {course.announcements.map(({ text, date, id }) => (
-                          <TrStyles key={id}>
-                            <TdStyles>{htmlToText.fromString(text)}</TdStyles>
-                            <TdStyles>
-                              {moment(date).format('MMM Do YYYY')}
-                            </TdStyles>
-                          </TrStyles>
-                        ))}
-                      </tbody>
-                    </TableStyles>
+                          {course.announcements.map(({ text, date, id }) => (
+                            <TrStyles key={id}>
+                              <TdStyles>{htmlToText.fromString(text)}</TdStyles>
+                              <TdStyles>
+                                {moment(date).format('MMM Do YYYY')}
+                              </TdStyles>
+                            </TrStyles>
+                          ))}
+                        </tbody>
+                      </TableStyles>
+                    )}
                   </CreateAnnouncementStyles>
                 </EventAnnouncement>
 
                 <h2>Events</h2>
-                <TableStyles style={{ border: '1px solid black' }}>
-                  <tbody>
-                    <tr>
-                      <ThStyles>Title</ThStyles>
-                      <ThStyles>Description</ThStyles>
-                      <ThStyles>Start</ThStyles>
-                      <ThStyles>End</ThStyles>
-                      <ThStyles>Upload</ThStyles>
-                    </tr>
+                {course.events.length < 1 ? (
+                  <p>No Events Currently</p>
+                ) : (
+                  <TableStyles style={{ border: '1px solid black' }}>
+                    <tbody>
+                      <tr>
+                        <ThStyles>Title</ThStyles>
+                        <ThStyles>Description</ThStyles>
+                        <ThStyles>Start</ThStyles>
+                        <ThStyles>End</ThStyles>
+                        <ThStyles>Upload</ThStyles>
+                      </tr>
 
-                    {course.events.map(
-                      ({ title, description, start, end, id, upload }) => (
-                        <TrStyles key={id}>
-                          <TdStyles>{title}</TdStyles>
-                          <TdStyles>
-                            {htmlToText.fromString(description)}
-                          </TdStyles>
-                          <TdStyles>
-                            {moment(start).format('MMM Do YYYY')}
-                          </TdStyles>
-                          <TdStyles>
-                            {moment(end).format('MMM Do YYYY')}
-                          </TdStyles>
-                          <TdStyles>
-                            {upload && <a href={upload}>{title}-Upload</a>}
-                          </TdStyles>
-                          <TdStyles>
-                            <IsAdminTeacher>
-                              <DeleteEvent id={id} course={course.id}>
-                                Delete ❌
-                              </DeleteEvent>
-                            </IsAdminTeacher>
-                          </TdStyles>
-                        </TrStyles>
-                      )
-                    )}
-                  </tbody>
-                </TableStyles>
+                      {course.events.map(
+                        ({ title, description, start, end, id, upload }) => (
+                          <TrStyles key={id}>
+                            <TdStyles>{title}</TdStyles>
+                            <TdStyles>
+                              {htmlToText.fromString(description)}
+                            </TdStyles>
+                            <TdStyles>
+                              {moment(start).format('MMM Do YYYY')}
+                            </TdStyles>
+                            <TdStyles>
+                              {moment(end).format('MMM Do YYYY')}
+                            </TdStyles>
+                            <TdStyles>
+                              {upload && <a href={upload}>{title}-Upload</a>}
+                            </TdStyles>
+                            <TdStyles>
+                              <IsAdminTeacher>
+                                <DeleteEvent id={id} course={course.id}>
+                                  Delete ❌
+                                </DeleteEvent>
+                              </IsAdminTeacher>
+                            </TdStyles>
+                          </TrStyles>
+                        )
+                      )}
+                    </tbody>
+                  </TableStyles>
+                )}
               </div>
             </SingleCourseStyles>
           )

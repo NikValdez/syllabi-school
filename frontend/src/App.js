@@ -19,8 +19,6 @@ import PleaseSignIn from './components/PleaseSignIn'
 import SchedulePDF from './components/SchedulePDF'
 import CreateAnnouncement from './components/CreateAnnouncement'
 
-import './App.css'
-
 const client = new ApolloClient({
   uri: endpoint,
   credentials: 'include'

@@ -6,8 +6,16 @@
   bottom: 40px;
   background-color: white;
   width: 50%;
+  height: 50%;
   z-index: 999;
   border-radius: 5px;
+  outline: none;
+  box-shadow: 0 12px 24px 0 rgba(162, 124, 9, 0.25);
+  opacity: 0;
+  transition: opacity 400ms ease-in-out;
+}
+.ReactModal__Content--after-open {
+  opacity: 1;
 }
 
 .Overlay {
@@ -16,6 +24,6 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #1010101c;
+  background-color: #10101096;
   z-index: 999;
 }

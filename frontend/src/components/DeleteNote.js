@@ -3,6 +3,7 @@ import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import { NOTES_QUERY } from './Notes'
 import styled from 'styled-components'
+import XIcon from './styles/XIcon'
 
 export const DeleteXStyles = styled.span`
   &:hover {
@@ -37,7 +38,7 @@ class DeleteNote extends Component {
               }
             }}
           >
-            ✖️
+            <XIcon />
           </DeleteXStyles>
         )}
       </Mutation>
