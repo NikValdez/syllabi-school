@@ -10,6 +10,9 @@ import Form from './styles/Form'
 import { SINGLE_COURSE_QUERY } from './SingleCourse'
 import styled from 'styled-components'
 import Book from '../book.gif'
+import ReactModal from 'react-modal'
+import XIcon from './styles/XIcon'
+import Button from './styles/Button'
 
 const UploadButton = styled.div`
   position: relative;
@@ -87,7 +90,16 @@ class CreateEvent extends Component {
     upload: '',
     color: this.props.course.color,
     course: this.props.course.id,
-    loading: false
+    loading: false,
+    showModal: false
+  }
+
+  handleOpenModal = () => {
+    this.setState({ showModal: true })
+  }
+
+  handleCloseModal = () => {
+    this.setState({ showModal: false })
   }
 
   handleChange = e => {
@@ -136,7 +148,12 @@ class CreateEvent extends Component {
   render() {
     return (
       <IsAdminTeacher>
-        <h3>Create Event</h3>
+        <Button
+          onClick={this.handleOpenModal}
+          style={{ float: 'right', marginTop: '2rem', marginBottom: '1rem' }}
+        >
+          Create Event
+        </Button>
         <Mutation
           mutation={CREATE_EVENT_MUTATION}
           variables={this.state}
@@ -148,87 +165,108 @@ class CreateEvent extends Component {
           ]}
         >
           {(createEvent, { loading, error }) => (
-            <Form
-              onSubmit={async e => {
-                e.preventDefault()
-                await createEvent()
-                this.setState({
-                  title: '',
-                  description: '',
-                  start: null,
-                  end: null,
-                  allDay: false,
-                  upload: ''
-                })
-              }}
+            <ReactModal
+              isOpen={this.state.showModal}
+              contentLabel="modal"
+              overlayClassName="Overlay"
+              onRequestClose={this.handleCloseModal}
+              shouldCloseOnOverlayClick={true}
             >
-              <fieldset disabled={loading} aria-busy={loading}>
-                <label htmlFor="title">
-                  Title
-                  <input
-                    type="text"
-                    id="title"
-                    name="title"
-                    placeholder="title"
-                    required
-                    value={this.state.title}
-                    onChange={this.handleChange}
-                  />
-                </label>
-                <label htmlFor="start">
-                  <DatePick>Event Start</DatePick>
-                  <DatePicker
-                    selected={this.state.start}
-                    onChange={this.handleStartDateChange}
-                    placeholderText="Click to select start date"
-                  />
-                </label>
-                <label htmlFor="end">
-                  <DatePick>Event End</DatePick>
-                  <DatePicker
-                    selected={this.state.end}
-                    onChange={this.handleEndDateChange}
-                    placeholderText="Click to select end date"
-                  />
-                </label>
-                <label htmlFor="description">
-                  Description
-                  <Quill>
-                    <ReactQuill
-                      placeholder="Add a description..."
-                      theme="snow"
-                      value={this.state.description}
-                      onChange={this.onDescriptionChange}
-                      modules={CreateEvent.modules}
-                      formats={CreateEvent.formats}
-                    />
-                  </Quill>
-                </label>
-                <label htmlFor="file">
-                  <UploadButton>
-                    <button>Upload a File ⬆️</button>
+              <span
+                onClick={this.handleCloseModal}
+                style={{ margin: '1rem', float: 'right' }}
+              >
+                <XIcon />
+              </span>
+              <Form
+                onSubmit={async e => {
+                  e.preventDefault()
+                  await createEvent()
+                  await this.handleCloseModal()
+                  this.setState({
+                    title: '',
+                    description: '',
+                    start: null,
+                    end: null,
+                    allDay: false,
+                    upload: ''
+                  })
+                }}
+              >
+                <fieldset disabled={loading} aria-busy={loading}>
+                  <label htmlFor="title">
+                    Title
                     <input
-                      type="file"
-                      id="file"
-                      name="file"
-                      placeholder="Upload a file or image"
-                      onChange={this.uploadFile}
+                      type="text"
+                      id="title"
+                      name="title"
+                      placeholder="title"
+                      required
+                      value={this.state.title}
+                      onChange={this.handleChange}
                     />
-                  </UploadButton>
-                  {this.state.loading ? (
-                    <img src={Book} alt="Loading" style={{ width: '100px' }} />
-                  ) : null}
-                  {this.state.upload && (
-                    <UploadPreview>
-                      <a href={this.state.upload}>{this.state.title}-Upload</a>
-                    </UploadPreview>
-                  )}
-                </label>
-                <button type="submit" disabled={this.state.loading}>
-                  Submit
-                </button>
-              </fieldset>
-            </Form>
+                  </label>
+                  <label htmlFor="start">
+                    <DatePick>Event Start</DatePick>
+                    <DatePicker
+                      selected={this.state.start}
+                      onChange={this.handleStartDateChange}
+                      placeholderText="Click to select start date"
+                    />
+                  </label>
+                  <label htmlFor="end">
+                    <DatePick>Event End</DatePick>
+                    <DatePicker
+                      selected={this.state.end}
+                      onChange={this.handleEndDateChange}
+                      placeholderText="Click to select end date"
+                    />
+                  </label>
+                  <label htmlFor="description">
+                    Description
+                    <Quill>
+                      <ReactQuill
+                        placeholder="Add a description..."
+                        theme="snow"
+                        value={this.state.description}
+                        onChange={this.onDescriptionChange}
+                        modules={CreateEvent.modules}
+                        formats={CreateEvent.formats}
+                      />
+                    </Quill>
+                  </label>
+                  <label htmlFor="file">
+                    <UploadButton>
+                      <button>Upload a File ⬆️</button>
+                      <input
+                        type="file"
+                        id="file"
+                        name="file"
+                        placeholder="Upload a file or image"
+                        onChange={this.uploadFile}
+                      />
+                    </UploadButton>
+                    {this.state.loading ? (
+                      <img
+                        src={Book}
+                        alt="Loading"
+                        style={{ width: '100px' }}
+                      />
+                    ) : null}
+                    {this.state.upload && (
+                      <UploadPreview>
+                        <a href={this.state.upload}>
+                          {this.state.title}-Upload
+                        </a>
+                      </UploadPreview>
+                    )}
+                  </label>
+                  <button type="submit" disabled={this.state.loading}>
+                    Submit
+                  </button>
+                </fieldset>
+              </Form>
+            </ReactModal>
           )}
         </Mutation>
       </IsAdminTeacher>

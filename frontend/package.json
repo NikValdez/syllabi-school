@@ -28,7 +28,9 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "NODE_ENV=test jest --watch",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage --colors",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -41,6 +43,33 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "jest": "^23.6.0"
+    "@babel/polyfill": "^7.2.5",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.6.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "enzyme": "^3.8.0",
+    "enzyme-adapter-react-16": "^1.7.1",
+    "enzyme-to-json": "^3.3.5",
+    "jest": "^23.6.0",
+    "jest-transform-graphql": "^2.1.0"
+  },
+  "jest": {
+    "transform": {
+      "\\.(gql|graphql)$": "jest-transform-graphql",
+      ".*": "babel-jest"
+    }
+  },
+  "babel": {
+    "env": {
+      "development": {
+        "presets": [
+          "react"
+        ]
+      }
+    }
+  },
+  "transform": {
+    ".*": "babel-jest"
   }
 }

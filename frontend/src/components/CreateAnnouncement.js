@@ -4,11 +4,14 @@ import gql from 'graphql-tag'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import ReactQuill from 'react-quill'
+import ReactModal from 'react-modal'
 import 'react-quill/dist/quill.snow.css'
 import IsAdminTeacher from './IsAdminTeacher'
 import Form from './styles/Form'
 import styled from 'styled-components'
 import { SINGLE_COURSE_QUERY } from './SingleCourse'
+import XIcon from './styles/XIcon'
+import Button from './styles/Button'
 
 const DatePick = styled.div`
   padding: 10px;
@@ -44,7 +47,16 @@ class createAnnouncement extends Component {
     date: null,
     clicked: true,
     course: this.props.course.id,
-    loading: false
+    loading: false,
+    showModal: false
+  }
+
+  handleOpenModal = () => {
+    this.setState({ showModal: true })
+  }
+
+  handleCloseModal = () => {
+    this.setState({ showModal: false })
   }
 
   handleDateChange = date => {
@@ -62,7 +74,9 @@ class createAnnouncement extends Component {
   render() {
     return (
       <IsAdminTeacher>
-        <h3>Create Announcement</h3>
+        <Button onClick={this.handleOpenModal} style={{ marginTop: '2rem' }}>
+          Create Announcement
+        </Button>
         <Mutation
           mutation={CREATE_ANNOUNCEMENT_MUTATION}
           variables={this.state}
@@ -74,43 +88,58 @@ class createAnnouncement extends Component {
           ]}
         >
           {(createAnnouncement, { loading, error }) => (
-            <Form
-              onSubmit={async e => {
-                e.preventDefault()
-                await createAnnouncement()
-                this.setState({
-                  text: '',
-                  date: null
-                })
-              }}
+            <ReactModal
+              isOpen={this.state.showModal}
+              contentLabel="modal"
+              overlayClassName="Overlay"
+              onRequestClose={this.handleCloseModal}
+              shouldCloseOnOverlayClick={true}
             >
-              <fieldset disabled={loading} aria-busy={loading}>
-                <label htmlFor="date">
-                  <DatePick>Date</DatePick>
-                  <DatePicker
-                    selected={this.state.date}
-                    onChange={this.handleDateChange}
-                    placeholderText="Click to select start date"
-                  />
-                </label>
-
-                <label htmlFor="text">
-                  Anouncement
-                  <Quill>
-                    <ReactQuill
-                      placeholder="Add Announcement Here..."
-                      theme="snow"
-                      value={this.state.text}
-                      onChange={this.onTextChange}
+              <span
+                onClick={this.handleCloseModal}
+                style={{ margin: '1rem', float: 'right' }}
+              >
+                <XIcon />
+              </span>
+              <Form
+                onSubmit={async e => {
+                  e.preventDefault()
+                  await createAnnouncement()
+                  await this.handleCloseModal()
+                  this.setState({
+                    text: '',
+                    date: null
+                  })
+                }}
+              >
+                <fieldset disabled={loading} aria-busy={loading}>
+                  <label htmlFor="date">
+                    <DatePick>Date</DatePick>
+                    <DatePicker
+                      selected={this.state.date}
+                      onChange={this.handleDateChange}
+                      placeholderText="Click to select start date"
                     />
-                  </Quill>
-                </label>
+                  </label>
 
-                <button type="submit" disabled={this.state.loading}>
-                  Submit
-                </button>
-              </fieldset>
-            </Form>
+                  <label htmlFor="text">
+                    Anouncement
+                    <Quill>
+                      <ReactQuill
+                        placeholder="Add Announcement Here..."
+                        theme="snow"
+                        value={this.state.text}
+                        onChange={this.onTextChange}
+                      />
+                    </Quill>
+                  </label>
+
+                  <button type="submit" disabled={this.state.loading}>
+                    Submit
+                  </button>
+                </fieldset>
+              </Form>
+            </ReactModal>
           )}
         </Mutation>
       </IsAdminTeacher>

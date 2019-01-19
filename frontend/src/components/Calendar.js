@@ -16,6 +16,9 @@ const BigCalStyles = styled.div`
   .rbc-calendar {
     box-shadow: 0 12px 24px 0 rgba(162, 124, 9, 0.25);
   }
+  .rbc-show-more {
+    color: #f9c321ab;
+  }
 
   .rbc-event {
     background: #f9c321ab;

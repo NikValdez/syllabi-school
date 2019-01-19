@@ -50,18 +50,16 @@ const SingleCourseStyles = styled.div`
   }
 `
 
-const AnnouncementStyles = styled.div``
-
-const EventAnnouncement = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-`
+// const EventAnnouncement = styled.div`
+//   display: grid;
+//   grid-template-columns: repeat(2, 1fr);
+// `
 const CreateEventStyles = styled.div`
   grid-template-columns: start;
 `
-const CreateAnnouncementStyles = styled.div`
-  grid-template-columns: end;
-`
+// const CreateAnnouncementStyles = styled.div`
+//   grid-template-columns: end;
+// `
 
 const SINGLE_COURSE_QUERY = gql`
   query SINGLE_COURSE_QUERY($id: ID!) {
@@ -121,38 +119,37 @@ class SingleCourse extends Component {
                 <p>Description: {htmlToText.fromString(course.description)}</p>
                 <p>Credits: {course.credits}</p>
                 <p>Course Code: {course.courseCode}</p>
-                <EventAnnouncement>
-                  <CreateEventStyles>
-                    <CreateEvent course={course} />
-                  </CreateEventStyles>
-                  <CreateAnnouncementStyles>
-                    <CreateAnnouncement course={course} />
-                    <h2>Announcements</h2>
-                    {course.announcements.length < 1 ? (
-                      <p>No Announcements Currently</p>
-                    ) : (
-                      <TableStyles style={{ border: '1px solid black' }}>
-                        <tbody>
-                          <tr>
-                            <ThStyles>Announcement</ThStyles>
-                            <ThStyles>Date</ThStyles>
-                          </tr>
 
-                          {course.announcements.map(({ text, date, id }) => (
-                            <TrStyles key={id}>
-                              <TdStyles>{htmlToText.fromString(text)}</TdStyles>
-                              <TdStyles>
-                                {moment(date).format('MMM Do YYYY')}
-                              </TdStyles>
-                            </TrStyles>
-                          ))}
-                        </tbody>
-                      </TableStyles>
-                    )}
-                  </CreateAnnouncementStyles>
-                </EventAnnouncement>
+                <CreateAnnouncement course={course} />
 
-                <h2>Events</h2>
+                <h2 style={{ textAlign: 'center' }}>Announcements</h2>
+                {course.announcements.length < 1 ? (
+                  <p>No Announcements Currently</p>
+                ) : (
+                  <TableStyles style={{ border: '1px solid black' }}>
+                    <tbody>
+                      <tr>
+                        <ThStyles>Announcement</ThStyles>
+                        <ThStyles>Date</ThStyles>
+                      </tr>
+
+                      {course.announcements.map(({ text, date, id }) => (
+                        <TrStyles key={id}>
+                          <TdStyles>{htmlToText.fromString(text)}</TdStyles>
+                          <TdStyles>
+                            {moment(date).format('MMM Do YYYY')}
+                          </TdStyles>
+                        </TrStyles>
+                      ))}
+                    </tbody>
+                  </TableStyles>
+                )}
+
+                <CreateEventStyles>
+                  <CreateEvent course={course} />
+                </CreateEventStyles>
+
+                <h2 style={{ textAlign: 'center' }}>Events</h2>
                 {course.events.length < 1 ? (
                   <p>No Events Currently</p>
                 ) : (
