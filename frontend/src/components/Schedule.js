@@ -46,40 +46,44 @@ export class Schedule extends Component {
                   <li>Course Code: {course.courses.courseCode}</li>
                   <li>Credits: {course.courses.credits}</li>
                 </div>
-                <TableStyles
-                  style={{ border: '1px solid black', margin: '10px' }}
-                >
-                  <tbody>
-                    <tr>
-                      <ThStyles>Title</ThStyles>
-                      <ThStyles>Description</ThStyles>
-                      <ThStyles>Start</ThStyles>
-                      <ThStyles>End</ThStyles>
-                      <ThStyles>Upload</ThStyles>
-                    </tr>
+                {course.courses.events.length < 1 ? (
+                  <p>No Events Listed</p>
+                ) : (
+                  <TableStyles
+                    style={{ border: '1px solid black', margin: '10px' }}
+                  >
+                    <tbody>
+                      <tr>
+                        <ThStyles>Title</ThStyles>
+                        <ThStyles>Description</ThStyles>
+                        <ThStyles>Start</ThStyles>
+                        <ThStyles>End</ThStyles>
+                        <ThStyles>Upload</ThStyles>
+                      </tr>
 
-                    {course.courses.events.map(
-                      ({ title, description, start, end, id, upload }) => (
-                        <TrStyles key={id}>
-                          <TdStyles>{title}</TdStyles>
-                          <TdStyles>
-                            {htmlToText.fromString(description)}
-                          </TdStyles>
-                          <TdStyles>
-                            {moment(start).format('MMM Do YYYY')}
-                          </TdStyles>
-                          <TdStyles>
-                            {moment(end).format('MMM Do YYYY')}
-                          </TdStyles>
-                          <TdStyles>
-                            {upload && <a href={upload}>{title}-Upload</a>}
-                          </TdStyles>
-                          <TdStyles />
-                        </TrStyles>
-                      )
-                    )}
-                  </tbody>
-                </TableStyles>
+                      {course.courses.events.map(
+                        ({ title, description, start, end, id, upload }) => (
+                          <TrStyles key={id}>
+                            <TdStyles>{title}</TdStyles>
+                            <TdStyles>
+                              {htmlToText.fromString(description)}
+                            </TdStyles>
+                            <TdStyles>
+                              {moment(start).format('MMM Do YYYY')}
+                            </TdStyles>
+                            <TdStyles>
+                              {moment(end).format('MMM Do YYYY')}
+                            </TdStyles>
+                            <TdStyles>
+                              {upload && <a href={upload}>{title}-Upload</a>}
+                            </TdStyles>
+                            <TdStyles />
+                          </TrStyles>
+                        )
+                      )}
+                    </tbody>
+                  </TableStyles>
+                )}
               </>
             ))
           }}

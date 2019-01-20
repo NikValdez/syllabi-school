@@ -51,7 +51,7 @@ class createAnnouncement extends Component {
     showModal: false
   }
 
-  handleOpenModal = () => {
+  handleOpenAnnouncement = () => {
     this.setState({ showModal: true })
   }
 
@@ -74,7 +74,10 @@ class createAnnouncement extends Component {
   render() {
     return (
       <IsAdminTeacher>
-        <Button onClick={this.handleOpenModal} style={{ marginTop: '2rem' }}>
+        <Button
+          onClick={this.handleOpenAnnouncement}
+          style={{ marginTop: '2rem' }}
+        >
           Create Announcement
         </Button>
         <Mutation

@@ -92,14 +92,15 @@ const CURRENT_USER_QUERY_COURSES_EVENTS = gql`
   }
 `
 ReactModal.setAppElement('#root')
-// ReactModal.defaultStyles.overlay.backgroundColor = '#f9c321'
+
 class MyCourses extends Component {
   state = {
-    showModal: false
+    showModal: false,
+    message: ''
   }
 
-  handleOpenModal = () => {
-    this.setState({ showModal: true })
+  handleOpenModal = data => {
+    this.setState({ showModal: true, message: data })
   }
 
   handleCloseModal = () => {
@@ -128,7 +129,7 @@ class MyCourses extends Component {
                         <AnnouncementStyles>
                           <span
                             onClick={() => {
-                              this.handleOpenModal()
+                              this.handleOpenModal(announcement.text)
                               // updateAnnouncement()
                             }}
                             className="mega-phone"
@@ -154,7 +155,7 @@ class MyCourses extends Component {
                                 Announcement
                               </h1>
                               <h3>
-                                {htmlToText.fromString(announcement.text)}
+                                {htmlToText.fromString(this.state.message)}
                               </h3>
                             </div>
                           </ReactModal>

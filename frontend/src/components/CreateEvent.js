@@ -94,7 +94,7 @@ class CreateEvent extends Component {
     showModal: false
   }
 
-  handleOpenModal = () => {
+  handleOpenEvent = () => {
     this.setState({ showModal: true })
   }
 
@@ -149,7 +149,7 @@ class CreateEvent extends Component {
     return (
       <IsAdminTeacher>
         <Button
-          onClick={this.handleOpenModal}
+          onClick={this.handleOpenEvent}
           style={{ float: 'right', marginTop: '2rem', marginBottom: '1rem' }}
         >
           Create Event
