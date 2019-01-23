@@ -55,6 +55,7 @@ class Calendar extends Component {
               <BigCalStyles>
                 <BigCalendar
                   popup
+                  views={['month', 'agenda']}
                   localizer={localizer}
                   events={calEvents}
                   startAccessor="start"

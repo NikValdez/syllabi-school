@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
-import { SINGLE_COURSE_QUERY } from './SingleCourse'
+import { SINGLE_COURSE_QUERY } from './SingleCoursePDF'
 import XIcon from './styles/XIcon'
 
 const DELETE_EVENT_MUTATION = gql`

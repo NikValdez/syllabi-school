@@ -9,7 +9,7 @@ import 'react-quill/dist/quill.snow.css'
 import IsAdminTeacher from './IsAdminTeacher'
 import Form from './styles/Form'
 import styled from 'styled-components'
-import { SINGLE_COURSE_QUERY } from './SingleCourse'
+import { SINGLE_COURSE_QUERY } from './SingleCoursePDF'
 import XIcon from './styles/XIcon'
 import Button from './styles/Button'
 

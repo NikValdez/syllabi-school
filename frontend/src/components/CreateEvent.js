@@ -7,12 +7,13 @@ import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import IsAdminTeacher from './IsAdminTeacher'
 import Form from './styles/Form'
-import { SINGLE_COURSE_QUERY } from './SingleCourse'
+import { SINGLE_COURSE_QUERY } from './SingleCoursePDF'
 import styled from 'styled-components'
 import Book from '../book.gif'
 import ReactModal from 'react-modal'
 import XIcon from './styles/XIcon'
 import Button from './styles/Button'
+import moment from 'moment'
 
 const UploadButton = styled.div`
   position: relative;
@@ -109,12 +110,12 @@ class CreateEvent extends Component {
   }
   handleStartDateChange = date => {
     this.setState({
-      start: date
+      start: moment(date).toDate()
     })
   }
   handleEndDateChange = date => {
     this.setState({
-      end: date
+      end: moment(date).toDate()
     })
   }
 
