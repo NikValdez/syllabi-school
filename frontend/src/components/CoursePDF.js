@@ -10,7 +10,6 @@ export default class CoursePDF extends Component {
     html2canvas(input).then(canvas => {
       const imgData = canvas.toDataURL('image/png')
       const pdf = new jsPDF()
-      pdf.text(35, 25, 'My courses')
       pdf.addImage(imgData, 'JPEG', 10, 10, 180, 180)
       pdf.save('download.pdf')
     })

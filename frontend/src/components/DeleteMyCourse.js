@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
 import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
-import { DeleteXStyles } from './DeleteNote'
 import XIcon from './styles/XIcon'
 
 const DELETE_MYCOURSE_MUTATION = gql`
@@ -22,7 +21,7 @@ export class DeleteMyCourse extends Component {
         refetchQueries={[{ query: CURRENT_USER_QUERY_COURSES_EVENTS }]}
       >
         {(deleteMyCourse, { error }) => (
-          <DeleteXStyles
+          <div
             style={{ marginTop: '1rem' }}
             onClick={() => {
               if (
@@ -32,8 +31,19 @@ export class DeleteMyCourse extends Component {
               }
             }}
           >
-            <XIcon />
-          </DeleteXStyles>
+            <div
+              style={{
+                background: this.props.color,
+                width: '25px',
+                padding: '5px',
+                borderRadius: '5px',
+                float: 'left',
+                marginRight: '10px'
+              }}
+            >
+              <XIcon />
+            </div>
+          </div>
         )}
       </Mutation>
     )

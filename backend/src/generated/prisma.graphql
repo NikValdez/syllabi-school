@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/nikvaldez-073802/schedule/dev
-# timestamp: Mon Jan 14 2019 12:42:07 GMT-0800 (PST)
+# timestamp: Wed Jan 23 2019 17:58:36 GMT-0800 (PST)
 
 type AggregateAnnouncement {
   count: Int!
@@ -31,6 +31,7 @@ type Announcement implements Node {
   date: DateTime!
   clicked: Boolean
   course: Course!
+  user: User!
 }
 
 """A connection to a list of items."""
@@ -48,6 +49,7 @@ input AnnouncementCreateInput {
   date: DateTime!
   clicked: Boolean
   course: CourseCreateOneWithoutAnnouncementsInput!
+  user: UserCreateOneWithoutAnnouncementsInput!
 }
 
 input AnnouncementCreateManyWithoutCourseInput {
@@ -55,10 +57,23 @@ input AnnouncementCreateManyWithoutCourseInput {
   connect: [AnnouncementWhereUniqueInput!]
 }
 
+input AnnouncementCreateManyWithoutUserInput {
+  create: [AnnouncementCreateWithoutUserInput!]
+  connect: [AnnouncementWhereUniqueInput!]
+}
+
 input AnnouncementCreateWithoutCourseInput {
   text: String!
   date: DateTime!
   clicked: Boolean
+  user: UserCreateOneWithoutAnnouncementsInput!
+}
+
+input AnnouncementCreateWithoutUserInput {
+  text: String!
+  date: DateTime!
+  clicked: Boolean
+  course: CourseCreateOneWithoutAnnouncementsInput!
 }
 
 """An edge in a connection."""
@@ -253,6 +268,7 @@ input AnnouncementUpdateInput {
   date: DateTime
   clicked: Boolean
   course: CourseUpdateOneRequiredWithoutAnnouncementsInput
+  user: UserUpdateOneRequiredWithoutAnnouncementsInput
 }
 
 input AnnouncementUpdateManyDataInput {
@@ -279,6 +295,18 @@ input AnnouncementUpdateManyWithoutCourseInput {
   upsert: [AnnouncementUpsertWithWhereUniqueWithoutCourseInput!]
 }
 
+input AnnouncementUpdateManyWithoutUserInput {
+  create: [AnnouncementCreateWithoutUserInput!]
+  connect: [AnnouncementWhereUniqueInput!]
+  set: [AnnouncementWhereUniqueInput!]
+  disconnect: [AnnouncementWhereUniqueInput!]
+  delete: [AnnouncementWhereUniqueInput!]
+  update: [AnnouncementUpdateWithWhereUniqueWithoutUserInput!]
+  updateMany: [AnnouncementUpdateManyWithWhereNestedInput!]
+  deleteMany: [AnnouncementScalarWhereInput!]
+  upsert: [AnnouncementUpsertWithWhereUniqueWithoutUserInput!]
+}
+
 input AnnouncementUpdateManyWithWhereNestedInput {
   where: AnnouncementScalarWhereInput!
   data: AnnouncementUpdateManyDataInput!
@@ -288,6 +316,14 @@ input AnnouncementUpdateWithoutCourseDataInput {
   text: String
   date: DateTime
   clicked: Boolean
+  user: UserUpdateOneRequiredWithoutAnnouncementsInput
+}
+
+input AnnouncementUpdateWithoutUserDataInput {
+  text: String
+  date: DateTime
+  clicked: Boolean
+  course: CourseUpdateOneRequiredWithoutAnnouncementsInput
 }
 
 input AnnouncementUpdateWithWhereUniqueWithoutCourseInput {
@@ -295,10 +331,21 @@ input AnnouncementUpdateWithWhereUniqueWithoutCourseInput {
   data: AnnouncementUpdateWithoutCourseDataInput!
 }
 
+input AnnouncementUpdateWithWhereUniqueWithoutUserInput {
+  where: AnnouncementWhereUniqueInput!
+  data: AnnouncementUpdateWithoutUserDataInput!
+}
+
 input AnnouncementUpsertWithWhereUniqueWithoutCourseInput {
   where: AnnouncementWhereUniqueInput!
   update: AnnouncementUpdateWithoutCourseDataInput!
   create: AnnouncementCreateWithoutCourseInput!
+}
+
+input AnnouncementUpsertWithWhereUniqueWithoutUserInput {
+  where: AnnouncementWhereUniqueInput!
+  update: AnnouncementUpdateWithoutUserDataInput!
+  create: AnnouncementCreateWithoutUserInput!
 }
 
 input AnnouncementWhereInput {
@@ -417,6 +464,7 @@ input AnnouncementWhereInput {
   """All values that are not equal to given value."""
   clicked_not: Boolean
   course: CourseWhereInput
+  user: UserWhereInput
 }
 
 input AnnouncementWhereUniqueInput {
@@ -2745,6 +2793,7 @@ type User implements Node {
   resetTokenExpiry: Float
   permissions: [Permission!]!
   courses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course!]
+  announcements(where: AnnouncementWhereInput, orderBy: AnnouncementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Announcement!]
   myCourses(where: MyCourseWhereInput, orderBy: MyCourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MyCourse!]
   notes(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Note!]
 }
@@ -2767,8 +2816,14 @@ input UserCreateInput {
   resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
   courses: CourseCreateManyWithoutUserInput
+  announcements: AnnouncementCreateManyWithoutUserInput
   myCourses: MyCourseCreateManyWithoutUserInput
   notes: NoteCreateManyWithoutUserInput
+}
+
+input UserCreateOneWithoutAnnouncementsInput {
+  create: UserCreateWithoutAnnouncementsInput
+  connect: UserWhereUniqueInput
 }
 
 input UserCreateOneWithoutCoursesInput {
@@ -2790,6 +2845,18 @@ input UserCreatepermissionsInput {
   set: [Permission!]
 }
 
+input UserCreateWithoutAnnouncementsInput {
+  name: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserCreatepermissionsInput
+  courses: CourseCreateManyWithoutUserInput
+  myCourses: MyCourseCreateManyWithoutUserInput
+  notes: NoteCreateManyWithoutUserInput
+}
+
 input UserCreateWithoutCoursesInput {
   name: String!
   email: String!
@@ -2797,6 +2864,7 @@ input UserCreateWithoutCoursesInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
+  announcements: AnnouncementCreateManyWithoutUserInput
   myCourses: MyCourseCreateManyWithoutUserInput
   notes: NoteCreateManyWithoutUserInput
 }
@@ -2809,6 +2877,7 @@ input UserCreateWithoutMyCoursesInput {
   resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
   courses: CourseCreateManyWithoutUserInput
+  announcements: AnnouncementCreateManyWithoutUserInput
   notes: NoteCreateManyWithoutUserInput
 }
 
@@ -2820,6 +2889,7 @@ input UserCreateWithoutNotesInput {
   resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
   courses: CourseCreateManyWithoutUserInput
+  announcements: AnnouncementCreateManyWithoutUserInput
   myCourses: MyCourseCreateManyWithoutUserInput
 }
 
@@ -2908,6 +2978,7 @@ input UserUpdateInput {
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
   courses: CourseUpdateManyWithoutUserInput
+  announcements: AnnouncementUpdateManyWithoutUserInput
   myCourses: MyCourseUpdateManyWithoutUserInput
   notes: NoteUpdateManyWithoutUserInput
 }
@@ -2919,6 +2990,13 @@ input UserUpdateManyMutationInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
+}
+
+input UserUpdateOneRequiredWithoutAnnouncementsInput {
+  create: UserCreateWithoutAnnouncementsInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateWithoutAnnouncementsDataInput
+  upsert: UserUpsertWithoutAnnouncementsInput
 }
 
 input UserUpdateOneRequiredWithoutCoursesInput {
@@ -2946,6 +3024,18 @@ input UserUpdatepermissionsInput {
   set: [Permission!]
 }
 
+input UserUpdateWithoutAnnouncementsDataInput {
+  name: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserUpdatepermissionsInput
+  courses: CourseUpdateManyWithoutUserInput
+  myCourses: MyCourseUpdateManyWithoutUserInput
+  notes: NoteUpdateManyWithoutUserInput
+}
+
 input UserUpdateWithoutCoursesDataInput {
   name: String
   email: String
@@ -2953,6 +3043,7 @@ input UserUpdateWithoutCoursesDataInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
+  announcements: AnnouncementUpdateManyWithoutUserInput
   myCourses: MyCourseUpdateManyWithoutUserInput
   notes: NoteUpdateManyWithoutUserInput
 }
@@ -2965,6 +3056,7 @@ input UserUpdateWithoutMyCoursesDataInput {
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
   courses: CourseUpdateManyWithoutUserInput
+  announcements: AnnouncementUpdateManyWithoutUserInput
   notes: NoteUpdateManyWithoutUserInput
 }
 
@@ -2976,7 +3068,13 @@ input UserUpdateWithoutNotesDataInput {
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
   courses: CourseUpdateManyWithoutUserInput
+  announcements: AnnouncementUpdateManyWithoutUserInput
   myCourses: MyCourseUpdateManyWithoutUserInput
+}
+
+input UserUpsertWithoutAnnouncementsInput {
+  update: UserUpdateWithoutAnnouncementsDataInput!
+  create: UserCreateWithoutAnnouncementsInput!
 }
 
 input UserUpsertWithoutCoursesInput {
@@ -3228,6 +3326,9 @@ input UserWhereInput {
   courses_every: CourseWhereInput
   courses_some: CourseWhereInput
   courses_none: CourseWhereInput
+  announcements_every: AnnouncementWhereInput
+  announcements_some: AnnouncementWhereInput
+  announcements_none: AnnouncementWhereInput
   myCourses_every: MyCourseWhereInput
   myCourses_some: MyCourseWhereInput
   myCourses_none: MyCourseWhereInput

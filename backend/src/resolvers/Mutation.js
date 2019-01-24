@@ -322,6 +322,9 @@ const Mutations = {
     const announcement = await ctx.db.mutation.createAnnouncement(
       {
         data: {
+          user: {
+            connect: { id: ctx.request.userId }
+          },
           course: {
             connect: {
               id: course

@@ -60,7 +60,7 @@ const NavStyles = styled.ul`
     border-top: 1px solid grey;
     width: 100%;
     justify-content: center;
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 `
 

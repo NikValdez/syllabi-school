@@ -10,6 +10,7 @@ import IsAdminTeacher from './IsAdminTeacher'
 import Form from './styles/Form'
 import styled from 'styled-components'
 import { SINGLE_COURSE_QUERY } from './SingleCoursePDF'
+import { ANNOUNCEMENTS_QUERY } from './Announcements'
 import XIcon from './styles/XIcon'
 import Button from './styles/Button'
 
@@ -87,7 +88,8 @@ class createAnnouncement extends Component {
             {
               query: SINGLE_COURSE_QUERY,
               variables: { id: this.props.course.id }
-            }
+            },
+            { query: ANNOUNCEMENTS_QUERY }
           ]}
         >
           {(createAnnouncement, { loading, error }) => (
