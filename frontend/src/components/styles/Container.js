@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 const Container = styled.div`
-  padding-right: 15px;
-  padding-left: 15px;
+  /* padding-right: 15px;
+  padding-left: 15px; */
   margin-right: auto;
   margin-left: auto;
 
@@ -15,7 +15,7 @@ const Container = styled.div`
   }
 
   @media (min-width: 1200px) {
-    width: 1170px;
+    width: 1270px;
   }
 `
 

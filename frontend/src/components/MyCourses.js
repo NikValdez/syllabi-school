@@ -4,11 +4,7 @@ import gql from 'graphql-tag'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { DeleteMyCourse } from './DeleteMyCourse'
-import ReactModal from 'react-modal'
-import htmlToText from 'html-to-text'
 import './styles/Modal.css'
-import XIcon from './styles/XIcon'
-import { DeleteXStyles } from './DeleteNote'
 
 const MyCoursesStyles = styled.div`
   margin-top: 3rem;
@@ -17,7 +13,6 @@ const MyCoursesStyles = styled.div`
     -webkit-text-stroke: 0.5px black;
     display: inline-block;
     text-decoration: none;
-    margin-bottom: -4rem;
   }
   a::after {
     content: '';
@@ -92,22 +87,8 @@ const CURRENT_USER_QUERY_COURSES_EVENTS = gql`
     }
   }
 `
-ReactModal.setAppElement('#root')
 
 class MyCourses extends Component {
-  state = {
-    showModal: false,
-    message: ''
-  }
-
-  handleOpenModal = data => {
-    this.setState({ showModal: true, message: data })
-  }
-
-  handleCloseModal = () => {
-    this.setState({ showModal: false })
-  }
-
   render() {
     return (
       <MyCoursesStyles>
@@ -120,54 +101,6 @@ class MyCourses extends Component {
             return courseData.map(course => (
               <List key={course.id}>
                 <h3>
-                  {course.courses.announcements.map(announcement => (
-                    <Mutation
-                      mutation={UPDATE_ANNOUNCEMENT_MUTATION}
-                      variables={{ id: announcement.id, clicked: false }}
-                      key={announcement.id}
-                    >
-                      {(updateAnnouncement, { loading, error }) => (
-                        <AnnouncementStyles>
-                          <span
-                            onClick={() => {
-                              this.handleOpenModal(announcement.text)
-                              // updateAnnouncement()
-                            }}
-                            className="mega-phone"
-                          >
-                            {announcement.clicked ? '📣' : null}
-                          </span>
-                          <ReactModal
-                            isOpen={this.state.showModal}
-                            contentLabel="modal"
-                            className="Modal"
-                            overlayClassName="Overlay"
-                            onRequestClose={this.handleCloseModal}
-                            shouldCloseOnOverlayClick={true}
-                          >
-                            <span
-                              onClick={this.handleCloseModal}
-                              style={{
-                                margin: '1rem',
-                                float: 'right'
-                              }}
-                            >
-                              <XIcon />
-                            </span>
-                            <div style={{ textAlign: 'center' }}>
-                              <h1 style={{ borderBottom: '1px solid #f9c321' }}>
-                                Announcement
-                              </h1>
-                              <h3>
-                                {htmlToText.fromString(this.state.message)}
-                              </h3>
-                            </div>
-                          </ReactModal>
-                        </AnnouncementStyles>
-                      )}
-                    </Mutation>
-                  ))}
-
                   <DeleteMyCourse id={course.id} color={course.courses.color} />
 
                   <Link to={`/courses/${course.courses.id}`}>
