@@ -7,7 +7,7 @@ export const TableStyles = styled.table`
 `
 export const TdStyles = styled.td`
   border: 1px solid #dddddd;
-  text-align: center;
+  text-align: left;
   padding: 2px;
   font-size: 14px;
   label {
@@ -19,7 +19,6 @@ export const ThStyles = styled.th`
   border: 1px solid #dddddd;
   text-align: left;
   padding: 2px;
-  text-align: center;
 `
 export const TrStyles = styled.tr`
   &:nth-child(even) {

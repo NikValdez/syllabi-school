@@ -42,6 +42,8 @@ const CREATE_ANNOUNCEMENT_MUTATION = gql`
   }
 `
 
+ReactModal.setAppElement('#root')
+
 class createAnnouncement extends Component {
   state = {
     text: '',

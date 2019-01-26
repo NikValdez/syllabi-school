@@ -4,6 +4,38 @@ import { Query, Mutation } from 'react-apollo'
 import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
 import moment from 'moment'
 import htmlToText from 'html-to-text'
+import styled from 'styled-components'
+import { keyframes } from 'styled-components'
+
+const stretch = keyframes`
+  0% {
+    transform: scale(.3);
+    background-color: #7d5f05;
+    border-radius: 100%;
+  }
+
+   100% {
+    transform: scale(.5);
+    background-color: #f9c321;
+    border-radius: 100%;
+  }
+`
+const Alert = styled.div`
+  height: 50px;
+  width: 50px;
+  margin: 0 auto;
+  background-color: #f9c321;
+  animation-name: ${stretch};
+  animation-duration: 1.5s;
+  animation-timing-function: ease-out;
+  animation-delay: 0;
+  animation-direction: alternate;
+  animation-iteration-count: infinite;
+  animation-fill-mode: none;
+  animation-play-state: running;
+  font-size: 30px;
+  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
+`
 
 const ANNOUNCEMENTS_QUERY = gql`
   query {
@@ -71,12 +103,14 @@ class Announcements extends Component {
 
           return (
             <div>
-              {count.length}
+              {count.length > 0 && (
+                <Alert className="element">{count.length}</Alert>
+              )}
 
               <div
                 className="dropdown"
                 style={{
-                  width: '400px',
+                  width: '600px',
                   height: '400px',
                   position: 'absolute',
                   right: '2rem',
@@ -92,7 +126,7 @@ class Announcements extends Component {
                     top: '-1rem'
                   }}
                 >
-                  📣
+                  🔔
                 </div>
                 {this.state.displayMenu ? (
                   <>
@@ -135,9 +169,13 @@ class Announcements extends Component {
                                       }}
                                     >
                                       {clicked ? (
-                                        <span>❌</span>
+                                        <span style={{ marginLeft: '10px' }}>
+                                          ❌
+                                        </span>
                                       ) : (
-                                        <span>☑️</span>
+                                        <span style={{ marginLeft: '10px' }}>
+                                          ☑️
+                                        </span>
                                       )}
                                     </div>
                                   </TdStyles>
