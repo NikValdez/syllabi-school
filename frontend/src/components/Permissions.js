@@ -1,11 +1,12 @@
-import React from 'react'
-import { Query, Mutation } from 'react-apollo'
-import Error from './ErrorMessage'
 import gql from 'graphql-tag'
-import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
-import Button from './styles/Button'
 import PropTypes from 'prop-types'
+import React from 'react'
+import { Mutation, Query } from 'react-apollo'
+import { Link } from 'react-router-dom'
 import Book from '../book.gif'
+import Error from './ErrorMessage'
+import Button from './styles/Button'
+import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
 
 const possiblePermissions = ['ADMIN', 'TEACHER', 'USER', 'PERMISSIONUPDATE']
 
@@ -39,6 +40,9 @@ const Permissions = props => (
         <div>
           <Error error={error} />
           <h2>Manage Permissions</h2>
+          <Link to="/">
+            <Button style={{ float: 'right' }}>Home</Button>
+          </Link>
           <TableStyles>
             <thead>
               <TrStyles>

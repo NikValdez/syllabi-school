@@ -1,11 +1,10 @@
-import React, { Component } from 'react'
 import gql from 'graphql-tag'
-import { Query, Mutation } from 'react-apollo'
-import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
-import moment from 'moment'
 import htmlToText from 'html-to-text'
-import styled from 'styled-components'
-import { keyframes } from 'styled-components'
+import moment from 'moment'
+import React, { Component } from 'react'
+import { Mutation, Query } from 'react-apollo'
+import styled, { keyframes } from 'styled-components'
+import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
 
 const stretch = keyframes`
   0% {
@@ -82,7 +81,6 @@ class Announcements extends Component {
     return (
       <Query query={ANNOUNCEMENTS_QUERY}>
         {({ error, loading, data }) => {
-          console.log(data)
           if (error) return <p>Error</p>
           if (loading) return <p>Loading...</p>
           if (!data.me.announcements) return <p>No Announcements</p>
@@ -110,11 +108,11 @@ class Announcements extends Component {
               <div
                 className="dropdown"
                 style={{
-                  width: '600px',
+                  width: '300px',
                   height: '400px',
                   position: 'absolute',
                   right: '2rem',
-                  zIndex: '999'
+                  zIndex: '10'
                 }}
               >
                 <div
@@ -133,9 +131,7 @@ class Announcements extends Component {
                     {announcements.length < 1 ? (
                       <p>No Announcements Currently</p>
                     ) : (
-                      <TableStyles
-                        style={{ border: '1px solid black', height: '400px' }}
-                      >
+                      <TableStyles style={{ border: '1px solid black' }}>
                         <tbody style={{ background: 'black' }}>
                           <tr>
                             <ThStyles style={{ color: 'white' }}>

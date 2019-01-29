@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import { Query, Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
+import React, { Component } from 'react'
+import { Query } from 'react-apollo'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { DeleteMyCourse } from './DeleteMyCourse'
@@ -21,12 +21,10 @@ const MyCoursesStyles = styled.div`
     height: 1px;
     background: #000;
     transition: width 0.3s;
-    margin-bottom: -4rem;
   }
   a:hover::after {
     width: 100%;
     transition: width 0.3s;
-    margin-bottom: -4rem;
   }
 `
 const List = styled.div`
@@ -100,7 +98,7 @@ class MyCourses extends Component {
             const courseData = data.me.myCourses.map(course => course)
             return courseData.map(course => (
               <List key={course.id}>
-                <h3>
+                <h3 style={{ margin: '0' }}>
                   <DeleteMyCourse id={course.id} color={course.courses.color} />
 
                   <Link to={`/courses/${course.courses.id}`}>

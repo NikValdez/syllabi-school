@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/nikvaldez-073802/schedule/dev
-# timestamp: Wed Jan 23 2019 17:58:36 GMT-0800 (PST)
+# timestamp: Mon Jan 28 2019 13:11:12 GMT-0800 (PST)
 
 type AggregateAnnouncement {
   count: Int!
@@ -10,6 +10,10 @@ type AggregateCourse {
 }
 
 type AggregateEvent {
+  count: Int!
+}
+
+type AggregateInstitution {
   count: Int!
 }
 
@@ -30,6 +34,8 @@ type Announcement implements Node {
   text: String!
   date: DateTime!
   clicked: Boolean
+  updatedAt: DateTime!
+  createdAt: DateTime!
   course: Course!
   user: User!
 }
@@ -105,6 +111,8 @@ type AnnouncementPreviousValues {
   text: String!
   date: DateTime!
   clicked: Boolean
+  updatedAt: DateTime!
+  createdAt: DateTime!
 }
 
 input AnnouncementScalarWhereInput {
@@ -222,6 +230,50 @@ input AnnouncementScalarWhereInput {
 
   """All values that are not equal to given value."""
   clicked_not: Boolean
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
 }
 
 type AnnouncementSubscriptionPayload {
@@ -463,6 +515,50 @@ input AnnouncementWhereInput {
 
   """All values that are not equal to given value."""
   clicked_not: Boolean
+  updatedAt: DateTime
+
+  """All values that are not equal to given value."""
+  updatedAt_not: DateTime
+
+  """All values that are contained in given list."""
+  updatedAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  updatedAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  updatedAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  updatedAt_lte: DateTime
+
+  """All values greater than the given value."""
+  updatedAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  updatedAt_gte: DateTime
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
   course: CourseWhereInput
   user: UserWhereInput
 }
@@ -2087,6 +2183,239 @@ input EventWhereUniqueInput {
   id: ID
 }
 
+type Institution implements Node {
+  id: ID!
+  name: String!
+  logo: String
+}
+
+"""A connection to a list of items."""
+type InstitutionConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [InstitutionEdge]!
+  aggregate: AggregateInstitution!
+}
+
+input InstitutionCreateInput {
+  name: String!
+  logo: String
+}
+
+"""An edge in a connection."""
+type InstitutionEdge {
+  """The item at the end of the edge."""
+  node: Institution!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum InstitutionOrderByInput {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  logo_ASC
+  logo_DESC
+  updatedAt_ASC
+  updatedAt_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type InstitutionPreviousValues {
+  id: ID!
+  name: String!
+  logo: String
+}
+
+type InstitutionSubscriptionPayload {
+  mutation: MutationType!
+  node: Institution
+  updatedFields: [String!]
+  previousValues: InstitutionPreviousValues
+}
+
+input InstitutionSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [InstitutionSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [InstitutionSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [InstitutionSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: InstitutionWhereInput
+}
+
+input InstitutionUpdateInput {
+  name: String
+  logo: String
+}
+
+input InstitutionUpdateManyMutationInput {
+  name: String
+  logo: String
+}
+
+input InstitutionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [InstitutionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [InstitutionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [InstitutionWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  logo: String
+
+  """All values that are not equal to given value."""
+  logo_not: String
+
+  """All values that are contained in given list."""
+  logo_in: [String!]
+
+  """All values that are not contained in given list."""
+  logo_not_in: [String!]
+
+  """All values less than the given value."""
+  logo_lt: String
+
+  """All values less than or equal the given value."""
+  logo_lte: String
+
+  """All values greater than the given value."""
+  logo_gt: String
+
+  """All values greater than or equal the given value."""
+  logo_gte: String
+
+  """All values containing the given string."""
+  logo_contains: String
+
+  """All values not containing the given string."""
+  logo_not_contains: String
+
+  """All values starting with the given string."""
+  logo_starts_with: String
+
+  """All values not starting with the given string."""
+  logo_not_starts_with: String
+
+  """All values ending with the given string."""
+  logo_ends_with: String
+
+  """All values not ending with the given string."""
+  logo_not_ends_with: String
+}
+
+input InstitutionWhereUniqueInput {
+  id: ID
+}
+
 """
 The `Long` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
@@ -2097,35 +2426,41 @@ type Mutation {
   createUser(data: UserCreateInput!): User!
   createNote(data: NoteCreateInput!): Note!
   createCourse(data: CourseCreateInput!): Course!
+  createInstitution(data: InstitutionCreateInput!): Institution!
   createMyCourse(data: MyCourseCreateInput!): MyCourse!
   createAnnouncement(data: AnnouncementCreateInput!): Announcement!
   createEvent(data: EventCreateInput!): Event!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateNote(data: NoteUpdateInput!, where: NoteWhereUniqueInput!): Note
   updateCourse(data: CourseUpdateInput!, where: CourseWhereUniqueInput!): Course
+  updateInstitution(data: InstitutionUpdateInput!, where: InstitutionWhereUniqueInput!): Institution
   updateMyCourse(data: MyCourseUpdateInput!, where: MyCourseWhereUniqueInput!): MyCourse
   updateAnnouncement(data: AnnouncementUpdateInput!, where: AnnouncementWhereUniqueInput!): Announcement
   updateEvent(data: EventUpdateInput!, where: EventWhereUniqueInput!): Event
   deleteUser(where: UserWhereUniqueInput!): User
   deleteNote(where: NoteWhereUniqueInput!): Note
   deleteCourse(where: CourseWhereUniqueInput!): Course
+  deleteInstitution(where: InstitutionWhereUniqueInput!): Institution
   deleteMyCourse(where: MyCourseWhereUniqueInput!): MyCourse
   deleteAnnouncement(where: AnnouncementWhereUniqueInput!): Announcement
   deleteEvent(where: EventWhereUniqueInput!): Event
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertNote(where: NoteWhereUniqueInput!, create: NoteCreateInput!, update: NoteUpdateInput!): Note!
   upsertCourse(where: CourseWhereUniqueInput!, create: CourseCreateInput!, update: CourseUpdateInput!): Course!
+  upsertInstitution(where: InstitutionWhereUniqueInput!, create: InstitutionCreateInput!, update: InstitutionUpdateInput!): Institution!
   upsertMyCourse(where: MyCourseWhereUniqueInput!, create: MyCourseCreateInput!, update: MyCourseUpdateInput!): MyCourse!
   upsertAnnouncement(where: AnnouncementWhereUniqueInput!, create: AnnouncementCreateInput!, update: AnnouncementUpdateInput!): Announcement!
   upsertEvent(where: EventWhereUniqueInput!, create: EventCreateInput!, update: EventUpdateInput!): Event!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyNotes(data: NoteUpdateManyMutationInput!, where: NoteWhereInput): BatchPayload!
   updateManyCourses(data: CourseUpdateManyMutationInput!, where: CourseWhereInput): BatchPayload!
+  updateManyInstitutions(data: InstitutionUpdateManyMutationInput!, where: InstitutionWhereInput): BatchPayload!
   updateManyAnnouncements(data: AnnouncementUpdateManyMutationInput!, where: AnnouncementWhereInput): BatchPayload!
   updateManyEvents(data: EventUpdateManyMutationInput!, where: EventWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyNotes(where: NoteWhereInput): BatchPayload!
   deleteManyCourses(where: CourseWhereInput): BatchPayload!
+  deleteManyInstitutions(where: InstitutionWhereInput): BatchPayload!
   deleteManyMyCourses(where: MyCourseWhereInput): BatchPayload!
   deleteManyAnnouncements(where: AnnouncementWhereInput): BatchPayload!
   deleteManyEvents(where: EventWhereInput): BatchPayload!
@@ -2752,18 +3087,21 @@ type Query {
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   notes(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Note]!
   courses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course]!
+  institutions(where: InstitutionWhereInput, orderBy: InstitutionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Institution]!
   myCourses(where: MyCourseWhereInput, orderBy: MyCourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MyCourse]!
   announcements(where: AnnouncementWhereInput, orderBy: AnnouncementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Announcement]!
   events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event]!
   user(where: UserWhereUniqueInput!): User
   note(where: NoteWhereUniqueInput!): Note
   course(where: CourseWhereUniqueInput!): Course
+  institution(where: InstitutionWhereUniqueInput!): Institution
   myCourse(where: MyCourseWhereUniqueInput!): MyCourse
   announcement(where: AnnouncementWhereUniqueInput!): Announcement
   event(where: EventWhereUniqueInput!): Event
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   notesConnection(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NoteConnection!
   coursesConnection(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CourseConnection!
+  institutionsConnection(where: InstitutionWhereInput, orderBy: InstitutionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InstitutionConnection!
   myCoursesConnection(where: MyCourseWhereInput, orderBy: MyCourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MyCourseConnection!
   announcementsConnection(where: AnnouncementWhereInput, orderBy: AnnouncementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AnnouncementConnection!
   eventsConnection(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EventConnection!
@@ -2779,6 +3117,7 @@ type Subscription {
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   note(where: NoteSubscriptionWhereInput): NoteSubscriptionPayload
   course(where: CourseSubscriptionWhereInput): CourseSubscriptionPayload
+  institution(where: InstitutionSubscriptionWhereInput): InstitutionSubscriptionPayload
   myCourse(where: MyCourseSubscriptionWhereInput): MyCourseSubscriptionPayload
   announcement(where: AnnouncementSubscriptionWhereInput): AnnouncementSubscriptionPayload
   event(where: EventSubscriptionWhereInput): EventSubscriptionPayload

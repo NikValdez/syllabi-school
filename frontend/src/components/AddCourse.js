@@ -1,9 +1,9 @@
+import gql from 'graphql-tag'
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
+import styled from 'styled-components'
 import Error from './ErrorMessage'
 import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
-import styled from 'styled-components'
 
 const AddButton = styled.button`
   justify-self: end;

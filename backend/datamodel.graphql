@@ -41,6 +41,12 @@ type Course {
   myCourse: MyCourse @relation(name: "MyCourse", onDelete: CASCADE)
 }
 
+type Institution {
+  id: ID! @unique
+  name: String!
+  logo: String
+}
+
 type MyCourse {
   id: ID! @unique
   user: User!
@@ -52,6 +58,8 @@ type Announcement {
   text: String!
   date: DateTime!
   clicked: Boolean
+  updatedAt: DateTime!
+  createdAt: DateTime!
   course: Course! @relation(name: "CourseAnnouncements")
   user: User! @relation(name: "UserAnnouncements")
 }

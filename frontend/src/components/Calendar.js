@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
-import BigCalendar from 'react-big-calendar'
 import moment from 'moment'
+import React, { Component } from 'react'
 import { Query } from 'react-apollo'
+import BigCalendar from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
-import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
 import styled from 'styled-components'
+import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
 
 const BigCalStyles = styled.div`
   min-height: 500px;

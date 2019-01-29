@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
 import gql from 'graphql-tag'
+import React, { Component } from 'react'
 import styled from 'styled-components'
 import Calendar from './Calendar'
+import CreateNote from './CreateNote'
 import MyCourses from './MyCourses'
 import Search from './Search'
-import CreateNote from './CreateNote'
 
 const ALL_COURSES_QUERY = gql`
   query ALL_COURSES_QUERY {

@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Announcements from './Announcements'
+import IsAdminTeacher from './IsAdminTeacher'
+import Signout from './Signout'
 import NavStyles from './styles/NavStyles'
 import User from './User'
-import Signout from './Signout'
-import IsAdminTeacher from './IsAdminTeacher'
-import Announcements from './Announcements'
 
 const Nav = () => (
   <User>

@@ -5,6 +5,7 @@ type SuccessMessage {
 }
 
 type Mutation {
+  createInstitution(name: String!, logo: String): Institution!
   createCourse(
     title: String!
     description: String!
@@ -56,6 +57,7 @@ type Mutation {
 }
 
 type Query {
+  institution: Institution
   courses(
     where: CourseWhereInput
     orderBy: CourseOrderByInput
@@ -71,7 +73,7 @@ type Query {
   users: [User]!
   myCourses: MyCourse
   notes: Note
-  announcements: Announcement
+  announcements(orderBy: AnnouncementOrderByInput): Announcement
 }
 
 type User {
@@ -81,5 +83,5 @@ type User {
   permissions: [Permission!]!
   myCourses: [MyCourse!]!
   notes: [Note!]!
-  announcements: [Announcement!]!
+  announcements(orderBy: AnnouncementOrderByInput): [Announcement!]!
 }
