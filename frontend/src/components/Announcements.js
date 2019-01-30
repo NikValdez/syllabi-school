@@ -3,7 +3,9 @@ import htmlToText from 'html-to-text'
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Mutation, Query } from 'react-apollo'
+import ReactModal from 'react-modal'
 import styled, { keyframes } from 'styled-components'
+import './styles/Modal.css'
 import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
 
 const stretch = keyframes`
@@ -61,7 +63,15 @@ const UPDATE_ANNOUNCEMENT_MUTATION = gql`
 
 class Announcements extends Component {
   state = {
-    displayMenu: false
+    showModal: false
+  }
+
+  handleOpenAnnouncement = () => {
+    this.setState({ showModal: true })
+  }
+
+  handleCloseModal = () => {
+    this.setState({ showModal: false })
   }
 
   showDropdownMenu = e => {
@@ -101,90 +111,83 @@ class Announcements extends Component {
 
           return (
             <div>
-              {count.length > 0 && (
-                <Alert className="element">{count.length}</Alert>
-              )}
-
-              <div
-                className="dropdown"
-                style={{
-                  width: '300px',
-                  height: '400px',
-                  position: 'absolute',
-                  right: '2rem',
-                  zIndex: '10'
-                }}
-              >
-                <div
-                  className="button"
-                  onClick={this.showDropdownMenu}
-                  style={{
-                    position: 'absolute',
-                    right: '-1.3rem',
-                    top: '-1rem'
-                  }}
+              <div onClick={this.handleOpenAnnouncement}>
+                {count.length > 0 && (
+                  <Alert className="element">{count.length} </Alert>
+                )}
+                <span
+                  style={{ position: 'absolute', top: '2rem', right: '2rem' }}
                 >
                   🔔
-                </div>
-                {this.state.displayMenu ? (
-                  <>
-                    {announcements.length < 1 ? (
-                      <p>No Announcements Currently</p>
-                    ) : (
-                      <TableStyles style={{ border: '1px solid black' }}>
-                        <tbody style={{ background: 'black' }}>
-                          <tr>
-                            <ThStyles style={{ color: 'white' }}>
-                              Announcement
-                            </ThStyles>
-                            <ThStyles style={{ color: 'white' }}>Date</ThStyles>
-                            <ThStyles style={{ color: 'white' }}>Seen</ThStyles>
-                          </tr>
-
-                          {announcements.map(({ text, date, id, clicked }) => (
-                            <Mutation
-                              mutation={UPDATE_ANNOUNCEMENT_MUTATION}
-                              variables={{
-                                id: id,
-                                clicked: false
-                              }}
-                              key={id}
-                            >
-                              {(updateAnnouncement, { loading, error }) => (
-                                <TrStyles key={id}>
-                                  <TdStyles style={{ color: 'white' }}>
-                                    {htmlToText.fromString(text)}
-                                  </TdStyles>
-                                  <TdStyles style={{ color: 'white' }}>
-                                    {moment(date).format('MMM Do YYYY')}
-                                  </TdStyles>
-                                  <TdStyles style={{ color: 'white' }}>
-                                    <div
-                                      onClick={() => {
-                                        updateAnnouncement()
-                                      }}
-                                    >
-                                      {clicked ? (
-                                        <span style={{ marginLeft: '10px' }}>
-                                          ❌
-                                        </span>
-                                      ) : (
-                                        <span style={{ marginLeft: '10px' }}>
-                                          ☑️
-                                        </span>
-                                      )}
-                                    </div>
-                                  </TdStyles>
-                                </TrStyles>
-                              )}
-                            </Mutation>
-                          ))}
-                        </tbody>
-                      </TableStyles>
-                    )}
-                  </>
-                ) : null}
+                </span>
               </div>
+              <ReactModal
+                isOpen={this.state.showModal}
+                contentLabel="modal"
+                overlayClassName="Overlay"
+                onRequestClose={this.handleCloseModal}
+                shouldCloseOnOverlayClick={true}
+                className="announcement-modal"
+              >
+                <>
+                  {announcements.length < 1 ? (
+                    <p>No Announcements Currently</p>
+                  ) : (
+                    <TableStyles
+                      style={{ border: '1px solid black', zIndex: '-10' }}
+                    >
+                      <tbody style={{ background: 'black' }}>
+                        <tr>
+                          <ThStyles style={{ color: 'white' }}>
+                            Announcement
+                          </ThStyles>
+                          <ThStyles style={{ color: 'white' }}>Date</ThStyles>
+                          <ThStyles style={{ color: 'white' }}>Seen</ThStyles>
+                        </tr>
+
+                        {announcements.map(({ text, date, id, clicked }) => (
+                          <Mutation
+                            mutation={UPDATE_ANNOUNCEMENT_MUTATION}
+                            variables={{
+                              id: id,
+                              clicked: false
+                            }}
+                            key={id}
+                          >
+                            {(updateAnnouncement, { loading, error }) => (
+                              <TrStyles key={id}>
+                                <TdStyles style={{ color: 'white' }}>
+                                  {htmlToText.fromString(text)}
+                                </TdStyles>
+                                <TdStyles style={{ color: 'white' }}>
+                                  {moment(date).format('MMM Do YYYY')}
+                                </TdStyles>
+                                <TdStyles style={{ color: 'white' }}>
+                                  <div
+                                    onClick={() => {
+                                      updateAnnouncement()
+                                    }}
+                                  >
+                                    {clicked ? (
+                                      <span style={{ marginLeft: '10px' }}>
+                                        ❌
+                                      </span>
+                                    ) : (
+                                      <span style={{ marginLeft: '10px' }}>
+                                        ☑️
+                                      </span>
+                                    )}
+                                  </div>
+                                </TdStyles>
+                              </TrStyles>
+                            )}
+                          </Mutation>
+                        ))}
+                      </tbody>
+                    </TableStyles>
+                  )}
+                </>
+              </ReactModal>
             </div>
           )
         }}

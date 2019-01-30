@@ -1,18 +1,18 @@
+import gql from 'graphql-tag'
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import ReactQuill from 'react-quill'
 import ReactModal from 'react-modal'
+import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
-import IsAdminTeacher from './IsAdminTeacher'
-import Form from './styles/Form'
 import styled from 'styled-components'
-import { SINGLE_COURSE_QUERY } from './SingleCoursePDF'
 import { ANNOUNCEMENTS_QUERY } from './Announcements'
-import XIcon from './styles/XIcon'
+import IsAdminTeacher from './IsAdminTeacher'
+import { SINGLE_COURSE_QUERY } from './SingleCoursePDF'
 import Button from './styles/Button'
+import Form from './styles/Form'
+import XIcon from './styles/XIcon'
 
 const DatePick = styled.div`
   padding: 10px;
@@ -51,7 +51,8 @@ class createAnnouncement extends Component {
     clicked: true,
     course: this.props.course.id,
     loading: false,
-    showModal: false
+    showModal: false,
+    error: false
   }
 
   handleOpenAnnouncement = () => {
@@ -69,9 +70,17 @@ class createAnnouncement extends Component {
   }
 
   onTextChange = value => {
-    this.setState({
-      text: value
-    })
+    if (this.state.text.length < 260) {
+      this.setState({
+        text: value,
+        error: false
+      })
+    } else {
+      this.setState({
+        error: true,
+        text: value
+      })
+    }
   }
 
   render() {
@@ -137,11 +146,20 @@ class createAnnouncement extends Component {
                         theme="snow"
                         value={this.state.text}
                         onChange={this.onTextChange}
+                        maxlength="10"
                       />
                     </Quill>
+                    {this.state.error && (
+                      <p style={{ color: '#FF0033' }}>
+                        Announcement must be less than 260 characters
+                      </p>
+                    )}
                   </label>
 
-                  <button type="submit" disabled={this.state.loading}>
+                  <button
+                    type="submit"
+                    disabled={this.state.loading || this.state.error}
+                  >
                     Submit
                   </button>
                 </fieldset>

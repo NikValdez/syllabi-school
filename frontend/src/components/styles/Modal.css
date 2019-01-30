@@ -26,4 +26,13 @@
   bottom: 0;
   background-color: #10101030;
   z-index: 999;
+  overflow: scroll;
+}
+
+.announcement-modal {
+  width: 40%;
+  float: right;
+  margin-top: 7rem;
+  height: 500px;
+  overflow: 'scroll';
 }

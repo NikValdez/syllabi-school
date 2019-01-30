@@ -1,16 +1,16 @@
-import React, { Component } from 'react'
 import gql from 'graphql-tag'
-import { Query } from 'react-apollo'
-import styled from 'styled-components'
-import { Link } from 'react-router-dom'
 import htmlToText from 'html-to-text'
-import CreateEvent from './CreateEvent'
 import moment from 'moment'
-import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
-import DeleteEvent from './DeleteEvent'
-import DeleteCourse from './DeleteCourse'
-import IsAdminTeacher from './IsAdminTeacher'
+import React, { Component } from 'react'
+import { Query } from 'react-apollo'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 import CreateAnnouncement from './CreateAnnouncement'
+import CreateEvent from './CreateEvent'
+import DeleteCourse from './DeleteCourse'
+import DeleteEvent from './DeleteEvent'
+import IsAdminTeacher from './IsAdminTeacher'
+import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
 
 const SingleCourseStyles = styled.div`
   max-width: 1200px;
@@ -23,7 +23,7 @@ const SingleCourseStyles = styled.div`
     color: black;
   }
   .update-delete {
-    float: right;
+    float: left;
     a {
       margin-right: 2rem;
       background: black;
@@ -44,8 +44,7 @@ const SingleCourseStyles = styled.div`
     object-fit: contain;
   }
   .details {
-    /* margin: 3rem; */
-    /* font-size: 2rem; */
+    text-align: center;
   }
 `
 
@@ -107,13 +106,13 @@ class SingleCoursePDF extends Component {
 
           return (
             <SingleCourseStyles>
+              <IsAdminTeacher>
+                <div className="update-delete">
+                  <Link to={`/update/${course.id}`}>Update Course </Link>
+                  <DeleteCourse id={this.state.id}>Delete ❌</DeleteCourse>
+                </div>
+              </IsAdminTeacher>
               <div className="details">
-                <IsAdminTeacher>
-                  <div className="update-delete">
-                    <Link to={`/update/${course.id}`}>Update Course </Link>
-                    <DeleteCourse id={this.state.id}>Delete ❌</DeleteCourse>
-                  </div>
-                </IsAdminTeacher>
                 <h2>Course Title: {course.title}</h2>
                 <p>Description: {htmlToText.fromString(course.description)}</p>
                 <p>Credits: {course.credits}</p>

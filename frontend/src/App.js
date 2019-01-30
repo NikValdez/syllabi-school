@@ -25,7 +25,9 @@ const client = new ApolloClient({
 })
 
 const PermissionsContainer = () => (
-  <Route exact path="/permissions" component={Permissions} />
+  <PleaseSignIn>
+    <Route exact path="/permissions" component={Permissions} />
+  </PleaseSignIn>
 )
 
 const DefaultContainer = () => (
