@@ -6,26 +6,6 @@ const { hasPermission } = require('../utils')
 const { transport, makeANiceEmail } = require('../mail')
 
 const Mutations = {
-  async createInstitution(parent, args, ctx, info) {
-    if (!ctx.request.userId) {
-      throw new Error('You must be logged in to do that!')
-    }
-    const hasPermissions = ctx.request.user.permissions.some(permission =>
-      ['ADIMN', 'TEACHER'].includes(permission)
-    )
-    if (!hasPermissions) {
-      throw new Error("You don't have permission to do that")
-    }
-    const institution = await ctx.db.mutation.createInstitution(
-      {
-        data: {
-          ...args
-        }
-      },
-      info
-    )
-    return institution
-  },
   async createCourse(parent, args, ctx, info) {
     if (!ctx.request.userId) {
       throw new Error('You must be logged in to do that!')
@@ -122,6 +102,34 @@ const Mutations = {
 
     //Delete it
     return ctx.db.mutation.deleteEvent({ where }, info)
+  },
+  async updateEvent(parent, args, ctx, info) {
+    const where = { id: args.id }
+    //find the event
+    //TODO: Add auth making sure they created the event.
+    const event = await ctx.db.query.event({ where }, `{id}`)
+    //check if they own that course or have permission
+    // const ownsCourse = course.user.id === ctx.request.userId
+    const hasPermissions = ctx.request.user.permissions.some(permission =>
+      ['ADIMN', 'TEACHER'].includes(permission)
+    )
+    if (!hasPermissions) {
+      throw new Error("You don't have permission to do that")
+    }
+    const updates = { ...args }
+    //remove update ID
+    delete updates.id
+
+    //run update method
+    return ctx.db.mutation.updateEvent(
+      {
+        data: updates,
+        where: {
+          id: args.id
+        }
+      },
+      info
+    )
   },
 
   async signup(parent, args, ctx, info) {

@@ -1,10 +1,9 @@
+import gql from 'graphql-tag'
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
 import Error from './ErrorMessage'
-import Notes from './Notes'
+import Notes, { NOTES_QUERY } from './Notes'
 import { SearchStyles } from './styles/DropDown'
-import { NOTES_QUERY } from './Notes'
 
 const CREATE_NOTE_MUTATION = gql`
   mutation CREATE_NOTE_MUTATION($note: String!) {

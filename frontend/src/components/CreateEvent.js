@@ -1,21 +1,21 @@
+import gql from 'graphql-tag'
+import moment from 'moment'
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import ReactModal from 'react-modal'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
-import IsAdminTeacher from './IsAdminTeacher'
-import Form from './styles/Form'
-import { SINGLE_COURSE_QUERY } from './SingleCoursePDF'
 import styled from 'styled-components'
 import Book from '../book.gif'
-import ReactModal from 'react-modal'
-import XIcon from './styles/XIcon'
+import IsAdminTeacher from './IsAdminTeacher'
+import { SINGLE_COURSE_QUERY } from './SingleCoursePDF'
 import Button from './styles/Button'
-import moment from 'moment'
+import Form from './styles/Form'
+import XIcon from './styles/XIcon'
 
-const UploadButton = styled.div`
+export const UploadButton = styled.div`
   position: relative;
   overflow: hidden;
   display: inline-block;

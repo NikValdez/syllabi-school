@@ -88,7 +88,7 @@ class createAnnouncement extends Component {
       <IsAdminTeacher>
         <Button
           onClick={this.handleOpenAnnouncement}
-          style={{ marginTop: '2rem' }}
+          style={{ margin: '2rem', float: 'right' }}
         >
           Create Announcement
         </Button>

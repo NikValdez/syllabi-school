@@ -118,36 +118,11 @@ class SingleCoursePDF extends Component {
                 <p>Credits: {course.credits}</p>
                 <p>Course Code: {course.courseCode}</p>
 
-                <CreateAnnouncement course={course} />
-
-                <h2 style={{ textAlign: 'center' }}>Announcements</h2>
-                {course.announcements.length < 1 ? (
-                  <p>No Announcements Currently</p>
-                ) : (
-                  <TableStyles style={{ border: '1px solid black' }}>
-                    <tbody>
-                      <tr>
-                        <ThStyles>Announcement</ThStyles>
-                        <ThStyles>Date</ThStyles>
-                      </tr>
-
-                      {course.announcements.map(({ text, date, id }) => (
-                        <TrStyles key={id}>
-                          <TdStyles>{htmlToText.fromString(text)}</TdStyles>
-                          <TdStyles>
-                            {moment(date).format('MMM Do YYYY')}
-                          </TdStyles>
-                        </TrStyles>
-                      ))}
-                    </tbody>
-                  </TableStyles>
-                )}
-
                 <CreateEventStyles>
                   <CreateEvent course={course} />
                 </CreateEventStyles>
 
-                <h2 style={{ textAlign: 'center' }}>Events</h2>
+                <h2 style={{ float: 'left' }}>Events</h2>
                 {course.events.length < 1 ? (
                   <p>No Events Currently</p>
                 ) : (
@@ -159,6 +134,9 @@ class SingleCoursePDF extends Component {
                         <ThStyles>Start</ThStyles>
                         <ThStyles>End</ThStyles>
                         <ThStyles>Upload</ThStyles>
+                        <IsAdminTeacher>
+                          <ThStyles>Edit/Delete</ThStyles>
+                        </IsAdminTeacher>
                       </tr>
 
                       {course.events.map(
@@ -179,14 +157,46 @@ class SingleCoursePDF extends Component {
                             </TdStyles>
                             <TdStyles>
                               <IsAdminTeacher>
-                                <DeleteEvent id={id} course={course.id}>
-                                  Delete ❌
-                                </DeleteEvent>
+                                <DeleteEvent id={id} course={course.id} />
+                                <Link
+                                  to={`/update_event/${id}`}
+                                  style={{
+                                    float: 'right',
+                                    textDecoration: 'none',
+                                    marginRight: '10px'
+                                  }}
+                                >
+                                  ✏️
+                                </Link>
                               </IsAdminTeacher>
                             </TdStyles>
                           </TrStyles>
                         )
                       )}
+                    </tbody>
+                  </TableStyles>
+                )}
+                <CreateAnnouncement course={course} />
+
+                <h2 style={{ float: 'left' }}>Announcements</h2>
+                {course.announcements.length < 1 ? (
+                  <p>No Announcements Currently</p>
+                ) : (
+                  <TableStyles style={{ border: '1px solid black' }}>
+                    <tbody>
+                      <tr>
+                        <ThStyles>Announcement</ThStyles>
+                        <ThStyles>Date</ThStyles>
+                      </tr>
+
+                      {course.announcements.map(({ text, date, id }) => (
+                        <TrStyles key={id}>
+                          <TdStyles>{htmlToText.fromString(text)}</TdStyles>
+                          <TdStyles>
+                            {moment(date).format('MMM Do YYYY')}
+                          </TdStyles>
+                        </TrStyles>
+                      ))}
                     </tbody>
                   </TableStyles>
                 )}

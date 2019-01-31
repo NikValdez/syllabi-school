@@ -1,11 +1,11 @@
+import htmlToText from 'html-to-text'
+import moment from 'moment'
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
-import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
-import moment from 'moment'
-import htmlToText from 'html-to-text'
-import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
 import styled from 'styled-components'
 import Book from '../book.gif'
+import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
+import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
 
 const ScheduleStyles = styled.div`
   display: grid;
@@ -35,7 +35,7 @@ export class Schedule extends Component {
             return courseData.map(course => (
               <>
                 <div
-                  key={course.id}
+                  key={course.courses.id}
                   style={{
                     borderBottom: '1px solid #f9c321',
                     borderTop: '1px solid #f9c321'

@@ -4,6 +4,7 @@ const Query = {
   courses: forwardTo('db'),
   course: forwardTo('db'),
   events: forwardTo('db'),
+  event: forwardTo('db'),
   myCourses: forwardTo('db'),
   announcements: forwardTo('db'),
   me(parent, args, ctx, info) {

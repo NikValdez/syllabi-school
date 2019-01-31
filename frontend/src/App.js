@@ -17,6 +17,7 @@ import Signup from './components/Signup'
 import SingleCourse from './components/SingleCourse'
 import Container from './components/styles/Container'
 import UpdateCourse from './components/UpdateCourse'
+import UpdateEvent from './components/UpdateEvent'
 import { endpoint } from './config'
 
 const client = new ApolloClient({
@@ -26,6 +27,7 @@ const client = new ApolloClient({
 
 const PermissionsContainer = () => (
   <PleaseSignIn>
+    <Header />
     <Route exact path="/permissions" component={Permissions} />
   </PleaseSignIn>
 )
@@ -40,9 +42,11 @@ const DefaultContainer = () => (
     <PleaseSignIn>
       <Route exact path="/" component={Courses} />
       <Route path="/courses/:id" component={SingleCourse} />
-      <Route path="/update/:id" component={UpdateCourse} />
       <Route path="/create_course" component={CreateCourse} />
+      <Route path="/update/:id" component={UpdateCourse} />
+      <Route path="/update_event/:id" component={UpdateEvent} />
       <Route path="/create_event" component={CreateEvent} />
+      <Route exact path="/permissions" component={Permissions} />
       <Route path="/schedule" component={SchedulePDF} />
       <Route path="/permissions" component={Permissions} />
       <Route path="/create_announcement" component={CreateAnnouncement} />
