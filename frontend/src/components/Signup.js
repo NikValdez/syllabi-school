@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
 import React, { Component } from 'react'
-import { Mutation } from 'react-apollo'
+import { Mutation, Query } from 'react-apollo'
+import Book from '../book.gif'
 import Error from './ErrorMessage'
-import Institutions from './Institutions'
 import Form from './styles/Form'
 import { CURRENT_USER_QUERY } from './User'
 
@@ -11,10 +11,29 @@ const SIGNUP_MUTATION = gql`
     $email: String!
     $name: String!
     $password: String!
+    $institution: ID!
   ) {
-    signup(email: $email, name: $name, password: $password) {
+    signup(
+      email: $email
+      name: $name
+      password: $password
+      institution: $institution
+    ) {
       id
       email
+      name
+      institution {
+        id
+        name
+      }
+    }
+  }
+`
+
+const INSTITUTIONS_QUERY = gql`
+  query INSTITUTIONS_QUERY {
+    institutions {
+      id
       name
     }
   }
@@ -24,11 +43,17 @@ class Signup extends Component {
   state = {
     name: '',
     email: '',
-    password: ''
+    password: '',
+    institution: ''
   }
   saveToState = e => {
     this.setState({ [e.target.name]: e.target.value })
   }
+
+  handleChange = e => {
+    this.setState({ institution: e.target.value })
+  }
+
   render() {
     return (
       <>
@@ -43,7 +68,12 @@ class Signup extends Component {
               onSubmit={async e => {
                 e.preventDefault()
                 await signup()
-                this.setState({ name: '', email: '', password: '' })
+                this.setState({
+                  name: '',
+                  email: '',
+                  password: '',
+                  institution: ''
+                })
                 this.props.history.push(`/`)
               }}
             >
@@ -52,7 +82,24 @@ class Signup extends Component {
                 <Error error={error} />
                 <label htmlFor="Institution">
                   Institution
-                  <Institutions />
+                  <Query query={INSTITUTIONS_QUERY}>
+                    {({ data, error, loading }) => {
+                      if (loading) return <img src={Book} alt="Loading" />
+                      if (error) return <p>Error : {error.message}</p>
+                      return (
+                        <select
+                          value={this.state.institution}
+                          onChange={this.handleChange}
+                        >
+                          {data.institutions.map(institution => (
+                            <option key={institution.id} value={institution.id}>
+                              {institution.name}
+                            </option>
+                          ))}
+                        </select>
+                      )
+                    }}
+                  </Query>
                 </label>
 
                 <label htmlFor="email">

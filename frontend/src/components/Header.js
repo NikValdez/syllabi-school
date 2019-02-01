@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import Nav from './Nav'
 import Logo from './styles/Logo'
-import Nav from '../components/Nav'
 
 const StyledHeader = styled.header`
   .bar {

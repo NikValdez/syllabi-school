@@ -152,11 +152,14 @@ const Mutations = {
     )
   },
 
-  async signup(parent, args, ctx, info) {
+  async signup(parent, { institution, ...args }, ctx, info) {
     const password = await bcrypt.hash(args.password, 10)
     const user = await ctx.db.mutation.createUser(
       {
         data: {
+          institution: {
+            connect: { id: institution }
+          },
           ...args,
           password,
           permissions: { set: ['USER'] }

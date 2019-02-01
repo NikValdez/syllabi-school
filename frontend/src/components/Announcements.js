@@ -131,7 +131,9 @@ class Announcements extends Component {
               >
                 <>
                   {announcements.length < 1 ? (
-                    <p>No Announcements Currently</p>
+                    <p style={{ background: '#f9c321' }}>
+                      No Announcements Currently
+                    </p>
                   ) : (
                     <TableStyles
                       style={{ border: '1px solid black', zIndex: '-10' }}
