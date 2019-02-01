@@ -6,6 +6,7 @@ import Courses from './components/Courses'
 import CreateAnnouncement from './components/CreateAnnouncement'
 import CreateCourse from './components/CreateCourse'
 import CreateEvent from './components/CreateEvent'
+import CreateInstitution from './components/CreateInstitution'
 import Header from './components/Header'
 import Permissions from './components/Permissions'
 import PleaseSignIn from './components/PleaseSignIn'
@@ -42,6 +43,7 @@ const DefaultContainer = () => (
     <PleaseSignIn>
       <Route exact path="/" component={Courses} />
       <Route path="/courses/:id" component={SingleCourse} />
+      <Route path="/create_institution" component={CreateInstitution} />
       <Route path="/create_course" component={CreateCourse} />
       <Route path="/update/:id" component={UpdateCourse} />
       <Route path="/update_event/:id" component={UpdateEvent} />

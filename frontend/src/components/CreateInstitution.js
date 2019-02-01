@@ -9,8 +9,6 @@ const CREATE_INSTITUTION_MUTATION = gql`
   mutation CREATE_INSTITUTION_MUTATION($name: String!, $logo: String) {
     createInstitution(name: $name, logo: $logo) {
       id
-      name
-      logo
     }
   }
 `
@@ -43,8 +41,8 @@ class CreateInstitution extends Component {
               >
                 <Error error={error} />
                 <fieldset disabled={loading} aria-busy={loading}>
-                  <label htmlFor="title">
-                    Title
+                  <label htmlFor="name">
+                    Name
                     <input
                       type="text"
                       id="name"

@@ -5,6 +5,13 @@ enum Permission {
   PERMISSIONUPDATE
 }
 
+type Institution {
+  id: ID! @unique
+  name: String!
+  logo: String
+  courses: [Course!]! @relation(name: "InstitutionCourses", onDelete: CASCADE)
+  users: [User!]!
+}
 type User {
   id: ID! @unique
   name: String!
@@ -17,13 +24,14 @@ type User {
   announcements: [Announcement!]!
     @relation(name: "UserAnnouncements", onDelete: CASCADE)
   myCourses: [MyCourse!]!
-  notes: [Note!]!
+  notes: [Note!]! @relation(name: "UserNotes", onDelete: CASCADE)
+  institution: Institution
 }
 
 type Note {
   id: ID! @unique
   note: String!
-  user: User!
+  user: User! @relation(name: "UserNotes")
 }
 
 type Course {
@@ -38,13 +46,8 @@ type Course {
   announcements: [Announcement!]!
     @relation(name: "CourseAnnouncements", onDelete: CASCADE)
   user: User!
+  institution: Institution @relation(name: "InstitutionCourses")
   myCourse: MyCourse @relation(name: "MyCourse", onDelete: CASCADE)
-}
-
-type Institution {
-  id: ID! @unique
-  name: String!
-  logo: String
 }
 
 type MyCourse {

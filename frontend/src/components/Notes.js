@@ -1,9 +1,9 @@
+import gql from 'graphql-tag'
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
-import gql from 'graphql-tag'
-import DeleteNote from './DeleteNote'
 import styled from 'styled-components'
 import Book from '../book.gif'
+import DeleteNote from './DeleteNote'
 
 const NotesStyles = styled.div`
   li {
@@ -29,12 +29,12 @@ class Notes extends Component {
   render() {
     return (
       <NotesStyles>
-        <h3>Notes</h3>
         <Query query={NOTES_QUERY}>
           {({ data, error, loading }) => {
             if (loading) return <img src={Book} alt="Loading" />
             if (error) return <p>Error : {error.message}</p>
             const notes = data.me.notes.map(note => note)
+
             return notes.map(note => (
               <ul key={note.id}>
                 <li

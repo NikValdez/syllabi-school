@@ -1,5 +1,6 @@
 import gql from 'graphql-tag'
 import htmlToText from 'html-to-text'
+import _ from 'lodash'
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
@@ -45,6 +46,7 @@ const SingleCourseStyles = styled.div`
   }
   .details {
     text-align: center;
+    margin-top: -20rem;
   }
 `
 
@@ -107,13 +109,13 @@ class SingleCoursePDF extends Component {
           return (
             <SingleCourseStyles>
               <IsAdminTeacher>
-                <div className="update-delete">
+                <span className="update-delete">
                   <Link to={`/update/${course.id}`}>Update Course </Link>
                   <DeleteCourse id={this.state.id}>Delete ❌</DeleteCourse>
-                </div>
+                </span>
               </IsAdminTeacher>
               <div className="details">
-                <h2>Course Title: {course.title}</h2>
+                <h2>{course.title}</h2>
                 <p>Description: {htmlToText.fromString(course.description)}</p>
                 <p>Credits: {course.credits}</p>
                 <p>Course Code: {course.courseCode}</p>
@@ -153,7 +155,13 @@ class SingleCoursePDF extends Component {
                               {moment(end).format('MMM Do YYYY')}
                             </TdStyles>
                             <TdStyles>
-                              {upload && <a href={upload}>{title}-Upload</a>}
+                              {upload && (
+                                <a href={upload}>
+                                  {_.truncate(title, {
+                                    length: 24
+                                  })}
+                                </a>
+                              )}
                             </TdStyles>
                             <TdStyles>
                               <IsAdminTeacher>

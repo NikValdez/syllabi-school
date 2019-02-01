@@ -1,4 +1,5 @@
 import htmlToText from 'html-to-text'
+import _ from 'lodash'
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
@@ -33,9 +34,8 @@ export class Schedule extends Component {
             const courseData = data.me.myCourses.map(course => course)
             // const eventData = courseData.map(course => course.events
             return courseData.map(course => (
-              <>
+              <React.Fragment key={course.courses.id}>
                 <div
-                  key={course.courses.id}
                   style={{
                     borderBottom: '1px solid #f9c321',
                     borderTop: '1px solid #f9c321'
@@ -75,7 +75,13 @@ export class Schedule extends Component {
                               {moment(end).format('MMM Do YYYY')}
                             </TdStyles>
                             <TdStyles>
-                              {upload && <a href={upload}>{title}-Upload</a>}
+                              {upload && (
+                                <a href={upload}>
+                                  {_.truncate(title, {
+                                    length: 24
+                                  })}
+                                </a>
+                              )}
                             </TdStyles>
                             <TdStyles />
                           </TrStyles>
@@ -84,7 +90,7 @@ export class Schedule extends Component {
                     </tbody>
                   </TableStyles>
                 )}
-              </>
+              </React.Fragment>
             ))
           }}
         </Query>

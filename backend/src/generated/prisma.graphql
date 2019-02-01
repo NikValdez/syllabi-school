@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/nikvaldez-073802/schedule/dev
-# timestamp: Mon Jan 28 2019 13:11:12 GMT-0800 (PST)
+# timestamp: Thu Jan 31 2019 12:50:19 GMT-0800 (PST)
 
 type AggregateAnnouncement {
   count: Int!
@@ -583,6 +583,7 @@ type Course implements Node {
   events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event!]
   announcements(where: AnnouncementWhereInput, orderBy: AnnouncementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Announcement!]
   user: User!
+  institution: Institution
   myCourse: MyCourse
 }
 
@@ -606,7 +607,13 @@ input CourseCreateInput {
   events: EventCreateManyWithoutCourseInput
   announcements: AnnouncementCreateManyWithoutCourseInput
   user: UserCreateOneWithoutCoursesInput!
+  institution: InstitutionCreateOneWithoutCoursesInput
   myCourse: MyCourseCreateOneWithoutCoursesInput
+}
+
+input CourseCreateManyWithoutInstitutionInput {
+  create: [CourseCreateWithoutInstitutionInput!]
+  connect: [CourseWhereUniqueInput!]
 }
 
 input CourseCreateManyWithoutUserInput {
@@ -638,6 +645,7 @@ input CourseCreateWithoutAnnouncementsInput {
   color: String
   events: EventCreateManyWithoutCourseInput
   user: UserCreateOneWithoutCoursesInput!
+  institution: InstitutionCreateOneWithoutCoursesInput
   myCourse: MyCourseCreateOneWithoutCoursesInput
 }
 
@@ -648,6 +656,20 @@ input CourseCreateWithoutEventsInput {
   credits: Int
   image: String
   color: String
+  announcements: AnnouncementCreateManyWithoutCourseInput
+  user: UserCreateOneWithoutCoursesInput!
+  institution: InstitutionCreateOneWithoutCoursesInput
+  myCourse: MyCourseCreateOneWithoutCoursesInput
+}
+
+input CourseCreateWithoutInstitutionInput {
+  title: String!
+  description: String!
+  courseCode: String!
+  credits: Int
+  image: String
+  color: String
+  events: EventCreateManyWithoutCourseInput
   announcements: AnnouncementCreateManyWithoutCourseInput
   user: UserCreateOneWithoutCoursesInput!
   myCourse: MyCourseCreateOneWithoutCoursesInput
@@ -663,6 +685,7 @@ input CourseCreateWithoutMyCourseInput {
   events: EventCreateManyWithoutCourseInput
   announcements: AnnouncementCreateManyWithoutCourseInput
   user: UserCreateOneWithoutCoursesInput!
+  institution: InstitutionCreateOneWithoutCoursesInput
 }
 
 input CourseCreateWithoutUserInput {
@@ -674,6 +697,7 @@ input CourseCreateWithoutUserInput {
   color: String
   events: EventCreateManyWithoutCourseInput
   announcements: AnnouncementCreateManyWithoutCourseInput
+  institution: InstitutionCreateOneWithoutCoursesInput
   myCourse: MyCourseCreateOneWithoutCoursesInput
 }
 
@@ -1039,6 +1063,7 @@ input CourseUpdateInput {
   events: EventUpdateManyWithoutCourseInput
   announcements: AnnouncementUpdateManyWithoutCourseInput
   user: UserUpdateOneRequiredWithoutCoursesInput
+  institution: InstitutionUpdateOneWithoutCoursesInput
   myCourse: MyCourseUpdateOneWithoutCoursesInput
 }
 
@@ -1058,6 +1083,18 @@ input CourseUpdateManyMutationInput {
   credits: Int
   image: String
   color: String
+}
+
+input CourseUpdateManyWithoutInstitutionInput {
+  create: [CourseCreateWithoutInstitutionInput!]
+  connect: [CourseWhereUniqueInput!]
+  set: [CourseWhereUniqueInput!]
+  disconnect: [CourseWhereUniqueInput!]
+  delete: [CourseWhereUniqueInput!]
+  update: [CourseUpdateWithWhereUniqueWithoutInstitutionInput!]
+  updateMany: [CourseUpdateManyWithWhereNestedInput!]
+  deleteMany: [CourseScalarWhereInput!]
+  upsert: [CourseUpsertWithWhereUniqueWithoutInstitutionInput!]
 }
 
 input CourseUpdateManyWithoutUserInput {
@@ -1109,6 +1146,7 @@ input CourseUpdateWithoutAnnouncementsDataInput {
   color: String
   events: EventUpdateManyWithoutCourseInput
   user: UserUpdateOneRequiredWithoutCoursesInput
+  institution: InstitutionUpdateOneWithoutCoursesInput
   myCourse: MyCourseUpdateOneWithoutCoursesInput
 }
 
@@ -1119,6 +1157,20 @@ input CourseUpdateWithoutEventsDataInput {
   credits: Int
   image: String
   color: String
+  announcements: AnnouncementUpdateManyWithoutCourseInput
+  user: UserUpdateOneRequiredWithoutCoursesInput
+  institution: InstitutionUpdateOneWithoutCoursesInput
+  myCourse: MyCourseUpdateOneWithoutCoursesInput
+}
+
+input CourseUpdateWithoutInstitutionDataInput {
+  title: String
+  description: String
+  courseCode: String
+  credits: Int
+  image: String
+  color: String
+  events: EventUpdateManyWithoutCourseInput
   announcements: AnnouncementUpdateManyWithoutCourseInput
   user: UserUpdateOneRequiredWithoutCoursesInput
   myCourse: MyCourseUpdateOneWithoutCoursesInput
@@ -1134,6 +1186,7 @@ input CourseUpdateWithoutMyCourseDataInput {
   events: EventUpdateManyWithoutCourseInput
   announcements: AnnouncementUpdateManyWithoutCourseInput
   user: UserUpdateOneRequiredWithoutCoursesInput
+  institution: InstitutionUpdateOneWithoutCoursesInput
 }
 
 input CourseUpdateWithoutUserDataInput {
@@ -1145,7 +1198,13 @@ input CourseUpdateWithoutUserDataInput {
   color: String
   events: EventUpdateManyWithoutCourseInput
   announcements: AnnouncementUpdateManyWithoutCourseInput
+  institution: InstitutionUpdateOneWithoutCoursesInput
   myCourse: MyCourseUpdateOneWithoutCoursesInput
+}
+
+input CourseUpdateWithWhereUniqueWithoutInstitutionInput {
+  where: CourseWhereUniqueInput!
+  data: CourseUpdateWithoutInstitutionDataInput!
 }
 
 input CourseUpdateWithWhereUniqueWithoutUserInput {
@@ -1166,6 +1225,12 @@ input CourseUpsertWithoutEventsInput {
 input CourseUpsertWithoutMyCourseInput {
   update: CourseUpdateWithoutMyCourseDataInput!
   create: CourseCreateWithoutMyCourseInput!
+}
+
+input CourseUpsertWithWhereUniqueWithoutInstitutionInput {
+  where: CourseWhereUniqueInput!
+  update: CourseUpdateWithoutInstitutionDataInput!
+  create: CourseCreateWithoutInstitutionInput!
 }
 
 input CourseUpsertWithWhereUniqueWithoutUserInput {
@@ -1452,6 +1517,7 @@ input CourseWhereInput {
   announcements_some: AnnouncementWhereInput
   announcements_none: AnnouncementWhereInput
   user: UserWhereInput
+  institution: InstitutionWhereInput
   myCourse: MyCourseWhereInput
 }
 
@@ -2187,6 +2253,8 @@ type Institution implements Node {
   id: ID!
   name: String!
   logo: String
+  courses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course!]
+  users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User!]
 }
 
 """A connection to a list of items."""
@@ -2202,6 +2270,30 @@ type InstitutionConnection {
 input InstitutionCreateInput {
   name: String!
   logo: String
+  courses: CourseCreateManyWithoutInstitutionInput
+  users: UserCreateManyWithoutInstitutionInput
+}
+
+input InstitutionCreateOneWithoutCoursesInput {
+  create: InstitutionCreateWithoutCoursesInput
+  connect: InstitutionWhereUniqueInput
+}
+
+input InstitutionCreateOneWithoutUsersInput {
+  create: InstitutionCreateWithoutUsersInput
+  connect: InstitutionWhereUniqueInput
+}
+
+input InstitutionCreateWithoutCoursesInput {
+  name: String!
+  logo: String
+  users: UserCreateManyWithoutInstitutionInput
+}
+
+input InstitutionCreateWithoutUsersInput {
+  name: String!
+  logo: String
+  courses: CourseCreateManyWithoutInstitutionInput
 }
 
 """An edge in a connection."""
@@ -2274,11 +2366,53 @@ input InstitutionSubscriptionWhereInput {
 input InstitutionUpdateInput {
   name: String
   logo: String
+  courses: CourseUpdateManyWithoutInstitutionInput
+  users: UserUpdateManyWithoutInstitutionInput
 }
 
 input InstitutionUpdateManyMutationInput {
   name: String
   logo: String
+}
+
+input InstitutionUpdateOneWithoutCoursesInput {
+  create: InstitutionCreateWithoutCoursesInput
+  connect: InstitutionWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: InstitutionUpdateWithoutCoursesDataInput
+  upsert: InstitutionUpsertWithoutCoursesInput
+}
+
+input InstitutionUpdateOneWithoutUsersInput {
+  create: InstitutionCreateWithoutUsersInput
+  connect: InstitutionWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
+  update: InstitutionUpdateWithoutUsersDataInput
+  upsert: InstitutionUpsertWithoutUsersInput
+}
+
+input InstitutionUpdateWithoutCoursesDataInput {
+  name: String
+  logo: String
+  users: UserUpdateManyWithoutInstitutionInput
+}
+
+input InstitutionUpdateWithoutUsersDataInput {
+  name: String
+  logo: String
+  courses: CourseUpdateManyWithoutInstitutionInput
+}
+
+input InstitutionUpsertWithoutCoursesInput {
+  update: InstitutionUpdateWithoutCoursesDataInput!
+  create: InstitutionCreateWithoutCoursesInput!
+}
+
+input InstitutionUpsertWithoutUsersInput {
+  update: InstitutionUpdateWithoutUsersDataInput!
+  create: InstitutionCreateWithoutUsersInput!
 }
 
 input InstitutionWhereInput {
@@ -2410,6 +2544,12 @@ input InstitutionWhereInput {
 
   """All values not ending with the given string."""
   logo_not_ends_with: String
+  courses_every: CourseWhereInput
+  courses_some: CourseWhereInput
+  courses_none: CourseWhereInput
+  users_every: UserWhereInput
+  users_some: UserWhereInput
+  users_none: UserWhereInput
 }
 
 input InstitutionWhereUniqueInput {
@@ -2423,44 +2563,44 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
+  createInstitution(data: InstitutionCreateInput!): Institution!
   createUser(data: UserCreateInput!): User!
   createNote(data: NoteCreateInput!): Note!
   createCourse(data: CourseCreateInput!): Course!
-  createInstitution(data: InstitutionCreateInput!): Institution!
   createMyCourse(data: MyCourseCreateInput!): MyCourse!
   createAnnouncement(data: AnnouncementCreateInput!): Announcement!
   createEvent(data: EventCreateInput!): Event!
+  updateInstitution(data: InstitutionUpdateInput!, where: InstitutionWhereUniqueInput!): Institution
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
   updateNote(data: NoteUpdateInput!, where: NoteWhereUniqueInput!): Note
   updateCourse(data: CourseUpdateInput!, where: CourseWhereUniqueInput!): Course
-  updateInstitution(data: InstitutionUpdateInput!, where: InstitutionWhereUniqueInput!): Institution
   updateMyCourse(data: MyCourseUpdateInput!, where: MyCourseWhereUniqueInput!): MyCourse
   updateAnnouncement(data: AnnouncementUpdateInput!, where: AnnouncementWhereUniqueInput!): Announcement
   updateEvent(data: EventUpdateInput!, where: EventWhereUniqueInput!): Event
+  deleteInstitution(where: InstitutionWhereUniqueInput!): Institution
   deleteUser(where: UserWhereUniqueInput!): User
   deleteNote(where: NoteWhereUniqueInput!): Note
   deleteCourse(where: CourseWhereUniqueInput!): Course
-  deleteInstitution(where: InstitutionWhereUniqueInput!): Institution
   deleteMyCourse(where: MyCourseWhereUniqueInput!): MyCourse
   deleteAnnouncement(where: AnnouncementWhereUniqueInput!): Announcement
   deleteEvent(where: EventWhereUniqueInput!): Event
+  upsertInstitution(where: InstitutionWhereUniqueInput!, create: InstitutionCreateInput!, update: InstitutionUpdateInput!): Institution!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
   upsertNote(where: NoteWhereUniqueInput!, create: NoteCreateInput!, update: NoteUpdateInput!): Note!
   upsertCourse(where: CourseWhereUniqueInput!, create: CourseCreateInput!, update: CourseUpdateInput!): Course!
-  upsertInstitution(where: InstitutionWhereUniqueInput!, create: InstitutionCreateInput!, update: InstitutionUpdateInput!): Institution!
   upsertMyCourse(where: MyCourseWhereUniqueInput!, create: MyCourseCreateInput!, update: MyCourseUpdateInput!): MyCourse!
   upsertAnnouncement(where: AnnouncementWhereUniqueInput!, create: AnnouncementCreateInput!, update: AnnouncementUpdateInput!): Announcement!
   upsertEvent(where: EventWhereUniqueInput!, create: EventCreateInput!, update: EventUpdateInput!): Event!
+  updateManyInstitutions(data: InstitutionUpdateManyMutationInput!, where: InstitutionWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
   updateManyNotes(data: NoteUpdateManyMutationInput!, where: NoteWhereInput): BatchPayload!
   updateManyCourses(data: CourseUpdateManyMutationInput!, where: CourseWhereInput): BatchPayload!
-  updateManyInstitutions(data: InstitutionUpdateManyMutationInput!, where: InstitutionWhereInput): BatchPayload!
   updateManyAnnouncements(data: AnnouncementUpdateManyMutationInput!, where: AnnouncementWhereInput): BatchPayload!
   updateManyEvents(data: EventUpdateManyMutationInput!, where: EventWhereInput): BatchPayload!
+  deleteManyInstitutions(where: InstitutionWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
   deleteManyNotes(where: NoteWhereInput): BatchPayload!
   deleteManyCourses(where: CourseWhereInput): BatchPayload!
-  deleteManyInstitutions(where: InstitutionWhereInput): BatchPayload!
   deleteManyMyCourses(where: MyCourseWhereInput): BatchPayload!
   deleteManyAnnouncements(where: AnnouncementWhereInput): BatchPayload!
   deleteManyEvents(where: EventWhereInput): BatchPayload!
@@ -3084,24 +3224,24 @@ enum Permission {
 }
 
 type Query {
+  institutions(where: InstitutionWhereInput, orderBy: InstitutionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Institution]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
   notes(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Note]!
   courses(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Course]!
-  institutions(where: InstitutionWhereInput, orderBy: InstitutionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Institution]!
   myCourses(where: MyCourseWhereInput, orderBy: MyCourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MyCourse]!
   announcements(where: AnnouncementWhereInput, orderBy: AnnouncementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Announcement]!
   events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event]!
+  institution(where: InstitutionWhereUniqueInput!): Institution
   user(where: UserWhereUniqueInput!): User
   note(where: NoteWhereUniqueInput!): Note
   course(where: CourseWhereUniqueInput!): Course
-  institution(where: InstitutionWhereUniqueInput!): Institution
   myCourse(where: MyCourseWhereUniqueInput!): MyCourse
   announcement(where: AnnouncementWhereUniqueInput!): Announcement
   event(where: EventWhereUniqueInput!): Event
+  institutionsConnection(where: InstitutionWhereInput, orderBy: InstitutionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InstitutionConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
   notesConnection(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): NoteConnection!
   coursesConnection(where: CourseWhereInput, orderBy: CourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): CourseConnection!
-  institutionsConnection(where: InstitutionWhereInput, orderBy: InstitutionOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): InstitutionConnection!
   myCoursesConnection(where: MyCourseWhereInput, orderBy: MyCourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): MyCourseConnection!
   announcementsConnection(where: AnnouncementWhereInput, orderBy: AnnouncementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): AnnouncementConnection!
   eventsConnection(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): EventConnection!
@@ -3114,10 +3254,10 @@ type Query {
 }
 
 type Subscription {
+  institution(where: InstitutionSubscriptionWhereInput): InstitutionSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
   note(where: NoteSubscriptionWhereInput): NoteSubscriptionPayload
   course(where: CourseSubscriptionWhereInput): CourseSubscriptionPayload
-  institution(where: InstitutionSubscriptionWhereInput): InstitutionSubscriptionPayload
   myCourse(where: MyCourseSubscriptionWhereInput): MyCourseSubscriptionPayload
   announcement(where: AnnouncementSubscriptionWhereInput): AnnouncementSubscriptionPayload
   event(where: EventSubscriptionWhereInput): EventSubscriptionPayload
@@ -3135,6 +3275,7 @@ type User implements Node {
   announcements(where: AnnouncementWhereInput, orderBy: AnnouncementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Announcement!]
   myCourses(where: MyCourseWhereInput, orderBy: MyCourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MyCourse!]
   notes(where: NoteWhereInput, orderBy: NoteOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Note!]
+  institution: Institution
 }
 
 """A connection to a list of items."""
@@ -3158,6 +3299,12 @@ input UserCreateInput {
   announcements: AnnouncementCreateManyWithoutUserInput
   myCourses: MyCourseCreateManyWithoutUserInput
   notes: NoteCreateManyWithoutUserInput
+  institution: InstitutionCreateOneWithoutUsersInput
+}
+
+input UserCreateManyWithoutInstitutionInput {
+  create: [UserCreateWithoutInstitutionInput!]
+  connect: [UserWhereUniqueInput!]
 }
 
 input UserCreateOneWithoutAnnouncementsInput {
@@ -3194,6 +3341,7 @@ input UserCreateWithoutAnnouncementsInput {
   courses: CourseCreateManyWithoutUserInput
   myCourses: MyCourseCreateManyWithoutUserInput
   notes: NoteCreateManyWithoutUserInput
+  institution: InstitutionCreateOneWithoutUsersInput
 }
 
 input UserCreateWithoutCoursesInput {
@@ -3203,6 +3351,20 @@ input UserCreateWithoutCoursesInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserCreatepermissionsInput
+  announcements: AnnouncementCreateManyWithoutUserInput
+  myCourses: MyCourseCreateManyWithoutUserInput
+  notes: NoteCreateManyWithoutUserInput
+  institution: InstitutionCreateOneWithoutUsersInput
+}
+
+input UserCreateWithoutInstitutionInput {
+  name: String!
+  email: String!
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserCreatepermissionsInput
+  courses: CourseCreateManyWithoutUserInput
   announcements: AnnouncementCreateManyWithoutUserInput
   myCourses: MyCourseCreateManyWithoutUserInput
   notes: NoteCreateManyWithoutUserInput
@@ -3218,6 +3380,7 @@ input UserCreateWithoutMyCoursesInput {
   courses: CourseCreateManyWithoutUserInput
   announcements: AnnouncementCreateManyWithoutUserInput
   notes: NoteCreateManyWithoutUserInput
+  institution: InstitutionCreateOneWithoutUsersInput
 }
 
 input UserCreateWithoutNotesInput {
@@ -3230,6 +3393,7 @@ input UserCreateWithoutNotesInput {
   courses: CourseCreateManyWithoutUserInput
   announcements: AnnouncementCreateManyWithoutUserInput
   myCourses: MyCourseCreateManyWithoutUserInput
+  institution: InstitutionCreateOneWithoutUsersInput
 }
 
 """An edge in a connection."""
@@ -3268,6 +3432,239 @@ type UserPreviousValues {
   resetToken: String
   resetTokenExpiry: Float
   permissions: [Permission!]!
+}
+
+input UserScalarWhereInput {
+  """Logical AND on all given filters."""
+  AND: [UserScalarWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [UserScalarWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [UserScalarWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  name: String
+
+  """All values that are not equal to given value."""
+  name_not: String
+
+  """All values that are contained in given list."""
+  name_in: [String!]
+
+  """All values that are not contained in given list."""
+  name_not_in: [String!]
+
+  """All values less than the given value."""
+  name_lt: String
+
+  """All values less than or equal the given value."""
+  name_lte: String
+
+  """All values greater than the given value."""
+  name_gt: String
+
+  """All values greater than or equal the given value."""
+  name_gte: String
+
+  """All values containing the given string."""
+  name_contains: String
+
+  """All values not containing the given string."""
+  name_not_contains: String
+
+  """All values starting with the given string."""
+  name_starts_with: String
+
+  """All values not starting with the given string."""
+  name_not_starts_with: String
+
+  """All values ending with the given string."""
+  name_ends_with: String
+
+  """All values not ending with the given string."""
+  name_not_ends_with: String
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
+  password: String
+
+  """All values that are not equal to given value."""
+  password_not: String
+
+  """All values that are contained in given list."""
+  password_in: [String!]
+
+  """All values that are not contained in given list."""
+  password_not_in: [String!]
+
+  """All values less than the given value."""
+  password_lt: String
+
+  """All values less than or equal the given value."""
+  password_lte: String
+
+  """All values greater than the given value."""
+  password_gt: String
+
+  """All values greater than or equal the given value."""
+  password_gte: String
+
+  """All values containing the given string."""
+  password_contains: String
+
+  """All values not containing the given string."""
+  password_not_contains: String
+
+  """All values starting with the given string."""
+  password_starts_with: String
+
+  """All values not starting with the given string."""
+  password_not_starts_with: String
+
+  """All values ending with the given string."""
+  password_ends_with: String
+
+  """All values not ending with the given string."""
+  password_not_ends_with: String
+  resetToken: String
+
+  """All values that are not equal to given value."""
+  resetToken_not: String
+
+  """All values that are contained in given list."""
+  resetToken_in: [String!]
+
+  """All values that are not contained in given list."""
+  resetToken_not_in: [String!]
+
+  """All values less than the given value."""
+  resetToken_lt: String
+
+  """All values less than or equal the given value."""
+  resetToken_lte: String
+
+  """All values greater than the given value."""
+  resetToken_gt: String
+
+  """All values greater than or equal the given value."""
+  resetToken_gte: String
+
+  """All values containing the given string."""
+  resetToken_contains: String
+
+  """All values not containing the given string."""
+  resetToken_not_contains: String
+
+  """All values starting with the given string."""
+  resetToken_starts_with: String
+
+  """All values not starting with the given string."""
+  resetToken_not_starts_with: String
+
+  """All values ending with the given string."""
+  resetToken_ends_with: String
+
+  """All values not ending with the given string."""
+  resetToken_not_ends_with: String
+  resetTokenExpiry: Float
+
+  """All values that are not equal to given value."""
+  resetTokenExpiry_not: Float
+
+  """All values that are contained in given list."""
+  resetTokenExpiry_in: [Float!]
+
+  """All values that are not contained in given list."""
+  resetTokenExpiry_not_in: [Float!]
+
+  """All values less than the given value."""
+  resetTokenExpiry_lt: Float
+
+  """All values less than or equal the given value."""
+  resetTokenExpiry_lte: Float
+
+  """All values greater than the given value."""
+  resetTokenExpiry_gt: Float
+
+  """All values greater than or equal the given value."""
+  resetTokenExpiry_gte: Float
 }
 
 type UserSubscriptionPayload {
@@ -3320,6 +3717,16 @@ input UserUpdateInput {
   announcements: AnnouncementUpdateManyWithoutUserInput
   myCourses: MyCourseUpdateManyWithoutUserInput
   notes: NoteUpdateManyWithoutUserInput
+  institution: InstitutionUpdateOneWithoutUsersInput
+}
+
+input UserUpdateManyDataInput {
+  name: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserUpdatepermissionsInput
 }
 
 input UserUpdateManyMutationInput {
@@ -3329,6 +3736,23 @@ input UserUpdateManyMutationInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
+}
+
+input UserUpdateManyWithoutInstitutionInput {
+  create: [UserCreateWithoutInstitutionInput!]
+  connect: [UserWhereUniqueInput!]
+  set: [UserWhereUniqueInput!]
+  disconnect: [UserWhereUniqueInput!]
+  delete: [UserWhereUniqueInput!]
+  update: [UserUpdateWithWhereUniqueWithoutInstitutionInput!]
+  updateMany: [UserUpdateManyWithWhereNestedInput!]
+  deleteMany: [UserScalarWhereInput!]
+  upsert: [UserUpsertWithWhereUniqueWithoutInstitutionInput!]
+}
+
+input UserUpdateManyWithWhereNestedInput {
+  where: UserScalarWhereInput!
+  data: UserUpdateManyDataInput!
 }
 
 input UserUpdateOneRequiredWithoutAnnouncementsInput {
@@ -3373,6 +3797,7 @@ input UserUpdateWithoutAnnouncementsDataInput {
   courses: CourseUpdateManyWithoutUserInput
   myCourses: MyCourseUpdateManyWithoutUserInput
   notes: NoteUpdateManyWithoutUserInput
+  institution: InstitutionUpdateOneWithoutUsersInput
 }
 
 input UserUpdateWithoutCoursesDataInput {
@@ -3382,6 +3807,20 @@ input UserUpdateWithoutCoursesDataInput {
   resetToken: String
   resetTokenExpiry: Float
   permissions: UserUpdatepermissionsInput
+  announcements: AnnouncementUpdateManyWithoutUserInput
+  myCourses: MyCourseUpdateManyWithoutUserInput
+  notes: NoteUpdateManyWithoutUserInput
+  institution: InstitutionUpdateOneWithoutUsersInput
+}
+
+input UserUpdateWithoutInstitutionDataInput {
+  name: String
+  email: String
+  password: String
+  resetToken: String
+  resetTokenExpiry: Float
+  permissions: UserUpdatepermissionsInput
+  courses: CourseUpdateManyWithoutUserInput
   announcements: AnnouncementUpdateManyWithoutUserInput
   myCourses: MyCourseUpdateManyWithoutUserInput
   notes: NoteUpdateManyWithoutUserInput
@@ -3397,6 +3836,7 @@ input UserUpdateWithoutMyCoursesDataInput {
   courses: CourseUpdateManyWithoutUserInput
   announcements: AnnouncementUpdateManyWithoutUserInput
   notes: NoteUpdateManyWithoutUserInput
+  institution: InstitutionUpdateOneWithoutUsersInput
 }
 
 input UserUpdateWithoutNotesDataInput {
@@ -3409,6 +3849,12 @@ input UserUpdateWithoutNotesDataInput {
   courses: CourseUpdateManyWithoutUserInput
   announcements: AnnouncementUpdateManyWithoutUserInput
   myCourses: MyCourseUpdateManyWithoutUserInput
+  institution: InstitutionUpdateOneWithoutUsersInput
+}
+
+input UserUpdateWithWhereUniqueWithoutInstitutionInput {
+  where: UserWhereUniqueInput!
+  data: UserUpdateWithoutInstitutionDataInput!
 }
 
 input UserUpsertWithoutAnnouncementsInput {
@@ -3429,6 +3875,12 @@ input UserUpsertWithoutMyCoursesInput {
 input UserUpsertWithoutNotesInput {
   update: UserUpdateWithoutNotesDataInput!
   create: UserCreateWithoutNotesInput!
+}
+
+input UserUpsertWithWhereUniqueWithoutInstitutionInput {
+  where: UserWhereUniqueInput!
+  update: UserUpdateWithoutInstitutionDataInput!
+  create: UserCreateWithoutInstitutionInput!
 }
 
 input UserWhereInput {
@@ -3674,6 +4126,7 @@ input UserWhereInput {
   notes_every: NoteWhereInput
   notes_some: NoteWhereInput
   notes_none: NoteWhereInput
+  institution: InstitutionWhereInput
 }
 
 input UserWhereUniqueInput {

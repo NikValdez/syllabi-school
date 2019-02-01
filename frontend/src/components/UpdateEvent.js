@@ -1,5 +1,6 @@
 import gql from 'graphql-tag'
 import htmlToText from 'html-to-text'
+import _ from 'lodash'
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Mutation, Query } from 'react-apollo'
@@ -8,6 +9,33 @@ import 'react-datepicker/dist/react-datepicker.css'
 import styled from 'styled-components'
 import Book from '../book.gif'
 import Form from './styles/Form'
+
+export const UploadButton = styled.div`
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+
+  button {
+    background: black;
+    color: white;
+    font-weight: 500;
+    border: 0;
+    border-radius: 0;
+    text-transform: uppercase;
+    font-size: 1rem;
+    padding: 0.5rem 1.2rem;
+    display: inline-block;
+    margin-top: 2rem;
+  }
+
+  input[type='file'] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+`
 
 const DatePick = styled.div`
   padding: 10px;
@@ -34,6 +62,7 @@ const UPDATE_EVENT_MUTATION = gql`
     $description: String
     $start: DateTime
     $end: DateTime
+    $upload: String
   ) {
     updateEvent(
       id: $id
@@ -41,12 +70,14 @@ const UPDATE_EVENT_MUTATION = gql`
       description: $description
       start: $start
       end: $end
+      upload: $upload
     ) {
       id
       title
       description
       start
       end
+      upload
     }
   }
 `
@@ -68,7 +99,7 @@ class UpdateEvent extends Component {
         ...this.state
       }
     })
-    this.props.history.push(`/courses/${this.props.match.params.id}`)
+    this.props.history.goBack()
   }
   handleStartDateChange = date => {
     this.setState({
@@ -95,7 +126,6 @@ class UpdateEvent extends Component {
       }
     )
     const file = await res.json()
-    // console.log(file)
     this.setState({
       upload: file.secure_url,
       loading: false
@@ -179,6 +209,34 @@ class UpdateEvent extends Component {
                         )}
                         onChange={this.handleChange}
                       />
+                    </label>
+                    <label htmlFor="file">
+                      <UploadButton>
+                        <button>Upload a File ⬆️</button>
+                        <input
+                          type="file"
+                          id="file"
+                          name="file"
+                          placeholder="Upload a file or image"
+                          onChange={this.uploadFile}
+                        />
+                      </UploadButton>
+                      {this.state.loading ? (
+                        <img
+                          src={Book}
+                          alt="Loading"
+                          style={{ width: '100px' }}
+                        />
+                      ) : null}
+                      {this.state.upload && (
+                        <UploadPreview>
+                          <a href={this.state.upload}>
+                            {_.truncate(this.state.title, {
+                              length: 24
+                            })}
+                          </a>
+                        </UploadPreview>
+                      )}
                     </label>
 
                     <button type="submit">Save Changes</button>

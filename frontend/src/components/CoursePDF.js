@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
 import html2canvas from 'html2canvas'
 import * as jsPDF from 'jspdf'
-import Button from './styles/Button'
+import React, { Component } from 'react'
 import SingleCoursePDF from './SingleCoursePDF'
+import Button from './styles/Button'
 
 export default class CoursePDF extends Component {
   downloadDocument() {
@@ -24,7 +24,6 @@ export default class CoursePDF extends Component {
           </Button>
         </div>
         <div id="divToDownload" className="mt4">
-          <h1 style={{ textAlign: 'center' }}>Course Schedule</h1>
           <SingleCoursePDF id={this.props.id} />
         </div>
       </>
