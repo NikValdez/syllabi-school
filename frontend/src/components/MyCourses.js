@@ -90,7 +90,6 @@ class MyCourses extends Component {
   render() {
     return (
       <MyCoursesStyles>
-        <h3>My Courses</h3>
         <Query query={CURRENT_USER_QUERY_COURSES_EVENTS}>
           {({ data, error, loading }) => {
             if (loading) return <p />

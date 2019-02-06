@@ -1,13 +1,13 @@
-import React, { Component } from 'react'
 import Downshift from 'downshift'
-import { ApolloConsumer } from 'react-apollo'
 import gql from 'graphql-tag'
 import debounce from 'lodash.debounce'
-import { DropDown, DropDownItem, SearchStyles } from './styles/DropDown'
+import React, { Component } from 'react'
+import { ApolloConsumer } from 'react-apollo'
 import { Link } from 'react-router-dom'
-import AddCourse from './AddCourse'
 import styled from 'styled-components'
 import Book from '../book.gif'
+import AddCourse from './AddCourse'
+import { DropDown, DropDownItem, SearchStyles } from './styles/DropDown'
 
 const LinkStyles = styled.div`
   justify-self: start;
@@ -44,7 +44,7 @@ class Search extends Component {
       courses: res.data.courses,
       loading: false
     })
-  }, 350)
+  }, 300)
   render() {
     return (
       <SearchStyles>

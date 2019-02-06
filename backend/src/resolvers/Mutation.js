@@ -26,7 +26,8 @@ const Mutations = {
     )
     return institution
   },
-  async createCourse(parent, args, ctx, info) {
+  async createCourse(parent, { institution, ...args }, ctx, info) {
+    console.log(ctx.request.userId)
     if (!ctx.request.userId) {
       throw new Error('You must be logged in to do that!')
     }
@@ -42,6 +43,11 @@ const Mutations = {
           user: {
             connect: {
               id: ctx.request.userId
+            }
+          },
+          institution: {
+            connect: {
+              id: institution
             }
           },
           ...args
@@ -298,7 +304,7 @@ const Mutations = {
 
     const [existingMyCourse] = await ctx.db.query.myCourses({
       where: {
-        courses: { id: args.id },
+        courses: null,
         user: { id: userId }
       }
     })

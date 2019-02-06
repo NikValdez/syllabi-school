@@ -11,7 +11,9 @@ const CURRENT_USER_QUERY = gql`
       name
       permissions
       institution {
+        id
         name
+        logo
       }
     }
   }

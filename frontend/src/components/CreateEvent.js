@@ -45,7 +45,7 @@ export const UploadButton = styled.div`
 const DatePick = styled.div`
   padding: 10px;
 `
-const UploadPreview = styled.div`
+export const UploadPreview = styled.div`
   width: 200px;
 `
 export const Quill = styled.div`

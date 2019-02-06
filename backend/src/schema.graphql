@@ -13,6 +13,7 @@ type Mutation {
     credits: Int
     image: String
     color: String
+    institution: ID!
   ): Course!
   deleteCourse(id: ID!): Course
   updateCourse(

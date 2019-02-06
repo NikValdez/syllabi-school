@@ -47,13 +47,13 @@ type Course {
     @relation(name: "CourseAnnouncements", onDelete: CASCADE)
   user: User!
   institution: Institution @relation(name: "InstitutionCourses")
-  myCourse: MyCourse @relation(name: "MyCourse", onDelete: CASCADE)
+  myCourse: [MyCourse!]! @relation(name: "MyCourse", onDelete: CASCADE)
 }
 
 type MyCourse {
   id: ID! @unique
   user: User!
-  courses: Course @relation(name: "MyCourse")
+  courses: Course! @relation(name: "MyCourse")
 }
 
 type Announcement {

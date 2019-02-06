@@ -1,13 +1,14 @@
-import React, { Component } from 'react'
-import { Mutation } from 'react-apollo'
 import gql from 'graphql-tag'
+import React, { Component } from 'react'
+import { Mutation, Query } from 'react-apollo'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
-import Form from './styles/Form'
 import { ALL_COURSES_QUERY } from './Courses'
+import { Quill } from './CreateEvent'
 import Error from './ErrorMessage'
 import IsAdminTeacher from './IsAdminTeacher'
-import { Quill } from './CreateEvent'
+import Form from './styles/Form'
+import { CURRENT_USER_QUERY } from './User'
 
 const CREATE_COURSE_MUTATION = gql`
   mutation CREATE_COURSE_MUTATION(
@@ -17,6 +18,7 @@ const CREATE_COURSE_MUTATION = gql`
     $courseCode: String!
     $image: String
     $color: String
+    $institution: ID!
   ) {
     createCourse(
       title: $title
@@ -25,6 +27,7 @@ const CREATE_COURSE_MUTATION = gql`
       courseCode: $courseCode
       image: $image
       color: $color
+      institution: $institution
     ) {
       id
     }
@@ -38,7 +41,8 @@ class CreateCourse extends Component {
     credits: 0,
     courseCode: '',
     image: '',
-    color: ''
+    color: '',
+    institution: ''
   }
 
   getRandomColor = () => {
@@ -60,75 +64,87 @@ class CreateCourse extends Component {
   render() {
     return (
       <IsAdminTeacher>
-        <Mutation
-          mutation={CREATE_COURSE_MUTATION}
-          variables={this.state}
-          refetchQueries={[{ query: ALL_COURSES_QUERY }]}
-        >
-          {(createCourse, { loading, error }) => (
-            <Form
-              onSubmit={async e => {
-                e.preventDefault()
-                const res = await createCourse()
-                this.props.history.push(`/courses/${res.data.createCourse.id}`)
-              }}
-            >
-              <Error error={error} />
-              <fieldset disabled={loading} aria-busy={loading}>
-                <label htmlFor="title">
-                  Title
-                  <input
-                    type="text"
-                    id="title"
-                    name="title"
-                    placeholder="title"
-                    required
-                    value={this.state.title}
-                    onChange={this.handleChange}
-                  />
-                </label>
-                <label htmlFor="courseCode">
-                  Course Code
-                  <input
-                    type="text"
-                    id="courseCode"
-                    name="courseCode"
-                    placeholder="Course Code"
-                    required
-                    value={this.state.courseCode}
-                    onChange={this.handleChange}
-                  />
-                </label>
-                <label htmlFor="credits">
-                  Credits
-                  <input
-                    type="text"
-                    id="credits"
-                    name="credits"
-                    placeholder="Credits"
-                    required
-                    value={this.state.credits}
-                    onChange={this.handleChange}
-                  />
-                </label>
-                <label htmlFor="description">
-                  Description
-                  <Quill>
-                    <ReactQuill
-                      placeholder="Add a description..."
-                      theme="snow"
-                      value={this.state.description}
-                      onChange={this.onDescriptionChange}
-                      modules={CreateCourse.modules}
-                      formats={CreateCourse.formats}
-                    />
-                  </Quill>
-                </label>
-                <button type="submit">Submit</button>
-              </fieldset>
-            </Form>
-          )}
-        </Mutation>
+        <Query query={CURRENT_USER_QUERY}>
+          {({ data, error, loading }) => {
+            if (error) return <p>Error : {error.message}</p>
+            return (
+              <Mutation
+                mutation={CREATE_COURSE_MUTATION}
+                variables={this.state}
+                refetchQueries={[{ query: ALL_COURSES_QUERY }]}
+              >
+                {(createCourse, { loading, error }) => (
+                  <Form
+                    onSubmit={async e => {
+                      e.preventDefault()
+                      await this.setState({
+                        institution: data.me.institution.id
+                      })
+                      const res = await createCourse()
+                      this.props.history.push(
+                        `/courses/${res.data.createCourse.id}`
+                      )
+                    }}
+                  >
+                    <Error error={error} />
+                    <fieldset disabled={loading} aria-busy={loading}>
+                      <label htmlFor="title">
+                        Title
+                        <input
+                          type="text"
+                          id="title"
+                          name="title"
+                          placeholder="title"
+                          required
+                          value={this.state.title}
+                          onChange={this.handleChange}
+                        />
+                      </label>
+                      <label htmlFor="courseCode">
+                        Course Code
+                        <input
+                          type="text"
+                          id="courseCode"
+                          name="courseCode"
+                          placeholder="Course Code"
+                          required
+                          value={this.state.courseCode}
+                          onChange={this.handleChange}
+                        />
+                      </label>
+                      <label htmlFor="credits">
+                        Credits
+                        <input
+                          type="text"
+                          id="credits"
+                          name="credits"
+                          placeholder="Credits"
+                          required
+                          value={this.state.credits}
+                          onChange={this.handleChange}
+                        />
+                      </label>
+                      <label htmlFor="description">
+                        Description
+                        <Quill>
+                          <ReactQuill
+                            placeholder="Add a description..."
+                            theme="snow"
+                            value={this.state.description}
+                            onChange={this.onDescriptionChange}
+                            modules={CreateCourse.modules}
+                            formats={CreateCourse.formats}
+                          />
+                        </Quill>
+                      </label>
+                      <button type="submit">Submit</button>
+                    </fieldset>
+                  </Form>
+                )}
+              </Mutation>
+            )
+          }}
+        </Query>
       </IsAdminTeacher>
     )
   }

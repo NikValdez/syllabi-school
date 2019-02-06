@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/nikvaldez-073802/schedule/dev
-# timestamp: Thu Jan 31 2019 12:50:19 GMT-0800 (PST)
+# timestamp: Tue Feb 05 2019 16:00:47 GMT-0800 (PST)
 
 type AggregateAnnouncement {
   count: Int!
@@ -584,7 +584,7 @@ type Course implements Node {
   announcements(where: AnnouncementWhereInput, orderBy: AnnouncementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Announcement!]
   user: User!
   institution: Institution
-  myCourse: MyCourse
+  myCourse(where: MyCourseWhereInput, orderBy: MyCourseOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [MyCourse!]
 }
 
 """A connection to a list of items."""
@@ -608,7 +608,7 @@ input CourseCreateInput {
   announcements: AnnouncementCreateManyWithoutCourseInput
   user: UserCreateOneWithoutCoursesInput!
   institution: InstitutionCreateOneWithoutCoursesInput
-  myCourse: MyCourseCreateOneWithoutCoursesInput
+  myCourse: MyCourseCreateManyWithoutCoursesInput
 }
 
 input CourseCreateManyWithoutInstitutionInput {
@@ -646,7 +646,7 @@ input CourseCreateWithoutAnnouncementsInput {
   events: EventCreateManyWithoutCourseInput
   user: UserCreateOneWithoutCoursesInput!
   institution: InstitutionCreateOneWithoutCoursesInput
-  myCourse: MyCourseCreateOneWithoutCoursesInput
+  myCourse: MyCourseCreateManyWithoutCoursesInput
 }
 
 input CourseCreateWithoutEventsInput {
@@ -659,7 +659,7 @@ input CourseCreateWithoutEventsInput {
   announcements: AnnouncementCreateManyWithoutCourseInput
   user: UserCreateOneWithoutCoursesInput!
   institution: InstitutionCreateOneWithoutCoursesInput
-  myCourse: MyCourseCreateOneWithoutCoursesInput
+  myCourse: MyCourseCreateManyWithoutCoursesInput
 }
 
 input CourseCreateWithoutInstitutionInput {
@@ -672,7 +672,7 @@ input CourseCreateWithoutInstitutionInput {
   events: EventCreateManyWithoutCourseInput
   announcements: AnnouncementCreateManyWithoutCourseInput
   user: UserCreateOneWithoutCoursesInput!
-  myCourse: MyCourseCreateOneWithoutCoursesInput
+  myCourse: MyCourseCreateManyWithoutCoursesInput
 }
 
 input CourseCreateWithoutMyCourseInput {
@@ -698,7 +698,7 @@ input CourseCreateWithoutUserInput {
   events: EventCreateManyWithoutCourseInput
   announcements: AnnouncementCreateManyWithoutCourseInput
   institution: InstitutionCreateOneWithoutCoursesInput
-  myCourse: MyCourseCreateOneWithoutCoursesInput
+  myCourse: MyCourseCreateManyWithoutCoursesInput
 }
 
 """An edge in a connection."""
@@ -1064,7 +1064,7 @@ input CourseUpdateInput {
   announcements: AnnouncementUpdateManyWithoutCourseInput
   user: UserUpdateOneRequiredWithoutCoursesInput
   institution: InstitutionUpdateOneWithoutCoursesInput
-  myCourse: MyCourseUpdateOneWithoutCoursesInput
+  myCourse: MyCourseUpdateManyWithoutCoursesInput
 }
 
 input CourseUpdateManyDataInput {
@@ -1128,11 +1128,9 @@ input CourseUpdateOneRequiredWithoutEventsInput {
   upsert: CourseUpsertWithoutEventsInput
 }
 
-input CourseUpdateOneWithoutMyCourseInput {
+input CourseUpdateOneRequiredWithoutMyCourseInput {
   create: CourseCreateWithoutMyCourseInput
   connect: CourseWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
   update: CourseUpdateWithoutMyCourseDataInput
   upsert: CourseUpsertWithoutMyCourseInput
 }
@@ -1147,7 +1145,7 @@ input CourseUpdateWithoutAnnouncementsDataInput {
   events: EventUpdateManyWithoutCourseInput
   user: UserUpdateOneRequiredWithoutCoursesInput
   institution: InstitutionUpdateOneWithoutCoursesInput
-  myCourse: MyCourseUpdateOneWithoutCoursesInput
+  myCourse: MyCourseUpdateManyWithoutCoursesInput
 }
 
 input CourseUpdateWithoutEventsDataInput {
@@ -1160,7 +1158,7 @@ input CourseUpdateWithoutEventsDataInput {
   announcements: AnnouncementUpdateManyWithoutCourseInput
   user: UserUpdateOneRequiredWithoutCoursesInput
   institution: InstitutionUpdateOneWithoutCoursesInput
-  myCourse: MyCourseUpdateOneWithoutCoursesInput
+  myCourse: MyCourseUpdateManyWithoutCoursesInput
 }
 
 input CourseUpdateWithoutInstitutionDataInput {
@@ -1173,7 +1171,7 @@ input CourseUpdateWithoutInstitutionDataInput {
   events: EventUpdateManyWithoutCourseInput
   announcements: AnnouncementUpdateManyWithoutCourseInput
   user: UserUpdateOneRequiredWithoutCoursesInput
-  myCourse: MyCourseUpdateOneWithoutCoursesInput
+  myCourse: MyCourseUpdateManyWithoutCoursesInput
 }
 
 input CourseUpdateWithoutMyCourseDataInput {
@@ -1199,7 +1197,7 @@ input CourseUpdateWithoutUserDataInput {
   events: EventUpdateManyWithoutCourseInput
   announcements: AnnouncementUpdateManyWithoutCourseInput
   institution: InstitutionUpdateOneWithoutCoursesInput
-  myCourse: MyCourseUpdateOneWithoutCoursesInput
+  myCourse: MyCourseUpdateManyWithoutCoursesInput
 }
 
 input CourseUpdateWithWhereUniqueWithoutInstitutionInput {
@@ -1518,7 +1516,9 @@ input CourseWhereInput {
   announcements_none: AnnouncementWhereInput
   user: UserWhereInput
   institution: InstitutionWhereInput
-  myCourse: MyCourseWhereInput
+  myCourse_every: MyCourseWhereInput
+  myCourse_some: MyCourseWhereInput
+  myCourse_none: MyCourseWhereInput
 }
 
 input CourseWhereUniqueInput {
@@ -2615,7 +2615,7 @@ enum MutationType {
 type MyCourse implements Node {
   id: ID!
   user: User!
-  courses: Course
+  courses: Course!
 }
 
 """A connection to a list of items."""
@@ -2630,7 +2630,12 @@ type MyCourseConnection {
 
 input MyCourseCreateInput {
   user: UserCreateOneWithoutMyCoursesInput!
-  courses: CourseCreateOneWithoutMyCourseInput
+  courses: CourseCreateOneWithoutMyCourseInput!
+}
+
+input MyCourseCreateManyWithoutCoursesInput {
+  create: [MyCourseCreateWithoutCoursesInput!]
+  connect: [MyCourseWhereUniqueInput!]
 }
 
 input MyCourseCreateManyWithoutUserInput {
@@ -2638,17 +2643,12 @@ input MyCourseCreateManyWithoutUserInput {
   connect: [MyCourseWhereUniqueInput!]
 }
 
-input MyCourseCreateOneWithoutCoursesInput {
-  create: MyCourseCreateWithoutCoursesInput
-  connect: MyCourseWhereUniqueInput
-}
-
 input MyCourseCreateWithoutCoursesInput {
   user: UserCreateOneWithoutMyCoursesInput!
 }
 
 input MyCourseCreateWithoutUserInput {
-  courses: CourseCreateOneWithoutMyCourseInput
+  courses: CourseCreateOneWithoutMyCourseInput!
 }
 
 """An edge in a connection."""
@@ -2765,7 +2765,18 @@ input MyCourseSubscriptionWhereInput {
 
 input MyCourseUpdateInput {
   user: UserUpdateOneRequiredWithoutMyCoursesInput
-  courses: CourseUpdateOneWithoutMyCourseInput
+  courses: CourseUpdateOneRequiredWithoutMyCourseInput
+}
+
+input MyCourseUpdateManyWithoutCoursesInput {
+  create: [MyCourseCreateWithoutCoursesInput!]
+  connect: [MyCourseWhereUniqueInput!]
+  set: [MyCourseWhereUniqueInput!]
+  disconnect: [MyCourseWhereUniqueInput!]
+  delete: [MyCourseWhereUniqueInput!]
+  update: [MyCourseUpdateWithWhereUniqueWithoutCoursesInput!]
+  deleteMany: [MyCourseScalarWhereInput!]
+  upsert: [MyCourseUpsertWithWhereUniqueWithoutCoursesInput!]
 }
 
 input MyCourseUpdateManyWithoutUserInput {
@@ -2779,21 +2790,17 @@ input MyCourseUpdateManyWithoutUserInput {
   upsert: [MyCourseUpsertWithWhereUniqueWithoutUserInput!]
 }
 
-input MyCourseUpdateOneWithoutCoursesInput {
-  create: MyCourseCreateWithoutCoursesInput
-  connect: MyCourseWhereUniqueInput
-  disconnect: Boolean
-  delete: Boolean
-  update: MyCourseUpdateWithoutCoursesDataInput
-  upsert: MyCourseUpsertWithoutCoursesInput
-}
-
 input MyCourseUpdateWithoutCoursesDataInput {
   user: UserUpdateOneRequiredWithoutMyCoursesInput
 }
 
 input MyCourseUpdateWithoutUserDataInput {
-  courses: CourseUpdateOneWithoutMyCourseInput
+  courses: CourseUpdateOneRequiredWithoutMyCourseInput
+}
+
+input MyCourseUpdateWithWhereUniqueWithoutCoursesInput {
+  where: MyCourseWhereUniqueInput!
+  data: MyCourseUpdateWithoutCoursesDataInput!
 }
 
 input MyCourseUpdateWithWhereUniqueWithoutUserInput {
@@ -2801,7 +2808,8 @@ input MyCourseUpdateWithWhereUniqueWithoutUserInput {
   data: MyCourseUpdateWithoutUserDataInput!
 }
 
-input MyCourseUpsertWithoutCoursesInput {
+input MyCourseUpsertWithWhereUniqueWithoutCoursesInput {
+  where: MyCourseWhereUniqueInput!
   update: MyCourseUpdateWithoutCoursesDataInput!
   create: MyCourseCreateWithoutCoursesInput!
 }
