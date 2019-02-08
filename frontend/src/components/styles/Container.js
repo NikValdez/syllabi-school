@@ -1,10 +1,10 @@
 import styled from 'styled-components'
 
 const Container = styled.div`
-  /* padding-right: 15px;
-  padding-left: 15px; */
-  margin-right: auto;
-  margin-left: auto;
+  padding-right: 5px;
+  padding-left: 5px;
+  margin-right: 10px;
+  margin-left: 10px;
 
   @media (min-width: 768px) {
     width: 750px;

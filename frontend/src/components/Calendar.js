@@ -5,35 +5,101 @@ import BigCalendar from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import styled from 'styled-components'
 import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
+import './styles/fonts/NeuzeitOffice-Regular.svg'
+import left from './styles/left.svg'
+import right from './styles/right.svg'
 
 const BigCalStyles = styled.div`
-  min-height: 500px;
-  max-width: 1200px;
+  margin-right: 20px;
+  height: 85vh;
+  width: 65vw;
   margin: 2rem auto;
   display: grid;
   grid-auto-columns: 1fr;
   grid-auto-flow: column;
   .rbc-calendar {
-    box-shadow: 0 12px 24px 0 rgba(162, 124, 9, 0.25);
+    .rbc-month-header {
+      border-color: #f5f5f5;
+      background: #f5f5f5;
+      padding: 5px;
+      border-bottom: 1px solid #ddd;
+      font-family: 'Neuzeit Office';
+    }
+    .rbc-off-range-bg {
+      background: #e5e5e526;
+    }
+    .rbc-header {
+      border: none;
+      font-family: 'Neuzeit Office';
+      font-weight: 200;
+    }
+    .rbc-date-cell {
+      font-size: 12px;
+      text-align: left;
+      padding: 2px 5px;
+    }
   }
   .rbc-show-more {
     color: #f9c321ab;
   }
 
   .rbc-event {
-    background: #f9c321ab;
     color: black;
+    border-radius: 0;
+    font-size: 12px;
+    padding: 5px;
   }
   .rbc-today {
     background: #f9c32136;
   }
   .rbc-toolbar-label {
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-size: 17px;
+  }
+  .rbc-toolbar {
+    background: transparent;
   }
   .rbc-btn-group {
+    button:nth-child(3) {
+      //next
+      color: white;
+      border: none;
+      position: absolute;
+      right: 35px;
+      &:before {
+        content: url(${right});
+        width: 50%;
+      }
+    }
+    button:nth-child(2) {
+      //back
+      color: white;
+      border: none;
+      &:before {
+        content: url(${left});
+      }
+    }
+    button:first-child:not(:last-child) {
+      display: none;
+    }
+
     button:hover {
-      background: #f9c32136;
+      background: white;
+      color: white;
+      border: none;
+    }
+    button:active {
+      background: white;
+      color: white;
+      border: none;
+      outline: none;
+      box-shadow: none;
+    }
+    button:focus {
+      background: white;
+      color: white;
+      border: none;
+      outline: none;
+      box-shadow: none;
     }
   }
 `

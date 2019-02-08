@@ -17,6 +17,7 @@ import Signin from './components/Signin'
 import Signup from './components/Signup'
 import SingleCourse from './components/SingleCourse'
 import Container from './components/styles/Container'
+import GlobalStyles from './components/styles/GlobalStyles'
 import UpdateCourse from './components/UpdateCourse'
 import UpdateEvent from './components/UpdateEvent'
 import { endpoint } from './config'
@@ -28,14 +29,12 @@ const client = new ApolloClient({
 
 const PermissionsContainer = () => (
   <PleaseSignIn>
-    <Header />
     <Route exact path="/permissions" component={Permissions} />
   </PleaseSignIn>
 )
 
 const DefaultContainer = () => (
   <>
-    <Header />
     <Route exact path="/signup" component={Signup} />
     <Route exact path="/signin" component={Signin} />
     <Route path="/request_reset" component={RequestReset} />
@@ -60,18 +59,22 @@ class App extends Component {
   render() {
     return (
       <ApolloProvider client={client}>
-        <Container>
-          <Router>
-            <Switch>
-              <Route
-                exact
-                path="/permissions"
-                component={PermissionsContainer}
-              />
-              <Route component={DefaultContainer} />
-            </Switch>
-          </Router>
-        </Container>
+        <Router>
+          <>
+            <GlobalStyles />
+            <Header />
+            <Container>
+              <Switch>
+                <Route
+                  exact
+                  path="/permissions"
+                  component={PermissionsContainer}
+                />
+                <Route component={DefaultContainer} />
+              </Switch>
+            </Container>
+          </>
+        </Router>
       </ApolloProvider>
     )
   }

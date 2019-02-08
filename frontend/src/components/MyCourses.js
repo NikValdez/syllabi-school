@@ -4,15 +4,18 @@ import { Query } from 'react-apollo'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { DeleteMyCourse } from './DeleteMyCourse'
+import './styles/fonts/NeuzeitOffice-Regular.svg'
 import './styles/Modal.css'
 
 const MyCoursesStyles = styled.div`
   margin-top: 3rem;
   a {
-    color: #f9c321;
-    -webkit-text-stroke: 0.5px black;
     display: inline-block;
-    text-decoration: none;
+    font-family: 'Neuzeit Office';
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0;
+    font-size: 14px;
   }
   a::after {
     content: '';
