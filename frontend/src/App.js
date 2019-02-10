@@ -7,6 +7,7 @@ import CreateAnnouncement from './components/CreateAnnouncement'
 import CreateCourse from './components/CreateCourse'
 import CreateEvent from './components/CreateEvent'
 import CreateInstitution from './components/CreateInstitution'
+import Footer from './components/Footer'
 import Header from './components/Header'
 import Permissions from './components/Permissions'
 import PleaseSignIn from './components/PleaseSignIn'
@@ -21,6 +22,16 @@ import GlobalStyles from './components/styles/GlobalStyles'
 import UpdateCourse from './components/UpdateCourse'
 import UpdateEvent from './components/UpdateEvent'
 import { endpoint } from './config'
+
+// const theme = {
+//   red: '#FF0000',
+//   black: '#393939',
+//   grey: '#3A3A3A',
+//   lightgrey: '#E1E1E1',
+//   offWhite: '#EDEDED',
+//   maxWidth: '1000px',
+//   bs: '0 12px 24px 0 rgba(0, 0, 0, 0.09)'
+// }
 
 const client = new ApolloClient({
   uri: endpoint,
@@ -40,17 +51,21 @@ const DefaultContainer = () => (
     <Route path="/request_reset" component={RequestReset} />
     <Route path="/reset/:resetToken" component={Reset} />
     <PleaseSignIn>
-      <Route exact path="/" component={Courses} />
-      <Route path="/courses/:id" component={SingleCourse} />
-      <Route path="/create_institution" component={CreateInstitution} />
-      <Route path="/create_course" component={CreateCourse} />
-      <Route path="/update/:id" component={UpdateCourse} />
-      <Route path="/update_event/:id" component={UpdateEvent} />
-      <Route path="/create_event" component={CreateEvent} />
-      <Route exact path="/permissions" component={Permissions} />
-      <Route path="/schedule" component={SchedulePDF} />
-      <Route path="/permissions" component={Permissions} />
-      <Route path="/create_announcement" component={CreateAnnouncement} />
+      <Header />
+      <Container>
+        <Route exact path="/" component={Courses} />
+        <Route path="/courses/:id" component={SingleCourse} />
+        <Route path="/create_institution" component={CreateInstitution} />
+        <Route path="/create_course" component={CreateCourse} />
+        <Route path="/update/:id" component={UpdateCourse} />
+        <Route path="/update_event/:id" component={UpdateEvent} />
+        <Route path="/create_event" component={CreateEvent} />
+        <Route exact path="/permissions" component={Permissions} />
+        <Route path="/schedule" component={SchedulePDF} />
+        <Route path="/permissions" component={Permissions} />
+        <Route path="/create_announcement" component={CreateAnnouncement} />
+      </Container>
+      <Footer />
     </PleaseSignIn>
   </>
 )
@@ -62,17 +77,14 @@ class App extends Component {
         <Router>
           <>
             <GlobalStyles />
-            <Header />
-            <Container>
-              <Switch>
-                <Route
-                  exact
-                  path="/permissions"
-                  component={PermissionsContainer}
-                />
-                <Route component={DefaultContainer} />
-              </Switch>
-            </Container>
+            <Switch>
+              <Route
+                exact
+                path="/permissions"
+                component={PermissionsContainer}
+              />
+              <Route component={DefaultContainer} />
+            </Switch>
           </>
         </Router>
       </ApolloProvider>

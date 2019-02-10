@@ -1,6 +1,6 @@
+import gql from 'graphql-tag'
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
 import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
 import XIcon from './styles/XIcon'
 
@@ -34,7 +34,7 @@ export class DeleteMyCourse extends Component {
             <div
               style={{
                 background: this.props.color,
-                width: '25px',
+                width: '35px',
                 padding: '5px',
                 borderRadius: '5px',
                 float: 'left',

@@ -4,7 +4,7 @@ const Container = styled.div`
   padding-right: 5px;
   padding-left: 5px;
   margin-right: 10px;
-  margin-left: 10px;
+  margin-left: 20px;
 
   @media (min-width: 768px) {
     width: 750px;

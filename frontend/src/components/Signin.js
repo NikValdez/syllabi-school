@@ -39,7 +39,6 @@ class Signin extends Component {
               e.preventDefault()
               await signin()
               this.setState({ name: '', email: '', password: '' })
-              this.props.history.push('/')
             }}
           >
             <fieldset disabled={loading} aria-busy={loading}>

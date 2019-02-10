@@ -4,18 +4,17 @@ import { Query } from 'react-apollo'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { DeleteMyCourse } from './DeleteMyCourse'
-import './styles/fonts/NeuzeitOffice-Regular.svg'
 import './styles/Modal.css'
 
 const MyCoursesStyles = styled.div`
   margin-top: 3rem;
   a {
     display: inline-block;
-    font-family: 'Neuzeit Office';
+    text-decoration: none;
     font-weight: 700;
     line-height: 1;
     letter-spacing: 0;
-    font-size: 14px;
+    font-size: 13px;
   }
   a::after {
     content: '';
@@ -104,7 +103,9 @@ class MyCourses extends Component {
                   <DeleteMyCourse id={course.id} color={course.courses.color} />
 
                   <Link to={`/courses/${course.courses.id}`}>
-                    {course.courses.title}
+                    <p>
+                      {course.courses.title} - {course.courses.courseCode}
+                    </p>
                   </Link>
                 </h3>
               </List>

@@ -212,7 +212,7 @@ class CreateEvent extends Component {
                     <DatePicker
                       selected={this.state.start}
                       onChange={this.handleStartDateChange}
-                      placeholderText="Click to select start date"
+                      placeholderText="Select start date"
                     />
                   </label>
                   <label htmlFor="end">
@@ -220,7 +220,7 @@ class CreateEvent extends Component {
                     <DatePicker
                       selected={this.state.end}
                       onChange={this.handleEndDateChange}
-                      placeholderText="Click to select end date"
+                      placeholderText="Select end date"
                     />
                   </label>
                   <label htmlFor="description">

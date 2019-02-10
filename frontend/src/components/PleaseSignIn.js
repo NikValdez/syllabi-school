@@ -1,5 +1,6 @@
 import React from 'react'
 import { Query } from 'react-apollo'
+import Signin from './Signin'
 import { CURRENT_USER_QUERY } from './User'
 
 const PleaseSignIn = props => (
@@ -10,7 +11,7 @@ const PleaseSignIn = props => (
         return (
           <div>
             <p>Please Sign In Before Continuing</p>
-            {/* <Signin /> */}
+            <Signin />
           </div>
         )
       }

@@ -304,7 +304,7 @@ const Mutations = {
 
     const [existingMyCourse] = await ctx.db.query.myCourses({
       where: {
-        courses: null,
+        courses: { id: args.id },
         user: { id: userId }
       }
     })

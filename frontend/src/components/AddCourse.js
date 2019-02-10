@@ -7,18 +7,13 @@ import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
 
 const AddButton = styled.button`
   justify-self: end;
-  background: #f9c321;
+  background: black;
   color: white;
-  font-weight: 500;
-  border: 0;
-  border-radius: 0;
-  text-transform: uppercase;
-  font-size: 1rem;
-  padding: 0.3rem 0.8rem;
-  transform: skew(-2deg);
-  transition: all 0.5s;
-  &[disabled] {
-    opacity: 0.5;
+  cursor: pointer;
+  padding: 10px 15px 7px;
+  &:hover {
+    color: black;
+    background: #fffcdf;
   }
 `
 
@@ -46,7 +41,7 @@ class AddCourse extends Component {
           if (error) return <Error error={error} />
           return (
             <AddButton disabled={loading} onClick={addCourseToUser}>
-              Add{loading && 'ing'} ➕
+              Add{loading && 'ing'}
             </AddButton>
           )
         }}

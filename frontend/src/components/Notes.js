@@ -10,6 +10,7 @@ const NotesStyles = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
   }
+  margin-top: 2rem;
 `
 
 const NOTES_QUERY = gql`

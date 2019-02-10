@@ -43,17 +43,15 @@ class CreateNote extends Component {
               >
                 <Error error={error} />
 
-                <label htmlFor="note">
-                  <input
-                    type="text"
-                    id="note"
-                    name="note"
-                    placeholder="Add a Note..."
-                    required
-                    value={this.state.note}
-                    onChange={this.handleChange}
-                  />
-                </label>
+                <input
+                  type="text"
+                  id="note"
+                  name="note"
+                  placeholder="Add a Note..."
+                  required
+                  value={this.state.note}
+                  onChange={this.handleChange}
+                />
               </form>
             </SearchStyles>
           )}

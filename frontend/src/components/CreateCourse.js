@@ -137,7 +137,12 @@ class CreateCourse extends Component {
                           />
                         </Quill>
                       </label>
-                      <button type="submit">Submit</button>
+                      <button
+                        type="submit"
+                        style={{ marginTop: '3rem', marginBottom: '3rem' }}
+                      >
+                        Submit
+                      </button>
                     </fieldset>
                   </Form>
                 )}

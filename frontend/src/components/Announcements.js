@@ -5,19 +5,20 @@ import React, { Component } from 'react'
 import { Mutation, Query } from 'react-apollo'
 import ReactModal from 'react-modal'
 import styled, { keyframes } from 'styled-components'
+import Megaphone from './styles/megaphone'
 import './styles/Modal.css'
 import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
 
 const stretch = keyframes`
   0% {
     transform: scale(.3);
-    background-color: #7d5f05;
+    background-color: black;
     border-radius: 100%;
   }
 
    100% {
     transform: scale(.5);
-    background-color: #f9c321;
+    background-color: #fffcdf;
     border-radius: 100%;
   }
 `
@@ -25,7 +26,7 @@ const Alert = styled.div`
   height: 50px;
   width: 50px;
   margin: 0 auto;
-  background-color: #f9c321;
+  background-color: #fffcdf;
   animation-name: ${stretch};
   animation-duration: 1.5s;
   animation-timing-function: ease-out;
@@ -116,9 +117,13 @@ class Announcements extends Component {
                   <Alert className="element">{count.length} </Alert>
                 )}
                 <span
-                  style={{ position: 'absolute', top: '2rem', right: '2rem' }}
+                  style={{
+                    position: 'absolute',
+                    top: '0.75rem',
+                    right: '3.5rem'
+                  }}
                 >
-                  🔔
+                  <Megaphone />
                 </span>
               </div>
               <ReactModal
@@ -131,13 +136,11 @@ class Announcements extends Component {
               >
                 <>
                   {announcements.length < 1 ? (
-                    <p style={{ background: '#f9c321' }}>
+                    <p style={{ background: '#fffcdf' }}>
                       No Announcements Currently
                     </p>
                   ) : (
-                    <TableStyles
-                      style={{ border: '1px solid black', zIndex: '-10' }}
-                    >
+                    <TableStyles style={{ border: '1px solid black' }}>
                       <tbody style={{ background: 'black' }}>
                         <tr>
                           <ThStyles style={{ color: 'white' }}>

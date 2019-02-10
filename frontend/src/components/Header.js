@@ -1,36 +1,77 @@
 import React from 'react'
+import { Query } from 'react-apollo'
+import { Nav } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import Nav from './Nav'
-import Logo from './styles/Logo'
-
+import Institution from './Institution'
+import NewNav from './NewNav'
+import { CURRENT_USER_QUERY } from './User'
 const StyledHeader = styled.header`
   .bar {
-    border-bottom: 10px solid black;
-    display: grid;
-    grid-template-columns: auto 1fr;
-    justify-content: space-between;
-    align-items: stretch;
-    @media (max-width: 1300px) {
-      grid-template-columns: 1fr;
-      justify-content: center;
+    background: black;
+    padding: 0 30px;
+    height: 40px;
+  }
+  .bar-2 {
+    background: #fffcdf;
+    padding: 0 30px;
+    height: 70px;
+    p {
+      padding: 20px 30px;
     }
   }
-  .sub-bar {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    border-bottom: 1px solid grey;
+  .logo {
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 18px;
+
+    &:hover {
+      color: #fffcdf;
+    }
+  }
+  .d-flex justify-content-between {
+    height: 40px;
+  }
+
+  .nav-item {
+    padding-top: 10px;
   }
 `
 
 const Header = () => (
   <StyledHeader>
-    <div className="bar">
-      <Logo>
-        <Link to="/">Schedule</Link>
-      </Logo>
-      <Nav />
-    </div>
+    <Query query={CURRENT_USER_QUERY}>
+      {({ data, error, loading }) => {
+        if (error) return <p>Error : {error.message}</p>
+        if (loading) return <p>Loading</p>
+        console.log(data)
+        return (
+          <>
+            <div className="bar">
+              <Nav className="d-flex justify-content-between">
+                <Nav.Item>
+                  <Link to="/" className="logo">
+                    Syllabi
+                  </Link>
+                </Nav.Item>
+
+                <NewNav />
+              </Nav>
+            </div>
+            <div className="bar-2">
+              <Nav className="d-flex justify-content-between">
+                <p>{data.me.email}</p>
+                <Nav.Item />
+                <Nav.Item className="d-flex justify-content-start">
+                  <Institution />
+                </Nav.Item>
+              </Nav>
+            </div>
+          </>
+        )
+      }}
+    </Query>
   </StyledHeader>
 )
 

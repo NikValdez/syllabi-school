@@ -1,9 +1,47 @@
+@font-face {
+  font-family: 'Neuzeit Office';
+  src: url('./fonts/NeuzeitOffice-Regular.eot');
+  src: url('./fonts/NeuzeitOffice-Regular.eot?#iefix')
+      format('embedded-opentype'),
+    url('./fonts/NeuzeitOffice-Regular.woff2') format('woff2'),
+    url('./fonts/NeuzeitOffice-Regular.woff') format('woff'),
+    url('./fonts/NeuzeitOffice-Regular.ttf') format('truetype'),
+    url('./fonts/NeuzeitOffice-Regular.svg#NeuzeitOffice-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Neuzeit Office';
+  src: url('./fonts/NeuzeitOffice-Bold.eot');
+  src: url('./fonts/NeuzeitOffice-Bold.eot?#iefix') format('embedded-opentype'),
+    url('./fonts/NeuzeitOffice-Bold.woff2') format('woff2'),
+    url('./fonts/NeuzeitOffice-Bold.woff') format('woff'),
+    url('./fonts/NeuzeitOffice-Bold.ttf') format('truetype'),
+    url('./fonts/NeuzeitOffice-Bold.svg#NeuzeitOffice-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Neuzeit Office';
+  src: url('./fonts/NeuzeitOffice-Italic.eot');
+  src: url('./fonts/NeuzeitOffice-Italic.eot?#iefix')
+      format('embedded-opentype'),
+    url('./fonts/NeuzeitOffice-Italic.woff2') format('woff2'),
+    url('./fonts/NeuzeitOffice-Italic.woff') format('woff'),
+    url('./fonts/NeuzeitOffice-Italic.ttf') format('truetype'),
+    url('./fonts/NeuzeitOffice-Italic.svg#NeuzeitOffice-Italic') format('svg');
+  font-weight: normal;
+  font-style: italic;
+}
+
 body {
   margin: 0;
   padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Neuzeit Office', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -11,4 +49,56 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+html {
+  font-size: 14px;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: 'Neuzeit Office';
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Neuzeit Office';
+  font-weight: normal;
+  line-height: 1.25;
+  letter-spacing: 0.5px;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 21px;
+  font-weight: normal;
+  letter-spacing: 0;
+}
+
+h3 {
+  font-size: 17px;
+  letter-spacing: 0;
+}
+
+h4 {
+  font-size: 12px;
+  font-weight: bold;
+  line-height: 1;
+  letter-spacing: 0;
+  margin: 4px 0px;
+}
+
+h5 {
+  font-size: 15px;
+  letter-spacing: 0;
+  margin: 3px 0;
 }

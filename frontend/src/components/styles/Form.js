@@ -13,8 +13,7 @@ const loading = keyframes`
 `
 
 const Form = styled.form`
-  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
-  background: rgba(0, 0, 0, 0.02);
+
   border: 5px solid white;
   padding: 20px;
   font-size: 1.5rem;
@@ -31,7 +30,8 @@ const Form = styled.form`
     width: 100%;
     padding: 0.5rem;
     font-size: 1rem;
-    border: 1px solid black;
+    border: none;
+    border-bottom: 1px solid black;
     &:focus {
       outline: 0;
       border-color: #f9c321;
@@ -42,39 +42,27 @@ const Form = styled.form`
   }
   button,
   input[type='submit'] {
-    width: auto;
-    background: #f9c321;
+    background: black;
     color: white;
+    font-weight: 500;
     border: 0;
-    font-size: 2rem;
-    font-weight: 600;
+    border-radius: 0;
+    text-transform: uppercase;
+    font-size: 1rem;
     padding: 0.5rem 1.2rem;
-    &:hover {
-      cursor: pointer;
-    }
-  }
-  fieldset {
-    border: 0;
-    padding: 0;
-
+    transform: skew(-2deg);
+    display: inline-block;
+    transition: all 0.5s;
     &[disabled] {
       opacity: 0.5;
     }
-    &::before {
-      height: 10px;
-      content: '';
-      display: block;
-      background-image: linear-gradient(
-        to right,
-        #f9c321 0%,
-        #ff3019 50%,
-        #f9c321 100%
-      );
+    &:hover {
+      background: #fffcdf;
+      color: black;
     }
-    &[aria-busy='true']::before {
-      background-size: 50% auto;
-      animation: ${loading} 0.5s linear infinite;
-    }
+  }
+  fieldset {
+    width: 70%;
   }
 `
 

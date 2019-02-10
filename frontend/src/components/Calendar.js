@@ -5,6 +5,7 @@ import BigCalendar from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import styled from 'styled-components'
 import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
+import Empty from './styles/empty.png'
 import './styles/fonts/NeuzeitOffice-Regular.svg'
 import left from './styles/left.svg'
 import right from './styles/right.svg'
@@ -50,7 +51,7 @@ const BigCalStyles = styled.div`
     padding: 5px;
   }
   .rbc-today {
-    background: #f9c32136;
+    background: url(${Empty});
   }
   .rbc-toolbar-label {
     font-size: 17px;
@@ -64,7 +65,7 @@ const BigCalStyles = styled.div`
       color: white;
       border: none;
       position: absolute;
-      right: 35px;
+      right: 5px;
       &:before {
         content: url(${right});
         width: 50%;
