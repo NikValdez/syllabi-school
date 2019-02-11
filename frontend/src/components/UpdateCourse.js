@@ -1,10 +1,10 @@
+import gql from 'graphql-tag'
+import htmlToText from 'html-to-text'
 import React, { Component } from 'react'
 import { Mutation, Query } from 'react-apollo'
-import gql from 'graphql-tag'
-import Form from './styles/Form'
-import { ALL_COURSES_QUERY } from './Courses'
-import htmlToText from 'html-to-text'
 import Book from '../book.gif'
+import { ALL_COURSES_QUERY } from './Courses'
+import Form from './styles/Form'
 
 const EDIT_COURSE_QUERY = gql`
   query EDIT_COURSE_QUERY($id: ID!) {
@@ -137,7 +137,9 @@ class UpdateCourse extends Component {
                         onChange={this.handleChange}
                       />
                     </label>
-                    <button type="submit">Save Changes</button>
+                    <button type="submit" style={{ margin: '2rem 0 10rem 0' }}>
+                      Save Changes
+                    </button>
                   </fieldset>
                 </Form>
               )}

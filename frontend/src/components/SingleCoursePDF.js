@@ -4,6 +4,7 @@ import _ from 'lodash'
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
+import { Col, Row, Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import CreateAnnouncement from './CreateAnnouncement'
@@ -11,12 +12,11 @@ import CreateEvent from './CreateEvent'
 import DeleteCourse from './DeleteCourse'
 import DeleteEvent from './DeleteEvent'
 import IsAdminTeacher from './IsAdminTeacher'
-import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
 
 const SingleCourseStyles = styled.div`
   max-width: 1200px;
   margin: 2rem auto;
-  box-shadow: '0 12px 24px 0 rgba(0, 0, 0, 0.09)';
+
   display: grid;
 
   min-height: 800px;
@@ -24,7 +24,7 @@ const SingleCourseStyles = styled.div`
     color: black;
   }
   .update-delete {
-    float: left;
+    text-align: right;
     a {
       margin-right: 2rem;
       background: black;
@@ -49,17 +49,9 @@ const SingleCourseStyles = styled.div`
     margin-top: -20rem;
   }
 `
-
-// const EventAnnouncement = styled.div`
-//   display: grid;
-//   grid-template-columns: repeat(2, 1fr);
-// `
 const CreateEventStyles = styled.div`
   grid-template-columns: start;
 `
-// const CreateAnnouncementStyles = styled.div`
-//   grid-template-columns: end;
-// `
 
 const SINGLE_COURSE_QUERY = gql`
   query SINGLE_COURSE_QUERY($id: ID!) {
@@ -92,6 +84,7 @@ class SingleCoursePDF extends Component {
   state = {
     id: this.props.id
   }
+
   render() {
     return (
       <Query
@@ -114,101 +107,112 @@ class SingleCoursePDF extends Component {
                   <DeleteCourse id={this.state.id}>Delete ❌</DeleteCourse>
                 </span>
               </IsAdminTeacher>
-              <div className="details">
-                <h2>{course.title}</h2>
-                <p>Description: {htmlToText.fromString(course.description)}</p>
-                <p>Credits: {course.credits}</p>
-                <p>Course Code: {course.courseCode}</p>
 
-                <CreateEventStyles>
-                  <CreateEvent course={course} />
-                </CreateEventStyles>
-
-                <h2 style={{ float: 'left' }}>Events</h2>
-                {course.events.length < 1 ? (
-                  <p>No Events Currently</p>
-                ) : (
-                  <TableStyles style={{ border: '1px solid black' }}>
+              <Row>
+                <Col md={6} xs={6}>
+                  <Table bordered responsive>
                     <tbody>
                       <tr>
-                        <ThStyles>Title</ThStyles>
-                        <ThStyles>Description</ThStyles>
-                        <ThStyles>Start</ThStyles>
-                        <ThStyles>End</ThStyles>
-                        <ThStyles>Upload</ThStyles>
-                        <IsAdminTeacher>
-                          <ThStyles>Edit/Delete</ThStyles>
-                        </IsAdminTeacher>
+                        <th>Title</th>
+                        <td>{course.title}</td>
                       </tr>
-
-                      {course.events.map(
-                        ({ title, description, start, end, id, upload }) => (
-                          <TrStyles key={id}>
-                            <TdStyles>{title}</TdStyles>
-                            <TdStyles>
-                              {htmlToText.fromString(description)}
-                            </TdStyles>
-                            <TdStyles>
-                              {moment(start).format('MMM Do YYYY')}
-                            </TdStyles>
-                            <TdStyles>
-                              {moment(end).format('MMM Do YYYY')}
-                            </TdStyles>
-                            <TdStyles>
-                              {upload && (
-                                <a href={upload}>
-                                  {_.truncate(title, {
-                                    length: 24
-                                  })}
-                                </a>
-                              )}
-                            </TdStyles>
-                            <TdStyles>
-                              <IsAdminTeacher>
-                                <DeleteEvent id={id} course={course.id} />
-                                <Link
-                                  to={`/update_event/${id}`}
-                                  style={{
-                                    float: 'right',
-                                    textDecoration: 'none',
-                                    marginRight: '10px'
-                                  }}
-                                >
-                                  ✏️
-                                </Link>
-                              </IsAdminTeacher>
-                            </TdStyles>
-                          </TrStyles>
-                        )
-                      )}
-                    </tbody>
-                  </TableStyles>
-                )}
-                <CreateAnnouncement course={course} />
-
-                <h2 style={{ float: 'left' }}>Announcements</h2>
-                {course.announcements.length < 1 ? (
-                  <p>No Announcements Currently</p>
-                ) : (
-                  <TableStyles style={{ border: '1px solid black' }}>
-                    <tbody>
                       <tr>
-                        <ThStyles>Announcement</ThStyles>
-                        <ThStyles>Date</ThStyles>
+                        <th>Course Code</th>
+                        <td>{course.courseCode}</td>
                       </tr>
-
-                      {course.announcements.map(({ text, date, id }) => (
-                        <TrStyles key={id}>
-                          <TdStyles>{htmlToText.fromString(text)}</TdStyles>
-                          <TdStyles>
-                            {moment(date).format('MMM Do YYYY')}
-                          </TdStyles>
-                        </TrStyles>
-                      ))}
+                      <tr>
+                        <th>Credits</th>
+                        <td>{course.credits}</td>
+                      </tr>
                     </tbody>
-                  </TableStyles>
-                )}
+                  </Table>
+                </Col>
+              </Row>
+              <div>
+                <h3>Course Description</h3>
+                <p>{htmlToText.fromString(course.description)}</p>
               </div>
+
+              <CreateEventStyles>
+                <CreateEvent course={course} />
+              </CreateEventStyles>
+              <h2 style={{ float: 'left' }}>Course Calendar</h2>
+              {course.events.length < 1 ? (
+                <p>No Assignments Currently</p>
+              ) : (
+                <Table bordered>
+                  <thead>
+                    <tr>
+                      <td>Date</td>
+                      <td>Title</td>
+                      <td>Description</td>
+                      {/* <td>Start</td> */}
+                      <td>Upload</td>
+                    </tr>
+                  </thead>
+
+                  {course.events.map(
+                    ({ title, description, start, end, id, upload }) => (
+                      <tbody>
+                        <tr key={id}>
+                          <td>{moment(end).format('MMM Do YYYY')}</td>
+                          <td>{title}</td>
+                          <td>{htmlToText.fromString(description)}</td>
+                          {/* <td>{moment(start).format('MMM Do YYYY')}</td> */}
+                          <td>
+                            {upload && (
+                              <a href={upload}>
+                                {_.truncate(title, {
+                                  length: 24
+                                })}
+                              </a>
+                            )}
+                          </td>
+                          <td>
+                            <IsAdminTeacher>
+                              <DeleteEvent id={id} course={course.id} />
+                              <Link
+                                to={`/update_event/${id}`}
+                                style={{
+                                  float: 'right',
+                                  textDecoration: 'none',
+                                  marginRight: '10px'
+                                }}
+                              >
+                                ✏️
+                              </Link>
+                            </IsAdminTeacher>
+                          </td>
+                        </tr>
+                      </tbody>
+                    )
+                  )}
+                </Table>
+              )}
+
+              <div className="detail">
+                <CreateAnnouncement course={course} />
+              </div>
+              <h2 style={{ float: 'left' }}>Announcements</h2>
+              {course.announcements.length < 1 ? (
+                <p>No Announcements Currently</p>
+              ) : (
+                <Table bordered>
+                  <tbody>
+                    <tr>
+                      <th>Date</th>
+                      <th>Announcement</th>
+                    </tr>
+
+                    {course.announcements.map(({ text, date, id }) => (
+                      <tr key={id}>
+                        <td>{moment(date).format('MMM Do YYYY')}</td>
+                        <td>{htmlToText.fromString(text)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              )}
             </SingleCourseStyles>
           )
         }}

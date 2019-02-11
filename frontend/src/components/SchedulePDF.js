@@ -1,16 +1,16 @@
-import React, { Component } from 'react'
 import html2canvas from 'html2canvas'
 import * as jsPDF from 'jspdf'
+import React, { Component } from 'react'
 import Schedule from './Schedule'
 import Button from './styles/Button'
 
 export default class SchedulePDF extends Component {
   downloadDocument() {
     const input = document.getElementById('divToDownload')
-    html2canvas(input).then(canvas => {
+    html2canvas(input, { scale: '2' }).then(canvas => {
       const imgData = canvas.toDataURL('image/png')
-      const pdf = new jsPDF()
-      pdf.addImage(imgData, 'JPEG', 10, 10, 180, 150)
+      const pdf = new jsPDF('p', 'mm', 'a4')
+      pdf.addImage(imgData, 'PNG', 5, 5, 190, 190)
       pdf.save('download.pdf')
     })
   }

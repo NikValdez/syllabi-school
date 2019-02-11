@@ -13,13 +13,13 @@ const loading = keyframes`
 `
 
 const Form = styled.form`
-
   border: 5px solid white;
   padding: 20px;
   font-size: 1.5rem;
   line-height: 1.5;
   font-weight: 600;
-  width: 70%;
+  overflow: none;
+
   label {
     display: block;
     margin-bottom: 1rem;
@@ -62,7 +62,6 @@ const Form = styled.form`
     }
   }
   fieldset {
-    width: 70%;
   }
 `
 

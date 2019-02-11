@@ -4,6 +4,7 @@ import { Query } from 'react-apollo'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import { DeleteMyCourse } from './DeleteMyCourse'
+import ExportAsPdf from './ExportAsPdf'
 import './styles/Modal.css'
 
 const MyCoursesStyles = styled.div`
@@ -30,26 +31,8 @@ const MyCoursesStyles = styled.div`
   }
 `
 const List = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-`
-
-const AnnouncementStyles = styled.span`
-  .mega-phone {
-    margin-right: 5px;
-  }
-  .announcement {
-    text-align: center;
-  }
-`
-
-const UPDATE_ANNOUNCEMENT_MUTATION = gql`
-  mutation UPDATE_ANNOUNCEMENT_MUTATION($id: ID!, $clicked: Boolean) {
-    updateAnnouncement(id: $id, clicked: $clicked) {
-      id
-      clicked
-    }
-  }
+  /* display: grid;
+  grid-template-columns: repeat(2, 1fr); */
 `
 
 const CURRENT_USER_QUERY_COURSES_EVENTS = gql`
@@ -108,6 +91,8 @@ class MyCourses extends Component {
                     </p>
                   </Link>
                 </h3>
+
+                <ExportAsPdf id={course.courses.id} />
               </List>
             ))
           }}
