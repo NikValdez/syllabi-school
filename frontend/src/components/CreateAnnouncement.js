@@ -134,7 +134,7 @@ class createAnnouncement extends Component {
                     <DatePicker
                       selected={this.state.date}
                       onChange={this.handleDateChange}
-                      placeholderText="Click to select start date"
+                      placeholderText="Select Date"
                     />
                   </label>
 

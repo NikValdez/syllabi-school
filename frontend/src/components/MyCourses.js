@@ -29,6 +29,9 @@ const MyCoursesStyles = styled.div`
     width: 100%;
     transition: width 0.3s;
   }
+  .fa-plus {
+    margin-left: 30px;
+  }
 `
 const List = styled.div`
   /* display: grid;
@@ -72,6 +75,20 @@ const CURRENT_USER_QUERY_COURSES_EVENTS = gql`
 `
 
 class MyCourses extends Component {
+  state = {
+    showSyllabus: null
+  }
+
+  showSyllabus = i => {
+    this.setState({
+      showSyllabus: i
+    })
+  }
+  hideSyllabus = i => {
+    this.setState({
+      showSyllabus: null
+    })
+  }
   render() {
     return (
       <MyCoursesStyles>
@@ -80,19 +97,31 @@ class MyCourses extends Component {
             if (loading) return <p />
             if (error) return <p>Error : {error.message}</p>
             const courseData = data.me.myCourses.map(course => course)
-            return courseData.map(course => (
+            return courseData.map((course, i) => (
               <List key={course.id}>
                 <h3 style={{ margin: '0' }}>
                   <DeleteMyCourse id={course.id} color={course.courses.color} />
-
                   <Link to={`/courses/${course.courses.id}`}>
                     <p>
                       {course.courses.title} - {course.courses.courseCode}
                     </p>
                   </Link>
+                  {this.state.showSyllabus && (
+                    <span onClick={this.hideSyllabus}>
+                      <i className="fas fa-minus" />
+                    </span>
+                  )}
+                  {!this.state.showSyllabus && (
+                    <span
+                      onClick={this.showSyllabus.bind(this, (i = course.id))}
+                    >
+                      <i className="fas fa-plus" />
+                    </span>
+                  )}
                 </h3>
-
-                <ExportAsPdf id={course.courses.id} />
+                {course.id === this.state.showSyllabus && (
+                  <ExportAsPdf id={course.courses.id} />
+                )}
               </List>
             ))
           }}

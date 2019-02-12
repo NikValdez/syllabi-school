@@ -7,15 +7,19 @@ import Institution from './Institution'
 import NewNav from './NewNav'
 import { CURRENT_USER_QUERY } from './User'
 const StyledHeader = styled.header`
+  width: 100%;
+  white-space: wrap;
   .bar {
     background: black;
     padding: 0 30px;
     height: 40px;
+    width: 101vw;
   }
   .bar-2 {
     background: #fffcdf;
     padding: 0 30px;
     height: 70px;
+    width: 101vw;
     p {
       padding: 20px 30px;
     }
@@ -45,7 +49,7 @@ const Header = () => (
       {({ data, error, loading }) => {
         if (error) return <p>Error : {error.message}</p>
         if (loading) return <p>Loading</p>
-        console.log(data)
+
         return (
           <>
             <div className="bar">

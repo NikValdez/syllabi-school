@@ -40,7 +40,7 @@ const NavStyles = styled.ul`
   }
   #dropdown-basic {
     padding-top: 10px;
-    margin-right: 3rem;
+    margin-right: 7rem;
   }
   .dropdown-menu.show {
     height: 90vh;

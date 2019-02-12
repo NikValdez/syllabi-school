@@ -8,7 +8,7 @@ const StyledFooter = styled.footer`
   color: white;
   /* position: fixed; */
   bottom: 0px;
-  width: 100vw;
+  width: 101vw;
 
   a {
     color: white;

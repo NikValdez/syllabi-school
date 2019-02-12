@@ -36,6 +36,7 @@ const Alert = styled.div`
   animation-fill-mode: none;
   animation-play-state: running;
   font-size: 30px;
+  padding-left: 15px;
   box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
 `
 
@@ -48,6 +49,9 @@ const ANNOUNCEMENTS_QUERY = gql`
         date
         clicked
         text
+        course {
+          color
+        }
       }
     }
   }
@@ -120,7 +124,7 @@ class Announcements extends Component {
                   style={{
                     position: 'absolute',
                     top: '0.75rem',
-                    right: '3.5rem'
+                    right: '4.5rem'
                   }}
                 >
                   <Megaphone />
@@ -143,51 +147,67 @@ class Announcements extends Component {
                     <TableStyles style={{ border: '1px solid black' }}>
                       <tbody style={{ background: 'black' }}>
                         <tr>
+                          <ThStyles style={{ color: 'white' }}>Date</ThStyles>
                           <ThStyles style={{ color: 'white' }}>
                             Announcement
                           </ThStyles>
-                          <ThStyles style={{ color: 'white' }}>Date</ThStyles>
                           <ThStyles style={{ color: 'white' }}>Seen</ThStyles>
                         </tr>
 
-                        {announcements.map(({ text, date, id, clicked }) => (
-                          <Mutation
-                            mutation={UPDATE_ANNOUNCEMENT_MUTATION}
-                            variables={{
-                              id: id,
-                              clicked: false
-                            }}
-                            key={id}
-                          >
-                            {(updateAnnouncement, { loading, error }) => (
-                              <TrStyles key={id}>
-                                <TdStyles style={{ color: 'white' }}>
-                                  {htmlToText.fromString(text)}
-                                </TdStyles>
-                                <TdStyles style={{ color: 'white' }}>
-                                  {moment(date).format('MMM Do YYYY')}
-                                </TdStyles>
-                                <TdStyles style={{ color: 'white' }}>
-                                  <div
-                                    onClick={() => {
-                                      updateAnnouncement()
+                        {announcements.map(
+                          ({ text, date, id, clicked, course }) => (
+                            <Mutation
+                              mutation={UPDATE_ANNOUNCEMENT_MUTATION}
+                              variables={{
+                                id: id,
+                                clicked: false
+                              }}
+                              key={id}
+                            >
+                              {(updateAnnouncement, { loading, error }) => (
+                                <TrStyles key={id}>
+                                  <TdStyles style={{ color: 'white' }}>
+                                    {moment(date).format('MMM Do YYYY')}
+                                  </TdStyles>
+                                  <TdStyles
+                                    style={{
+                                      color: 'black',
+                                      background: course.color
                                     }}
                                   >
-                                    {clicked ? (
-                                      <span style={{ marginLeft: '10px' }}>
-                                        ❌
-                                      </span>
-                                    ) : (
-                                      <span style={{ marginLeft: '10px' }}>
-                                        ☑️
-                                      </span>
-                                    )}
-                                  </div>
-                                </TdStyles>
-                              </TrStyles>
-                            )}
-                          </Mutation>
-                        ))}
+                                    {htmlToText.fromString(text)}
+                                  </TdStyles>
+
+                                  <TdStyles style={{ color: 'white' }}>
+                                    <div
+                                      onClick={() => {
+                                        updateAnnouncement()
+                                      }}
+                                    >
+                                      {clicked ? (
+                                        <span
+                                          style={{
+                                            marginLeft: '10px'
+                                          }}
+                                        >
+                                          ❌
+                                        </span>
+                                      ) : (
+                                        <span
+                                          style={{
+                                            marginLeft: '10px'
+                                          }}
+                                        >
+                                          ☑️
+                                        </span>
+                                      )}
+                                    </div>
+                                  </TdStyles>
+                                </TrStyles>
+                              )}
+                            </Mutation>
+                          )
+                        )}
                       </tbody>
                     </TableStyles>
                   )}

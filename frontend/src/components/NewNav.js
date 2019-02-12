@@ -14,7 +14,7 @@ const NewNav = () => (
       <NavStyles>
         {me && (
           <>
-            <Dropdown>
+            <Dropdown drop="down left">
               <Dropdown.Toggle id="dropdown-basic">
                 <MenuIcon />
               </Dropdown.Toggle>
@@ -28,9 +28,8 @@ const NewNav = () => (
                 <Signout />
               </Dropdown.Menu>
             </Dropdown>
-            <button>
-              <Announcements />
-            </button>
+
+            <Announcements />
           </>
         )}
         {!me && (
