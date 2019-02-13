@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Dropdown } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Announcements from './Announcements'
@@ -6,40 +6,54 @@ import IsAdminTeacher from './IsAdminTeacher'
 import Signout from './Signout'
 import MenuIcon from './styles/menu.js'
 import NavStyles from './styles/NavStyles'
+import XIcon from './styles/XIcon'
 import User from './User'
 
-const NewNav = () => (
-  <User>
-    {({ data: { me } }) => (
-      <NavStyles>
-        {me && (
-          <>
-            <Dropdown drop="down left">
-              <Dropdown.Toggle id="dropdown-basic">
-                <MenuIcon />
-              </Dropdown.Toggle>
-              <Dropdown.Menu id="dropdown-items">
-                <Link to="/schedule">See Schedule</Link>
+class NewNav extends Component {
+  state = {
+    isOpen: false
+  }
 
-                <IsAdminTeacher>
-                  <Link to="/create_course">Create Course</Link>
-                </IsAdminTeacher>
+  toggle = () => {
+    this.setState({
+      isOpen: !this.state.isOpen
+    })
+  }
+  render() {
+    return (
+      <User>
+        {({ data: { me } }) => (
+          <NavStyles>
+            {me && (
+              <>
+                <Dropdown drop="down" onToggle={this.toggle}>
+                  <Dropdown.Toggle id="dropdown-basic">
+                    {!this.state.isOpen ? <MenuIcon /> : <XIcon />}
+                  </Dropdown.Toggle>
 
-                <Signout />
-              </Dropdown.Menu>
-            </Dropdown>
+                  <Dropdown.Menu id="dropdown-items">
+                    <Link to="/schedule">See Schedule</Link>
 
-            <Announcements />
-          </>
+                    <IsAdminTeacher>
+                      <Link to="/create_course">Create Course</Link>
+                    </IsAdminTeacher>
+
+                    <Signout />
+                  </Dropdown.Menu>
+                </Dropdown>
+
+                <Announcements />
+              </>
+            )}
+            {!me && (
+              <Link to="/signin" className="signin">
+                Sign In
+              </Link>
+            )}
+          </NavStyles>
         )}
-        {!me && (
-          <Link to="/signin" className="signin">
-            Sign In
-          </Link>
-        )}
-      </NavStyles>
-    )}
-  </User>
-)
-
+      </User>
+    )
+  }
+}
 export default NewNav

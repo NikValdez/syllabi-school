@@ -36,7 +36,6 @@ export class DeleteMyCourse extends Component {
                 background: this.props.color,
                 width: '35px',
                 padding: '5px',
-                borderRadius: '5px',
                 float: 'left',
                 marginRight: '10px'
               }}

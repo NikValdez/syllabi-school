@@ -19,7 +19,7 @@ const margins = {
 
 const SingleCourseStyles = styled.div`
   max-width: 1200px;
-  margin: 2rem auto;
+  /* margin: 2rem auto; */
 
   display: grid;
   .modal-content {
@@ -129,15 +129,18 @@ class ExportAsPdf extends Component {
       >
         {({ error, loading, data }) => {
           if (error) return <p>Error</p>
-          if (loading) return <p>Loading...</p>
+          if (loading) return <p />
           if (!data.course) return <p>No Course Found for {this.state.id}</p>
           const course = data.course
 
           return (
             <SingleCourseStyles>
-              <p variant="primary" onClick={this.handleShow}>
+              <h4 variant="primary" onClick={this.handleShow}>
+                <span style={{ marginRight: '10px' }}>
+                  <i className="fas fa-book-open" />
+                </span>
                 View Syllabus
-              </p>
+              </h4>
               <Modal
                 className="custom-map-modal"
                 show={this.state.show}

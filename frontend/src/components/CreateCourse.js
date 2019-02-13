@@ -1,7 +1,8 @@
 import gql from 'graphql-tag'
+import htmlToText from 'html-to-text'
 import React, { Component } from 'react'
 import { Mutation, Query } from 'react-apollo'
-import { Col, Row } from 'react-bootstrap'
+import { Col, Row, Table } from 'react-bootstrap'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import { ALL_COURSES_QUERY } from './Courses'
@@ -142,7 +143,7 @@ class CreateCourse extends Component {
                           </label>
                           <button
                             type="submit"
-                            style={{ marginTop: '1rem', marginBottom: '3rem' }}
+                            style={{ marginTop: '1rem', marginBottom: '6rem' }}
                           >
                             Submit
                           </button>
@@ -154,11 +155,28 @@ class CreateCourse extends Component {
               }}
             </Query>
           </Col>
-          <Col md={5} className="col-12">
-            <p>{this.state.title}</p>
-            <p>{this.state.courseCode}</p>
-            <p>{this.state.credits}</p>
-            <p>{this.state.description}</p>
+
+          <Col md={5} className="col-12" style={{ marginTop: '5rem' }}>
+            <Table bordered responsive>
+              <tbody>
+                <tr>
+                  <th>Title</th>
+                  <td>{this.state.title}</td>
+                </tr>
+                <tr>
+                  <th>Course Code</th>
+                  <td>{this.state.courseCode}</td>
+                </tr>
+                <tr>
+                  <th>Credits</th>
+                  <td>{this.state.credits}</td>
+                </tr>
+              </tbody>
+            </Table>
+            <div>
+              <h3>Course Description</h3>
+              <p>{htmlToText.fromString(this.state.description)}</p>
+            </div>
           </Col>
         </Row>
       </IsAdminTeacher>

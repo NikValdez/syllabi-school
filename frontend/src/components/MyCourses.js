@@ -29,11 +29,26 @@ const MyCoursesStyles = styled.div`
     width: 100%;
     transition: width 0.3s;
   }
-  .fa-plus {
-    margin-left: 30px;
+  .fa-plus,
+  .fa-minus {
+    float: right;
+    @media (min-width: 768px) {
+      margin-right: 5rem;
+    }
+    @media (min-width: 992px) {
+      margin-right: 15rem;
+    }
+    @media (min-width: 435px) {
+      margin-right: 3rem;
+    }
+    @media (min-width: 1200px) {
+      margin-right: 15rem;
+    }
   }
 `
+
 const List = styled.div`
+  margin-bottom: 2rem;
   /* display: grid;
   grid-template-columns: repeat(2, 1fr); */
 `
@@ -92,6 +107,7 @@ class MyCourses extends Component {
   render() {
     return (
       <MyCoursesStyles>
+        <h3>Courses</h3>
         <Query query={CURRENT_USER_QUERY_COURSES_EVENTS}>
           {({ data, error, loading }) => {
             if (loading) return <p />
@@ -99,19 +115,21 @@ class MyCourses extends Component {
             const courseData = data.me.myCourses.map(course => course)
             return courseData.map((course, i) => (
               <List key={course.id}>
-                <h3 style={{ margin: '0' }}>
+                <h3>
                   <DeleteMyCourse id={course.id} color={course.courses.color} />
                   <Link to={`/courses/${course.courses.id}`}>
-                    <p>
+                    <h5>
                       {course.courses.title} - {course.courses.courseCode}
-                    </p>
+                    </h5>
                   </Link>
-                  {this.state.showSyllabus && (
-                    <span onClick={this.hideSyllabus}>
+                  {course.id === this.state.showSyllabus && (
+                    <span
+                      onClick={this.hideSyllabus.bind(this, (i = course.id))}
+                    >
                       <i className="fas fa-minus" />
                     </span>
                   )}
-                  {!this.state.showSyllabus && (
+                  {course.id !== this.state.showSyllabus && (
                     <span
                       onClick={this.showSyllabus.bind(this, (i = course.id))}
                     >

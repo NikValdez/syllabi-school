@@ -16,6 +16,11 @@ const NavStyles = styled.ul`
       }
     }
   }
+  .show > .btn-primary.dropdown-toggle {
+    svg {
+      fill: black;
+    }
+  }
 
   svg {
     fill: white;
@@ -23,9 +28,7 @@ const NavStyles = styled.ul`
   svg:hover {
     fill: black;
   }
-  svg:active {
-    fill: black;
-  }
+
   margin: 0;
   padding: 0;
   display: flex;
@@ -33,6 +36,7 @@ const NavStyles = styled.ul`
   .btn {
     background: none;
     border: none;
+    outline: none;
   }
 
   .announcement-button {
