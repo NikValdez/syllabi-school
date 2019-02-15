@@ -19,6 +19,7 @@ import Signup from './components/Signup'
 import SingleCourse from './components/SingleCourse'
 import Container from './components/styles/Container'
 import GlobalStyles from './components/styles/GlobalStyles'
+import TestTable from './components/TestTable'
 import UpdateCourse from './components/UpdateCourse'
 import UpdateEvent from './components/UpdateEvent'
 import { endpoint } from './config'
@@ -53,7 +54,7 @@ const DefaultContainer = () => (
     <PleaseSignIn>
       <Header />
       <Container>
-        {/* <Route exact path="/test_table" component={TestTable} /> */}
+        <Route exact path="/test_table" component={TestTable} />
         <Route exact path="/" component={Courses} />
         <Route path="/courses/:id" component={SingleCourse} />
         <Route path="/create_institution" component={CreateInstitution} />

@@ -38,6 +38,14 @@ const NavStyles = styled.ul`
     border: none;
     outline: none;
   }
+  .btn:focus,
+  .btn:active {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  .btn:active {
+    background-color: #fffcdf !important;
+  }
 
   .announcement-button {
     padding-top: 10px;
@@ -45,6 +53,8 @@ const NavStyles = styled.ul`
   #dropdown-basic {
     padding-top: 10px;
     margin-right: 7rem;
+    border-radius: 0;
+    padding-bottom: 10px;
   }
   .dropdown-menu.show {
     height: 90vh;

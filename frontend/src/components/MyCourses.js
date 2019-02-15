@@ -59,6 +59,11 @@ const CURRENT_USER_QUERY_COURSES_EVENTS = gql`
       id
       email
       name
+      institution {
+        id
+        name
+        logo
+      }
       permissions
       myCourses {
         id
@@ -138,7 +143,11 @@ class MyCourses extends Component {
                   )}
                 </h3>
                 {course.id === this.state.showSyllabus && (
-                  <ExportAsPdf id={course.courses.id} />
+                  <ExportAsPdf
+                    id={course.courses.id}
+                    institutionName={data.me.institution.name}
+                    institutionLogo={data.me.institution.logo}
+                  />
                 )}
               </List>
             ))

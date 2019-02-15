@@ -1,6 +1,8 @@
 import gql from 'graphql-tag'
 import htmlToText from 'html-to-text'
+import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
+import 'jspdf-autotable'
 import _ from 'lodash'
 import moment from 'moment'
 import React, { Component } from 'react'
@@ -9,13 +11,6 @@ import { Col, Modal, Row, Table } from 'react-bootstrap'
 import styled from 'styled-components'
 import Button from './styles/Button'
 import './styles/Modal.css'
-
-const margins = {
-  top: 70,
-  bottom: 40,
-  left: 30,
-  width: 550
-}
 
 const SingleCourseStyles = styled.div`
   max-width: 1200px;
@@ -86,6 +81,13 @@ const SINGLE_COURSE_QUERY = gql`
   }
 `
 
+const margins = {
+  top: 70,
+  bottom: 40,
+  left: 30,
+  width: 550
+}
+
 class ExportAsPdf extends Component {
   state = {
     id: this.props.id,
@@ -94,7 +96,23 @@ class ExportAsPdf extends Component {
 
   generate = () => {
     const pdf = new jsPDF('p', 'pt', 'a4')
+    pdf.setFontSize(12)
+    pdf.setTextColor('black')
+    // pdf.text(20, 20, 'This is a title')
+    const input = document.getElementById('divToDownload')
+    html2canvas(input, { scale: '2' }).then(canvas => {
+      const imgData = canvas.toDataURL('image/png')
+
+      pdf.addImage(imgData, 'PNG', 15, 0, 200, 114)
+    })
+    pdf.setTextColor('black')
+    pdf.setFillColor(0)
+    pdf.addFont('times', 'normal')
+    pdf.setFont('times')
     pdf.setFontSize(18)
+    pdf.text(500, 30, this.props.institutionName)
+    pdf.text(500, 50, 'Syllabus')
+
     pdf.fromHTML(
       document.getElementById('html-2-pdfwrapper'),
       margins.left, // x coord
@@ -103,12 +121,11 @@ class ExportAsPdf extends Component {
         // y coord
         width: margins.width // max width of content on PDF
       },
-      //   function(dispose) {
-      //     headerFooterFormatting(pdf, pdf.internal.getNumberOfPages())
-      //   },
+      function() {
+        pdf.save('Syllabus.pdf')
+      },
       margins
     )
-    pdf.save('Syllabus.pdf')
   }
 
   handleClose = () => {
@@ -147,17 +164,32 @@ class ExportAsPdf extends Component {
                 onHide={this.handleClose}
                 bsPrefix="my-modal"
               >
-                <Modal.Header closeButton />
+                <Modal.Header closeButton style={{ borderBottom: 'none' }} />
                 <Button
                   onClick={() => {
                     this.generate()
                     this.handleClose()
                   }}
-                  style={{ width: '10%' }}
+                  style={{ width: '10%', marginTop: '2rem' }}
                 >
                   Export PDF
                 </Button>
+
                 <div id="html-2-pdfwrapper" style={{ zIndex: '999' }}>
+                  <span
+                    id="divToDownload"
+                    style={{
+                      position: 'absolute',
+                      top: '5px'
+                    }}
+                  >
+                    <img
+                      src={this.props.institutionLogo}
+                      style={{ width: '50px' }}
+                      alt="logo"
+                    />
+                  </span>
+
                   <Row>
                     <Col md={6} xs={6}>
                       <Table bordered responsive>
@@ -222,7 +254,11 @@ class ExportAsPdf extends Component {
                 </div>
                 <Button
                   onClick={this.handleClose}
-                  style={{ marginTop: '4rem' }}
+                  style={{
+                    marginTop: '4rem',
+
+                    width: '50%'
+                  }}
                 >
                   Close
                 </Button>
