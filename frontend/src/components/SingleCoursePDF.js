@@ -153,8 +153,8 @@ class SingleCoursePDF extends Component {
 
                   {course.events.map(
                     ({ title, description, start, end, id, upload }) => (
-                      <tbody>
-                        <tr key={id}>
+                      <tbody key={id}>
+                        <tr>
                           <td>{moment(end).format('MMM Do YYYY')}</td>
                           <td>{title}</td>
                           <td>{htmlToText.fromString(description)}</td>

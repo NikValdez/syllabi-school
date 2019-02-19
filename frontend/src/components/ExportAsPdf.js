@@ -1,6 +1,5 @@
 import gql from 'graphql-tag'
 import htmlToText from 'html-to-text'
-import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
 import _ from 'lodash'
@@ -96,27 +95,52 @@ class ExportAsPdf extends Component {
 
   generate = () => {
     const pdf = new jsPDF('p', 'pt', 'a4')
+
     pdf.setFontSize(12)
     pdf.setTextColor('black')
     // pdf.text(20, 20, 'This is a title')
-    const input = document.getElementById('divToDownload')
-    html2canvas(input, { scale: '2' }).then(canvas => {
-      const imgData = canvas.toDataURL('image/png')
-
-      pdf.addImage(imgData, 'PNG', 15, 0, 200, 114)
-    })
     pdf.setTextColor('black')
-    pdf.setFillColor(0)
-    pdf.addFont('times', 'normal')
+
     pdf.setFont('times')
     pdf.setFontSize(18)
-    pdf.text(500, 30, this.props.institutionName)
-    pdf.text(500, 50, 'Syllabus')
+    pdf.text(20, 30, this.props.institutionName)
+    pdf.text(20, 50, 'Syllabus')
+
+    pdf.autoTable({
+      styles: { fillColor: '#fff' },
+      theme: 'grid',
+      bodyStyles: { lineColor: [0, 0, 0] },
+      margin: { top: 100 },
+      html: '#course-table',
+      showHead: 'firstPage',
+      tableWidth: 300
+    })
+    pdf.setFontSize(13)
+    pdf.text(40, 300, 'Course Calendar')
+    pdf.autoTable({
+      styles: { fillColor: '#fff' },
+      theme: 'grid',
+      bodyStyles: { lineColor: [0, 0, 0] },
+      startY: 320,
+      html: '#course-calendar',
+      showHead: 'firstPage',
+      lineColor: 'black',
+      lineWidth: 4
+    })
+
+    pdf.fromHTML(
+      document.getElementById('course-description'),
+      40, // x coord
+      175,
+      {
+        width: margins.width
+      }
+    )
 
     pdf.fromHTML(
       document.getElementById('html-2-pdfwrapper'),
-      margins.left, // x coord
-      margins.top,
+      500,
+      10,
       {
         // y coord
         width: margins.width // max width of content on PDF
@@ -152,7 +176,11 @@ class ExportAsPdf extends Component {
 
           return (
             <SingleCourseStyles>
-              <h4 variant="primary" onClick={this.handleShow}>
+              <h4
+                variant="primary"
+                onClick={this.handleShow}
+                style={{ cursor: 'pointer' }}
+              >
                 <span style={{ marginRight: '10px' }}>
                   <i className="fas fa-book-open" />
                 </span>
@@ -174,10 +202,8 @@ class ExportAsPdf extends Component {
                 >
                   Export PDF
                 </Button>
-
                 <div id="html-2-pdfwrapper" style={{ zIndex: '999' }}>
                   <span
-                    id="divToDownload"
                     style={{
                       position: 'absolute',
                       top: '5px'
@@ -189,69 +215,70 @@ class ExportAsPdf extends Component {
                       alt="logo"
                     />
                   </span>
+                </div>
 
-                  <Row>
-                    <Col md={6} xs={6}>
-                      <Table bordered responsive>
-                        <tbody>
+                <Row>
+                  <Col md={6} xs={6}>
+                    <Table bordered responsive id="course-table">
+                      <tbody>
+                        <tr>
+                          <th>Title</th>
+                          <td>{course.title}</td>
+                        </tr>
+                        <tr>
+                          <th>Course Code</th>
+                          <td>{course.courseCode}</td>
+                        </tr>
+                        <tr>
+                          <th>Credits</th>
+                          <td>{course.credits}</td>
+                        </tr>
+                      </tbody>
+                    </Table>
+                  </Col>
+                </Row>
+                <div id="course-description">
+                  <h3>Course Description</h3>
+                  <p>{htmlToText.fromString(course.description)}</p>
+                </div>
+                <h2 style={{ float: 'left' }}>Course Calendar</h2>
+                {course.events.length < 1 ? (
+                  <p>No Assignments Currently</p>
+                ) : (
+                  <Table bordered id="course-calendar">
+                    <tbody>
+                      <tr>
+                        <th>Date</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Upload</th>
+                      </tr>
+                    </tbody>
+
+                    {course.events.map(
+                      ({ title, description, start, end, id, upload }) => (
+                        <tbody key={id}>
                           <tr>
-                            <th>Title</th>
-                            <td>{course.title}</td>
-                          </tr>
-                          <tr>
-                            <th>Course Code</th>
-                            <td>{course.courseCode}</td>
-                          </tr>
-                          <tr>
-                            <th>Credits</th>
-                            <td>{course.credits}</td>
+                            <td>{moment(end).format('MMM Do YYYY')}</td>
+                            <td>{title}</td>
+                            <td>{htmlToText.fromString(description)}</td>
+                            <td>
+                              {upload && (
+                                <a href={upload}>
+                                  {_.truncate(title, {
+                                    length: 24
+                                  })}{' '}
+                                  - upload
+                                </a>
+                              )}
+                            </td>
                           </tr>
                         </tbody>
-                      </Table>
-                    </Col>
-                  </Row>
-                  <div>
-                    <h3>Course Description</h3>
-                    <p>{htmlToText.fromString(course.description)}</p>
-                  </div>
-                  <h2 style={{ float: 'left' }}>Course Calendar</h2>
-                  {course.events.length < 1 ? (
-                    <p>No Assignments Currently</p>
-                  ) : (
-                    <Table bordered>
-                      <thead>
-                        <tr>
-                          <td>Date</td>
-                          <td>Title</td>
-                          <td>Description</td>
-                          <td>Upload</td>
-                        </tr>
-                      </thead>
+                      )
+                    )}
+                  </Table>
+                )}
 
-                      {course.events.map(
-                        ({ title, description, start, end, id, upload }) => (
-                          <tbody key={id}>
-                            <tr>
-                              <td>{moment(end).format('MMM Do YYYY')}</td>
-                              <td>{title}</td>
-                              <td>{htmlToText.fromString(description)}</td>
-
-                              <td>
-                                {upload && (
-                                  <a href={upload}>
-                                    {_.truncate(title, {
-                                      length: 24
-                                    })}
-                                  </a>
-                                )}
-                              </td>
-                            </tr>
-                          </tbody>
-                        )
-                      )}
-                    </Table>
-                  )}
-                </div>
                 <Button
                   onClick={this.handleClose}
                   style={{

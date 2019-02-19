@@ -1,8 +1,10 @@
+import htmlToText from 'html-to-text'
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import BigCalendar from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
+import { Modal } from 'react-bootstrap'
 import styled from 'styled-components'
 import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
 import Empty from './styles/empty.png'
@@ -108,6 +110,29 @@ const BigCalStyles = styled.div`
 const localizer = BigCalendar.momentLocalizer(moment)
 
 class Calendar extends Component {
+  state = {
+    show: false,
+    title: '',
+    description: '',
+    start: '',
+    end: ''
+  }
+
+  handleClose = () => {
+    this.setState({ show: false })
+  }
+
+  handleShow = () => {
+    this.setState({ show: true })
+  }
+  details = event => {
+    this.setState({
+      title: event.title,
+      description: event.description,
+      start: event.start,
+      end: event.end
+    })
+  }
   render() {
     return (
       <>
@@ -122,6 +147,10 @@ class Calendar extends Component {
               <BigCalStyles>
                 <BigCalendar
                   popup
+                  onSelectEvent={event => {
+                    this.handleShow()
+                    this.details(event)
+                  }}
                   views={['month']}
                   localizer={localizer}
                   events={calEvents}
@@ -137,6 +166,35 @@ class Calendar extends Component {
             )
           }}
         </Query>
+
+        <Modal
+          show={this.state.show}
+          onHide={this.handleClose}
+          style={{
+            height: '40%',
+            width: '40%',
+            top: '50%',
+            left: ' 50%',
+            overflow: 'hidden'
+          }}
+        >
+          <Modal.Header
+            closeButton
+            style={{
+              width: '38%'
+            }}
+          >
+            <Modal.Title>{this.state.title}</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p> {htmlToText.fromString(this.state.description)}</p>
+
+            <h5>
+              {moment(this.state.start).format('MMM Do YY')} -{' '}
+              {moment(this.state.end).format('MMM Do YY')}
+            </h5>
+          </Modal.Body>
+        </Modal>
       </>
     )
   }
