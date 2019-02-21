@@ -118,7 +118,7 @@ class MyCourses extends Component {
             if (loading) return <p />
             if (error) return <p>Error : {error.message}</p>
             const courseData = data.me.myCourses.map(course => course)
-
+            console.log(courseData.map(course => course.courses.events))
             return courseData.map((course, i) => (
               <List key={course.id}>
                 <h3>

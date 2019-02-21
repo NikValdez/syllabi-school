@@ -1,15 +1,45 @@
-import React from 'react'
-import AddToCalendar from 'react-add-to-calendar'
+import ical from 'ical-generator'
+import React, { Component } from 'react'
 
-export default class TestTable extends React.Component {
+export default class TestTable extends Component {
+  state = {
+    courseId: this.props.courseId,
+    events: []
+  }
+  componentDidMount() {
+    this.props.courseEvents.map(course => {
+      course.summary = course.title
+      delete course.title
+      course.background = course.color
+      delete course.color
+    })
+    this.setState({
+      events: this.props.courseEvents
+    })
+  }
+
+  createIcal = () => {
+    const calendar = ical({
+      domain: 'gosyllabi.com',
+      prodId: '//Syllabi//ical-generator//EN',
+      events: this.state.events
+    }).toURL()
+    // const newCal = calendar.replace('blob:', '')
+
+    let link = document.createElement('a')
+    document.body.appendChild(link)
+    link.href = calendar
+    return link.click()
+  }
+
   render() {
-    const events = {
-      title: 'Sample Event',
-      description: 'This is the sample event provided as an example only',
-      startTime: '2019-02-16T20:15:00-04:00',
-      endTime: '2019-02-16T21:45:00-04:00'
-    }
-
-    return <AddToCalendar event={events} />
+    return (
+      <div>
+        <h4>Sync:</h4>
+        <h4 onClick={this.createIcal}>
+          <i className="far fa-calendar-alt" /> Apple
+        </h4>
+      </div>
+    )
   }
 }

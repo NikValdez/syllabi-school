@@ -32,7 +32,7 @@ class NewNav extends Component {
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu id="dropdown-items">
-                    <Link to="/schedule">See Schedule</Link>
+                    <Link to="/schedule">Full Schedule</Link>
 
                     <IsAdminTeacher>
                       <Link to="/create_course">Create Course</Link>

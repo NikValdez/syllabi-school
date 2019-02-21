@@ -10,6 +10,7 @@ import { Col, Modal, Row, Table } from 'react-bootstrap'
 import styled from 'styled-components'
 import Button from './styles/Button'
 import './styles/Modal.css'
+import TestTable from './TestTable'
 
 const SingleCourseStyles = styled.div`
   max-width: 1200px;
@@ -186,6 +187,7 @@ class ExportAsPdf extends Component {
                 </span>
                 View Syllabus
               </h4>
+              <TestTable courseEvents={course.events} />
               <Modal
                 className="custom-map-modal"
                 show={this.state.show}
@@ -299,3 +301,4 @@ class ExportAsPdf extends Component {
 }
 
 export default ExportAsPdf
+export { SINGLE_COURSE_QUERY }
