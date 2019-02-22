@@ -1,10 +1,13 @@
 import gql from 'graphql-tag'
 import htmlToText from 'html-to-text'
+import moment from 'moment'
 import React, { Component } from 'react'
 import { Mutation, Query } from 'react-apollo'
 import { Col, Row, Table } from 'react-bootstrap'
+import DatePicker from 'react-datepicker'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
+import Select from 'react-select'
 import { ALL_COURSES_QUERY } from './Courses'
 import { Quill } from './CreateEvent'
 import Error from './ErrorMessage'
@@ -36,6 +39,14 @@ const CREATE_COURSE_MUTATION = gql`
   }
 `
 
+const options = [
+  { value: 'monday', label: 'Monday' },
+  { value: 'tuesday', label: 'Tuesday' },
+  { value: 'wednesday', label: 'Wednesday' },
+  { value: 'thursday', label: 'Thursday' },
+  { value: 'friday', label: 'Friday' }
+]
+
 class CreateCourse extends Component {
   state = {
     title: '',
@@ -44,7 +55,10 @@ class CreateCourse extends Component {
     courseCode: '',
     image: '',
     color: '',
-    institution: ''
+    institution: '',
+    selectedOption: [],
+    startDate: null,
+    endDate: null
   }
 
   getRandomColor = () => {
@@ -55,15 +69,42 @@ class CreateCourse extends Component {
   handleChange = e => {
     const { name, type, value } = e.target
     const val = type === 'number' ? parseFloat(value) : value
-    this.setState({ [name]: val, color: this.getRandomColor() })
+    this.setState({
+      [name]: val,
+      color: this.getRandomColor()
+    })
   }
 
+  handleSelectionChange = selectedOption => {
+    this.setState({ selectedOption })
+  }
   onDescriptionChange = value => {
     this.setState({
       description: value
     })
   }
+
+  handleStartDateChange = date => {
+    this.setState({
+      startDate: moment(date).toDate()
+    })
+  }
+  handleEndDateChange = date => {
+    this.setState({
+      endDate: moment(date).toDate()
+    })
+  }
+
   render() {
+    const { selectedOption } = this.state
+    // const day = this.state.selectedOption.map(day => {
+    //   return (
+    //     <li key={day.label}>
+    //       {day.label}
+
+    //     </li>
+    //   )
+    // })
     return (
       <IsAdminTeacher>
         <Row>
@@ -95,6 +136,7 @@ class CreateCourse extends Component {
                           <label htmlFor="title">
                             Title
                             <input
+                              maxLength="40"
                               type="text"
                               id="title"
                               name="title"
@@ -104,9 +146,17 @@ class CreateCourse extends Component {
                               onChange={this.handleChange}
                             />
                           </label>
+                          {this.state.title.length > 39 ? (
+                            <p style={{ color: '#f17070' }}>
+                              Title cannot be this long
+                            </p>
+                          ) : (
+                            ''
+                          )}
                           <label htmlFor="courseCode">
                             Course Code
                             <input
+                              maxLength="20"
                               type="text"
                               id="courseCode"
                               name="courseCode"
@@ -119,6 +169,7 @@ class CreateCourse extends Component {
                           <label htmlFor="credits">
                             Credits
                             <input
+                              maxLength="20"
                               type="text"
                               id="credits"
                               name="credits"
@@ -141,6 +192,55 @@ class CreateCourse extends Component {
                               />
                             </Quill>
                           </label>
+
+                          <label htmlFor="ClassTime">
+                            Class Days
+                            <Select
+                              value={selectedOption}
+                              onChange={this.handleSelectionChange}
+                              options={options}
+                              isMulti
+                              theme={theme => ({
+                                ...theme,
+                                borderRadius: 0,
+                                colors: {
+                                  ...theme.colors,
+                                  primary25: '#fffcdf',
+                                  primary: 'black'
+                                }
+                              })}
+                            />
+                          </label>
+                          <label htmlFor="DateTime">
+                            Class Time
+                            <div style={{ marginRight: '20px' }}>
+                              <DatePicker
+                                selected={this.state.startDate}
+                                onChange={this.handleStartDateChange}
+                                showTimeSelect
+                                showTimeSelectOnly
+                                timeIntervals={15}
+                                dateFormat="h:mm aa"
+                                timeCaption="Time"
+                                placeholderText="Class starts"
+                              />
+                            </div>
+                            <div>
+                              <DatePicker
+                                selected={this.state.endDate}
+                                showTimeSelect
+                                showTimeSelectOnly
+                                selectsEnd
+                                timeIntervals={15}
+                                dateFormat="h:mm aa"
+                                timeCaption="Time"
+                                startDate={this.state.startDate}
+                                endDate={this.state.endDate}
+                                onChange={this.handleEndDateChange}
+                                placeholderText="Class ends"
+                              />
+                            </div>
+                          </label>
                           <button
                             type="submit"
                             style={{ marginTop: '1rem', marginBottom: '6rem' }}
@@ -157,7 +257,7 @@ class CreateCourse extends Component {
           </Col>
 
           <Col md={5} className="col-12" style={{ marginTop: '5rem' }}>
-            <Table bordered responsive>
+            <Table bordered>
               <tbody>
                 <tr>
                   <th>Title</th>

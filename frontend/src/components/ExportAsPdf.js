@@ -8,9 +8,9 @@ import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import { Col, Modal, Row, Table } from 'react-bootstrap'
 import styled from 'styled-components'
+import CalendarSync from './CalendarSync'
 import Button from './styles/Button'
 import './styles/Modal.css'
-import TestTable from './TestTable'
 
 const SingleCourseStyles = styled.div`
   max-width: 1200px;
@@ -187,7 +187,10 @@ class ExportAsPdf extends Component {
                 </span>
                 View Syllabus
               </h4>
-              <TestTable courseEvents={course.events} />
+              <CalendarSync
+                courseTitle={course.title}
+                courseEvents={course.events}
+              />
               <Modal
                 className="custom-map-modal"
                 show={this.state.show}
