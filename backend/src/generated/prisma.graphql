@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/nikvaldez-073802/schedule/dev
-# timestamp: Tue Feb 05 2019 16:00:47 GMT-0800 (PST)
+# timestamp: Sat Feb 23 2019 10:53:25 GMT-0800 (PST)
 
 type AggregateAnnouncement {
   count: Int!
@@ -580,6 +580,9 @@ type Course implements Node {
   credits: Int
   image: String
   color: String
+  days: String
+  startDate: DateTime
+  endDate: DateTime
   events(where: EventWhereInput, orderBy: EventOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Event!]
   announcements(where: AnnouncementWhereInput, orderBy: AnnouncementOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Announcement!]
   user: User!
@@ -604,6 +607,9 @@ input CourseCreateInput {
   credits: Int
   image: String
   color: String
+  days: String
+  startDate: DateTime
+  endDate: DateTime
   events: EventCreateManyWithoutCourseInput
   announcements: AnnouncementCreateManyWithoutCourseInput
   user: UserCreateOneWithoutCoursesInput!
@@ -643,6 +649,9 @@ input CourseCreateWithoutAnnouncementsInput {
   credits: Int
   image: String
   color: String
+  days: String
+  startDate: DateTime
+  endDate: DateTime
   events: EventCreateManyWithoutCourseInput
   user: UserCreateOneWithoutCoursesInput!
   institution: InstitutionCreateOneWithoutCoursesInput
@@ -656,6 +665,9 @@ input CourseCreateWithoutEventsInput {
   credits: Int
   image: String
   color: String
+  days: String
+  startDate: DateTime
+  endDate: DateTime
   announcements: AnnouncementCreateManyWithoutCourseInput
   user: UserCreateOneWithoutCoursesInput!
   institution: InstitutionCreateOneWithoutCoursesInput
@@ -669,6 +681,9 @@ input CourseCreateWithoutInstitutionInput {
   credits: Int
   image: String
   color: String
+  days: String
+  startDate: DateTime
+  endDate: DateTime
   events: EventCreateManyWithoutCourseInput
   announcements: AnnouncementCreateManyWithoutCourseInput
   user: UserCreateOneWithoutCoursesInput!
@@ -682,6 +697,9 @@ input CourseCreateWithoutMyCourseInput {
   credits: Int
   image: String
   color: String
+  days: String
+  startDate: DateTime
+  endDate: DateTime
   events: EventCreateManyWithoutCourseInput
   announcements: AnnouncementCreateManyWithoutCourseInput
   user: UserCreateOneWithoutCoursesInput!
@@ -695,6 +713,9 @@ input CourseCreateWithoutUserInput {
   credits: Int
   image: String
   color: String
+  days: String
+  startDate: DateTime
+  endDate: DateTime
   events: EventCreateManyWithoutCourseInput
   announcements: AnnouncementCreateManyWithoutCourseInput
   institution: InstitutionCreateOneWithoutCoursesInput
@@ -725,6 +746,12 @@ enum CourseOrderByInput {
   image_DESC
   color_ASC
   color_DESC
+  days_ASC
+  days_DESC
+  startDate_ASC
+  startDate_DESC
+  endDate_ASC
+  endDate_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -739,6 +766,9 @@ type CoursePreviousValues {
   credits: Int
   image: String
   color: String
+  days: String
+  startDate: DateTime
+  endDate: DateTime
 }
 
 input CourseScalarWhereInput {
@@ -1012,6 +1042,90 @@ input CourseScalarWhereInput {
 
   """All values not ending with the given string."""
   color_not_ends_with: String
+  days: String
+
+  """All values that are not equal to given value."""
+  days_not: String
+
+  """All values that are contained in given list."""
+  days_in: [String!]
+
+  """All values that are not contained in given list."""
+  days_not_in: [String!]
+
+  """All values less than the given value."""
+  days_lt: String
+
+  """All values less than or equal the given value."""
+  days_lte: String
+
+  """All values greater than the given value."""
+  days_gt: String
+
+  """All values greater than or equal the given value."""
+  days_gte: String
+
+  """All values containing the given string."""
+  days_contains: String
+
+  """All values not containing the given string."""
+  days_not_contains: String
+
+  """All values starting with the given string."""
+  days_starts_with: String
+
+  """All values not starting with the given string."""
+  days_not_starts_with: String
+
+  """All values ending with the given string."""
+  days_ends_with: String
+
+  """All values not ending with the given string."""
+  days_not_ends_with: String
+  startDate: DateTime
+
+  """All values that are not equal to given value."""
+  startDate_not: DateTime
+
+  """All values that are contained in given list."""
+  startDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  startDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  startDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  startDate_lte: DateTime
+
+  """All values greater than the given value."""
+  startDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  startDate_gte: DateTime
+  endDate: DateTime
+
+  """All values that are not equal to given value."""
+  endDate_not: DateTime
+
+  """All values that are contained in given list."""
+  endDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  endDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  endDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  endDate_lte: DateTime
+
+  """All values greater than the given value."""
+  endDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  endDate_gte: DateTime
 }
 
 type CourseSubscriptionPayload {
@@ -1060,6 +1174,9 @@ input CourseUpdateInput {
   credits: Int
   image: String
   color: String
+  days: String
+  startDate: DateTime
+  endDate: DateTime
   events: EventUpdateManyWithoutCourseInput
   announcements: AnnouncementUpdateManyWithoutCourseInput
   user: UserUpdateOneRequiredWithoutCoursesInput
@@ -1074,6 +1191,9 @@ input CourseUpdateManyDataInput {
   credits: Int
   image: String
   color: String
+  days: String
+  startDate: DateTime
+  endDate: DateTime
 }
 
 input CourseUpdateManyMutationInput {
@@ -1083,6 +1203,9 @@ input CourseUpdateManyMutationInput {
   credits: Int
   image: String
   color: String
+  days: String
+  startDate: DateTime
+  endDate: DateTime
 }
 
 input CourseUpdateManyWithoutInstitutionInput {
@@ -1142,6 +1265,9 @@ input CourseUpdateWithoutAnnouncementsDataInput {
   credits: Int
   image: String
   color: String
+  days: String
+  startDate: DateTime
+  endDate: DateTime
   events: EventUpdateManyWithoutCourseInput
   user: UserUpdateOneRequiredWithoutCoursesInput
   institution: InstitutionUpdateOneWithoutCoursesInput
@@ -1155,6 +1281,9 @@ input CourseUpdateWithoutEventsDataInput {
   credits: Int
   image: String
   color: String
+  days: String
+  startDate: DateTime
+  endDate: DateTime
   announcements: AnnouncementUpdateManyWithoutCourseInput
   user: UserUpdateOneRequiredWithoutCoursesInput
   institution: InstitutionUpdateOneWithoutCoursesInput
@@ -1168,6 +1297,9 @@ input CourseUpdateWithoutInstitutionDataInput {
   credits: Int
   image: String
   color: String
+  days: String
+  startDate: DateTime
+  endDate: DateTime
   events: EventUpdateManyWithoutCourseInput
   announcements: AnnouncementUpdateManyWithoutCourseInput
   user: UserUpdateOneRequiredWithoutCoursesInput
@@ -1181,6 +1313,9 @@ input CourseUpdateWithoutMyCourseDataInput {
   credits: Int
   image: String
   color: String
+  days: String
+  startDate: DateTime
+  endDate: DateTime
   events: EventUpdateManyWithoutCourseInput
   announcements: AnnouncementUpdateManyWithoutCourseInput
   user: UserUpdateOneRequiredWithoutCoursesInput
@@ -1194,6 +1329,9 @@ input CourseUpdateWithoutUserDataInput {
   credits: Int
   image: String
   color: String
+  days: String
+  startDate: DateTime
+  endDate: DateTime
   events: EventUpdateManyWithoutCourseInput
   announcements: AnnouncementUpdateManyWithoutCourseInput
   institution: InstitutionUpdateOneWithoutCoursesInput
@@ -1508,6 +1646,90 @@ input CourseWhereInput {
 
   """All values not ending with the given string."""
   color_not_ends_with: String
+  days: String
+
+  """All values that are not equal to given value."""
+  days_not: String
+
+  """All values that are contained in given list."""
+  days_in: [String!]
+
+  """All values that are not contained in given list."""
+  days_not_in: [String!]
+
+  """All values less than the given value."""
+  days_lt: String
+
+  """All values less than or equal the given value."""
+  days_lte: String
+
+  """All values greater than the given value."""
+  days_gt: String
+
+  """All values greater than or equal the given value."""
+  days_gte: String
+
+  """All values containing the given string."""
+  days_contains: String
+
+  """All values not containing the given string."""
+  days_not_contains: String
+
+  """All values starting with the given string."""
+  days_starts_with: String
+
+  """All values not starting with the given string."""
+  days_not_starts_with: String
+
+  """All values ending with the given string."""
+  days_ends_with: String
+
+  """All values not ending with the given string."""
+  days_not_ends_with: String
+  startDate: DateTime
+
+  """All values that are not equal to given value."""
+  startDate_not: DateTime
+
+  """All values that are contained in given list."""
+  startDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  startDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  startDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  startDate_lte: DateTime
+
+  """All values greater than the given value."""
+  startDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  startDate_gte: DateTime
+  endDate: DateTime
+
+  """All values that are not equal to given value."""
+  endDate_not: DateTime
+
+  """All values that are contained in given list."""
+  endDate_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  endDate_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  endDate_lt: DateTime
+
+  """All values less than or equal the given value."""
+  endDate_lte: DateTime
+
+  """All values greater than the given value."""
+  endDate_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  endDate_gte: DateTime
   events_every: EventWhereInput
   events_some: EventWhereInput
   events_none: EventWhereInput

@@ -42,6 +42,9 @@ type Course {
   credits: Int
   image: String
   color: String
+  days: String
+  startDate: DateTime
+  endDate: DateTime
   events: [Event!]! @relation(name: "CourseEvents", onDelete: CASCADE)
   announcements: [Announcement!]!
     @relation(name: "CourseAnnouncements", onDelete: CASCADE)

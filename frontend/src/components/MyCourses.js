@@ -1,4 +1,5 @@
 import gql from 'graphql-tag'
+import moment from 'moment'
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import { Link } from 'react-router-dom'
@@ -74,6 +75,9 @@ const CURRENT_USER_QUERY_COURSES_EVENTS = gql`
           credits
           courseCode
           color
+          days
+          startDate
+          endDate
           events {
             id
             title
@@ -143,6 +147,40 @@ class MyCourses extends Component {
                     </span>
                   )}
                 </h3>
+                {course.id === this.state.showSyllabus &&
+                  (course.courses.days !== null &&
+                    JSON.parse(course.courses.days).map(day => (
+                      <div key={day} style={{ display: 'inline-block' }}>
+                        <h6
+                          style={{
+                            marginRight: '5px',
+                            fontSize: '10px',
+                            color: '#a09e9e'
+                          }}
+                        >
+                          {day.toUpperCase()}
+                        </h6>
+                        <div style={{ display: 'inline-block' }}>
+                          <h6
+                            style={{
+                              marginRight: '5px',
+                              fontSize: '10px'
+                            }}
+                          >
+                            {moment(course.courses.startDate).format('LT')}
+                          </h6>
+                          <h6
+                            style={{
+                              marginRight: '5px',
+                              fontSize: '10px'
+                            }}
+                          >
+                            {moment(course.courses.endDate).format('LT')}
+                          </h6>
+                        </div>
+                      </div>
+                    )))}
+
                 {course.id === this.state.showSyllabus && (
                   <ExportAsPdf
                     id={course.courses.id}

@@ -9,7 +9,7 @@ const IsAdminTeacher = props => (
       if (error) return <p>Error : {error.message}</p>
       if (
         data.me.permissions.some(permission =>
-          ['ADIMN', 'TEACHER'].includes(permission)
+          ['ADMIN', 'TEACHER'].includes(permission)
         )
       ) {
         return props.children

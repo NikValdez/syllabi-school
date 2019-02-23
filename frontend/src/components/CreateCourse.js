@@ -24,6 +24,9 @@ const CREATE_COURSE_MUTATION = gql`
     $image: String
     $color: String
     $institution: ID!
+    $days: String
+    $startDate: DateTime
+    $endDate: DateTime
   ) {
     createCourse(
       title: $title
@@ -33,6 +36,9 @@ const CREATE_COURSE_MUTATION = gql`
       image: $image
       color: $color
       institution: $institution
+      days: $days
+      startDate: $startDate
+      endDate: $endDate
     ) {
       id
     }
@@ -40,11 +46,11 @@ const CREATE_COURSE_MUTATION = gql`
 `
 
 const options = [
-  { value: 'monday', label: 'Monday' },
-  { value: 'tuesday', label: 'Tuesday' },
-  { value: 'wednesday', label: 'Wednesday' },
-  { value: 'thursday', label: 'Thursday' },
-  { value: 'friday', label: 'Friday' }
+  { value: 'mon', label: 'Monday' },
+  { value: 'tue', label: 'Tuesday' },
+  { value: 'wed', label: 'Wednesday' },
+  { value: 'thu', label: 'Thursday' },
+  { value: 'fri', label: 'Friday' }
 ]
 
 class CreateCourse extends Component {
@@ -58,7 +64,8 @@ class CreateCourse extends Component {
     institution: '',
     selectedOption: [],
     startDate: null,
-    endDate: null
+    endDate: null,
+    days: ''
   }
 
   getRandomColor = () => {
@@ -84,6 +91,17 @@ class CreateCourse extends Component {
     })
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.selectedOption !== prevState.selectedOption) {
+      const newArr = []
+      this.state.selectedOption.map(option => newArr.push(option.value))
+      const transform = JSON.stringify(newArr)
+      this.setState({
+        days: transform
+      })
+    }
+  }
+
   handleStartDateChange = date => {
     this.setState({
       startDate: moment(date).toDate()
@@ -97,14 +115,6 @@ class CreateCourse extends Component {
 
   render() {
     const { selectedOption } = this.state
-    // const day = this.state.selectedOption.map(day => {
-    //   return (
-    //     <li key={day.label}>
-    //       {day.label}
-
-    //     </li>
-    //   )
-    // })
     return (
       <IsAdminTeacher>
         <Row>

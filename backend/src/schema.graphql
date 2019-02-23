@@ -13,6 +13,9 @@ type Mutation {
     credits: Int
     image: String
     color: String
+    days: String
+    startDate: DateTime
+    endDate: DateTime
     institution: ID!
   ): Course!
   deleteCourse(id: ID!): Course
@@ -22,6 +25,9 @@ type Mutation {
     description: String
     courseCode: String
     credits: Int
+    days: String
+    startDate: DateTime
+    endDate: DateTime
   ): Course!
   createEvent(
     title: String!
