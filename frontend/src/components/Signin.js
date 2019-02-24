@@ -72,7 +72,6 @@ class Signin extends Component {
               <button
                 style={{
                   marginTop: '10px',
-                  background: 'black',
                   fontSize: '13px'
                 }}
               >
@@ -83,7 +82,6 @@ class Signin extends Component {
               <button
                 style={{
                   margin: '12px',
-                  background: 'black',
                   fontSize: '10px'
                 }}
               >

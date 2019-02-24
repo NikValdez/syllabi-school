@@ -19,6 +19,7 @@ const Form = styled.form`
   line-height: 1.5;
   font-weight: 600;
   overflow: none;
+  width: 50%;
 
   label {
     display: block;

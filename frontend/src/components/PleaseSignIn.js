@@ -1,6 +1,7 @@
 import React from 'react'
 import { Query } from 'react-apollo'
 import Signin from './Signin'
+import Container from './styles/Container'
 import { CURRENT_USER_QUERY } from './User'
 
 const PleaseSignIn = props => (
@@ -9,10 +10,10 @@ const PleaseSignIn = props => (
       if (loading) return <p>Loading...</p>
       if (!data.me) {
         return (
-          <div>
+          <Container>
             <p>Please Sign In Before Continuing</p>
             <Signin />
-          </div>
+          </Container>
         )
       }
       return props.children

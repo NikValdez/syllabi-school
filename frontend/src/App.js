@@ -13,7 +13,7 @@ import Permissions from './components/Permissions'
 import PleaseSignIn from './components/PleaseSignIn'
 import RequestReset from './components/RequestReset'
 import Reset from './components/Reset'
-import SchedulePDF from './components/SchedulePDF'
+import Schedule from './components/Schedule'
 import Signin from './components/Signin'
 import Signup from './components/Signup'
 import SingleCourse from './components/SingleCourse'
@@ -22,16 +22,6 @@ import GlobalStyles from './components/styles/GlobalStyles'
 import UpdateCourse from './components/UpdateCourse'
 import UpdateEvent from './components/UpdateEvent'
 import { endpoint } from './config'
-
-// const theme = {
-//   red: '#FF0000',
-//   black: '#393939',
-//   grey: '#3A3A3A',
-//   lightgrey: '#E1E1E1',
-//   offWhite: '#EDEDED',
-//   maxWidth: '1000px',
-//   bs: '0 12px 24px 0 rgba(0, 0, 0, 0.09)'
-// }
 
 const client = new ApolloClient({
   uri: endpoint,
@@ -46,10 +36,6 @@ const PermissionsContainer = () => (
 
 const DefaultContainer = () => (
   <>
-    <Route exact path="/signup" component={Signup} />
-    <Route exact path="/signin" component={Signin} />
-    <Route path="/request_reset" component={RequestReset} />
-    <Route path="/reset/:resetToken" component={Reset} />
     <PleaseSignIn>
       <Header />
       <Container>
@@ -61,7 +47,7 @@ const DefaultContainer = () => (
         <Route path="/update_event/:id" component={UpdateEvent} />
         <Route path="/create_event" component={CreateEvent} />
         <Route exact path="/permissions" component={Permissions} />
-        <Route path="/schedule" component={SchedulePDF} />
+        <Route path="/schedule" component={Schedule} />
         <Route path="/permissions" component={Permissions} />
         <Route path="/create_announcement" component={CreateAnnouncement} />
       </Container>
@@ -78,6 +64,10 @@ class App extends Component {
           <>
             <GlobalStyles />
             <Switch>
+              <Route exact path="/signin" component={Signin} />
+              <Route exact path="/signup" component={Signup} />
+              <Route path="/request_reset" component={RequestReset} />
+              <Route path="/reset/:resetToken" component={Reset} />
               <Route
                 exact
                 path="/permissions"

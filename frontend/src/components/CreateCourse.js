@@ -130,6 +130,7 @@ class CreateCourse extends Component {
                   >
                     {(createCourse, { loading, error }) => (
                       <Form
+                        style={{ width: '100%' }}
                         onSubmit={async e => {
                           e.preventDefault()
                           await this.setState({

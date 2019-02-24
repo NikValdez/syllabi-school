@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import Error from './ErrorMessage'
 import Notes, { NOTES_QUERY } from './Notes'
+import Button from './styles/Button'
 import { SearchStyles } from './styles/DropDown'
 
 const CREATE_NOTE_MUTATION = gql`
@@ -52,6 +53,7 @@ class CreateNote extends Component {
                   value={this.state.note}
                   onChange={this.handleChange}
                 />
+                <Button style={{ marginTop: '5px' }}>Add</Button>
               </form>
             </SearchStyles>
           )}
