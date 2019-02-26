@@ -1,7 +1,10 @@
 import gql from 'graphql-tag'
 import htmlToText from 'html-to-text'
+import moment from 'moment'
 import React, { Component } from 'react'
 import { Mutation, Query } from 'react-apollo'
+import DatePicker from 'react-datepicker'
+import Select from 'react-select'
 import Book from '../book.gif'
 import { ALL_COURSES_QUERY } from './Courses'
 import Form from './styles/Form'
@@ -24,6 +27,9 @@ const UPDATE_COURSE_MUTATION = gql`
     $description: String
     $credits: Int
     $courseCode: String
+    $days: String
+    $startDate: DateTime
+    $endDate: DateTime
   ) {
     updateCourse(
       id: $id
@@ -31,18 +37,57 @@ const UPDATE_COURSE_MUTATION = gql`
       description: $description
       credits: $credits
       courseCode: $courseCode
+      days: $days
+      startDate: $startDate
+      endDate: $endDate
     ) {
       id
       title
       description
       credits
       courseCode
+      days
+      startDate
+      endDate
     }
   }
 `
 
+const options = [
+  { value: 'mon', label: 'Monday' },
+  { value: 'tue', label: 'Tuesday' },
+  { value: 'wed', label: 'Wednesday' },
+  { value: 'thu', label: 'Thursday' },
+  { value: 'fri', label: 'Friday' }
+]
+
 class UpdateCourse extends Component {
   state = {}
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.selectedOption !== prevState.selectedOption) {
+      const newArr = []
+      this.state.selectedOption.map(option => newArr.push(option.value))
+      const transform = JSON.stringify(newArr)
+      this.setState({
+        days: transform
+      })
+    }
+  }
+  handleSelectionChange = selectedOption => {
+    this.setState({ selectedOption })
+  }
+
+  handleStartDateChange = date => {
+    this.setState({
+      startDate: moment(date).toDate()
+    })
+  }
+  handleEndDateChange = date => {
+    this.setState({
+      endDate: moment(date).toDate()
+    })
+  }
 
   handleChange = e => {
     const { name, type, value } = e.target
@@ -136,6 +181,61 @@ class UpdateCourse extends Component {
                         )}
                         onChange={this.handleChange}
                       />
+                    </label>
+                    <label htmlFor="ClassTime">
+                      Class Days
+                      <Select
+                        onChange={this.handleSelectionChange}
+                        options={options}
+                        isMulti
+                        theme={theme => ({
+                          ...theme,
+                          borderRadius: 0,
+                          colors: {
+                            ...theme.colors,
+                            primary25: '#fffcdf',
+                            primary: 'black'
+                          }
+                        })}
+                      />
+                    </label>
+                    <label htmlFor="DateTime">
+                      Class Time
+                      <div style={{ marginRight: '20px' }}>
+                        <DatePicker
+                          selected={
+                            this.state.startDate ||
+                            moment(data.course.startDate).toDate()
+                          }
+                          onChange={this.handleStartDateChange}
+                          showTimeSelect
+                          showTimeSelectOnly
+                          timeIntervals={15}
+                          dateFormat="h:mm aa"
+                          timeCaption="Time"
+                          placeholderText="Class starts"
+                          openToDate={moment(data.course.startDate).toDate()}
+                        />
+                      </div>
+                      <div>
+                        <DatePicker
+                          selected={
+                            this.state.endDate ||
+                            moment(data.course.endtDate).toDate()
+                          }
+                          showTimeSelect
+                          showTimeSelectOnly
+                          selectsEnd
+                          timeIntervals={15}
+                          dateFormat="h:mm aa"
+                          timeCaption="Time"
+                          startDate={this.state.startDate}
+                          endDate={this.state.endDate}
+                          onChange={this.handleEndDateChange}
+                          placeholderText="Class ends"
+                          openToDate={moment(data.course.endDate).toDate()}
+                        />
+                      </div>
                     </label>
                     <button type="submit" style={{ margin: '2rem 0 10rem 0' }}>
                       Save Changes

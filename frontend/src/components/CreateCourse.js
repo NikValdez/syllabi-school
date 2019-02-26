@@ -282,6 +282,43 @@ class CreateCourse extends Component {
                   <th>Credits</th>
                   <td>{this.state.credits}</td>
                 </tr>
+                <tr>
+                  <th>Course Time</th>
+                  <td>
+                    {this.state.days !== '' &&
+                      JSON.parse(this.state.days).map(day => (
+                        <div key={day} style={{ display: 'inline-block' }}>
+                          <h6
+                            style={{
+                              marginRight: '5px',
+                              fontSize: '10px',
+                              color: '#a09e9e'
+                            }}
+                          >
+                            {day.toUpperCase()}
+                          </h6>
+                          <div style={{ display: 'inline-block' }}>
+                            <h6
+                              style={{
+                                marginRight: '20px',
+                                fontSize: '10px'
+                              }}
+                            >
+                              {moment(this.state.startDate).format('LT')}
+                            </h6>
+                            <h6
+                              style={{
+                                marginRight: '20px',
+                                fontSize: '10px'
+                              }}
+                            >
+                              {moment(this.state.endDate).format('LT')}
+                            </h6>
+                          </div>
+                        </div>
+                      ))}
+                  </td>
+                </tr>
               </tbody>
             </Table>
             <div>
