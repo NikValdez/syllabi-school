@@ -1,5 +1,6 @@
 /* global gapi */
 
+import htmlToText from 'html-to-text'
 import ical from 'ical-generator'
 import React, { Component } from 'react'
 
@@ -21,6 +22,7 @@ export default class CalendarSync extends Component {
     this.state.appleEvents.map(course => {
       course.summary = course.title
       delete course.title
+      course.description = htmlToText.fromString(course.description)
       course.background = course.color
       delete course.color
 
@@ -97,11 +99,11 @@ export default class CalendarSync extends Component {
         })
         .then(
           function(response) {
-            // Handle the results here (response.result has the parsed body).
             let urlLink = document.createElement('a')
             document.body.appendChild(urlLink)
 
             urlLink.href = response.result.htmlLink
+            // // urlLink.target = '_blank'
             return urlLink.click()
           },
           function(err) {
@@ -112,7 +114,6 @@ export default class CalendarSync extends Component {
   }
 
   render() {
-    console.log(this.props.courseEvents)
     return (
       <div>
         <h4>Sync:</h4>

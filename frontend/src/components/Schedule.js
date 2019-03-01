@@ -3,78 +3,141 @@ import _ from 'lodash'
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
+import { Col, Row, Table } from 'react-bootstrap'
 import styled from 'styled-components'
 import Book from '../book.gif'
 import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
-import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
 
 const ScheduleStyles = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  @media (max-width: 620px) {
-    grid-template-columns: repeat(1, 1fr);
+  margin: 20px;
+  h3 {
+    margin-top: 30px;
   }
-  li {
-    list-style-type: none;
-    margin: 1rem;
-  }
-  a {
-    color: black;
+  .gradient_line {
+    margin: 0 0 50px 0;
+    margin-top: 50px;
+    display: block;
+    border: none;
+    height: 1px;
+    background: #6d6c6c;
+    background: linear-gradient(
+      to right,
+      white,
+      #c7c3c3,
+      #353434,
+      #c7c3c3,
+      white
+    );
   }
 `
 
 export class Schedule extends Component {
   render() {
     return (
-      <ScheduleStyles>
-        <Query query={CURRENT_USER_QUERY_COURSES_EVENTS}>
-          {({ data, error, loading }) => {
-            if (loading) return <img src={Book} alt="Loading" />
-            if (error) return <p>Error : {error.message}</p>
-            const courseData = data.me.myCourses.map(course => course)
-            // const eventData = courseData.map(course => course.events
-            return courseData.map(course => (
-              <React.Fragment key={course.courses.id}>
-                <div
-                  style={{
-                    borderBottom: '1px solid #f9c321',
-                    borderTop: '1px solid #f9c321'
-                  }}
-                >
-                  <h3> {course.courses.title}</h3>
-                  <li>{htmlToText.fromString(course.courses.description)}</li>
-                  <li>Course Code: {course.courses.courseCode}</li>
-                  <li>Credits: {course.courses.credits}</li>
-                </div>
-                {course.courses.events.length < 1 ? (
-                  <p>No Events Listed</p>
-                ) : (
-                  <TableStyles
-                    style={{ border: '1px solid black', margin: '10px' }}
-                  >
+      <Query query={CURRENT_USER_QUERY_COURSES_EVENTS}>
+        {({ data, error, loading }) => {
+          if (loading) return <img src={Book} alt="Loading" />
+          if (error) return <p>Error : {error.message}</p>
+          const courseData = data.me.myCourses.map(course => course)
+          return courseData.map(course => (
+            <ScheduleStyles key={course.courses.id}>
+              <Row>
+                <Col md={6} xs={6}>
+                  <h3>Course Information</h3>
+                  <Table bordered responsive>
                     <tbody>
                       <tr>
-                        <ThStyles>Title</ThStyles>
-                        <ThStyles>Description</ThStyles>
-                        <ThStyles>Start</ThStyles>
-                        <ThStyles>End</ThStyles>
-                        <ThStyles>Upload</ThStyles>
+                        <th>Title</th>
+                        <td>{course.courses.title}</td>
                       </tr>
+                      <tr>
+                        <th>Course Code</th>
+                        <td>{course.courses.courseCode}</td>
+                      </tr>
+                      <tr>
+                        <th>Credits</th>
+                        <td>{course.courses.credits}</td>
+                      </tr>
+                      <tr>
+                        <th>Class Time</th>
+                        <td>
+                          {course.courses.days !== null &&
+                            JSON.parse(course.courses.days).map(day => (
+                              <div
+                                key={day}
+                                style={{ display: 'inline-block' }}
+                              >
+                                <h6
+                                  style={{
+                                    marginRight: '5px',
+                                    fontSize: '10px',
+                                    color: '#a09e9e'
+                                  }}
+                                >
+                                  {day.toUpperCase()}
+                                </h6>
+                                <div style={{ display: 'inline-block' }}>
+                                  <h6
+                                    style={{
+                                      marginRight: '20px',
+                                      fontSize: '10px'
+                                    }}
+                                  >
+                                    {moment(course.courses.startDate).format(
+                                      'LT'
+                                    )}
+                                  </h6>
+                                  <h6
+                                    style={{
+                                      marginRight: '20px',
+                                      fontSize: '10px'
+                                    }}
+                                  >
+                                    {moment(course.courses.endDate).format(
+                                      'LT'
+                                    )}
+                                  </h6>
+                                </div>
+                              </div>
+                            ))}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </Table>
+                </Col>
+              </Row>
+              <div>
+                <h3>Course Description</h3>
+                <p>{htmlToText.fromString(course.courses.description)}</p>
+              </div>
+              {course.courses.events.length < 1 ? (
+                <>
+                  <p>No Schedule Listed</p>
+                  <hr className="gradient_line" />
+                </>
+              ) : (
+                <>
+                  <h3>Course Schedule</h3>
+                  <Table bordered>
+                    <thead>
+                      <tr>
+                        <td>Date</td>
+                        <td>Title</td>
+                        <td>Description</td>
+                        {/* <td>Start</td> */}
+                        <td>Upload</td>
+                      </tr>
+                    </thead>
 
-                      {course.courses.events.map(
-                        ({ title, description, start, end, id, upload }) => (
-                          <TrStyles key={id}>
-                            <TdStyles>{title}</TdStyles>
-                            <TdStyles>
-                              {htmlToText.fromString(description)}
-                            </TdStyles>
-                            <TdStyles>
-                              {moment(start).format('MMM Do YYYY')}
-                            </TdStyles>
-                            <TdStyles>
-                              {moment(end).format('MMM Do YYYY')}
-                            </TdStyles>
-                            <TdStyles>
+                    {course.courses.events.map(
+                      ({ title, description, start, end, id, upload }) => (
+                        <tbody key={id}>
+                          <tr>
+                            <td>{moment(end).format('MMM Do YYYY')}</td>
+                            <td>{title}</td>
+                            <td>{htmlToText.fromString(description)}</td>
+                            {/* <td>{moment(start).format('MMM Do YYYY')}</td> */}
+                            <td>
                               {upload && (
                                 <a href={upload}>
                                   {_.truncate(title, {
@@ -82,19 +145,19 @@ export class Schedule extends Component {
                                   })}
                                 </a>
                               )}
-                            </TdStyles>
-                            <TdStyles />
-                          </TrStyles>
-                        )
-                      )}
-                    </tbody>
-                  </TableStyles>
-                )}
-              </React.Fragment>
-            ))
-          }}
-        </Query>
-      </ScheduleStyles>
+                            </td>
+                          </tr>
+                        </tbody>
+                      )
+                    )}
+                  </Table>
+                  <hr className="gradient_line" />
+                </>
+              )}
+            </ScheduleStyles>
+          ))
+        }}
+      </Query>
     )
   }
 }
