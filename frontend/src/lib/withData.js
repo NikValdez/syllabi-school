@@ -1,9 +1,12 @@
 import ApolloClient from 'apollo-boost'
-import { endpoint, prodEndpoint } from '../config'
+import { endpoint } from '../config'
 
 function createClient({ headers }) {
   return new ApolloClient({
-    uri: process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint,
+    uri:
+      process.env.NODE_ENV === 'development'
+        ? endpoint
+        : `https://syllabi-yoga-prod.herokuapp.com/`,
     request: operation => {
       operation.setContext({
         fetchOptions: {
