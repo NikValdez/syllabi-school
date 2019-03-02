@@ -32,12 +32,13 @@
     "waait": "^1.0.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start -p $PORT",
     "build": "react-scripts build",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage --colors",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "react-scripts build"
   },
   "eslintConfig": {
     "extends": "react-app"
