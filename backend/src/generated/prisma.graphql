@@ -1,5 +1,5 @@
-# source: https://us1.prisma.sh/nikvaldez-073802/schedule/dev
-# timestamp: Sat Feb 23 2019 10:53:25 GMT-0800 (PST)
+# source: https://syllabi-production-924b2b325a.herokuapp.com/syllabi-prod/prod
+# timestamp: Fri Mar 01 2019 16:51:37 GMT-0800 (PST)
 
 type AggregateAnnouncement {
   count: Int!
@@ -338,7 +338,6 @@ input AnnouncementUpdateManyMutationInput {
 input AnnouncementUpdateManyWithoutCourseInput {
   create: [AnnouncementCreateWithoutCourseInput!]
   connect: [AnnouncementWhereUniqueInput!]
-  set: [AnnouncementWhereUniqueInput!]
   disconnect: [AnnouncementWhereUniqueInput!]
   delete: [AnnouncementWhereUniqueInput!]
   update: [AnnouncementUpdateWithWhereUniqueWithoutCourseInput!]
@@ -350,7 +349,6 @@ input AnnouncementUpdateManyWithoutCourseInput {
 input AnnouncementUpdateManyWithoutUserInput {
   create: [AnnouncementCreateWithoutUserInput!]
   connect: [AnnouncementWhereUniqueInput!]
-  set: [AnnouncementWhereUniqueInput!]
   disconnect: [AnnouncementWhereUniqueInput!]
   delete: [AnnouncementWhereUniqueInput!]
   update: [AnnouncementUpdateWithWhereUniqueWithoutUserInput!]
@@ -1211,7 +1209,6 @@ input CourseUpdateManyMutationInput {
 input CourseUpdateManyWithoutInstitutionInput {
   create: [CourseCreateWithoutInstitutionInput!]
   connect: [CourseWhereUniqueInput!]
-  set: [CourseWhereUniqueInput!]
   disconnect: [CourseWhereUniqueInput!]
   delete: [CourseWhereUniqueInput!]
   update: [CourseUpdateWithWhereUniqueWithoutInstitutionInput!]
@@ -1223,7 +1220,6 @@ input CourseUpdateManyWithoutInstitutionInput {
 input CourseUpdateManyWithoutUserInput {
   create: [CourseCreateWithoutUserInput!]
   connect: [CourseWhereUniqueInput!]
-  set: [CourseWhereUniqueInput!]
   disconnect: [CourseWhereUniqueInput!]
   delete: [CourseWhereUniqueInput!]
   update: [CourseUpdateWithWhereUniqueWithoutUserInput!]
@@ -2172,7 +2168,6 @@ input EventUpdateManyMutationInput {
 input EventUpdateManyWithoutCourseInput {
   create: [EventCreateWithoutCourseInput!]
   connect: [EventWhereUniqueInput!]
-  set: [EventWhereUniqueInput!]
   disconnect: [EventWhereUniqueInput!]
   delete: [EventWhereUniqueInput!]
   update: [EventUpdateWithWhereUniqueWithoutCourseInput!]
@@ -2993,7 +2988,6 @@ input MyCourseUpdateInput {
 input MyCourseUpdateManyWithoutCoursesInput {
   create: [MyCourseCreateWithoutCoursesInput!]
   connect: [MyCourseWhereUniqueInput!]
-  set: [MyCourseWhereUniqueInput!]
   disconnect: [MyCourseWhereUniqueInput!]
   delete: [MyCourseWhereUniqueInput!]
   update: [MyCourseUpdateWithWhereUniqueWithoutCoursesInput!]
@@ -3004,7 +2998,6 @@ input MyCourseUpdateManyWithoutCoursesInput {
 input MyCourseUpdateManyWithoutUserInput {
   create: [MyCourseCreateWithoutUserInput!]
   connect: [MyCourseWhereUniqueInput!]
-  set: [MyCourseWhereUniqueInput!]
   disconnect: [MyCourseWhereUniqueInput!]
   delete: [MyCourseWhereUniqueInput!]
   update: [MyCourseUpdateWithWhereUniqueWithoutUserInput!]
@@ -3306,7 +3299,6 @@ input NoteUpdateManyMutationInput {
 input NoteUpdateManyWithoutUserInput {
   create: [NoteCreateWithoutUserInput!]
   connect: [NoteWhereUniqueInput!]
-  set: [NoteWhereUniqueInput!]
   disconnect: [NoteWhereUniqueInput!]
   delete: [NoteWhereUniqueInput!]
   update: [NoteUpdateWithWhereUniqueWithoutUserInput!]
@@ -3971,7 +3963,6 @@ input UserUpdateManyMutationInput {
 input UserUpdateManyWithoutInstitutionInput {
   create: [UserCreateWithoutInstitutionInput!]
   connect: [UserWhereUniqueInput!]
-  set: [UserWhereUniqueInput!]
   disconnect: [UserWhereUniqueInput!]
   delete: [UserWhereUniqueInput!]
   update: [UserUpdateWithWhereUniqueWithoutInstitutionInput!]

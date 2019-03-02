@@ -107,7 +107,7 @@ class SingleCourse extends Component {
               <IsAdminTeacher>
                 <span className="update-delete">
                   <Link to={`/update/${course.id}`}>Update Course </Link>
-                  <DeleteCourse id={this.state.id}>Delete ❌</DeleteCourse>
+                  <DeleteCourse id={this.state.id}>Delete Course</DeleteCourse>
                 </span>
               </IsAdminTeacher>
 

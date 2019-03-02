@@ -1,10 +1,10 @@
+import gql from 'graphql-tag'
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
+import { withRouter } from 'react-router-dom'
 import { ALL_COURSES_QUERY } from './Courses'
 import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
-import DeleteButton from './styles/DeleteButton'
-import { withRouter } from 'react-router-dom'
+import Button from './styles/Button'
 
 const DELETE_COURSE_MUTATION = gql`
   mutation DELETE_COURSE_MUTATION($id: ID!) {
@@ -25,7 +25,7 @@ export class DeleteCourse extends Component {
         ]}
       >
         {(deleteCourse, { error }) => (
-          <DeleteButton
+          <Button
             onClick={() => {
               if (
                 window.confirm('Are you sure you want to delete this Course?')
@@ -39,7 +39,7 @@ export class DeleteCourse extends Component {
             }}
           >
             {this.props.children}
-          </DeleteButton>
+          </Button>
         )}
       </Mutation>
     )

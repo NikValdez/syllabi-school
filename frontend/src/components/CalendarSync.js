@@ -3,6 +3,8 @@
 import htmlToText from 'html-to-text'
 import ical from 'ical-generator'
 import React, { Component } from 'react'
+import { Modal } from 'react-bootstrap'
+import Button from './styles/Button'
 
 gapi.load('client:auth2', function() {
   gapi.auth2.init({
@@ -15,7 +17,17 @@ export default class CalendarSync extends Component {
   state = {
     courseId: this.props.courseId,
     appleEvents: this.props.courseEvents,
-    googleEvents: this.props.courseEvents
+    googleEvents: this.props.courseEvents,
+    show: false,
+    linkUrl: ''
+  }
+
+  handleClose = () => {
+    this.setState({ show: false })
+  }
+
+  handleShow = () => {
+    this.setState({ show: true })
   }
 
   createIcal = () => {
@@ -83,10 +95,7 @@ export default class CalendarSync extends Component {
       delete course.color
       course.start = { dateTime: course.start }
       course.end = { dateTime: course.end }
-      course.id = Math.random()
-        .toString(36)
-        .replace(/[^a-z]+/g, '')
-        .substr(10, 20)
+      delete course.id
       this.setState({
         googleEvents: this.state.googleEvents
       })
@@ -98,19 +107,21 @@ export default class CalendarSync extends Component {
           resource: event
         })
         .then(
-          function(response) {
-            let urlLink = document.createElement('a')
-            document.body.appendChild(urlLink)
-
-            urlLink.href = response.result.htmlLink
-            // // urlLink.target = '_blank'
-            return urlLink.click()
+          response => {
+            this.setState({
+              linkUrl: response.result.htmlLink,
+              show: true
+            })
           },
-          function(err) {
+          err => {
             console.error('Execute error', err)
           }
         )
     })
+  }
+
+  addScheduleToCalendar = () => {
+    window.open(this.state.linkUrl)
   }
 
   render() {
@@ -133,6 +144,38 @@ export default class CalendarSync extends Component {
         >
           <i className="far fa-calendar-alt" /> Google
         </h4>
+        <Modal
+          show={this.state.show}
+          onHide={this.handleClose}
+          style={{
+            height: '30%',
+            width: '40%',
+            top: '50%',
+            left: ' 50%',
+            overflow: 'hidden',
+            minHeight: 0
+          }}
+        >
+          <Modal.Header
+            closeButton
+            style={{
+              width: '38%'
+            }}
+          >
+            <h2>Add Schedule to Google Calendar</h2>
+          </Modal.Header>
+          <Modal.Body>
+            <Button
+              onClick={() => {
+                this.addScheduleToCalendar()
+                this.handleClose()
+              }}
+            >
+              Add to <i className="fab fa-google" />
+              oogle
+            </Button>
+          </Modal.Body>
+        </Modal>
       </div>
     )
   }
