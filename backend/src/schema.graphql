@@ -53,7 +53,7 @@ type Mutation {
     email: String!
     password: String!
     name: String!
-    institution: ID!
+    institution: ID
   ): User!
   signin(email: String!, password: String!): User!
   signout: SuccessMessage
