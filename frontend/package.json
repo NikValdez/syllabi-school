@@ -32,7 +32,7 @@
     "waait": "^1.0.3"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start -p $PORT",
     "build": "react-scripts build",
     "test": "jest",
     "test:watch": "jest --watch",
