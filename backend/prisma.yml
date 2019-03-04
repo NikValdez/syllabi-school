@@ -1,5 +1,5 @@
 #endpoint: ${env:PRISMA_ENDPOINT}
-endpoint: https://syllabi-production-924b2b325a.herokuapp.com/syllabi-prod/prod
+endpoint: https://syllabi-prod-677b416e2c.herokuapp.com/syllabi-prod/prod
 datamodel: datamodel.graphql
 secret: ${env:PRISMA_SECRET}
 hooks:
