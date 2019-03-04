@@ -7,8 +7,7 @@ function createClient({ headers }) {
     request: operation => {
       operation.setContext({
         fetchOptions: {
-          credentials: 'include',
-          origin: 'https://syllabi-client-prod.herokuapp.com/'
+          credentials: 'include'
         },
         headers
       })

@@ -37,7 +37,7 @@ server.start(
   {
     cors: {
       credentials: true,
-      origin: 'https://syllabi-client-prod.herokuapp.com/'
+      origin: process.env.FRONTEND_URL
     }
   },
   deets => {
