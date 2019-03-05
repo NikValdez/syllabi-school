@@ -9,7 +9,7 @@ import Button from './styles/Button'
 gapi.load('client:auth2', function() {
   gapi.auth2.init({
     client_id:
-      '335751011458-n583bhqefi1g3bf4rkse8864em5jqr4t.apps.googleusercontent.com'
+      '335751011458-0u79oq8bidr2gnutlm7187mq20tq4dme.apps.googleusercontent.com'
   })
 })
 
