@@ -23,9 +23,10 @@ class NewNav extends Component {
   render() {
     return (
       <User>
-        {({ data: { me } }) => (
-          <NavStyles>
-            {me && (
+        {({ data }) => {
+          const me = data ? data.me : null
+          return (
+            <NavStyles>
               <>
                 <Dropdown drop="down" onToggle={this.toggle}>
                   <Dropdown.Toggle id="dropdown-basic">
@@ -48,14 +49,15 @@ class NewNav extends Component {
 
                 <Announcements />
               </>
-            )}
-            {!me && (
-              <Link to="/signin" className="signin">
-                Sign In
-              </Link>
-            )}
-          </NavStyles>
-        )}
+              )}
+              {!me && (
+                <Link to="/signin" className="signin">
+                  Sign In
+                </Link>
+              )}
+            </NavStyles>
+          )
+        }}
       </User>
     )
   }

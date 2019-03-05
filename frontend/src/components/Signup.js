@@ -11,7 +11,7 @@ const SIGNUP_MUTATION = gql`
     $email: String!
     $name: String!
     $password: String!
-    $institution: ID!
+    $institution: ID
   ) {
     signup(
       email: $email
@@ -91,8 +91,15 @@ class Signup extends Component {
                           value={this.state.institution}
                           onChange={this.handleChange}
                         >
+                          <option selected="selected">
+                            -- select an option --
+                          </option>
                           {data.institutions.map(institution => (
-                            <option key={institution.id} value={institution.id}>
+                            <option
+                              key={institution.id}
+                              value={institution.id}
+                              required
+                            >
                               {institution.name}
                             </option>
                           ))}
@@ -110,6 +117,7 @@ class Signup extends Component {
                     placeholder="email"
                     value={this.state.email}
                     onChange={this.saveToState}
+                    required
                   />
                 </label>
                 <label htmlFor="name">
@@ -120,6 +128,7 @@ class Signup extends Component {
                     placeholder="name"
                     value={this.state.name}
                     onChange={this.saveToState}
+                    required
                   />
                 </label>
                 <label htmlFor="password">
@@ -130,6 +139,7 @@ class Signup extends Component {
                     placeholder="password"
                     value={this.state.password}
                     onChange={this.saveToState}
+                    required
                   />
                 </label>
 

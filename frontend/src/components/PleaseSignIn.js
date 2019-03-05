@@ -6,8 +6,9 @@ import { CURRENT_USER_QUERY } from './User'
 
 const PleaseSignIn = props => (
   <Query query={CURRENT_USER_QUERY}>
-    {({ data, loading }) => {
+    {({ data, loading, error }) => {
       if (loading) return <p>Loading...</p>
+      if (error) return <p>Cannot find current user</p>
       if (!data.me) {
         return (
           <Container>
