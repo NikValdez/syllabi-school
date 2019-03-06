@@ -41,6 +41,7 @@ class NewNav extends Component {
                     </IsAdminTeacher>
                     <IsAdmin>
                       <Link to="/permissions">Permissions</Link>
+                      <Link to="/create_institution">Create Institution</Link>
                     </IsAdmin>
 
                     <Signout />

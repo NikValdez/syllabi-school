@@ -106,7 +106,11 @@ class CreateInstitution extends Component {
                     )}
                   </label>
 
-                  <button type="submit" disabled={this.state.loading}>
+                  <button
+                    type="submit"
+                    disabled={this.state.loading}
+                    style={{ marginBottom: '25rem' }}
+                  >
                     Submit
                   </button>
                 </fieldset>
