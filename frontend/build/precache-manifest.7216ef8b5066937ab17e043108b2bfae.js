@@ -4,7 +4,7 @@ self.__precacheManifest = [
     "url": "/static/media/NeuzeitOffice-Regular.94e07f1c.svg"
   },
   {
-    "revision": "774cbd74f4a168a25c62",
+    "revision": "230fb3769ecee2499409",
     "url": "/static/css/main.b06265c6.chunk.css"
   },
   {
@@ -32,12 +32,12 @@ self.__precacheManifest = [
     "url": "/static/media/right.45d9015c.svg"
   },
   {
-    "revision": "bd59597b01d79c38b047208bb0709a9e",
-    "url": "/static/media/NeuzeitOffice-Regular.bd59597b.eot"
-  },
-  {
     "revision": "fe5c4fae6fae75d7283b84f9b850867a",
     "url": "/static/media/NeuzeitOffice-Regular.fe5c4fae.woff2"
+  },
+  {
+    "revision": "bd59597b01d79c38b047208bb0709a9e",
+    "url": "/static/media/NeuzeitOffice-Regular.bd59597b.eot"
   },
   {
     "revision": "68a9edca9b79e9cadebafea747701957",
@@ -48,8 +48,8 @@ self.__precacheManifest = [
     "url": "/static/media/NeuzeitOffice-Regular.53dba4cd.ttf"
   },
   {
-    "revision": "774cbd74f4a168a25c62",
-    "url": "/static/js/main.774cbd74.chunk.js"
+    "revision": "230fb3769ecee2499409",
+    "url": "/static/js/main.230fb376.chunk.js"
   },
   {
     "revision": "94fe98631ea03115b44a097524eca9dd",
@@ -68,16 +68,16 @@ self.__precacheManifest = [
     "url": "/static/media/NeuzeitOffice-Bold.b5ca6f0b.ttf"
   },
   {
-    "revision": "318a88ead52f0d26d28d1e49893073ec",
-    "url": "/static/media/NeuzeitOffice-Italic.318a88ea.woff2"
-  },
-  {
     "revision": "a56f631361b247ff662af86b59c57234",
     "url": "/static/media/NeuzeitOffice-Bold.a56f6313.svg"
   },
   {
     "revision": "87de9e7573ff10414a944907e16b87ed",
     "url": "/static/media/NeuzeitOffice-Italic.87de9e75.eot"
+  },
+  {
+    "revision": "318a88ead52f0d26d28d1e49893073ec",
+    "url": "/static/media/NeuzeitOffice-Italic.318a88ea.woff2"
   },
   {
     "revision": "91b416d46b810d7d367dd102e4ab3ba5",
@@ -92,7 +92,7 @@ self.__precacheManifest = [
     "url": "/static/css/1.12336ee2.chunk.css"
   },
   {
-    "revision": "7a484186f3a33c3ce51a4f956630a4d2",
+    "revision": "5e663b157a602193c791cc6ded93a245",
     "url": "/index.html"
   }
 ];
