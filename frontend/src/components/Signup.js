@@ -91,9 +91,7 @@ class Signup extends Component {
                           value={this.state.institution}
                           onChange={this.handleChange}
                         >
-                          <option selected="selected">
-                            -- select an option --
-                          </option>
+                          <option defaultValue>-- select an option --</option>
                           {data.institutions.map(institution => (
                             <option
                               key={institution.id}
