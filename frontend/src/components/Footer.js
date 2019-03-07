@@ -40,8 +40,8 @@ export class Footer extends React.Component {
       <StyledFooter>
         <Row>
           <Col sm={6} className="col-12 hidden-sm-down">
-            <Link to="/terms-and-conditions">Terms &amp; Conditions</Link>
-            <Link to="/privacy-policy">Privacy Policy</Link>
+            <Link to="/terms_and_conditions">Terms &amp; Conditions</Link>
+            <Link to="/privacy_policy">Privacy Policy</Link>
           </Col>
           <Col sm={6} className="col-12 text-sm-right">
             <p>&copy; Syllabi {today.getFullYear()}</p>

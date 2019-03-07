@@ -52,6 +52,7 @@ const EDIT_EVENT_QUERY = gql`
       description
       start
       end
+      upload
     }
   }
 `
@@ -231,7 +232,7 @@ class UpdateEvent extends Component {
                       {this.state.upload && (
                         <UploadPreview>
                           <a href={this.state.upload}>
-                            {_.truncate(this.state.title, {
+                            {_.truncate(this.state.upload, {
                               length: 24
                             })}
                           </a>

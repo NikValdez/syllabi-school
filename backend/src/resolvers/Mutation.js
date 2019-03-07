@@ -27,12 +27,11 @@ const Mutations = {
     return institution
   },
   async createCourse(parent, { institution, ...args }, ctx, info) {
-    console.log(ctx.request.userId)
     if (!ctx.request.userId) {
       throw new Error('You must be logged in to do that!')
     }
     const hasPermissions = ctx.request.user.permissions.some(permission =>
-      ['ADIMN', 'TEACHER'].includes(permission)
+      ['ADMIN', 'TEACHER'].includes(permission)
     )
     if (!hasPermissions) {
       throw new Error("You don't have permission to do that")
@@ -64,7 +63,7 @@ const Mutations = {
     //check if they own that course or have permission
     const ownsCourse = course.user.id === ctx.request.userId
     const hasPermissions = ctx.request.user.permissions.some(permission =>
-      ['ADIMN', 'TEACHER'].includes(permission)
+      ['ADMIN'].includes(permission)
     )
     if (!ownsCourse && !hasPermissions) {
       throw new Error("You don't have permission to do that")
@@ -81,7 +80,7 @@ const Mutations = {
     //check if they own that course or have permission
     const ownsCourse = course.user.id === ctx.request.userId
     const hasPermissions = ctx.request.user.permissions.some(permission =>
-      ['ADIMN', 'TEACHER'].includes(permission)
+      ['ADMIN'].includes(permission)
     )
     if (!ownsCourse && !hasPermissions) {
       throw new Error("You don't have permission to do that")
