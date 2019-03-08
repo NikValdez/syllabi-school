@@ -1,8 +1,8 @@
 import gql from 'graphql-tag'
-import htmlToText from 'html-to-text'
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Mutation, Query } from 'react-apollo'
+import ReactHtmlParser from 'react-html-parser'
 import ReactModal from 'react-modal'
 import styled, { keyframes } from 'styled-components'
 import Megaphone from './styles/megaphone'
@@ -178,7 +178,7 @@ class Announcements extends Component {
                                       background: course.color
                                     }}
                                   >
-                                    {htmlToText.fromString(text)}
+                                    {ReactHtmlParser(text)}
                                   </TdStyles>
 
                                   <TdStyles style={{ color: 'white' }}>
