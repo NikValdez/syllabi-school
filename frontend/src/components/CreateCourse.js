@@ -1,10 +1,10 @@
 import gql from 'graphql-tag'
-import htmlToText from 'html-to-text'
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Mutation, Query } from 'react-apollo'
 import { Col, Row, Table } from 'react-bootstrap'
 import DatePicker from 'react-datepicker'
+import ReactHtmlParser from 'react-html-parser'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import Select from 'react-select'
@@ -323,7 +323,7 @@ class CreateCourse extends Component {
             </Table>
             <div>
               <h3>Course Description</h3>
-              <p>{htmlToText.fromString(this.state.description)}</p>
+              {ReactHtmlParser(this.state.description)}
             </div>
           </Col>
         </Row>

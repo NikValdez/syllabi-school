@@ -1,10 +1,10 @@
 import gql from 'graphql-tag'
-import htmlToText from 'html-to-text'
 import _ from 'lodash'
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import { Col, Row, Table } from 'react-bootstrap'
+import ReactHtmlParser from 'react-html-parser'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import CreateAnnouncement from './CreateAnnouncement'
@@ -173,7 +173,7 @@ class SingleCourse extends Component {
               </Row>
               <div>
                 <h3>Course Description</h3>
-                <p>{htmlToText.fromString(course.description)}</p>
+                {ReactHtmlParser(course.description)}
               </div>
 
               <CreateEventStyles>
@@ -200,7 +200,7 @@ class SingleCourse extends Component {
                         <tr>
                           <td>{moment(end).format('MMM Do YYYY')}</td>
                           <td>{title}</td>
-                          <td>{htmlToText.fromString(description)}</td>
+                          <td>{ReactHtmlParser(description)}</td>
                           {/* <td>{moment(start).format('MMM Do YYYY')}</td> */}
                           <td>
                             {upload && (
@@ -250,7 +250,7 @@ class SingleCourse extends Component {
                     {course.announcements.map(({ text, date, id }) => (
                       <tr key={id}>
                         <td>{moment(date).format('MMM Do YYYY')}</td>
-                        <td>{htmlToText.fromString(text)}</td>
+                        <td>{ReactHtmlParser(text)}</td>
                       </tr>
                     ))}
                   </tbody>

@@ -1,9 +1,12 @@
 import gql from 'graphql-tag'
+import _ from 'lodash'
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
+import { Table } from 'react-bootstrap'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import ReactHtmlParser from 'react-html-parser'
 import ReactModal from 'react-modal'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
@@ -153,7 +156,7 @@ class CreateEvent extends Component {
           onClick={this.handleOpenEvent}
           style={{ float: 'right', marginTop: '2rem', marginBottom: '1rem' }}
         >
-          Create Event
+          Create Assignment
         </Button>
         <Mutation
           mutation={CREATE_EVENT_MUTATION}
@@ -208,7 +211,7 @@ class CreateEvent extends Component {
                     />
                   </label>
                   <label htmlFor="start">
-                    <DatePick>Event Start</DatePick>
+                    <DatePick>Assignment Start</DatePick>
                     <DatePicker
                       selected={this.state.start}
                       onChange={this.handleStartDateChange}
@@ -216,7 +219,7 @@ class CreateEvent extends Component {
                     />
                   </label>
                   <label htmlFor="end">
-                    <DatePick>Event End</DatePick>
+                    <DatePick>Assignment End</DatePick>
                     <DatePicker
                       selected={this.state.end}
                       onChange={this.handleEndDateChange}
@@ -267,6 +270,34 @@ class CreateEvent extends Component {
                   </button>
                 </fieldset>
               </Form>
+              <Table bordered>
+                <thead>
+                  <tr>
+                    <td>Date</td>
+                    <td>Title</td>
+                    <td>Description</td>
+
+                    <td>Upload</td>
+                  </tr>
+                </thead>
+                <tbody key={this.state.title}>
+                  <tr>
+                    <td>{moment(this.state.end).format('MMM Do YYYY')}</td>
+                    <td>{this.state.title}</td>
+                    <td>{ReactHtmlParser(this.state.description)}</td>
+                    {/* <td>{moment(start).format('MMM Do YYYY')}</td> */}
+                    <td>
+                      {this.state.upload && (
+                        <a href={this.state.upload}>
+                          {_.truncate(this.state.title, {
+                            length: 24
+                          })}
+                        </a>
+                      )}
+                    </td>
+                  </tr>
+                </tbody>
+              </Table>
             </ReactModal>
           )}
         </Mutation>
