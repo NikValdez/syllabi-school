@@ -12,7 +12,7 @@
 # /build
 
 # src/*
-# public/*
+public/*
 build/static/css/*.map
 build/static/js/*.map
 
