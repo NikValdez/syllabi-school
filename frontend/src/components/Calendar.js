@@ -1,10 +1,10 @@
-import htmlToText from 'html-to-text'
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import BigCalendar from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { Modal } from 'react-bootstrap'
+import ReactHtmlParser from 'react-html-parser'
 import styled from 'styled-components'
 import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
 import Empty from './styles/empty.png'
@@ -187,7 +187,7 @@ class Calendar extends Component {
             <Modal.Title>{this.state.title}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p> {htmlToText.fromString(this.state.description)}</p>
+            {ReactHtmlParser(this.state.description)}
 
             <h5>
               {moment(this.state.start).format('MMM Do YY')} -{' '}
