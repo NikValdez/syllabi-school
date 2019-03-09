@@ -1,9 +1,8 @@
 /* global gapi */
-
-import htmlToText from 'html-to-text'
 import ical from 'ical-generator'
 import React, { Component } from 'react'
 import { Modal } from 'react-bootstrap'
+import ReactHtmlParser from 'react-html-parser'
 import Button from './styles/Button'
 
 gapi.load('client:auth2', function() {
@@ -34,7 +33,7 @@ export default class CalendarSync extends Component {
     this.state.appleEvents.map(course => {
       course.summary = course.title
       delete course.title
-      course.description = htmlToText.fromString(course.description)
+      course.description = ReactHtmlParser(course.description)
       course.background = course.color
       delete course.color
 
