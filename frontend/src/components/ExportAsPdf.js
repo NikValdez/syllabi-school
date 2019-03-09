@@ -1,5 +1,4 @@
 import gql from 'graphql-tag'
-import htmlToText from 'html-to-text'
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
 import _ from 'lodash'
@@ -7,6 +6,7 @@ import moment from 'moment'
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import { Col, Modal, Row, Table } from 'react-bootstrap'
+import ReactHtmlParser from 'react-html-parser'
 import styled from 'styled-components'
 import CalendarSync from './CalendarSync'
 import Button from './styles/Button'
@@ -244,7 +244,7 @@ class ExportAsPdf extends Component {
                 </Row>
                 <div id="course-description">
                   <h3>Course Description</h3>
-                  <p>{htmlToText.fromString(course.description)}</p>
+                  {ReactHtmlParser(course.description)}
                 </div>
                 <h2 style={{ float: 'left' }}>Course Calendar</h2>
                 {course.events.length < 1 ? (
@@ -266,7 +266,7 @@ class ExportAsPdf extends Component {
                           <tr>
                             <td>{moment(end).format('MMM Do YYYY')}</td>
                             <td>{title}</td>
-                            <td>{htmlToText.fromString(description)}</td>
+                            <td>{ReactHtmlParser(description)}</td>
                             <td>
                               {upload && (
                                 <a href={upload}>
