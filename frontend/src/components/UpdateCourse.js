@@ -1,9 +1,9 @@
 import gql from 'graphql-tag'
+import htmlToText from 'html-to-text'
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Mutation, Query } from 'react-apollo'
 import DatePicker from 'react-datepicker'
-import ReactHtmlParser from 'react-html-parser'
 import Select from 'react-select'
 import Book from '../book.gif'
 import { ALL_COURSES_QUERY } from './Courses'
@@ -176,7 +176,9 @@ class UpdateCourse extends Component {
                         name="description"
                         placeholder="description"
                         required
-                        defaultValue={ReactHtmlParser(data.course.description)}
+                        defaultValue={htmlToText.fromString(
+                          data.course.description
+                        )}
                         onChange={this.handleChange}
                       />
                     </label>

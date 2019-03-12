@@ -2,6 +2,7 @@ import casual from 'casual'
 import { mount } from 'enzyme'
 import React from 'react'
 import { MockedProvider } from 'react-apollo/test-utils'
+import { BrowserRouter as Router } from 'react-router-dom'
 import wait from 'waait'
 import PleaseSignIn from '../components/PleaseSignIn'
 import { CURRENT_USER_QUERY } from '../components/User'
@@ -13,9 +14,9 @@ const fakeUser = () => ({
   id: '4234',
   name: casual.name,
   email: casual.email,
-  permissions: ['ADMIN']
+  permissions: ['ADMIN'],
+  institution: casual.title
 })
-
 const notSignedInMocks = [
   {
     request: { query: CURRENT_USER_QUERY },
@@ -31,14 +32,29 @@ const signedInMocks = [
 ]
 
 describe('<PleaseSignIn/>', () => {
+  it('renders the sign in dialog to logged out users', async () => {
+    const wrapper = mount(
+      <Router>
+        <MockedProvider mocks={notSignedInMocks}>
+          <PleaseSignIn />
+        </MockedProvider>
+      </Router>
+    )
+    await wait()
+    wrapper.update()
+    expect(wrapper.text()).toContain('Please Sign In Before Continuing')
+    const SignIn = wrapper.find('Signin')
+    expect(SignIn.exists()).toBe(true)
+  })
+
   it('renders the child component when the user is signed in', async () => {
     const Hey = () => <p>Hey!</p>
     const wrapper = mount(
-      <MockedProvider mocks={signedInMocks}>
-        <PleaseSignIn>
+      <Router>
+        <MockedProvider mocks={signedInMocks}>
           <Hey />
-        </PleaseSignIn>
-      </MockedProvider>
+        </MockedProvider>
+      </Router>
     )
 
     await wait()

@@ -1,8 +1,8 @@
 /* global gapi */
+import htmlToText from 'html-to-text'
 import ical from 'ical-generator'
 import React, { Component } from 'react'
 import { Modal } from 'react-bootstrap'
-import ReactHtmlParser from 'react-html-parser'
 import Button from './styles/Button'
 
 gapi.load('client:auth2', function() {
@@ -33,7 +33,7 @@ export default class CalendarSync extends Component {
     this.state.appleEvents.map(course => {
       course.summary = course.title
       delete course.title
-      course.description = ReactHtmlParser(course.description)
+      course.description = htmlToText.fromString(course.description)
       course.background = course.color
       delete course.color
 
@@ -52,6 +52,27 @@ export default class CalendarSync extends Component {
     link.download = `${this.props.courseTitle}- schedule`
     link.href = calendar
     return link.click()
+  }
+
+  createOulookCal = () => {
+    this.state.appleEvents.map(course => {
+      course.summary = course.title
+      delete course.title
+      course.description = htmlToText.fromString(course.description)
+      course.background = course.color
+      delete course.color
+
+      this.setState({
+        appleEvents: this.state.appleEvents
+      })
+    })
+    const calendar = ical({
+      domain: 'gosyllabi.com',
+      prodId: '//Syllabi//ical-generator//EN',
+      events: this.props.courseEvents
+    })
+
+    return window.open('data:text/calendar;charset=utf8,' + escape(calendar))
   }
 
   authenticate = () => {
@@ -143,6 +164,17 @@ export default class CalendarSync extends Component {
         >
           <i className="far fa-calendar-alt" /> Google
         </h4>
+        <h4
+          onClick={this.createOulookCal}
+          style={{
+            display: 'inline-block',
+            cursor: 'pointer',
+            marginLeft: '10px'
+          }}
+        >
+          <i className="far fa-calendar-alt" /> Outlook
+        </h4>
+
         <Modal
           show={this.state.show}
           onHide={this.handleClose}

@@ -287,8 +287,6 @@ class ExportAsPdf extends Component {
                 <Button
                   onClick={this.handleClose}
                   style={{
-                    marginTop: '4rem',
-
                     width: '50%'
                   }}
                 >
