@@ -1,5 +1,4 @@
 import gql from 'graphql-tag'
-import _ from 'lodash'
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
@@ -7,11 +6,13 @@ import { Col, Row, Table } from 'react-bootstrap'
 import ReactHtmlParser from 'react-html-parser'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import FilePlaceholder from '../images/filePlaceholder.png'
 import CreateAnnouncement from './CreateAnnouncement'
 import CreateEvent from './CreateEvent'
 import DeleteCourse from './DeleteCourse'
 import DeleteEvent from './DeleteEvent'
 import IsAdminTeacher from './IsAdminTeacher'
+import TextExtension from './styles/TextExtension'
 
 const SingleCourseStyles = styled.div`
   max-width: 1200px;
@@ -205,9 +206,24 @@ class SingleCourse extends Component {
                           <td>
                             {upload && (
                               <a href={upload}>
-                                {_.truncate(title, {
-                                  length: 24
-                                })}
+                                <div
+                                  style={{
+                                    position: 'relative',
+                                    textAlign: 'center'
+                                  }}
+                                >
+                                  <img
+                                    src={FilePlaceholder}
+                                    alt="File download"
+                                    style={{
+                                      textAlign: 'center',
+                                      height: '50px'
+                                    }}
+                                  />
+                                  <TextExtension>
+                                    {upload.split('.').pop()}
+                                  </TextExtension>
+                                </div>
                               </a>
                             )}
                           </td>

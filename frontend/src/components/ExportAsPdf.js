@@ -1,16 +1,17 @@
 import gql from 'graphql-tag'
 import jsPDF from 'jspdf'
 import 'jspdf-autotable'
-import _ from 'lodash'
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import { Col, Modal, Row, Table } from 'react-bootstrap'
 import ReactHtmlParser from 'react-html-parser'
 import styled from 'styled-components'
+import FilePlaceholder from '../images/filePlaceholder.png'
 import CalendarSync from './CalendarSync'
 import Button from './styles/Button'
 import './styles/Modal.css'
+import TextExtension from './styles/TextExtension'
 
 const SingleCourseStyles = styled.div`
   max-width: 1200px;
@@ -196,6 +197,7 @@ class ExportAsPdf extends Component {
                 show={this.state.show}
                 onHide={this.handleClose}
                 bsPrefix="my-modal"
+                style={{ overflow: 'scroll' }}
               >
                 <Modal.Header closeButton style={{ borderBottom: 'none' }} />
                 <Button
@@ -270,10 +272,21 @@ class ExportAsPdf extends Component {
                             <td>
                               {upload && (
                                 <a href={upload}>
-                                  {_.truncate(title, {
-                                    length: 24
-                                  })}{' '}
-                                  - upload
+                                  <div
+                                    style={{
+                                      position: 'relative',
+                                      textAlign: 'center'
+                                    }}
+                                  >
+                                    <img
+                                      src={FilePlaceholder}
+                                      alt="File download"
+                                      style={{ textAlign: 'center' }}
+                                    />
+                                    <TextExtension>
+                                      {upload.split('.').pop()}
+                                    </TextExtension>
+                                  </div>
                                 </a>
                               )}
                             </td>

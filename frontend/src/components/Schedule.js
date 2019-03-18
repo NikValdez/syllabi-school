@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
@@ -6,7 +5,9 @@ import { Col, Row, Table } from 'react-bootstrap'
 import ReactHtmlParser from 'react-html-parser'
 import styled from 'styled-components'
 import Book from '../book.gif'
+import FilePlaceholder from '../images/filePlaceholder.png'
 import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
+import TextExtension from './styles/TextExtension'
 
 const ScheduleStyles = styled.div`
   margin: 20px;
@@ -140,9 +141,21 @@ export class Schedule extends Component {
                             <td>
                               {upload && (
                                 <a href={upload}>
-                                  {_.truncate(title, {
-                                    length: 24
-                                  })}
+                                  <div
+                                    style={{
+                                      position: 'relative',
+                                      textAlign: 'center'
+                                    }}
+                                  >
+                                    <img
+                                      src={FilePlaceholder}
+                                      alt="File download"
+                                      style={{ textAlign: 'center' }}
+                                    />
+                                    <TextExtension>
+                                      {upload.split('.').pop()}
+                                    </TextExtension>
+                                  </div>
                                 </a>
                               )}
                             </td>

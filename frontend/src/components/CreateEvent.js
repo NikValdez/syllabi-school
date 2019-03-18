@@ -1,5 +1,4 @@
 import gql from 'graphql-tag'
-import _ from 'lodash'
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
@@ -12,10 +11,12 @@ import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import styled from 'styled-components'
 import Book from '../book.gif'
+import FilePlaceholder from '../images/filePlaceholder.png'
 import IsAdminTeacher from './IsAdminTeacher'
 import { SINGLE_COURSE_QUERY } from './SingleCourse'
 import Button from './styles/Button'
 import Form from './styles/Form'
+import TextExtension from './styles/TextExtension'
 import XIcon from './styles/XIcon'
 
 export const UploadButton = styled.div`
@@ -289,9 +290,21 @@ class CreateEvent extends Component {
                     <td>
                       {this.state.upload && (
                         <a href={this.state.upload}>
-                          {_.truncate(this.state.title, {
-                            length: 24
-                          })}
+                          <div
+                            style={{
+                              position: 'relative',
+                              textAlign: 'center'
+                            }}
+                          >
+                            <img
+                              src={FilePlaceholder}
+                              alt="File download"
+                              style={{ textAlign: 'center' }}
+                            />
+                            <TextExtension>
+                              {this.state.upload.split('.').pop()}
+                            </TextExtension>
+                          </div>
                         </a>
                       )}
                     </td>

@@ -1,7 +1,6 @@
 import gql from 'graphql-tag'
 import React, { Component } from 'react'
 import { Mutation, Query } from 'react-apollo'
-import Book from '../book.gif'
 import Error from './ErrorMessage'
 import Form from './styles/Form'
 import { CURRENT_USER_QUERY } from './User'
@@ -84,7 +83,7 @@ class Signup extends Component {
                   Institution
                   <Query query={INSTITUTIONS_QUERY}>
                     {({ data, error, loading }) => {
-                      if (loading) return <img src={Book} alt="Loading" />
+                      if (loading) return <p>Loading...</p>
                       if (error) return <p>Error : {error.message}</p>
                       return (
                         <select

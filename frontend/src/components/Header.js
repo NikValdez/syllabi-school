@@ -4,7 +4,7 @@ import { Nav } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 import Institution from './Institution'
-import NewNav from './NewNav'
+import HeaderNav from './Nav'
 import { CURRENT_USER_QUERY } from './User'
 const StyledHeader = styled.header`
   width: 100%;
@@ -60,7 +60,7 @@ const Header = () => (
                   </Link>
                 </Nav.Item>
 
-                <NewNav />
+                <HeaderNav />
               </Nav>
             </div>
             <div className="bar-2">

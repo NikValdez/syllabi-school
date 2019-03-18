@@ -2,6 +2,7 @@ import ApolloClient from 'apollo-boost'
 import React, { Component } from 'react'
 import { ApolloProvider } from 'react-apollo'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import NoMatch from './components/404'
 import Courses from './components/Courses'
 import CreateAnnouncement from './components/CreateAnnouncement'
 import CreateCourse from './components/CreateCourse'
@@ -11,6 +12,7 @@ import Footer from './components/Footer'
 import Header from './components/Header'
 import Permissions from './components/Permissions'
 import PleaseSignIn from './components/PleaseSignIn'
+import Test from './components/practice'
 import PrivacyPolicy from './components/PrivacyPolicy'
 import RequestReset from './components/RequestReset'
 import Reset from './components/Reset'
@@ -41,19 +43,23 @@ const DefaultContainer = () => (
     <PleaseSignIn>
       <Header />
       <Container>
-        <Route exact path="/" component={Courses} />
-        <Route path="/courses/:id" component={SingleCourse} />
-        <Route path="/create_institution" component={CreateInstitution} />
-        <Route path="/create_course" component={CreateCourse} />
-        <Route path="/update/:id" component={UpdateCourse} />
-        <Route path="/update_event/:id" component={UpdateEvent} />
-        <Route path="/create_event" component={CreateEvent} />
-        <Route exact path="/permissions" component={Permissions} />
-        <Route path="/schedule" component={Schedule} />
-        <Route path="/permissions" component={Permissions} />
-        <Route path="/create_announcement" component={CreateAnnouncement} />
-        <Route path="/privacy_policy" component={PrivacyPolicy} />
-        <Route path="/terms_and_conditions" component={TermsAndConditions} />
+        <Switch>
+          <Route exact path="/" component={Courses} />
+          <Route path="/courses/:id" component={SingleCourse} />
+          <Route path="/create_institution" component={CreateInstitution} />
+          <Route path="/create_course" component={CreateCourse} />
+          <Route path="/update/:id" component={UpdateCourse} />
+          <Route path="/update_event/:id" component={UpdateEvent} />
+          <Route path="/create_event" component={CreateEvent} />
+          <Route exact path="/permissions" component={Permissions} />
+          <Route path="/schedule" component={Schedule} />
+          <Route path="/permissions" component={Permissions} />
+          <Route path="/create_announcement" component={CreateAnnouncement} />
+          <Route path="/privacy_policy" component={PrivacyPolicy} />
+          <Route path="/terms_and_conditions" component={TermsAndConditions} />
+          <Route path="/test" component={Test} />
+          <Route component={NoMatch} />
+        </Switch>
       </Container>
       <Footer />
     </PleaseSignIn>

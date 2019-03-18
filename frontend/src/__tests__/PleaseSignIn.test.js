@@ -1,4 +1,3 @@
-import casual from 'casual'
 import { mount } from 'enzyme'
 import React from 'react'
 import { MockedProvider } from 'react-apollo/test-utils'
@@ -6,17 +5,8 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import wait from 'waait'
 import PleaseSignIn from '../components/PleaseSignIn'
 import { CURRENT_USER_QUERY } from '../components/User'
+import { fakeUser } from '../lib/testUtils'
 
-casual.seed(777)
-
-const fakeUser = () => ({
-  __typename: 'User',
-  id: '4234',
-  name: casual.name,
-  email: casual.email,
-  permissions: ['ADMIN'],
-  institution: casual.title
-})
 const notSignedInMocks = [
   {
     request: { query: CURRENT_USER_QUERY },

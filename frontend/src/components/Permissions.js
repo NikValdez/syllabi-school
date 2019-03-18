@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import Book from '../book.gif'
 import Error from './ErrorMessage'
 import Button from './styles/Button'
+import Container from './styles/Container'
 import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
 
 const possiblePermissions = ['ADMIN', 'TEACHER', 'USER', 'PERMISSIONUPDATE']
@@ -37,7 +38,7 @@ const Permissions = props => (
     {({ data, loading, error }) => {
       if (loading) return <img src={Book} alt="Loading" />
       return (
-        <div>
+        <Container>
           <Error error={error} />
           <h2>Manage Permissions</h2>
           <Link to="/">
@@ -60,7 +61,7 @@ const Permissions = props => (
               ))}
             </tbody>
           </TableStyles>
-        </div>
+        </Container>
       )
     }}
   </Query>

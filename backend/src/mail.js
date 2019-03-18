@@ -20,7 +20,7 @@ exports.makeANiceEmail = text => `
        <h2>Hey There!</h2>
        <p>${text}</p>
 
-       <p>All the best, Schedule team</p>
+       <p>All the best, Syllabi team</p>
         </div>
 `
 

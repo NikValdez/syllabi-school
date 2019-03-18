@@ -1,11 +1,11 @@
 import gql from 'graphql-tag'
+import htmlToText from 'html-to-text'
 import _ from 'lodash'
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Mutation, Query } from 'react-apollo'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import ReactHtmlParser from 'react-html-parser'
 import styled from 'styled-components'
 import Book from '../book.gif'
 import Form from './styles/Form'
@@ -205,7 +205,9 @@ class UpdateEvent extends Component {
                         name="description"
                         placeholder="description"
                         required
-                        defaultValue={ReactHtmlParser(data.event.description)}
+                        defaultValue={htmlToText.fromString(
+                          data.event.description
+                        )}
                         onChange={this.handleChange}
                       />
                     </label>
@@ -238,7 +240,9 @@ class UpdateEvent extends Component {
                       )}
                     </label>
 
-                    <button type="submit">Save Changes</button>
+                    <button type="submit" style={{ marginBottom: '6rem' }}>
+                      Save Changes
+                    </button>
                   </fieldset>
                 </Form>
               )}

@@ -1,8 +1,8 @@
+import gql from 'graphql-tag'
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
-import Form from './styles/Form'
 import Error from './ErrorMessage'
+import Form from './styles/Form'
 
 const REQUEST_RESET_MUTATION = gql`
   mutation REQUEST_RESET_MUTATION($email: String!) {
@@ -24,6 +24,7 @@ class RequestReset extends Component {
       <Mutation mutation={REQUEST_RESET_MUTATION} variables={this.state}>
         {(reset, { error, loading, called }) => (
           <Form
+            data-test="form"
             method="post"
             onSubmit={async e => {
               e.preventDefault()
