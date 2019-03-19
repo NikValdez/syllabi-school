@@ -63,6 +63,7 @@ type Mutation {
     password: String!
     confirmPassword: String!
   ): User!
+  # mailAnnouncement(email: String!)
   updatePermissions(permissions: [Permission], userId: ID!): User
   addCourseToUser(id: ID!): MyCourse
   deleteMyCourse(id: ID!): MyCourse
@@ -73,6 +74,7 @@ type Mutation {
     clicked: Boolean
     date: DateTime!
     course: ID!
+    email: String
   ): Announcement!
   updateAnnouncement(id: ID!, clicked: Boolean): Announcement!
 }

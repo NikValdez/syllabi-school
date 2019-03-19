@@ -68,6 +68,7 @@ type Announcement {
   createdAt: DateTime!
   course: Course! @relation(name: "CourseAnnouncements")
   user: User! @relation(name: "UserAnnouncements")
+  email: String
 }
 
 type Event {

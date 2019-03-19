@@ -24,6 +24,14 @@ export const Quill = styled.div`
   }
 `
 
+// const GET_EMAIL_QUERY = gql`
+//   query GET_EMAIL_QUERY($id: ID!) {
+//     course(where: { id: $id }) {
+//       id
+//     }
+//   }
+// `
+
 const CREATE_ANNOUNCEMENT_MUTATION = gql`
   mutation CREATE_ANNOUNCEMENT_MUTATION(
     $text: String!
@@ -52,7 +60,8 @@ class createAnnouncement extends Component {
     course: this.props.course.id,
     loading: false,
     showModal: false,
-    error: false
+    error: false,
+    email: this.props.email.join(', ')
   }
 
   handleOpenAnnouncement = () => {

@@ -75,6 +75,11 @@ const SINGLE_COURSE_QUERY = gql`
         upload
         color
       }
+      myCourse {
+        user {
+          email
+        }
+      }
       announcements {
         id
         text
@@ -102,6 +107,8 @@ class SingleCourse extends Component {
           if (loading) return <p>Loading...</p>
           if (!data.course) return <p>No Course Found for {this.state.id}</p>
           const course = data.course
+          const email = data.course.myCourse.map(address => address.user.email)
+          console.log(email)
 
           return (
             <SingleCourseStyles>
@@ -250,7 +257,7 @@ class SingleCourse extends Component {
               )}
 
               <div className="detail">
-                <CreateAnnouncement course={course} />
+                <CreateAnnouncement course={course} email={email} />
               </div>
               <h2 style={{ float: 'left' }}>Announcements</h2>
               {course.announcements.length < 1 ? (

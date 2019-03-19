@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken')
 const { randomBytes } = require('crypto')
 const { promisify } = require('util')
 const { hasPermission } = require('../utils')
-const { transport, makeANiceEmail } = require('../mail')
+const { transport, makeANiceEmail, emailAnnouncement } = require('../mail')
 
 const Mutations = {
   async createInstitution(parent, args, ctx, info) {
@@ -223,7 +223,7 @@ const Mutations = {
 
     //3.Email them that reset token
     const mailRes = await transport.sendMail({
-      from: 'schedule@schedule.com',
+      from: 'syllabi@syllabi.com',
       to: user.email,
       subject: 'Your password reset token',
       html: makeANiceEmail(`Your Password Reset Token is Here! 
@@ -234,6 +234,15 @@ const Mutations = {
     })
     return { message: 'Thanks' }
   },
+  // async mailAnnouncement(parent, args, ctx, info) {
+  //   const mailRes = await transport.sendMail({
+  //     from: 'syllabi@syllabi.com',
+  //     to: user.email,
+  //     subject: 'Change to one of your syllabi',
+  //     html: emailAnnouncement(`Your syllabi has changed`)
+  //   })
+  //   return { message: 'Thanks' }
+  // },
   async resetPassword(parent, args, ctx, info) {
     if (args.password !== args.confirmPassword) {
       throw new Error("Your Passwords don't match!")
@@ -374,6 +383,15 @@ const Mutations = {
     if (!hasPermissions) {
       throw new Error("You don't have permission to do that")
     }
+
+    const mailRes = await transport.sendMail({
+      from: 'syllabi@syllabi.com',
+      to: 'nikcochran@gmail.com',
+      subject: 'Change to one of your syllabi',
+      html: emailAnnouncement(
+        `Your syllabi has changed. Announcement: ${args.text}`
+      )
+    })
 
     const announcement = await ctx.db.mutation.createAnnouncement(
       {

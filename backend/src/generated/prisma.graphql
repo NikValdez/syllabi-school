@@ -1,5 +1,5 @@
-# source: https://syllabi-production-924b2b325a.herokuapp.com/syllabi-prod/prod
-# timestamp: Fri Mar 01 2019 16:51:37 GMT-0800 (PST)
+# source: https://syllabi-prod-677b416e2c.herokuapp.com/syllabi-prod/prod
+# timestamp: Mon Mar 18 2019 16:01:04 GMT-0700 (PDT)
 
 type AggregateAnnouncement {
   count: Int!
@@ -38,6 +38,7 @@ type Announcement implements Node {
   createdAt: DateTime!
   course: Course!
   user: User!
+  email: String
 }
 
 """A connection to a list of items."""
@@ -54,6 +55,7 @@ input AnnouncementCreateInput {
   text: String!
   date: DateTime!
   clicked: Boolean
+  email: String
   course: CourseCreateOneWithoutAnnouncementsInput!
   user: UserCreateOneWithoutAnnouncementsInput!
 }
@@ -72,6 +74,7 @@ input AnnouncementCreateWithoutCourseInput {
   text: String!
   date: DateTime!
   clicked: Boolean
+  email: String
   user: UserCreateOneWithoutAnnouncementsInput!
 }
 
@@ -79,6 +82,7 @@ input AnnouncementCreateWithoutUserInput {
   text: String!
   date: DateTime!
   clicked: Boolean
+  email: String
   course: CourseCreateOneWithoutAnnouncementsInput!
 }
 
@@ -104,6 +108,8 @@ enum AnnouncementOrderByInput {
   updatedAt_DESC
   createdAt_ASC
   createdAt_DESC
+  email_ASC
+  email_DESC
 }
 
 type AnnouncementPreviousValues {
@@ -113,6 +119,7 @@ type AnnouncementPreviousValues {
   clicked: Boolean
   updatedAt: DateTime!
   createdAt: DateTime!
+  email: String
 }
 
 input AnnouncementScalarWhereInput {
@@ -274,6 +281,46 @@ input AnnouncementScalarWhereInput {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
 }
 
 type AnnouncementSubscriptionPayload {
@@ -319,6 +366,7 @@ input AnnouncementUpdateInput {
   text: String
   date: DateTime
   clicked: Boolean
+  email: String
   course: CourseUpdateOneRequiredWithoutAnnouncementsInput
   user: UserUpdateOneRequiredWithoutAnnouncementsInput
 }
@@ -327,12 +375,14 @@ input AnnouncementUpdateManyDataInput {
   text: String
   date: DateTime
   clicked: Boolean
+  email: String
 }
 
 input AnnouncementUpdateManyMutationInput {
   text: String
   date: DateTime
   clicked: Boolean
+  email: String
 }
 
 input AnnouncementUpdateManyWithoutCourseInput {
@@ -366,6 +416,7 @@ input AnnouncementUpdateWithoutCourseDataInput {
   text: String
   date: DateTime
   clicked: Boolean
+  email: String
   user: UserUpdateOneRequiredWithoutAnnouncementsInput
 }
 
@@ -373,6 +424,7 @@ input AnnouncementUpdateWithoutUserDataInput {
   text: String
   date: DateTime
   clicked: Boolean
+  email: String
   course: CourseUpdateOneRequiredWithoutAnnouncementsInput
 }
 
@@ -557,6 +609,46 @@ input AnnouncementWhereInput {
 
   """All values greater than or equal the given value."""
   createdAt_gte: DateTime
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
   course: CourseWhereInput
   user: UserWhereInput
 }

@@ -23,5 +23,19 @@ exports.makeANiceEmail = text => `
        <p>All the best, Syllabi team</p>
         </div>
 `
+exports.emailAnnouncement = text => `
+    <div className="email" style="
+       border: 1px solid black;
+       padding: 20px;
+       font-family: sans-serif;
+       line-height: 2;
+       font-size: 20px; 
+       ">
+       <h2>Hey There!</h2>
+       <p>${text}</p>
+
+       <p>All the best, Syllabi team</p>
+        </div>
+`
 
 exports.transport = transport
