@@ -108,7 +108,6 @@ class SingleCourse extends Component {
           if (!data.course) return <p>No Course Found for {this.state.id}</p>
           const course = data.course
           const email = data.course.myCourse.map(address => address.user.email)
-          console.log(email)
 
           return (
             <SingleCourseStyles>

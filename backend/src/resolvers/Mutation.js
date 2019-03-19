@@ -386,7 +386,7 @@ const Mutations = {
 
     const mailRes = await transport.sendMail({
       from: 'syllabi@syllabi.com',
-      to: 'nikcochran@gmail.com',
+      to: args.email,
       subject: 'Change to one of your syllabi',
       html: emailAnnouncement(
         `Your syllabi has changed. Announcement: ${args.text}`
