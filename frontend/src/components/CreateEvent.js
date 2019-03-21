@@ -69,6 +69,7 @@ const CREATE_EVENT_MUTATION = gql`
     $upload: String
     $color: String
     $course: ID!
+    $email: String
   ) {
     createEvent(
       title: $title
@@ -79,6 +80,7 @@ const CREATE_EVENT_MUTATION = gql`
       upload: $upload
       color: $color
       course: $course
+      email: $email
     ) {
       id
     }
@@ -96,7 +98,8 @@ class CreateEvent extends Component {
     color: this.props.course.color,
     course: this.props.course.id,
     loading: false,
-    showModal: false
+    showModal: false,
+    email: ''
   }
 
   handleOpenEvent = () => {
@@ -266,8 +269,26 @@ class CreateEvent extends Component {
                       </UploadPreview>
                     )}
                   </label>
-                  <button type="submit" disabled={this.state.loading}>
-                    Submit
+                  <button
+                    type="submit"
+                    disabled={this.state.loading}
+                    style={{ marginBottom: '5px', marginRight: '10px' }}
+                  >
+                    Add Assignment
+                  </button>
+                  <button
+                    onClick={async e => {
+                      e.preventDefault()
+                      await this.setState({
+                        email: this.props.email.join(', ')
+                      })
+
+                      await createEvent()
+                      await this.handleCloseModal()
+                    }}
+                    disabled={this.state.loading}
+                  >
+                    Add and Send Notification Email
                   </button>
                 </fieldset>
               </Form>

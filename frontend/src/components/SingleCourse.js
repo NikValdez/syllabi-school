@@ -38,13 +38,13 @@ const SingleCourseStyles = styled.div`
       padding: 0.5rem 1.2rem;
       display: inline-block;
       text-decoration: none;
+      &:hover {
+        background: #fffcdf;
+        color: black;
+      }
     }
   }
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
+
   .details {
     text-align: center;
     margin-top: -20rem;
@@ -184,7 +184,7 @@ class SingleCourse extends Component {
               </div>
 
               <CreateEventStyles>
-                <CreateEvent course={course} />
+                <CreateEvent course={course} email={email} />
               </CreateEventStyles>
               <h2 style={{ float: 'left' }}>Course Calendar</h2>
               {course.events.length < 1 ? (
@@ -237,7 +237,10 @@ class SingleCourse extends Component {
                             <IsAdminTeacher>
                               <DeleteEvent id={id} course={course.id} />
                               <Link
-                                to={`/update_event/${id}`}
+                                to={{
+                                  pathname: `/update_event/${id}`,
+                                  state: { email }
+                                }}
                                 style={{
                                   float: 'right',
                                   textDecoration: 'none',

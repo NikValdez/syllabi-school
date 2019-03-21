@@ -103,6 +103,28 @@ const Mutations = {
 
   //create an event
   async createEvent(parent, { course, ...args }, ctx, info) {
+    if (!ctx.request.userId) {
+      throw new Error('You must be logged in to do that!')
+    }
+    const hasPermissions = ctx.request.user.permissions.some(permission =>
+      ['ADMIN', 'TEACHER'].includes(permission)
+    )
+    if (!hasPermissions) {
+      throw new Error("You don't have permission to do that")
+    }
+    if (args.email) {
+      const mailRes = await transport.sendMail({
+        from: 'syllabi@syllabi.com',
+        to: args.email,
+        subject: 'Change to one of your syllabi',
+        html: emailAnnouncement(`Assignment Change: Assignment - ${args.title} 
+    Description:; ${args.description} 
+    Start Date: ${args.start}
+    End Date: ${args.end}
+    `)
+      })
+    }
+
     const event = await ctx.db.mutation.createEvent(
       {
         data: {
@@ -144,6 +166,19 @@ const Mutations = {
     const updates = { ...args }
     //remove update ID
     delete updates.id
+
+    if (args.email) {
+      const mailRes = await transport.sendMail({
+        from: 'syllabi@syllabi.com',
+        to: args.email,
+        subject: 'Change to one of your syllabi',
+        html: emailAnnouncement(`Assignment Change: Assignment - ${args.title} 
+    Description:; ${args.description} 
+    Start Date: ${args.start}
+    End Date: ${args.end}
+    `)
+      })
+    }
 
     //run update method
     return ctx.db.mutation.updateEvent(
@@ -388,9 +423,7 @@ const Mutations = {
       from: 'syllabi@syllabi.com',
       to: args.email,
       subject: 'Change to one of your syllabi',
-      html: emailAnnouncement(
-        `Your syllabi has changed. Announcement: ${args.text}`
-      )
+      html: emailAnnouncement(`Announcement: ${args.text}`)
     })
 
     const announcement = await ctx.db.mutation.createAnnouncement(

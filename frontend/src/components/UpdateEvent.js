@@ -64,6 +64,7 @@ const UPDATE_EVENT_MUTATION = gql`
     $start: DateTime
     $end: DateTime
     $upload: String
+    $email: String
   ) {
     updateEvent(
       id: $id
@@ -72,6 +73,7 @@ const UPDATE_EVENT_MUTATION = gql`
       start: $start
       end: $end
       upload: $upload
+      email: $email
     ) {
       id
       title
@@ -84,7 +86,9 @@ const UPDATE_EVENT_MUTATION = gql`
 `
 
 class UpdateEvent extends Component {
-  state = {}
+  state = {
+    loading: false
+  }
 
   handleChange = e => {
     const { name, type, value } = e.target
@@ -94,6 +98,17 @@ class UpdateEvent extends Component {
 
   updateEvent = async (e, updateEventMutation) => {
     e.preventDefault()
+    await updateEventMutation({
+      variables: {
+        id: this.props.match.params.id,
+        ...this.state
+      }
+    })
+    this.props.history.goBack()
+  }
+  updateEventWithEmail = async (e, updateEventMutation) => {
+    e.preventDefault()
+    await this.setState({ email: this.props.location.state.email.join(', ') })
     await updateEventMutation({
       variables: {
         id: this.props.match.params.id,
@@ -150,7 +165,9 @@ class UpdateEvent extends Component {
         {({ data, loading }) => {
           if (loading) return <img src={Book} alt="Loading" />
           if (!data)
-            return <p>No Events Found For ID {this.props.match.params.id}</p>
+            return (
+              <p>No Assignments Found For ID {this.props.match.params.id}</p>
+            )
           return (
             <Mutation mutation={UPDATE_EVENT_MUTATION} variables={this.state}>
               {(updateEvent, { loading, error }) => (
@@ -175,7 +192,7 @@ class UpdateEvent extends Component {
                       />
                     </label>
                     <label htmlFor="start">
-                      <DatePick>Event Start</DatePick>
+                      <DatePick>Assignment Start</DatePick>
                       <DatePicker
                         selected={
                           this.state.start || moment(data.event.start).toDate()
@@ -186,7 +203,7 @@ class UpdateEvent extends Component {
                       />
                     </label>
                     <label htmlFor="end">
-                      <DatePick>Event End</DatePick>
+                      <DatePick>Assignment End</DatePick>
                       <DatePicker
                         selected={
                           this.state.end || moment(data.event.end).toDate()
@@ -240,8 +257,31 @@ class UpdateEvent extends Component {
                       )}
                     </label>
 
-                    <button type="submit" style={{ marginBottom: '6rem' }}>
+                    <button
+                      type="submit"
+                      style={{ marginBottom: '6rem', marginRight: '10px' }}
+                    >
                       Save Changes
+                    </button>
+
+                    <button
+                      onClick={async e => {
+                        this.setState({
+                          title: data.event.title,
+                          description: data.event.description,
+                          start: data.event.start,
+                          end: data.event.end,
+                          loading: true
+                        })
+                        await this.updateEventWithEmail(e, updateEvent).catch(
+                          err => {
+                            alert(err.message)
+                          }
+                        )
+                      }}
+                      disabled={this.state.loading}
+                    >
+                      Update and Send Notification Email
                     </button>
                   </fieldset>
                 </Form>

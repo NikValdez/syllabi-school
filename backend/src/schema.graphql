@@ -38,6 +38,7 @@ type Mutation {
     upload: String
     color: String
     course: ID!
+    email: String
   ): Event
   deleteEvent(id: ID!): Event
   updateEvent(
@@ -48,6 +49,7 @@ type Mutation {
     end: DateTime
     allDay: Boolean
     upload: String
+    email: String
   ): Event
   signup(
     email: String!

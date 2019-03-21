@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/nikvaldez-073802/schedule/dev
-# timestamp: Tue Mar 19 2019 11:59:56 GMT-0700 (PDT)
+# timestamp: Wed Mar 20 2019 10:42:02 GMT-0700 (PDT)
 
 type AggregateAnnouncement {
   count: Int!
@@ -52,6 +52,7 @@ type AnnouncementConnection {
 }
 
 input AnnouncementCreateInput {
+  id: ID
   text: String!
   date: DateTime!
   clicked: Boolean
@@ -71,6 +72,7 @@ input AnnouncementCreateManyWithoutUserInput {
 }
 
 input AnnouncementCreateWithoutCourseInput {
+  id: ID
   text: String!
   date: DateTime!
   clicked: Boolean
@@ -79,6 +81,7 @@ input AnnouncementCreateWithoutCourseInput {
 }
 
 input AnnouncementCreateWithoutUserInput {
+  id: ID
   text: String!
   date: DateTime!
   clicked: Boolean
@@ -693,6 +696,7 @@ type CourseConnection {
 }
 
 input CourseCreateInput {
+  id: ID
   title: String!
   description: String!
   courseCode: String!
@@ -735,6 +739,7 @@ input CourseCreateOneWithoutMyCourseInput {
 }
 
 input CourseCreateWithoutAnnouncementsInput {
+  id: ID
   title: String!
   description: String!
   courseCode: String!
@@ -751,6 +756,7 @@ input CourseCreateWithoutAnnouncementsInput {
 }
 
 input CourseCreateWithoutEventsInput {
+  id: ID
   title: String!
   description: String!
   courseCode: String!
@@ -767,6 +773,7 @@ input CourseCreateWithoutEventsInput {
 }
 
 input CourseCreateWithoutInstitutionInput {
+  id: ID
   title: String!
   description: String!
   courseCode: String!
@@ -783,6 +790,7 @@ input CourseCreateWithoutInstitutionInput {
 }
 
 input CourseCreateWithoutMyCourseInput {
+  id: ID
   title: String!
   description: String!
   courseCode: String!
@@ -799,6 +807,7 @@ input CourseCreateWithoutMyCourseInput {
 }
 
 input CourseCreateWithoutUserInput {
+  id: ID
   title: String!
   description: String!
   courseCode: String!
@@ -1851,6 +1860,7 @@ type Event implements Node {
   upload: String
   color: String
   course: Course!
+  email: String
 }
 
 """A connection to a list of items."""
@@ -1864,6 +1874,7 @@ type EventConnection {
 }
 
 input EventCreateInput {
+  id: ID
   title: String!
   description: String!
   start: DateTime!
@@ -1871,6 +1882,7 @@ input EventCreateInput {
   allDay: Boolean
   upload: String
   color: String
+  email: String
   course: CourseCreateOneWithoutEventsInput!
 }
 
@@ -1880,6 +1892,7 @@ input EventCreateManyWithoutCourseInput {
 }
 
 input EventCreateWithoutCourseInput {
+  id: ID
   title: String!
   description: String!
   start: DateTime!
@@ -1887,6 +1900,7 @@ input EventCreateWithoutCourseInput {
   allDay: Boolean
   upload: String
   color: String
+  email: String
 }
 
 """An edge in a connection."""
@@ -1915,6 +1929,8 @@ enum EventOrderByInput {
   upload_DESC
   color_ASC
   color_DESC
+  email_ASC
+  email_DESC
   updatedAt_ASC
   updatedAt_DESC
   createdAt_ASC
@@ -1930,6 +1946,7 @@ type EventPreviousValues {
   allDay: Boolean
   upload: String
   color: String
+  email: String
 }
 
 input EventScalarWhereInput {
@@ -2189,6 +2206,46 @@ input EventScalarWhereInput {
 
   """All values not ending with the given string."""
   color_not_ends_with: String
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
 }
 
 type EventSubscriptionPayload {
@@ -2238,6 +2295,7 @@ input EventUpdateInput {
   allDay: Boolean
   upload: String
   color: String
+  email: String
   course: CourseUpdateOneRequiredWithoutEventsInput
 }
 
@@ -2249,6 +2307,7 @@ input EventUpdateManyDataInput {
   allDay: Boolean
   upload: String
   color: String
+  email: String
 }
 
 input EventUpdateManyMutationInput {
@@ -2259,6 +2318,7 @@ input EventUpdateManyMutationInput {
   allDay: Boolean
   upload: String
   color: String
+  email: String
 }
 
 input EventUpdateManyWithoutCourseInput {
@@ -2286,6 +2346,7 @@ input EventUpdateWithoutCourseDataInput {
   allDay: Boolean
   upload: String
   color: String
+  email: String
 }
 
 input EventUpdateWithWhereUniqueWithoutCourseInput {
@@ -2556,6 +2617,46 @@ input EventWhereInput {
 
   """All values not ending with the given string."""
   color_not_ends_with: String
+  email: String
+
+  """All values that are not equal to given value."""
+  email_not: String
+
+  """All values that are contained in given list."""
+  email_in: [String!]
+
+  """All values that are not contained in given list."""
+  email_not_in: [String!]
+
+  """All values less than the given value."""
+  email_lt: String
+
+  """All values less than or equal the given value."""
+  email_lte: String
+
+  """All values greater than the given value."""
+  email_gt: String
+
+  """All values greater than or equal the given value."""
+  email_gte: String
+
+  """All values containing the given string."""
+  email_contains: String
+
+  """All values not containing the given string."""
+  email_not_contains: String
+
+  """All values starting with the given string."""
+  email_starts_with: String
+
+  """All values not starting with the given string."""
+  email_not_starts_with: String
+
+  """All values ending with the given string."""
+  email_ends_with: String
+
+  """All values not ending with the given string."""
+  email_not_ends_with: String
   course: CourseWhereInput
 }
 
@@ -2582,6 +2683,7 @@ type InstitutionConnection {
 }
 
 input InstitutionCreateInput {
+  id: ID
   name: String!
   logo: String
   courses: CourseCreateManyWithoutInstitutionInput
@@ -2599,12 +2701,14 @@ input InstitutionCreateOneWithoutUsersInput {
 }
 
 input InstitutionCreateWithoutCoursesInput {
+  id: ID
   name: String!
   logo: String
   users: UserCreateManyWithoutInstitutionInput
 }
 
 input InstitutionCreateWithoutUsersInput {
+  id: ID
   name: String!
   logo: String
   courses: CourseCreateManyWithoutInstitutionInput
@@ -2943,6 +3047,7 @@ type MyCourseConnection {
 }
 
 input MyCourseCreateInput {
+  id: ID
   user: UserCreateOneWithoutMyCoursesInput!
   courses: CourseCreateOneWithoutMyCourseInput!
 }
@@ -2958,10 +3063,12 @@ input MyCourseCreateManyWithoutUserInput {
 }
 
 input MyCourseCreateWithoutCoursesInput {
+  id: ID
   user: UserCreateOneWithoutMyCoursesInput!
 }
 
 input MyCourseCreateWithoutUserInput {
+  id: ID
   courses: CourseCreateOneWithoutMyCourseInput!
 }
 
@@ -3214,6 +3321,7 @@ type NoteConnection {
 }
 
 input NoteCreateInput {
+  id: ID
   note: String!
   user: UserCreateOneWithoutNotesInput!
 }
@@ -3224,6 +3332,7 @@ input NoteCreateManyWithoutUserInput {
 }
 
 input NoteCreateWithoutUserInput {
+  id: ID
   note: String!
 }
 
@@ -3611,6 +3720,7 @@ type UserConnection {
 }
 
 input UserCreateInput {
+  id: ID
   name: String!
   email: String!
   password: String!
@@ -3654,6 +3764,7 @@ input UserCreatepermissionsInput {
 }
 
 input UserCreateWithoutAnnouncementsInput {
+  id: ID
   name: String!
   email: String!
   password: String!
@@ -3667,6 +3778,7 @@ input UserCreateWithoutAnnouncementsInput {
 }
 
 input UserCreateWithoutCoursesInput {
+  id: ID
   name: String!
   email: String!
   password: String!
@@ -3680,6 +3792,7 @@ input UserCreateWithoutCoursesInput {
 }
 
 input UserCreateWithoutInstitutionInput {
+  id: ID
   name: String!
   email: String!
   password: String!
@@ -3693,6 +3806,7 @@ input UserCreateWithoutInstitutionInput {
 }
 
 input UserCreateWithoutMyCoursesInput {
+  id: ID
   name: String!
   email: String!
   password: String!
@@ -3706,6 +3820,7 @@ input UserCreateWithoutMyCoursesInput {
 }
 
 input UserCreateWithoutNotesInput {
+  id: ID
   name: String!
   email: String!
   password: String!
