@@ -280,7 +280,8 @@ class CreateEvent extends Component {
                     onClick={async e => {
                       e.preventDefault()
                       await this.setState({
-                        email: this.props.email.join(', ')
+                        email: this.props.email.join(', '),
+                        loading: true
                       })
 
                       await createEvent()

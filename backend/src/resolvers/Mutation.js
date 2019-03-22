@@ -4,6 +4,7 @@ const { randomBytes } = require('crypto')
 const { promisify } = require('util')
 const { hasPermission } = require('../utils')
 const { transport, makeANiceEmail, emailAnnouncement } = require('../mail')
+const moment = require('moment')
 
 const Mutations = {
   async createInstitution(parent, args, ctx, info) {
@@ -117,11 +118,12 @@ const Mutations = {
         from: 'syllabi@syllabi.com',
         to: args.email,
         subject: 'Change to one of your syllabi',
-        html: emailAnnouncement(`Assignment Change: Assignment - ${args.title} 
-    Description:; ${args.description} 
-    Start Date: ${args.start}
-    End Date: ${args.end}
-    `)
+        html: emailAnnouncement(` <h1>Assignment Added</h1>
+        <h3>${args.title}</h3>
+        <p>Description: ${args.description} </p>
+        <p>Start Date: ${moment(args.start).format('LL')}</p>
+        <p>End Date: ${moment(args.end).format('LL')}</p>
+           `)
       })
     }
 
@@ -134,6 +136,11 @@ const Mutations = {
               id: course
             }
           },
+          user: {
+            connect: {
+              id: ctx.request.userId
+            }
+          },
           ...args
         }
       },
@@ -144,8 +151,15 @@ const Mutations = {
   async deleteEvent(parent, args, ctx, info) {
     const where = { id: args.id }
     //find the event
-    const event = await ctx.db.query.event({ where }, `{id title}`)
+    const event = await ctx.db.query.event({ where }, `{id title user {id}}`)
     //check if they own that event or have permission
+    const ownsEvent = event.user.id === ctx.request.userId
+    const hasPermissions = ctx.request.user.permissions.some(permission =>
+      ['ADMIN'].includes(permission)
+    )
+    if (!ownsEvent && !hasPermissions) {
+      throw new Error("You don't have permission to do that")
+    }
 
     //Delete it
     return ctx.db.mutation.deleteEvent({ where }, info)
@@ -153,14 +167,15 @@ const Mutations = {
   async updateEvent(parent, args, ctx, info) {
     const where = { id: args.id }
     //find the event
-    //TODO: Add auth making sure they created the event.
-    const event = await ctx.db.query.event({ where }, `{id}`)
+
+    const event = await ctx.db.query.event({ where }, `{id title user {id}}`)
     //check if they own that course or have permission
-    // const ownsCourse = course.user.id === ctx.request.userId
+
+    const ownsEvent = event.user.id === ctx.request.userId
     const hasPermissions = ctx.request.user.permissions.some(permission =>
-      ['ADIMN', 'TEACHER'].includes(permission)
+      ['ADMIN'].includes(permission)
     )
-    if (!hasPermissions) {
+    if (!ownsEvent && !hasPermissions) {
       throw new Error("You don't have permission to do that")
     }
     const updates = { ...args }
@@ -172,11 +187,16 @@ const Mutations = {
         from: 'syllabi@syllabi.com',
         to: args.email,
         subject: 'Change to one of your syllabi',
-        html: emailAnnouncement(`Assignment Change: Assignment - ${args.title} 
-    Description:; ${args.description} 
-    Start Date: ${args.start}
-    End Date: ${args.end}
-    `)
+        html: emailAnnouncement(` <h1>Assignment Change</h1>
+                                  <h3>${args.title}</h3>
+                                  <p>Description: ${args.description} </p>
+                                  <p>Start Date: ${moment(args.start).format(
+                                    'LL'
+                                  )}</p>
+                                  <p>End Date: ${moment(args.end).format(
+                                    'LL'
+                                  )}</p>
+                                     `)
       })
     }
 
@@ -269,15 +289,7 @@ const Mutations = {
     })
     return { message: 'Thanks' }
   },
-  // async mailAnnouncement(parent, args, ctx, info) {
-  //   const mailRes = await transport.sendMail({
-  //     from: 'syllabi@syllabi.com',
-  //     to: user.email,
-  //     subject: 'Change to one of your syllabi',
-  //     html: emailAnnouncement(`Your syllabi has changed`)
-  //   })
-  //   return { message: 'Thanks' }
-  // },
+
   async resetPassword(parent, args, ctx, info) {
     if (args.password !== args.confirmPassword) {
       throw new Error("Your Passwords don't match!")

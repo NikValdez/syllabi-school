@@ -21,6 +21,7 @@ type User {
   resetTokenExpiry: Float
   permissions: [Permission]
   courses: [Course!]!
+  events: [Event!]!
   announcements: [Announcement!]!
     @relation(name: "UserAnnouncements", onDelete: CASCADE)
   myCourses: [MyCourse!]!
@@ -82,4 +83,5 @@ type Event {
   color: String
   course: Course! @relation(name: "CourseEvents")
   email: String
+  user: User!
 }

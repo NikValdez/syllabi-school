@@ -31,8 +31,7 @@ exports.emailAnnouncement = text => `
        line-height: 2;
        font-size: 20px; 
        ">
-       <h2>Hey There!</h2>
-       <p>${text}</p>
+        ${text}
 
        <p>All the best, Syllabi team</p>
         </div>

@@ -74,13 +74,14 @@ describe('<Signin/>', () => {
     type(wrapper, 'password', 'password')
     wrapper.update()
     wrapper.find('form').simulate('submit')
+
     await wait()
     wrapper.update()
-
-    expect(wrapper.find('h2').text()).toBe('Sign In')
+    expect(wrapper.exists('input[name="password"]')).toBe(true)
+    // const user = await apolloClient.query({ query: CURRENT_USER_QUERY })
+    // expect(userdata.me).toMatchObject(me)
+    // expect(wrapper.prop('onSubmit') === 'submit')
 
     // query the user out of the apollo client
-    // const user = await apolloClient.query({ query: CURRENT_USER_QUERY })
-    // expect(user.data.me).toMatchObject(me)
   })
 })

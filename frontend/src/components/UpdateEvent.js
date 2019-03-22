@@ -195,7 +195,8 @@ class UpdateEvent extends Component {
                       <DatePick>Assignment Start</DatePick>
                       <DatePicker
                         selected={
-                          this.state.start || moment(data.event.start).toDate()
+                          moment(this.state.start).toDate() ||
+                          moment(data.event.start).toDate()
                         }
                         openToDate={moment(data.event.start).toDate()}
                         onChange={this.handleStartDateChange}
@@ -206,7 +207,8 @@ class UpdateEvent extends Component {
                       <DatePick>Assignment End</DatePick>
                       <DatePicker
                         selected={
-                          this.state.end || moment(data.event.end).toDate()
+                          moment(this.state.end).toDate() ||
+                          moment(data.event.end).toDate()
                         }
                         openToDate={moment(data.event.end).toDate()}
                         onChange={this.handleEndDateChange}
@@ -261,7 +263,7 @@ class UpdateEvent extends Component {
                       type="submit"
                       style={{ marginBottom: '6rem', marginRight: '10px' }}
                     >
-                      Save Changes
+                      Update Changes
                     </button>
 
                     <button
