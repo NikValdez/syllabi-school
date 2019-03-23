@@ -28,9 +28,10 @@ export class Schedule extends Component {
           const courseData = data.me.myCourses.map(
             course => course.courses.events
           )
-          const courseTitle = data.me.myCourses.map(
-            course => course.courses.title
-          )
+          const sort = courseData.sort(function(a, b) {
+            return new Date(b.date) - new Date(a.date)
+          })
+
           const courseColor = data.me.myCourses.map(course => {
             return (
               <div
@@ -50,6 +51,9 @@ export class Schedule extends Component {
 
           const color = courseColor.map(course => course)
           const merge = [].concat.apply([], courseData)
+          const sortedByDates = merge.sort((a, b) => {
+            return new Date(a.end).getTime() - new Date(b.end).getTime()
+          })
 
           return (
             <ScheduleStyles>
@@ -64,7 +68,7 @@ export class Schedule extends Component {
                     <td>Upload</td>
                   </tr>
                 </thead>
-                {merge.map(course => (
+                {sortedByDates.map(course => (
                   <tbody key={course.id}>
                     <tr>
                       <td

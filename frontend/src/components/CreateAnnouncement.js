@@ -126,6 +126,9 @@ class createAnnouncement extends Component {
               <Form
                 onSubmit={async e => {
                   e.preventDefault()
+                  this.setState({
+                    loading: true
+                  })
                   await createAnnouncement()
                   await this.handleCloseModal()
                   this.setState({
