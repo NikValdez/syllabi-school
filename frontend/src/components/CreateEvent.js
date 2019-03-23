@@ -285,6 +285,7 @@ class CreateEvent extends Component {
                       })
 
                       await createEvent()
+
                       await this.handleCloseModal()
                     }}
                     disabled={this.state.loading}

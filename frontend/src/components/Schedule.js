@@ -1,7 +1,7 @@
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
-import { Col, Row, Table } from 'react-bootstrap'
+import { Table } from 'react-bootstrap'
 import ReactHtmlParser from 'react-html-parser'
 import styled from 'styled-components'
 import Book from '../book.gif'
@@ -11,25 +11,11 @@ import TextExtension from './styles/TextExtension'
 
 const ScheduleStyles = styled.div`
   margin: 20px;
+
   h3 {
     margin-top: 30px;
   }
-  .gradient_line {
-    margin: 0 0 50px 0;
-    margin-top: 50px;
-    display: block;
-    border: none;
-    height: 1px;
-    background: #6d6c6c;
-    background: linear-gradient(
-      to right,
-      white,
-      #c7c3c3,
-      #353434,
-      #c7c3c3,
-      white
-    );
-  }
+  margin-bottom: 25rem;
 `
 
 export class Schedule extends Component {
@@ -39,136 +25,85 @@ export class Schedule extends Component {
         {({ data, error, loading }) => {
           if (loading) return <img src={Book} alt="Loading" />
           if (error) return <p>Error : {error.message}</p>
-          const courseData = data.me.myCourses.map(course => course)
-          return courseData.map(course => (
-            <ScheduleStyles key={course.courses.id}>
-              <Row>
-                <Col md={6} xs={6}>
-                  <h3>Course Information</h3>
-                  <Table bordered responsive>
-                    <tbody>
-                      <tr>
-                        <th>Title</th>
-                        <td>{course.courses.title}</td>
-                      </tr>
-                      <tr>
-                        <th>Course Code</th>
-                        <td>{course.courses.courseCode}</td>
-                      </tr>
-                      <tr>
-                        <th>Credits</th>
-                        <td>{course.courses.credits}</td>
-                      </tr>
-                      <tr>
-                        <th>Class Time</th>
-                        <td>
-                          {course.courses.days !== null &&
-                            JSON.parse(course.courses.days).map(day => (
-                              <div
-                                key={day}
-                                style={{ display: 'inline-block' }}
-                              >
-                                <h6
-                                  style={{
-                                    marginRight: '5px',
-                                    fontSize: '10px',
-                                    color: '#a09e9e'
-                                  }}
-                                >
-                                  {day.toUpperCase()}
-                                </h6>
-                                <div style={{ display: 'inline-block' }}>
-                                  <h6
-                                    style={{
-                                      marginRight: '20px',
-                                      fontSize: '10px'
-                                    }}
-                                  >
-                                    {moment(course.courses.startDate).format(
-                                      'LT'
-                                    )}
-                                  </h6>
-                                  <h6
-                                    style={{
-                                      marginRight: '20px',
-                                      fontSize: '10px'
-                                    }}
-                                  >
-                                    {moment(course.courses.endDate).format(
-                                      'LT'
-                                    )}
-                                  </h6>
-                                </div>
-                              </div>
-                            ))}
-                        </td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </Col>
-              </Row>
-              <div>
-                <h3>Course Description</h3>
-                <p>{ReactHtmlParser(course.courses.description)}</p>
+          const courseData = data.me.myCourses.map(
+            course => course.courses.events
+          )
+          const courseTitle = data.me.myCourses.map(
+            course => course.courses.title
+          )
+          const courseColor = data.me.myCourses.map(course => {
+            return (
+              <div
+                key={course.courses.id}
+                style={{
+                  display: 'inline-block',
+                  marginRight: '15px',
+                  float: 'right'
+                }}
+              >
+                <p style={{ background: course.courses.color, padding: '5px' }}>
+                  {course.courses.title}
+                </p>
               </div>
-              {course.courses.events.length < 1 ? (
-                <>
-                  <p>No Schedule Listed</p>
-                  <hr className="gradient_line" />
-                </>
-              ) : (
-                <>
-                  <h3>Course Schedule</h3>
-                  <Table bordered>
-                    <thead>
-                      <tr>
-                        <td>Date</td>
-                        <td>Title</td>
-                        <td>Description</td>
-                        {/* <td>Start</td> */}
-                        <td>Upload</td>
-                      </tr>
-                    </thead>
+            )
+          })
 
-                    {course.courses.events.map(
-                      ({ title, description, start, end, id, upload }) => (
-                        <tbody key={id}>
-                          <tr>
-                            <td>{moment(end).format('MMM Do YYYY')}</td>
-                            <td>{title}</td>
-                            <td>{ReactHtmlParser(description)}</td>
-                            {/* <td>{moment(start).format('MMM Do YYYY')}</td> */}
-                            <td>
-                              {upload && (
-                                <a href={upload}>
-                                  <div
-                                    style={{
-                                      position: 'relative',
-                                      textAlign: 'center'
-                                    }}
-                                  >
-                                    <img
-                                      src={FilePlaceholder}
-                                      alt="File download"
-                                      style={{ textAlign: 'center' }}
-                                    />
-                                    <TextExtension>
-                                      {upload.split('.').pop()}
-                                    </TextExtension>
-                                  </div>
-                                </a>
-                              )}
-                            </td>
-                          </tr>
-                        </tbody>
-                      )
-                    )}
-                  </Table>
-                  <hr className="gradient_line" />
-                </>
-              )}
+          const color = courseColor.map(course => course)
+          const merge = [].concat.apply([], courseData)
+
+          return (
+            <ScheduleStyles>
+              <h3>Full Schedule</h3>
+              <div>{color}</div>
+              <Table bordered>
+                <thead>
+                  <tr>
+                    <td>Date</td>
+                    <td>Title</td>
+                    <td>Description</td>
+                    <td>Upload</td>
+                  </tr>
+                </thead>
+                {merge.map(course => (
+                  <tbody key={course.id}>
+                    <tr>
+                      <td
+                        style={{
+                          background: course.color
+                        }}
+                      >
+                        {moment(course.end).format('MMM Do YYYY')}
+                      </td>
+                      <td>{course.title}</td>
+                      <td>{ReactHtmlParser(course.description)}</td>
+                      {/* <td>{moment(start).format('MMM Do YYYY')}</td> */}
+                      <td>
+                        {course.upload && (
+                          <a href={course.upload}>
+                            <div
+                              style={{
+                                position: 'relative',
+                                textAlign: 'center'
+                              }}
+                            >
+                              <img
+                                src={FilePlaceholder}
+                                alt="File download"
+                                style={{ textAlign: 'center' }}
+                              />
+                              <TextExtension>
+                                {course.upload.split('.').pop()}
+                              </TextExtension>
+                            </div>
+                          </a>
+                        )}
+                      </td>
+                    </tr>
+                  </tbody>
+                ))}
+              </Table>
             </ScheduleStyles>
-          ))
+          )
         }}
       </Query>
     )

@@ -1,8 +1,11 @@
 import gql from 'graphql-tag'
+import moment from 'moment'
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
+import { Table } from 'react-bootstrap'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import ReactHtmlParser from 'react-html-parser'
 import ReactModal from 'react-modal'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
@@ -167,6 +170,20 @@ class createAnnouncement extends Component {
                   </button>
                 </fieldset>
               </Form>
+              <Table bordered>
+                <thead>
+                  <tr>
+                    <td>Date</td>
+                    <td>Announcement</td>
+                  </tr>
+                </thead>
+                <tbody key={this.state.title}>
+                  <tr>
+                    <td>{moment(this.state.date).format('MMM Do YYYY')}</td>
+                    <td>{ReactHtmlParser(this.state.text)}</td>
+                  </tr>
+                </tbody>
+              </Table>
             </ReactModal>
           )}
         </Mutation>
