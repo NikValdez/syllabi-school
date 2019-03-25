@@ -35,9 +35,10 @@ server.express.use(async (req, res, next) => {
 
 server.start(
   {
+    port: process.env.PRISMA_ENDPOINT,
     cors: {
       credentials: true,
-      origin: '*'
+      origin: process.env.FRONTEND_URL
     }
   },
   deets => {
