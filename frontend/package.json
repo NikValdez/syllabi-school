@@ -1,6 +1,9 @@
 {
   "name": "frontend",
   "version": "0.1.0",
+  "engines": {
+    "node": "8.11.2"
+  },
   "private": true,
   "dependencies": {
     "apollo-boost": "^0.1.22",
