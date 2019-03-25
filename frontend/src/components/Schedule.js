@@ -28,9 +28,6 @@ export class Schedule extends Component {
           const courseData = data.me.myCourses.map(
             course => course.courses.events
           )
-          const sort = courseData.sort(function(a, b) {
-            return new Date(b.date) - new Date(a.date)
-          })
 
           const courseColor = data.me.myCourses.map(course => {
             return (
@@ -80,7 +77,6 @@ export class Schedule extends Component {
                       </td>
                       <td>{course.title}</td>
                       <td>{ReactHtmlParser(course.description)}</td>
-                      {/* <td>{moment(start).format('MMM Do YYYY')}</td> */}
                       <td>
                         {course.upload && (
                           <a href={course.upload}>

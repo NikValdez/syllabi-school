@@ -20,6 +20,7 @@ class NewNav extends Component {
       isOpen: !this.state.isOpen
     })
   }
+
   render() {
     return (
       <User>
@@ -28,24 +29,24 @@ class NewNav extends Component {
           return (
             <NavStyles>
               <>
-                <Dropdown drop="down" onToggle={this.toggle}>
+                <Dropdown onToggle={this.toggle}>
                   <Dropdown.Toggle id="dropdown-basic">
                     {!this.state.isOpen ? <MenuIcon /> : <XIcon />}
+
+                    <Dropdown.Menu id="dropdown-items">
+                      <Link to="/schedule">Full Schedule</Link>
+
+                      <IsAdminTeacher>
+                        <Link to="/create_course">Create Course</Link>
+                      </IsAdminTeacher>
+                      <IsAdmin>
+                        <Link to="/permissions">Permissions</Link>
+                        <Link to="/create_institution">Create Institution</Link>
+                      </IsAdmin>
+
+                      <Signout />
+                    </Dropdown.Menu>
                   </Dropdown.Toggle>
-
-                  <Dropdown.Menu id="dropdown-items">
-                    <Link to="/schedule">Full Schedule</Link>
-
-                    <IsAdminTeacher>
-                      <Link to="/create_course">Create Course</Link>
-                    </IsAdminTeacher>
-                    <IsAdmin>
-                      <Link to="/permissions">Permissions</Link>
-                      <Link to="/create_institution">Create Institution</Link>
-                    </IsAdmin>
-
-                    <Signout />
-                  </Dropdown.Menu>
                 </Dropdown>
 
                 <Announcements />

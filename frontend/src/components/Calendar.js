@@ -190,8 +190,8 @@ class Calendar extends Component {
             {ReactHtmlParser(this.state.description)}
 
             <h5>
-              {moment(this.state.start).format('MMM Do YY')} -{' '}
-              {moment(this.state.end).format('MMM Do YY')}
+              {moment(this.state.start).format('MMM Do YYYY')} -{' '}
+              {moment(this.state.end).format('MMM Do YYYY')}
             </h5>
           </Modal.Body>
         </Modal>
