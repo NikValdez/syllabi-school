@@ -1,17 +1,15 @@
 import ApolloClient from 'apollo-boost'
-import { endpoint, prodEndpoint } from '../config'
+import { prodEndpoint } from '../config'
 
 function createClient({ headers }) {
   return new ApolloClient({
-    uri: process.env.NODE_ENV === 'development' ? endpoint : prodEndpoint,
+    uri: process.env.NODE_ENV === prodEndpoint,
     request: operation => {
       operation.setContext({
         fetchOptions: {
           credentials: 'include'
         },
-        headers: {
-          authorization: endpoint
-        }
+        headers
       })
     }
   })
