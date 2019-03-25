@@ -9,7 +9,9 @@ function createClient({ headers }) {
         fetchOptions: {
           credentials: 'include'
         },
-        headers
+        headers: {
+          authorization: endpoint
+        }
       })
     }
   })
