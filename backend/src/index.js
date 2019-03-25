@@ -35,11 +35,7 @@ server.express.use(async (req, res, next) => {
 
 server.start(
   {
-    port: process.env.PRISMA_ENDPOINT,
-    cors: {
-      credentials: true,
-      origin: process.env.FRONTEND_URL
-    }
+    cors()
   },
   deets => {
     console.log(`Server is now running on port http://localhost:${deets.port}`)
