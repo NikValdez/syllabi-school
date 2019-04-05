@@ -44,7 +44,9 @@ class NewNav extends Component {
                         <Link to="/create_institution">Create Institution</Link>
                       </IsAdmin>
 
-                      <Signout />
+                      <a>
+                        <Signout />
+                      </a>
                     </Dropdown.Menu>
                   </Dropdown.Toggle>
                 </Dropdown>

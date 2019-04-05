@@ -37,3 +37,92 @@ exports[`<RequestReset/> renders and matches snapshot 1`] = `
   </fieldset>
 </form>
 `;
+
+exports[`<Signin/> renders and matches snapshot 1`] = `
+<form
+  className="sc-bwzfXH ipuXRf"
+  method="post"
+  onSubmit={[Function]}
+>
+  <fieldset
+    aria-busy={false}
+    disabled={false}
+  >
+    <h2>
+      Sign In
+    </h2>
+    <ErrorMessage
+      error={Object {}}
+    />
+    <label
+      htmlFor="email"
+    >
+      Email
+      <input
+        name="email"
+        onChange={[Function]}
+        placeholder="email"
+        type="email"
+        value=""
+      />
+    </label>
+    <label
+      htmlFor="password"
+    >
+      Password
+      <input
+        name="password"
+        onChange={[Function]}
+        placeholder="password"
+        type="password"
+        value=""
+      />
+    </label>
+    <button
+      type="submit"
+    >
+      Sign In!
+    </button>
+  </fieldset>
+  <Link
+    replace={false}
+    to="/signup"
+  >
+    <a
+      href="/signup"
+      onClick={[Function]}
+    >
+      <button
+        style={
+          Object {
+            "fontSize": "13px",
+            "marginTop": "10px",
+          }
+        }
+      >
+        Sign Up
+      </button>
+    </a>
+  </Link>
+  <Link
+    replace={false}
+    to="/request_reset"
+  >
+    <a
+      href="/request_reset"
+      onClick={[Function]}
+    >
+      <button
+        style={
+          Object {
+            "fontSize": "10px",
+            "margin": "12px",
+          }
+        }
+      >
+        Forgot Password?
+      </button>
+    </a>
+  </Link>
+</form>
+`;

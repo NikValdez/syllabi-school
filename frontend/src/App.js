@@ -12,7 +12,6 @@ import Footer from './components/Footer'
 import Header from './components/Header'
 import Permissions from './components/Permissions'
 import PleaseSignIn from './components/PleaseSignIn'
-import Test from './components/practice'
 import PrivacyPolicy from './components/PrivacyPolicy'
 import RequestReset from './components/RequestReset'
 import Reset from './components/Reset'
@@ -57,7 +56,6 @@ const DefaultContainer = () => (
           <Route path="/create_announcement" component={CreateAnnouncement} />
           <Route path="/privacy_policy" component={PrivacyPolicy} />
           <Route path="/terms_and_conditions" component={TermsAndConditions} />
-          <Route path="/test" component={Test} />
           <Route component={NoMatch} />
         </Switch>
       </Container>

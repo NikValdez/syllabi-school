@@ -1,8 +1,9 @@
 import { mount } from 'enzyme'
+import toJSON from 'enzyme-to-json'
 import React from 'react'
 import { ApolloConsumer } from 'react-apollo'
 import { MockedProvider } from 'react-apollo/test-utils'
-import { MemoryRouter } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import wait from 'waait'
 import Signin, { SIGNIN_MUTATION } from '../components/Signin'
 import { CURRENT_USER_QUERY } from '../components/User'
@@ -16,7 +17,7 @@ function type(wrapper, name, value) {
 
 const me = fakeUser()
 const mocks = [
-  // signup mock mutation
+  // signin mock mutation
   {
     request: {
       query: SIGNIN_MUTATION,
@@ -43,51 +44,56 @@ const mocks = [
 ]
 
 describe('<Signin/>', () => {
-  //   it('renders and matches snapshot', async () => {
-  //     const wrapper = mount(
-  //       <MockedProvider>
-  //         <Signup />
-  //       </MockedProvider>
-  //     );
-  //     expect(toJSON(wrapper.find('form'))).toMatchSnapshot();
-  //   });
+  it('renders and matches snapshot', async () => {
+    const wrapper = mount(
+      <Router>
+        <MockedProvider>
+          <Signin />
+        </MockedProvider>
+      </Router>
+    )
+    expect(toJSON(wrapper.find('form'))).toMatchSnapshot()
+    expect(wrapper.find('form').length).toBe(1)
+    expect(wrapper.find('Link').length).toBe(2)
+  })
 
   it('calls the mutation properly', async () => {
     let apolloClient
     const wrapper = mount(
-      <MockedProvider mocks={mocks}>
-        <ApolloConsumer>
-          {client => {
-            apolloClient = client
-            return (
-              <MemoryRouter>
-                <Signin />
-              </MemoryRouter>
-            )
-          }}
-        </ApolloConsumer>
-      </MockedProvider>
+      <Router>
+        <MockedProvider mocks={mocks}>
+          <ApolloConsumer>
+            {client => {
+              apolloClient = client
+              return <Signin onSubmit={jest.fn()} />
+            }}
+          </ApolloConsumer>
+        </MockedProvider>
+      </Router>
     )
     await wait()
     wrapper.update()
+    // console.log(wrapper.debug())
+    type(wrapper, 'email', me.email)
+    type(wrapper, 'password', 'password')
+    wrapper.update()
+    wrapper.setState({ email: me.email, password: 'password' })
+    expect(wrapper.state('email')).toEqual(me.email)
+    expect(wrapper.state('password')).toEqual('password')
 
-    type(wrapper, 'email', '')
-    type(wrapper, 'password', '')
+    await wait()
     wrapper.update()
     wrapper.find('form').simulate('submit')
     await wait()
     wrapper.update()
-    expect(wrapper.find('h2').exists()).toBe(true)
-    // type(wrapper, 'email', me.email)
-    // type(wrapper, 'password', 'password')
-    // wrapper.update()
-    // wrapper.find('form').simulate('submit')
+    // expect(jest.fn()).toHaveBeenCalledTimes(1)
 
-    // expect(wrapper.exists('input[name="password"]')).toBe(true)
+    wrapper.update()
+
+    // // query the user out of the apollo client
     // const user = await apolloClient.query({ query: CURRENT_USER_QUERY })
-    // expect(userdata.me).toMatchObject(me)
-    // expect(wrapper.prop('onSubmit') === 'submit')
-
-    // query the user out of the apollo client
+    // expect(user.data.me).toMatchObject(me)
   })
 })
+
+// expect(testValues.handleSubmit).toBeCalledWith({username: testValues.username, password: testValues.password});

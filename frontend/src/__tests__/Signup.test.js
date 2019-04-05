@@ -1,9 +1,16 @@
 import { mount } from 'enzyme'
+import toJSON from 'enzyme-to-json'
 import React from 'react'
 import { MockedProvider } from 'react-apollo/test-utils'
 import Signup, { SIGNUP_MUTATION } from '../components/Signup'
 import { CURRENT_USER_QUERY } from '../components/User'
 import { fakeUser } from '../lib/testUtils'
+
+// function type(wrapper, name, value) {
+//   wrapper.find(`input[name="${name}"]`).simulate('change', {
+//     target: { name, value }
+//   })
+// }
 
 const me = fakeUser()
 const mocks = [
@@ -37,53 +44,14 @@ const mocks = [
   }
 ]
 
-// function updateInput(wrapper, name, value) {
-//   return wrapper.find(`input[name="${name}"]`).simulate('change', {
-//     target: { name, value }
-//   })
-// }
-
-// const updateInput = (wrapper, instance, newValue) => {
-//   const input = wrapper.find(instance)
-
-//   input.simulate('change', {
-//     currentTarget: { value: newValue }
-//   })
-//   return wrapper.find(instance)
-// }
-
 describe('<Signup/>', () => {
-  it('Should render without error', async () => {
+  it('renders and matches snapshot', async () => {
     const wrapper = mount(
       <MockedProvider>
         <Signup />
       </MockedProvider>
     )
-
-    // expect(wrapper.find('h2').exists()).to.equal(true)
-  })
-
-  it('Form contents appear correctly', () => {
-    const wrapper = mount(
-      <MockedProvider>
-        <Signup />
-      </MockedProvider>
-    )
-    // console.log(wrapper.debug())
-    expect(wrapper.exists('form')).toBe(true)
-    expect(wrapper.exists('input[name="name"]')).toBe(true)
-    expect(wrapper.exists('input[name="email"]')).toBe(true)
-    expect(wrapper.exists('input[name="password"]')).toBe(true)
-
-    // console.log(wrapper.debug())
-    // const nameInput = updateInput(wrapper, 'name', 'Nik')
-
-    // const emailInput = updateInput(wrapper, 'email', 'test@gmail.com')
-    // const passwordInput = updateInput(wrapper, 'password', 'password')
-
-    // expect(nameInput.props().value).toBe('Nik')
-    // expect(emailInput.props().value).toBe('test@gmail.com')
-    // expect(passwordInput.props().value).toBe('password')
+    expect(toJSON(wrapper.find('form'))).toMatchSnapshot()
   })
 
   // it('calls the mutation properly', async () => {
@@ -100,15 +68,30 @@ describe('<Signup/>', () => {
   //   )
   //   await wait()
   //   wrapper.update()
-  //   type(wrapper, 'name', me.name)
-  //   type(wrapper, 'email', me.email)
-  //   type(wrapper, 'password', 'password')
-  //   type(wrapper, 'insitution')
-  //     wrapper.update()
-  //     wrapper.find('form').simulate('submit')
-  //     await wait()
-  //     // query the user out of the apollo client
-  // const user = await apolloClient.query({ query: CURRENT_USER_QUERY })
-  //     expect(user.data.me).toMatchObject(me)
-  // })
+
+  //   console.log(wrapper.debug())
+
+  //   wrapper.find('input[type="email"]').simulate('change', {
+  //     target: { name: 'email', value: me.email }
+  //   })
+  //   wrapper.find('input[type="text"]').simulate('change', {
+  //     target: { name: 'name', value: me.name }
+  //   })
+  //   wrapper.find('input[type="password"]').simulate('change', {
+  //     target: { name: 'password', value: 'password' }
+  //   })
+  //   wrapper.find('select').simulate('change', {
+  //     target: { value: me.institution }
+  //   })
+  //   // type(wrapper, 'name', me.name)
+  //   // type(wrapper, 'email', me.email)
+  //   // type(wrapper, 'password', 'password')
+  //   // type(wrapper, 'institution', me.institution)
+  //   wrapper.update()
+  //   wrapper.find('form').simulate('submit')
+  //   await wait()
+  //   // query the user out of the apollo client
+  //   const user = await apolloClient.query({ query: CURRENT_USER_QUERY })
+  //   expect(user.data.me).toMatchObject(me)
+  //   })
 })

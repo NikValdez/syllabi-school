@@ -99,7 +99,7 @@ class Announcements extends Component {
           if (error) return <p>Error</p>
           if (loading) return <p>Loading...</p>
           if (!data.me.announcements) return <p>No Announcements</p>
-          const me = data ? data.me : null
+          // const me = data ? data.me : null
           const announcements = data
             ? data.me.announcements
                 .sort((a, b) => {
@@ -189,6 +189,7 @@ class Announcements extends Component {
                                     >
                                       {clicked ? (
                                         <span
+                                          role="img"
                                           style={{
                                             marginLeft: '10px'
                                           }}

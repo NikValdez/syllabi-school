@@ -48,6 +48,7 @@ export class Schedule extends Component {
 
           const color = courseColor.map(course => course)
           const merge = [].concat.apply([], courseData)
+
           const sortedByDates = merge.sort((a, b) => {
             return new Date(a.end).getTime() - new Date(b.end).getTime()
           })

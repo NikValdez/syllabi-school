@@ -21,7 +21,8 @@ export class DeleteCourse extends Component {
         mutation={DELETE_COURSE_MUTATION}
         variables={{ id: this.props.id }}
         refetchQueries={[
-          { query: ALL_COURSES_QUERY, query: CURRENT_USER_QUERY_COURSES_EVENTS }
+          { query: ALL_COURSES_QUERY },
+          { query: CURRENT_USER_QUERY_COURSES_EVENTS }
         ]}
       >
         {(deleteCourse, { error }) => (

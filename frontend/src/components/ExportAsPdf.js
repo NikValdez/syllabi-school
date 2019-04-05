@@ -6,54 +6,12 @@ import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import { Col, Modal, Row, Table } from 'react-bootstrap'
 import ReactHtmlParser from 'react-html-parser'
-import styled from 'styled-components'
 import FilePlaceholder from '../images/filePlaceholder.png'
 import CalendarSync from './CalendarSync'
 import Button from './styles/Button'
 import './styles/Modal.css'
+import SingleCourseStyles from './styles/SingleCourseStyles'
 import TextExtension from './styles/TextExtension'
-
-const SingleCourseStyles = styled.div`
-  max-width: 1200px;
-  /* margin: 2rem auto; */
-
-  display: grid;
-  .modal-content {
-    width: 180% !important;
-  }
-
-  a {
-    color: black;
-  }
-  .update-delete {
-    text-align: right;
-    a {
-      margin-right: 2rem;
-      background: black;
-      color: white;
-      font-weight: 500;
-      border: 0;
-      border-radius: 0;
-      text-transform: uppercase;
-      font-size: 1rem;
-      padding: 0.5rem 1.2rem;
-      display: inline-block;
-      text-decoration: none;
-    }
-  }
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-  }
-  .details {
-    text-align: center;
-    margin-top: -20rem;
-  }
-`
-const CreateEventStyles = styled.div`
-  grid-template-columns: start;
-`
 
 const SINGLE_COURSE_QUERY = gql`
   query SINGLE_COURSE_QUERY($id: ID!) {

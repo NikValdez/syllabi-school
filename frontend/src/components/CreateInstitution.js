@@ -2,10 +2,11 @@ import gql from 'graphql-tag'
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import Book from '../book.gif'
-import { UploadButton, UploadPreview } from './CreateEvent'
+import { UploadPreview } from './CreateEvent'
 import Error from './ErrorMessage'
 import IsAdminTeacher from './IsAdminTeacher'
 import Form from './styles/Form'
+import UploadButton from './styles/UploadButton'
 
 const CREATE_INSTITUTION_MUTATION = gql`
   mutation CREATE_INSTITUTION_MUTATION($name: String!, $logo: String) {
@@ -59,7 +60,7 @@ class CreateInstitution extends Component {
               <Form
                 onSubmit={async e => {
                   e.preventDefault()
-                  const res = await createInstitution()
+                  await createInstitution()
                   this.props.history.push(`/`)
                 }}
               >
