@@ -28,7 +28,7 @@
   background: white;
   z-index: 4;
   margin: 0 auto;
-  width: 100%;
+  width: 100% !important;
 }
 
 .card {

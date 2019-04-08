@@ -4,6 +4,7 @@ import { Mutation } from 'react-apollo'
 import { Card, Col } from 'react-bootstrap'
 import Error from './ErrorMessage'
 import Form from './styles/Form'
+import './styles/Login.css'
 
 const REQUEST_RESET_MUTATION = gql`
   mutation REQUEST_RESET_MUTATION($email: String!) {
@@ -27,6 +28,7 @@ class RequestReset extends Component {
           <>
             <Col className="col-12 login-page">
               <Card>
+                <Card.Header>Account</Card.Header>
                 <Form
                   className="login-form"
                   data-test="form"
