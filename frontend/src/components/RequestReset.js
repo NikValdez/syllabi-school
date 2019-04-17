@@ -4,7 +4,6 @@ import { Mutation } from 'react-apollo'
 import { Card, Col } from 'react-bootstrap'
 import Error from './ErrorMessage'
 import Form from './styles/Form'
-import './styles/Login.css'
 
 const REQUEST_RESET_MUTATION = gql`
   mutation REQUEST_RESET_MUTATION($email: String!) {

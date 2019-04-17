@@ -13,6 +13,7 @@
     "graphql-tag": "^2.10.0",
     "html-to-text": "^4.0.0",
     "ical-generator": "^1.5.0",
+    "identity-obj-proxy": "^3.0.0",
     "jspdf": "^1.5.3",
     "jspdf-autotable": "^3.0.10",
     "lodash": "^4.17.11",
@@ -65,6 +66,10 @@
     "jest-transform-graphql": "^2.1.0"
   },
   "jest": {
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less)$": "<rootDir>/__mocks__/styleMock.js"
+    },
     "setupTestFrameworkScriptFile": "<rootDir>/jest.setup.js",
     "testPathIgnorePatterns": [
       "<rootDir>/node_modules/"

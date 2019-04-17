@@ -2,7 +2,6 @@ import gql from 'graphql-tag'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { Mutation, Query } from 'react-apollo'
-import { Link } from 'react-router-dom'
 import Book from '../book.gif'
 import Error from './ErrorMessage'
 import Button from './styles/Button'
@@ -40,10 +39,8 @@ const Permissions = props => (
       return (
         <Container>
           <Error error={error} />
-          <h2>Manage Permissions</h2>
-          <Link to="/">
-            <Button style={{ float: 'right' }}>Home</Button>
-          </Link>
+          <h2 style={{ marginTop: '20px' }}>Manage Permissions</h2>
+
           <TableStyles>
             <thead>
               <TrStyles>
@@ -61,6 +58,7 @@ const Permissions = props => (
               ))}
             </tbody>
           </TableStyles>
+          <div style={{ marginBottom: '20rem' }} />
         </Container>
       )
     }}

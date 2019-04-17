@@ -4,7 +4,6 @@ import { Mutation, Query } from 'react-apollo'
 import { Card, Col } from 'react-bootstrap'
 import Error from './ErrorMessage'
 import Form from './styles/Form'
-import './styles/Login.css'
 import { CURRENT_USER_QUERY } from './User'
 
 const SIGNUP_MUTATION = gql`

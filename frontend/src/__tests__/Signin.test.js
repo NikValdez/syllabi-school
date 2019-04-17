@@ -58,6 +58,7 @@ describe('<Signin/>', () => {
   })
 
   it('calls the mutation properly', async () => {
+    const submitForm = jest.fn()
     let apolloClient
     const wrapper = mount(
       <Router>
@@ -65,7 +66,7 @@ describe('<Signin/>', () => {
           <ApolloConsumer>
             {client => {
               apolloClient = client
-              return <Signin onSubmit={jest.fn()} />
+              return <Signin onSubmit={submitForm} />
             }}
           </ApolloConsumer>
         </MockedProvider>
@@ -86,7 +87,8 @@ describe('<Signin/>', () => {
     wrapper.find('form').simulate('submit')
     await wait()
     wrapper.update()
-    // expect(jest.fn()).toHaveBeenCalledTimes(1)
+
+    // expect(submitForm).toHaveBeenCalledTimes(1)
 
     wrapper.update()
 

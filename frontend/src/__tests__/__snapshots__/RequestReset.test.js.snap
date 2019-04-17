@@ -2,7 +2,7 @@
 
 exports[`<RequestReset/> renders and matches snapshot 1`] = `
 <form
-  className="sc-bwzfXH ipuXRf"
+  className="login-form sc-bwzfXH ipuXRf"
   data-test="form"
   method="post"
   onSubmit={[Function]}

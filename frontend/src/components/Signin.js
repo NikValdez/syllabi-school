@@ -5,7 +5,6 @@ import { Card, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Error from './ErrorMessage'
 import Form from './styles/Form'
-import './styles/Login.css'
 import { CURRENT_USER_QUERY } from './User'
 const SIGNIN_MUTATION = gql`
   mutation SIGNIN_MUTATION($email: String!, $password: String!) {

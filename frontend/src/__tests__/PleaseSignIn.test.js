@@ -32,7 +32,7 @@ describe('<PleaseSignIn/>', () => {
     )
     await wait()
     wrapper.update()
-    expect(wrapper.text()).toContain('Please Sign In Before Continuing')
+    expect(wrapper.text()).toContain('Sign In')
     const SignIn = wrapper.find('Signin')
     expect(SignIn.exists()).toBe(true)
   })

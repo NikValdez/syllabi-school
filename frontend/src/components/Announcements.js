@@ -23,7 +23,6 @@ const stretch = keyframes`
   }
 `
 const Alert = styled.div`
-  height: 50px;
   width: 50px;
   margin: 0 auto;
   background-color: #fffcdf;

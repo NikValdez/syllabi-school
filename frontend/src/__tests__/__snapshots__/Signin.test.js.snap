@@ -1,46 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<RequestReset/> renders and matches snapshot 1`] = `
-<form
-  className="sc-bwzfXH ipuXRf"
-  data-test="form"
-  method="post"
-  onSubmit={[Function]}
->
-  <fieldset
-    aria-busy={false}
-    disabled={false}
-  >
-    <h2>
-      Request a password reset 
-    </h2>
-    <ErrorMessage
-      error={Object {}}
-    />
-    <label
-      htmlFor="email"
-    >
-      Email
-      <input
-        name="email"
-        onChange={[Function]}
-        placeholder="email"
-        type="email"
-        value=""
-      />
-    </label>
-    <button
-      type="submit"
-    >
-      Request Reset!
-    </button>
-  </fieldset>
-</form>
-`;
-
 exports[`<Signin/> renders and matches snapshot 1`] = `
 <form
-  className="sc-bwzfXH ipuXRf"
+  className="login-form sc-bwzfXH ipuXRf"
   method="post"
   onSubmit={[Function]}
 >
@@ -86,17 +48,28 @@ exports[`<Signin/> renders and matches snapshot 1`] = `
   </fieldset>
   <Link
     replace={false}
+    style={
+      Object {
+        "textDecoration": "none",
+      }
+    }
     to="/signup"
   >
     <a
       href="/signup"
       onClick={[Function]}
+      style={
+        Object {
+          "textDecoration": "none",
+        }
+      }
     >
       <button
         style={
           Object {
-            "fontSize": "13px",
+            "margin": "0 auto",
             "marginTop": "10px",
+            "width": "80%",
           }
         }
       >
@@ -106,17 +79,29 @@ exports[`<Signin/> renders and matches snapshot 1`] = `
   </Link>
   <Link
     replace={false}
+    style={
+      Object {
+        "textDecoration": "none",
+      }
+    }
     to="/request_reset"
   >
     <a
       href="/request_reset"
       onClick={[Function]}
+      style={
+        Object {
+          "textDecoration": "none",
+        }
+      }
     >
       <button
         style={
           Object {
-            "fontSize": "10px",
-            "margin": "12px",
+            "margin": "0 auto",
+            "marginTop": "10px",
+            "textDecoration": "none",
+            "width": "70%",
           }
         }
       >
