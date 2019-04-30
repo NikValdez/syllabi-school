@@ -145,7 +145,7 @@ class UpdateCourse extends Component {
                       />
                     </label>
                     <label htmlFor="courseCode">
-                      Course Code
+                      Owner(s)
                       <input
                         type="text"
                         id="courseCode"
@@ -157,7 +157,7 @@ class UpdateCourse extends Component {
                       />
                     </label>
                     <label htmlFor="credits">
-                      Credits
+                      Extension
                       <input
                         type="text"
                         id="credits"
@@ -169,7 +169,7 @@ class UpdateCourse extends Component {
                       />
                     </label>
                     <label htmlFor="description">
-                      Description
+                      Additional Information
                       <textarea
                         type="text"
                         id="description"
@@ -183,7 +183,7 @@ class UpdateCourse extends Component {
                       />
                     </label>
                     <label htmlFor="ClassTime">
-                      Class Days
+                      Office Days
                       <Select
                         onChange={this.handleSelectionChange}
                         options={options}
@@ -200,7 +200,7 @@ class UpdateCourse extends Component {
                       />
                     </label>
                     <label htmlFor="DateTime">
-                      Class Time
+                      Office Hours
                       <div style={{ marginRight: '20px' }}>
                         <DatePicker
                           selected={

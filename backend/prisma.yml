@@ -1,2 +1,4 @@
-endpoint: https://us1.prisma.sh/nikvaldez-073802/SyllabiFilm/dev
+#endpoint: https://us1.prisma.sh/nikvaldez-073802/SyllabiFilm/dev
+endpoint: https://syllabi-film-5d37718e6a.herokuapp.com/syllabi-film-back/prod
 datamodel: datamodel.graphql
+secret: ${env:PRISMA_SECRET}
