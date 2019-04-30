@@ -144,7 +144,7 @@ class ExportAsPdf extends Component {
                 <span style={{ marginRight: '10px' }}>
                   <i className="fas fa-book-open" />
                 </span>
-                View Syllabus
+                View Schedule
               </h4>
               <CalendarSync
                 courseTitle={course.title}
@@ -191,11 +191,11 @@ class ExportAsPdf extends Component {
                           <td>{course.title}</td>
                         </tr>
                         <tr>
-                          <th>Course Code</th>
+                          <th>Owner(s)</th>
                           <td>{course.courseCode}</td>
                         </tr>
                         <tr>
-                          <th>Credits</th>
+                          <th>Extension</th>
                           <td>{course.credits}</td>
                         </tr>
                       </tbody>
@@ -203,12 +203,12 @@ class ExportAsPdf extends Component {
                   </Col>
                 </Row>
                 <div id="course-description">
-                  <h3>Course Description</h3>
+                  <h3>Additional Information</h3>
                   {ReactHtmlParser(course.description)}
                 </div>
-                <h2 style={{ float: 'left' }}>Course Calendar</h2>
+                <h2 style={{ float: 'left' }}>Department Schedule</h2>
                 {course.events.length < 1 ? (
-                  <p>No Assignments Currently</p>
+                  <p>No Events Currently</p>
                 ) : (
                   <Table bordered id="course-calendar">
                     <tbody>

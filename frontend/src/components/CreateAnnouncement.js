@@ -92,10 +92,7 @@ class createAnnouncement extends Component {
   render() {
     return (
       <IsAdminTeacher>
-        <Button
-          onClick={this.handleOpenAnnouncement}
-          style={{ margin: '2rem', float: 'right' }}
-        >
+        <Button onClick={this.handleOpenAnnouncement}>
           Create Announcement
         </Button>
         <Mutation

@@ -12,6 +12,7 @@ import CreateEvent from './CreateEvent'
 import DeleteCourse from './DeleteCourse'
 import DeleteEvent from './DeleteEvent'
 import IsAdminTeacher from './IsAdminTeacher'
+import Button from './styles/Button'
 import TextExtension from './styles/TextExtension'
 
 const SingleCourseStyles = styled.div`
@@ -25,7 +26,6 @@ const SingleCourseStyles = styled.div`
     color: black;
   }
   .update-delete {
-    text-align: right;
     a {
       margin-right: 2rem;
       background: black;
@@ -105,7 +105,8 @@ class SingleCourse extends Component {
         {({ error, loading, data }) => {
           if (error) return <p>Error</p>
           if (loading) return <p>Loading...</p>
-          if (!data.course) return <p>No Course Found for {this.state.id}</p>
+          if (!data.course)
+            return <p>No Department Found for {this.state.id}</p>
           const course = data.course
           const email = data.course.myCourse.map(address => address.user.email)
 
@@ -113,11 +114,14 @@ class SingleCourse extends Component {
             <SingleCourseStyles>
               <IsAdminTeacher>
                 <span className="update-delete">
-                  <Link to={`/update/${course.id}`}>Update Course </Link>
-                  <DeleteCourse id={this.state.id}>Delete Course</DeleteCourse>
+                  <Link to={`/update/${course.id}`}>Update Department </Link>
+                  <span style={{ float: 'right' }}>
+                    <DeleteCourse id={this.state.id}>
+                      Delete Department
+                    </DeleteCourse>
+                  </span>
                 </span>
               </IsAdminTeacher>
-
               <Row>
                 <Col md={6} xs={6}>
                   <Table bordered responsive>
@@ -127,15 +131,15 @@ class SingleCourse extends Component {
                         <td>{course.title}</td>
                       </tr>
                       <tr>
-                        <th>Course Code</th>
+                        <th>Owner(s)</th>
                         <td>{course.courseCode}</td>
                       </tr>
                       <tr>
-                        <th>Credits</th>
+                        <th>Extension</th>
                         <td>{course.credits}</td>
                       </tr>
                       <tr>
-                        <th>Class Time</th>
+                        <th>Office Hours</th>
                         <td>
                           {course.days !== null &&
                             JSON.parse(course.days).map(day => (
@@ -179,108 +183,113 @@ class SingleCourse extends Component {
                 </Col>
               </Row>
               <div>
-                <h3>Course Description</h3>
+                <h3>Additional Information</h3>
                 {ReactHtmlParser(course.description)}
               </div>
-
               <CreateEventStyles>
                 <CreateEvent course={course} email={email} />
               </CreateEventStyles>
-              <h2 style={{ float: 'left' }}>Course Calendar</h2>
-              {course.events.length < 1 ? (
-                <p>No Assignments Currently</p>
-              ) : (
-                <Table bordered>
-                  <thead>
-                    <tr>
-                      <td>Date</td>
-                      <td>Title</td>
-                      <td>Description</td>
-                      {/* <td>Start</td> */}
-                      <td>Upload</td>
-                    </tr>
-                  </thead>
+              <h2 style={{ float: 'left' }}>Department Schedule</h2>
+              {course.events < 1 && <p>No Events Scheduled</p>}
+              <Table bordered>
+                <thead>
+                  <tr>
+                    <td>Edit</td>
+                    <td>Date</td>
+                    <td>Title</td>
+                    <td>Description</td>
+                    {/* <td>Start</td> */}
+                    <td>Upload</td>
+                    <td>Delete</td>
+                  </tr>
+                </thead>
 
-                  {course.events.map(
-                    ({ title, description, start, end, id, upload }) => (
-                      <tbody key={id}>
-                        <tr>
-                          <td>{moment(end).format('MMM Do YYYY')}</td>
-                          <td>{title}</td>
-                          <td>{ReactHtmlParser(description)}</td>
-                          {/* <td>{moment(start).format('MMM Do YYYY')}</td> */}
-                          <td>
-                            {upload && (
-                              <a href={upload}>
-                                <div
-                                  style={{
-                                    position: 'relative',
-                                    textAlign: 'center'
-                                  }}
-                                >
-                                  <img
-                                    src={FilePlaceholder}
-                                    alt="File download"
-                                    style={{
-                                      textAlign: 'center',
-                                      height: '50px'
-                                    }}
-                                  />
-                                  <TextExtension>
-                                    {upload.split('.').pop()}
-                                  </TextExtension>
-                                </div>
-                              </a>
-                            )}
-                          </td>
-                          <td>
-                            <IsAdminTeacher>
-                              <DeleteEvent id={id} course={course.id} />
-                              <Link
-                                to={{
-                                  pathname: `/update_event/${id}`,
-                                  state: { email }
-                                }}
+                {course.events.map(
+                  ({ title, description, start, end, id, upload }) => (
+                    <tbody key={id}>
+                      <tr>
+                        <td>
+                          <IsAdminTeacher>
+                            <Link
+                              to={{
+                                pathname: `/update_event/${id}`,
+                                state: { email }
+                              }}
+                            >
+                              <Button>Edit</Button>
+                            </Link>
+                          </IsAdminTeacher>
+                        </td>
+                        <td>{moment(end).format('MMM Do YYYY')}</td>
+                        <td>{title}</td>
+                        <td>{ReactHtmlParser(description)}</td>
+                        {/* <td>{moment(start).format('MMM Do YYYY')}</td> */}
+                        <td>
+                          {upload && (
+                            <a href={upload}>
+                              <div
                                 style={{
-                                  float: 'right',
-                                  textDecoration: 'none',
-                                  marginRight: '10px'
+                                  position: 'relative',
+                                  textAlign: 'center'
                                 }}
                               >
-                                ✏️
-                              </Link>
-                            </IsAdminTeacher>
-                          </td>
-                        </tr>
-                      </tbody>
-                    )
-                  )}
-                </Table>
-              )}
+                                <img
+                                  src={FilePlaceholder}
+                                  alt="File download"
+                                  style={{
+                                    textAlign: 'center',
+                                    height: '50px'
+                                  }}
+                                />
+                                <TextExtension>
+                                  {upload.split('.').pop()}
+                                </TextExtension>
+                              </div>
+                            </a>
+                          )}
+                        </td>
+                        <td>
+                          <IsAdminTeacher>
+                            <span
+                              style={{
+                                position: 'absolute',
+                                top: '50',
+                                left: '50'
+                              }}
+                            >
+                              <DeleteEvent id={id} course={course.id} />
+                            </span>
+                          </IsAdminTeacher>
+                        </td>
+                      </tr>
+                    </tbody>
+                  )
+                )}
+              </Table>
 
               <div className="detail">
                 <CreateAnnouncement course={course} email={email} />
               </div>
               <h2 style={{ float: 'left' }}>Announcements</h2>
-              {course.announcements.length < 1 ? (
+              {course.announcements.length < 1 && (
                 <p>No Announcements Currently</p>
-              ) : (
-                <Table bordered>
-                  <tbody>
-                    <tr>
-                      <th>Date</th>
-                      <th>Announcement</th>
-                    </tr>
-
-                    {course.announcements.map(({ text, date, id }) => (
-                      <tr key={id}>
-                        <td>{moment(date).format('MMM Do YYYY')}</td>
-                        <td>{ReactHtmlParser(text)}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </Table>
               )}
+
+              <Table bordered>
+                <thead>
+                  <tr>
+                    <th>Date</th>
+                    <th>Announcement</th>
+                  </tr>
+
+                  {course.announcements.map(({ text, date, id }) => (
+                    <tr key={id}>
+                      <td>{moment(date).format('MMM Do YYYY')}</td>
+                      <td>{ReactHtmlParser(text)}</td>
+                    </tr>
+                  ))}
+                </thead>
+              </Table>
             </SingleCourseStyles>
           )
         }}

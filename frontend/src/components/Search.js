@@ -62,7 +62,7 @@ class Search extends Component {
                   <input
                     {...getInputProps({
                       type: 'search',
-                      placeholder: 'Search Courses...',
+                      placeholder: 'Search Department...',
                       id: 'search',
                       className: this.state.loading ? (
                         <img src={Book} alt="Loading" />

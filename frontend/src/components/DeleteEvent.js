@@ -2,7 +2,7 @@ import gql from 'graphql-tag'
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import { SINGLE_COURSE_QUERY } from './SingleCourse'
-import XIcon from './styles/XIcon'
+import Button from './styles/Button'
 
 const DELETE_EVENT_MUTATION = gql`
   mutation DELETE_EVENT_MUTATION($id: ID!) {
@@ -34,7 +34,7 @@ export class DeleteEvent extends Component {
               }
             }}
           >
-            <XIcon />
+            <Button>Delete</Button>
           </span>
         )}
       </Mutation>

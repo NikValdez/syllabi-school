@@ -80,7 +80,7 @@ class CreateInstitution extends Component {
                   </label>
                   <label htmlFor="file">
                     <UploadButton>
-                      <button>Upload an Image ⬆️</button>
+                      <button>Upload an Image</button>
                       <input
                         type="file"
                         id="file"

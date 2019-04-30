@@ -37,11 +37,11 @@ class NewNav extends Component {
                       <Link to="/schedule">Full Schedule</Link>
 
                       <IsAdminTeacher>
-                        <Link to="/create_course">Create Course</Link>
+                        <Link to="/create_course">Create Department</Link>
                       </IsAdminTeacher>
                       <IsAdmin>
                         <Link to="/permissions">Permissions</Link>
-                        <Link to="/create_institution">Create Institution</Link>
+                        <Link to="/create_institution">Create Show</Link>
                       </IsAdmin>
 
                       <a>

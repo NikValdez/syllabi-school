@@ -21,8 +21,7 @@ export class DeleteMyCourse extends Component {
         refetchQueries={[{ query: CURRENT_USER_QUERY_COURSES_EVENTS }]}
       >
         {(deleteMyCourse, { error }) => (
-          <div
-            style={{ marginTop: '1rem' }}
+          <span
             onClick={() => {
               if (
                 window.confirm('Are you sure you want to delete this Course?')
@@ -35,14 +34,12 @@ export class DeleteMyCourse extends Component {
               style={{
                 background: this.props.color,
                 width: '35px',
-                padding: '5px',
-                float: 'left',
-                marginRight: '10px'
+                padding: '5px'
               }}
             >
               <XIcon />
             </div>
-          </div>
+          </span>
         )}
       </Mutation>
     )

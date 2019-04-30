@@ -6,20 +6,20 @@ enum Permission {
 }
 
 type Institution {
-  id: ID! @unique
+  id: ID! @id @unique
   name: String!
   logo: String
   courses: [Course!]! @relation(name: "InstitutionCourses", onDelete: CASCADE)
   users: [User!]!
 }
 type User {
-  id: ID! @unique
+  id: ID! @id @unique
   name: String!
   email: String! @unique
   password: String!
   resetToken: String
   resetTokenExpiry: Float
-  permissions: [Permission]
+  permissions: [Permission] @scalarList(strategy: RELATION)
   courses: [Course!]!
   events: [Event!]!
   announcements: [Announcement!]!
@@ -27,16 +27,18 @@ type User {
   myCourses: [MyCourse!]!
   notes: [Note!]! @relation(name: "UserNotes", onDelete: CASCADE)
   institution: Institution
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Note {
-  id: ID! @unique
+  id: ID! @id @unique
   note: String!
   user: User! @relation(name: "UserNotes")
 }
 
 type Course {
-  id: ID! @unique
+  id: ID! @id @unique
   title: String!
   description: String!
   courseCode: String!
@@ -55,25 +57,25 @@ type Course {
 }
 
 type MyCourse {
-  id: ID! @unique
+  id: ID! @id @unique
   user: User!
   courses: Course! @relation(name: "MyCourse")
 }
 
 type Announcement {
-  id: ID! @unique
+  id: ID! @id @unique
   text: String!
   date: DateTime!
   clicked: Boolean
-  updatedAt: DateTime!
-  createdAt: DateTime!
   course: Course! @relation(name: "CourseAnnouncements")
   user: User! @relation(name: "UserAnnouncements")
   email: String
+  createdAt: DateTime! @createdAt
+  updatedAt: DateTime! @updatedAt
 }
 
 type Event {
-  id: ID! @unique
+  id: ID! @id @unique
   title: String!
   description: String!
   start: DateTime!

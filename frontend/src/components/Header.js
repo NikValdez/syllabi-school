@@ -29,7 +29,10 @@ const Header = () => (
             </div>
             <div className="bar-2">
               <Nav className="d-flex justify-content-between">
-                <p>{data.me.email}</p>
+                <div>
+                  <p style={{ fontWeight: '700' }}>{data.me.name}</p>
+                  <p>{data.me.email}</p>
+                </div>
                 <Nav.Item />
                 <Nav.Item className="d-flex justify-content-start">
                   <Institution />

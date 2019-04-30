@@ -63,3 +63,7 @@
   padding: 20px;
   border: none;
 }
+
+#dropdown-items {
+  width: 11rem;
+}

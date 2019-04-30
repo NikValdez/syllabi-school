@@ -19,7 +19,7 @@ const CREATE_COURSE_MUTATION = gql`
   mutation CREATE_COURSE_MUTATION(
     $title: String!
     $description: String!
-    $credits: Int!
+    $credits: Int
     $courseCode: String!
     $image: String
     $color: String
@@ -79,6 +79,12 @@ class CreateCourse extends Component {
     this.setState({
       [name]: val,
       color: this.getRandomColor()
+    })
+  }
+
+  onCreditsChange = e => {
+    this.setState({
+      credits: parseInt(e.target.value)
     })
   }
 
@@ -145,13 +151,13 @@ class CreateCourse extends Component {
                         <Error error={error} />
                         <fieldset disabled={loading} aria-busy={loading}>
                           <label htmlFor="title">
-                            Title
+                            Department
                             <input
                               maxLength="40"
                               type="text"
                               id="title"
                               name="title"
-                              placeholder="title"
+                              placeholder="Department"
                               required
                               value={this.state.title}
                               onChange={this.handleChange}
@@ -165,20 +171,19 @@ class CreateCourse extends Component {
                             ''
                           )}
                           <label htmlFor="courseCode">
-                            Course Code
+                            Owner(s)
                             <input
-                              maxLength="20"
                               type="text"
                               id="courseCode"
                               name="courseCode"
-                              placeholder="Course Code"
+                              placeholder="ex) Matt Visser, matt@syllabi.com"
                               required
                               value={this.state.courseCode}
                               onChange={this.handleChange}
                             />
                           </label>
                           <label htmlFor="credits">
-                            Credits
+                            Extension
                             <input
                               maxLength="20"
                               type="text"
@@ -187,25 +192,12 @@ class CreateCourse extends Component {
                               placeholder="Credits"
                               required
                               value={this.state.credits}
-                              onChange={this.handleChange}
+                              onChange={this.onCreditsChange}
                             />
-                          </label>
-                          <label htmlFor="description">
-                            Description
-                            <Quill>
-                              <ReactQuill
-                                placeholder="Add a description..."
-                                theme="snow"
-                                value={this.state.description}
-                                onChange={this.onDescriptionChange}
-                                modules={CreateCourse.modules}
-                                formats={CreateCourse.formats}
-                              />
-                            </Quill>
                           </label>
 
                           <label htmlFor="ClassTime">
-                            Class Days
+                            Office Days
                             <Select
                               value={selectedOption}
                               onChange={this.handleSelectionChange}
@@ -223,7 +215,7 @@ class CreateCourse extends Component {
                             />
                           </label>
                           <label htmlFor="DateTime">
-                            Class Time
+                            Office Hours
                             <div style={{ marginRight: '20px' }}>
                               <DatePicker
                                 selected={this.state.startDate}
@@ -252,6 +244,19 @@ class CreateCourse extends Component {
                               />
                             </div>
                           </label>
+                          <label htmlFor="description">
+                            Additional Information
+                            <Quill>
+                              <ReactQuill
+                                placeholder="Add a description..."
+                                theme="snow"
+                                value={this.state.description}
+                                onChange={this.onDescriptionChange}
+                                modules={CreateCourse.modules}
+                                formats={CreateCourse.formats}
+                              />
+                            </Quill>
+                          </label>
                           <button
                             type="submit"
                             style={{ marginTop: '1rem', marginBottom: '6rem' }}
@@ -271,19 +276,19 @@ class CreateCourse extends Component {
             <Table bordered>
               <tbody>
                 <tr>
-                  <th>Title</th>
+                  <th>Department</th>
                   <td>{this.state.title}</td>
                 </tr>
                 <tr>
-                  <th>Course Code</th>
+                  <th>Owner(s)</th>
                   <td>{this.state.courseCode}</td>
                 </tr>
                 <tr>
-                  <th>Credits</th>
+                  <th>Extension</th>
                   <td>{this.state.credits}</td>
                 </tr>
                 <tr>
-                  <th>Course Time</th>
+                  <th>Office Hours</th>
                   <td>
                     {this.state.days !== '' &&
                       JSON.parse(this.state.days).map(day => (
@@ -322,7 +327,7 @@ class CreateCourse extends Component {
               </tbody>
             </Table>
             <div>
-              <h3>Course Description</h3>
+              <h3>Additional Information</h3>
               {ReactHtmlParser(this.state.description)}
             </div>
           </Col>

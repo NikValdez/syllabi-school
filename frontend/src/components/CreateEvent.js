@@ -132,9 +132,9 @@ class CreateEvent extends Component {
       <IsAdminTeacher>
         <Button
           onClick={this.handleOpenEvent}
-          style={{ float: 'right', marginTop: '2rem', marginBottom: '1rem' }}
+          style={{ marginTop: '2rem', marginBottom: '1rem' }}
         >
-          Create Assignment
+          Create Event
         </Button>
         <Mutation
           mutation={CREATE_EVENT_MUTATION}
@@ -219,7 +219,7 @@ class CreateEvent extends Component {
                   </label>
                   <label htmlFor="file">
                     <UploadButton>
-                      <button>Upload a File ⬆️</button>
+                      <button>Upload a File </button>
                       <input
                         type="file"
                         id="file"

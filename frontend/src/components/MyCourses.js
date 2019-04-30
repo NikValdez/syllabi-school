@@ -10,9 +10,9 @@ import './styles/Modal.css'
 import MyCoursesStyles from './styles/MyCoursesStyles'
 
 const List = styled.div`
-  margin-bottom: 2rem;
-  /* display: grid;
-  grid-template-columns: repeat(2, 1fr); */
+  margin-bottom: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 `
 
 const CURRENT_USER_QUERY_COURSES_EVENTS = gql`
@@ -77,7 +77,7 @@ class MyCourses extends Component {
   render() {
     return (
       <MyCoursesStyles>
-        <h3>Courses</h3>
+        <h3 style={{ marginBottom: '2rem' }}>Department</h3>
         <Query query={CURRENT_USER_QUERY_COURSES_EVENTS}>
           {({ data, error, loading }) => {
             if (loading) return <p />
@@ -85,60 +85,63 @@ class MyCourses extends Component {
             const courseData = data.me.myCourses.map(course => course)
 
             return courseData.map((course, i) => (
-              <List key={course.id}>
-                <h3>
+              <>
+                <List key={course.id}>
                   <DeleteMyCourse id={course.id} color={course.courses.color} />
+
                   <Link to={`/courses/${course.courses.id}`}>
-                    <h5>
-                      {course.courses.title} - {course.courses.courseCode}
+                    <h5 style={{ marginLeft: '-6rem' }}>
+                      {course.courses.title}
                     </h5>
                   </Link>
-                  {course.id === this.state.showSyllabus && (
-                    <span
-                      onClick={this.hideSyllabus.bind(this, (i = course.id))}
-                    >
-                      <i className="fas fa-minus" />
-                    </span>
-                  )}
-                  {course.id !== this.state.showSyllabus && (
-                    <span
-                      onClick={this.showSyllabus.bind(this, (i = course.id))}
-                    >
-                      <i className="fas fa-plus" />
-                    </span>
-                  )}
-                </h3>
+
+                  <div>
+                    {course.id === this.state.showSyllabus && (
+                      <span
+                        onClick={this.hideSyllabus.bind(this, (i = course.id))}
+                      >
+                        <i className="fas fa-minus" />
+                      </span>
+                    )}
+                    {course.id !== this.state.showSyllabus && (
+                      <span
+                        onClick={this.showSyllabus.bind(this, (i = course.id))}
+                      >
+                        <i className="fas fa-plus" />
+                      </span>
+                    )}
+                  </div>
+                </List>
                 {course.id === this.state.showSyllabus &&
                   (course.courses.days !== null &&
                     JSON.parse(course.courses.days).map(day => (
                       <div key={day} style={{ display: 'inline-block' }}>
                         <h6
                           style={{
-                            marginRight: '5px',
                             fontSize: '10px',
-                            color: '#a09e9e'
+                            color: '#a09e9e',
+                            marginLeft: '10px'
                           }}
                         >
                           {day.toUpperCase()}
                         </h6>
-                        <div style={{ display: 'inline-block' }}>
-                          <h6
-                            style={{
-                              marginRight: '5px',
-                              fontSize: '10px'
-                            }}
-                          >
-                            {moment(course.courses.startDate).format('LT')}
-                          </h6>
-                          <h6
-                            style={{
-                              marginRight: '5px',
-                              fontSize: '10px'
-                            }}
-                          >
-                            {moment(course.courses.endDate).format('LT')}
-                          </h6>
-                        </div>
+
+                        <h6
+                          style={{
+                            fontSize: '10px',
+                            marginLeft: '10px'
+                          }}
+                        >
+                          {moment(course.courses.startDate).format('LT')}
+                        </h6>
+                        <h6
+                          style={{
+                            fontSize: '10px',
+                            marginLeft: '10px'
+                          }}
+                        >
+                          {moment(course.courses.endDate).format('LT')}
+                        </h6>
                       </div>
                     )))}
 
@@ -149,7 +152,7 @@ class MyCourses extends Component {
                     institutionLogo={data.me.institution.logo}
                   />
                 )}
-              </List>
+              </>
             ))
           }}
         </Query>

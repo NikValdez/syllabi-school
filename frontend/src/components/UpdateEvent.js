@@ -139,9 +139,7 @@ class UpdateEvent extends Component {
         {({ data, loading }) => {
           if (loading) return <img src={Book} alt="Loading" />
           if (!data)
-            return (
-              <p>No Assignments Found For ID {this.props.match.params.id}</p>
-            )
+            return <p>No Events Found For ID {this.props.match.params.id}</p>
           return (
             <Mutation mutation={UPDATE_EVENT_MUTATION} variables={this.state}>
               {(updateEvent, { loading, error }) => (
@@ -166,7 +164,7 @@ class UpdateEvent extends Component {
                       />
                     </label>
                     <label htmlFor="start">
-                      <DatePick>Assignment Start</DatePick>
+                      <DatePick>Event Start</DatePick>
                       <DatePicker
                         selected={
                           moment(this.state.start).toDate() ||
@@ -178,7 +176,7 @@ class UpdateEvent extends Component {
                       />
                     </label>
                     <label htmlFor="end">
-                      <DatePick>Assignment End</DatePick>
+                      <DatePick>Event End</DatePick>
                       <DatePicker
                         selected={
                           moment(this.state.end).toDate() ||

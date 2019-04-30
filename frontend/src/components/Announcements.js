@@ -5,7 +5,6 @@ import { Mutation, Query } from 'react-apollo'
 import ReactHtmlParser from 'react-html-parser'
 import ReactModal from 'react-modal'
 import styled, { keyframes } from 'styled-components'
-import Megaphone from './styles/megaphone'
 import './styles/Modal.css'
 import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
 
@@ -129,7 +128,13 @@ class Announcements extends Component {
                     right: '4.5rem'
                   }}
                 >
-                  <Megaphone />
+                  <i
+                    className="far fa-flag"
+                    style={{
+                      color: '#ffffffa3',
+                      fontSize: '1.3em'
+                    }}
+                  />
                 </span>
               </div>
               <ReactModal

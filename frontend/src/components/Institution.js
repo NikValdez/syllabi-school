@@ -12,12 +12,18 @@ export default class Institution extends Component {
             if (loading) return <p>Loading...</p>
 
             return (
-              <h3 style={{ marginRight: '25px', fontSize: '18px' }}>
+              <h3
+                style={{
+                  marginRight: '25px',
+                  fontSize: '18px',
+                  fontWeight: '600'
+                }}
+              >
                 {data.me.institution.name}
                 <img
                   src={data.me.institution.logo}
                   alt="logo"
-                  style={{ width: '30px', marginLeft: '20px' }}
+                  style={{ width: '45px', marginLeft: '30px' }}
                 />
               </h3>
             )

@@ -1,7 +1,2 @@
-# endpoint: ${env:PRISMA_ENDPOINT}
-endpoint: https://syllabi-prod-677b416e2c.herokuapp.com/syllabi-prod/prod
+endpoint: https://us1.prisma.sh/nikvaldez-073802/SyllabiFilm/dev
 datamodel: datamodel.graphql
-secret: ${env:PRISMA_SECRET}
-hooks:
-  post-deploy:
-    - graphql get-schema -p prisma

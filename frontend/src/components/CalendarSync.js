@@ -150,7 +150,11 @@ export default class CalendarSync extends Component {
         <h4>Sync:</h4>
         <h4
           onClick={this.createIcal}
-          style={{ display: 'inline-block', cursor: 'pointer' }}
+          style={{
+            display: 'inline-block',
+            cursor: 'pointer',
+            marginBottom: '25px'
+          }}
         >
           <i className="far fa-calendar-alt" /> Apple
         </h4>
@@ -159,12 +163,13 @@ export default class CalendarSync extends Component {
           style={{
             display: 'inline-block',
             marginLeft: '10px',
+            marginBottom: '15px',
             cursor: 'pointer'
           }}
         >
           <i className="far fa-calendar-alt" /> Google
         </h4>
-        <h4
+        {/* <h4
           onClick={this.createOulookCal}
           style={{
             display: 'inline-block',
@@ -173,7 +178,7 @@ export default class CalendarSync extends Component {
           }}
         >
           <i className="far fa-calendar-alt" /> Outlook
-        </h4>
+        </h4> */}
 
         <Modal
           show={this.state.show}
