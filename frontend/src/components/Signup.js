@@ -85,7 +85,7 @@ class Signup extends Component {
                     <h2>Sign Up for An Account</h2>
                     <Error error={error} />
                     <label htmlFor="Institution">
-                      Institution
+                      Show
                       <Query query={INSTITUTIONS_QUERY}>
                         {({ data, error, loading }) => {
                           if (loading) return <p>Loading...</p>
