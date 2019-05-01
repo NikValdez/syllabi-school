@@ -85,8 +85,8 @@ class MyCourses extends Component {
             const courseData = data.me.myCourses.map(course => course)
 
             return courseData.map((course, i) => (
-              <>
-                <List key={course.id}>
+              <React.Fragment key={course.id}>
+                <List>
                   <DeleteMyCourse id={course.id} color={course.courses.color} />
 
                   <Link to={`/courses/${course.courses.id}`}>
@@ -152,7 +152,7 @@ class MyCourses extends Component {
                     institutionLogo={data.me.institution.logo}
                   />
                 )}
-              </>
+              </React.Fragment>
             ))
           }}
         </Query>

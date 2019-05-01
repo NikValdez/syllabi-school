@@ -84,7 +84,7 @@ class CreateCourse extends Component {
 
   onCreditsChange = e => {
     this.setState({
-      credits: parseInt(e.target.value)
+      credits: parseInt(e.target.value) || 0
     })
   }
 

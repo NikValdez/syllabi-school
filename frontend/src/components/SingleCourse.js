@@ -226,7 +226,7 @@ class SingleCourse extends Component {
                         {/* <td>{moment(start).format('MMM Do YYYY')}</td> */}
                         <td>
                           {upload && (
-                            <a href={upload}>
+                            <a href={upload} target="blank">
                               <div
                                 style={{
                                   position: 'relative',

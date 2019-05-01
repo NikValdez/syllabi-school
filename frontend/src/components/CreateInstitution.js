@@ -1,7 +1,6 @@
 import gql from 'graphql-tag'
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
-import Book from '../book.gif'
 import { UploadPreview } from './CreateEvent'
 import Error from './ErrorMessage'
 import IsAdminTeacher from './IsAdminTeacher'
@@ -89,13 +88,7 @@ class CreateInstitution extends Component {
                         onChange={this.uploadFile}
                       />
                     </UploadButton>
-                    {this.state.loading ? (
-                      <img
-                        src={Book}
-                        alt="Loading"
-                        style={{ width: '100px' }}
-                      />
-                    ) : null}
+                    {this.state.loading ? <p>Loading...</p> : null}
                     {this.state.logo && (
                       <UploadPreview>
                         <img

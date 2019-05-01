@@ -10,7 +10,6 @@ import ReactModal from 'react-modal'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import styled from 'styled-components'
-import Book from '../book.gif'
 import FilePlaceholder from '../images/filePlaceholder.png'
 import IsAdminTeacher from './IsAdminTeacher'
 import { SINGLE_COURSE_QUERY } from './SingleCourse'
@@ -228,13 +227,7 @@ class CreateEvent extends Component {
                         onChange={this.uploadFile}
                       />
                     </UploadButton>
-                    {this.state.loading ? (
-                      <img
-                        src={Book}
-                        alt="Loading"
-                        style={{ width: '100px' }}
-                      />
-                    ) : null}
+                    {this.state.loading ? <p>Loading...</p> : null}
                     {this.state.upload && (
                       <UploadPreview>
                         <a href={this.state.upload}>
