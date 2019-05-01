@@ -57,7 +57,7 @@ class CreateCourse extends Component {
   state = {
     title: '',
     description: '',
-    credits: 0,
+    credits: '',
     courseCode: '',
     image: '',
     color: '',

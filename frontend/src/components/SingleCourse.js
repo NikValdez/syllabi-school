@@ -248,15 +248,13 @@ class SingleCourse extends Component {
                             </a>
                           )}
                         </td>
-                        <td>
+                        <td
+                          style={{
+                            textAlign: 'center'
+                          }}
+                        >
                           <IsAdminTeacher>
-                            <span
-                              style={{
-                                position: 'absolute',
-                                top: '50',
-                                left: '50'
-                              }}
-                            >
+                            <span>
                               <DeleteEvent id={id} course={course.id} />
                             </span>
                           </IsAdminTeacher>

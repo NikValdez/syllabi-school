@@ -16,7 +16,8 @@ class Calendar extends Component {
     title: '',
     description: '',
     start: '',
-    end: ''
+    end: '',
+    upload: ''
   }
 
   handleClose = () => {
@@ -31,7 +32,8 @@ class Calendar extends Component {
       title: event.title,
       description: event.description,
       start: event.start,
-      end: event.end
+      end: event.end,
+      upload: event.upload
     })
   }
   render() {
@@ -89,12 +91,18 @@ class Calendar extends Component {
             <Modal.Title>{this.state.title}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            {ReactHtmlParser(this.state.description)}
-
-            <h5>
+            <h4>Description:</h4> {ReactHtmlParser(this.state.description)}
+            <h4>Upload:</h4>
+            <p>
+              <a href={this.state.upload} target="blank">
+                {this.state.title} -- upload
+              </a>
+            </p>
+            <h4>Dates:</h4>
+            <p>
               {moment(this.state.start).format('MMM Do YYYY')} -{' '}
               {moment(this.state.end).format('MMM Do YYYY')}
-            </h5>
+            </p>
           </Modal.Body>
         </Modal>
       </>
