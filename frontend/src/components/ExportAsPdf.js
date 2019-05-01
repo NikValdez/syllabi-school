@@ -229,7 +229,7 @@ class ExportAsPdf extends Component {
                             <td>{ReactHtmlParser(description)}</td>
                             <td>
                               {upload && (
-                                <a href={upload}>
+                                <a href={upload} target="blank">
                                   <div
                                     style={{
                                       position: 'relative',

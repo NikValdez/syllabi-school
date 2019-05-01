@@ -80,7 +80,7 @@ export class Schedule extends Component {
                       <td>{ReactHtmlParser(course.description)}</td>
                       <td>
                         {course.upload && (
-                          <a href={course.upload}>
+                          <a href={course.upload} target="blank">
                             <div
                               style={{
                                 position: 'relative',
