@@ -4,7 +4,6 @@ import { Query } from 'react-apollo'
 import { Table } from 'react-bootstrap'
 import ReactHtmlParser from 'react-html-parser'
 import styled from 'styled-components'
-import Book from '../book.gif'
 import FilePlaceholder from '../images/filePlaceholder.png'
 import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
 import TextExtension from './styles/TextExtension'
@@ -23,7 +22,7 @@ export class Schedule extends Component {
     return (
       <Query query={CURRENT_USER_QUERY_COURSES_EVENTS}>
         {({ data, error, loading }) => {
-          if (loading) return <img src={Book} alt="Loading" />
+          if (loading) return <p>Loading...</p>
           if (error) return <p>Error : {error.message}</p>
           const courseData = data.me.myCourses.map(
             course => course.courses.events

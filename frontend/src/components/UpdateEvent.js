@@ -7,7 +7,6 @@ import { Mutation, Query } from 'react-apollo'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import styled from 'styled-components'
-import Book from '../book.gif'
 import Form from './styles/Form'
 import UploadButton from './styles/UploadButton'
 
@@ -137,7 +136,7 @@ class UpdateEvent extends Component {
         }}
       >
         {({ data, loading }) => {
-          if (loading) return <img src={Book} alt="Loading" />
+          if (loading) return <p>Loading...</p>
           if (!data)
             return <p>No Events Found For ID {this.props.match.params.id}</p>
           return (
@@ -204,7 +203,7 @@ class UpdateEvent extends Component {
                     </label>
                     <label htmlFor="file">
                       <UploadButton>
-                        <button>Upload a File ⬆️</button>
+                        <button>Upload a File</button>
                         <input
                           type="file"
                           id="file"
@@ -213,13 +212,7 @@ class UpdateEvent extends Component {
                           onChange={this.uploadFile}
                         />
                       </UploadButton>
-                      {this.state.loading ? (
-                        <img
-                          src={Book}
-                          alt="Loading"
-                          style={{ width: '100px' }}
-                        />
-                      ) : null}
+                      {this.state.loading ? <p>Loading...</p> : null}
                       {this.state.upload && (
                         <UploadPreview>
                           <a href={this.state.upload}>

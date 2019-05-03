@@ -2,7 +2,6 @@ import gql from 'graphql-tag'
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import styled from 'styled-components'
-import Book from '../book.gif'
 import DeleteNote from './DeleteNote'
 
 const NotesStyles = styled.div`
@@ -32,7 +31,7 @@ class Notes extends Component {
       <NotesStyles>
         <Query query={NOTES_QUERY}>
           {({ data, error, loading }) => {
-            if (loading) return <img src={Book} alt="Loading" />
+            if (loading) return <p>Loading...</p>
             if (error) return <p>Error : {error.message}</p>
             const notes = data.me.notes.map(note => note)
 

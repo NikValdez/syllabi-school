@@ -65,5 +65,12 @@
 }
 
 #dropdown-items {
-  width: 11rem;
+  width: 25vw;
+}
+#dropdown-basic {
+  padding-bottom: 5px;
+}
+
+#dropdown-items a {
+  padding-left: 5px !important;
 }

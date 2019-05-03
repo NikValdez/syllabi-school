@@ -92,7 +92,10 @@ class createAnnouncement extends Component {
   render() {
     return (
       <IsAdminTeacher>
-        <Button onClick={this.handleOpenAnnouncement}>
+        <Button
+          onClick={this.handleOpenAnnouncement}
+          style={{ marginBottom: '20px', marginTop: '20px' }}
+        >
           Create Announcement
         </Button>
         <Mutation
@@ -162,10 +165,7 @@ class createAnnouncement extends Component {
                     )}
                   </label>
 
-                  <button
-                    type="submit"
-                    disabled={this.state.loading || this.state.error}
-                  >
+                  <button type="submit" disabled={this.state.loading}>
                     Submit
                   </button>
                 </fieldset>

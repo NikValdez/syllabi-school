@@ -5,7 +5,6 @@ import React, { Component } from 'react'
 import { Mutation, Query } from 'react-apollo'
 import DatePicker from 'react-datepicker'
 import Select from 'react-select'
-import Book from '../book.gif'
 import { ALL_COURSES_QUERY } from './Courses'
 import Form from './styles/Form'
 
@@ -114,7 +113,7 @@ class UpdateCourse extends Component {
         }}
       >
         {({ data, loading }) => {
-          if (loading) return <img src={Book} alt="Loading" />
+          if (loading) return <p>Loading...</p>
           if (!data.course)
             return <p>No Course Found For ID {this.props.match.params.id}</p>
           return (

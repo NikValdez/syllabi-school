@@ -5,7 +5,6 @@ import React, { Component } from 'react'
 import { ApolloConsumer } from 'react-apollo'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import Book from '../book.gif'
 import AddCourse from './AddCourse'
 import { DropDown, DropDownItem, SearchStyles } from './styles/DropDown'
 
@@ -64,11 +63,7 @@ class Search extends Component {
                       type: 'search',
                       placeholder: 'Search Department...',
                       id: 'search',
-                      className: this.state.loading ? (
-                        <img src={Book} alt="Loading" />
-                      ) : (
-                        ''
-                      ),
+                      className: this.state.loading ? <p>Loading...</p> : '',
                       onChange: e => {
                         e.persist()
                         this.onChange(e, client)

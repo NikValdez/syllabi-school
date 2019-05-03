@@ -2,7 +2,6 @@ import gql from 'graphql-tag'
 import PropTypes from 'prop-types'
 import React from 'react'
 import { Mutation, Query } from 'react-apollo'
-import Book from '../book.gif'
 import Error from './ErrorMessage'
 import Button from './styles/Button'
 import Container from './styles/Container'
@@ -35,7 +34,7 @@ const ALL_USERS_QUERY = gql`
 const Permissions = props => (
   <Query query={ALL_USERS_QUERY}>
     {({ data, loading, error }) => {
-      if (loading) return <img src={Book} alt="Loading" />
+      if (loading) return <p>Loading...</p>
       return (
         <Container>
           <Error error={error} />

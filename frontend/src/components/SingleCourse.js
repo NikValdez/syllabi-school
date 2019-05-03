@@ -108,6 +108,11 @@ class SingleCourse extends Component {
           if (!data.course)
             return <p>No Department Found for {this.state.id}</p>
           const course = data.course
+          //sort events by date
+          const eventsByDate = course.events.sort(function(a, b) {
+            return new Date(a.end) - new Date(b.end)
+          })
+
           const email = data.course.myCourse.map(address => address.user.email)
 
           return (
@@ -204,7 +209,7 @@ class SingleCourse extends Component {
                   </tr>
                 </thead>
 
-                {course.events.map(
+                {eventsByDate.map(
                   ({ title, description, start, end, id, upload }) => (
                     <tbody key={id}>
                       <tr>
