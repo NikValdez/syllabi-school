@@ -28,6 +28,7 @@ class NewNav extends Component {
           const me = data ? data.me : null
           return (
             <NavStyles>
+              <Announcements />
               <>
                 <Dropdown onToggle={this.toggle}>
                   <Dropdown.Toggle id="dropdown-basic">
@@ -50,8 +51,6 @@ class NewNav extends Component {
                     </Dropdown.Menu>
                   </Dropdown.Toggle>
                 </Dropdown>
-
-                <Announcements />
               </>
 
               {!me && (

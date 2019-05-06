@@ -7,6 +7,7 @@ import ReactModal from 'react-modal'
 import styled, { keyframes } from 'styled-components'
 import './styles/Modal.css'
 import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
+import { Dropdown } from 'react-bootstrap'
 
 const stretch = keyframes`
   0% {
@@ -34,7 +35,10 @@ const Alert = styled.div`
   animation-fill-mode: none;
   animation-play-state: running;
   font-size: 30px;
-  padding-left: 15px;
+  .element {
+    margin-bottom: 20px;
+  }
+
   box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
 `
 
@@ -66,27 +70,13 @@ const UPDATE_ANNOUNCEMENT_MUTATION = gql`
 
 class Announcements extends Component {
   state = {
-    showModal: false
+    // showModal: false,
+    isOpen: false
   }
 
-  handleOpenAnnouncement = () => {
-    this.setState({ showModal: true })
-  }
-
-  handleCloseModal = () => {
-    this.setState({ showModal: false })
-  }
-
-  showDropdownMenu = e => {
-    e.preventDefault()
-    this.setState({ displayMenu: true }, () => {
-      document.addEventListener('click', this.hideDropdownMenu)
-    })
-  }
-
-  hideDropdownMenu = () => {
-    this.setState({ displayMenu: false }, () => {
-      document.removeEventListener('click', this.hideDropdownMenu)
+  toggle = () => {
+    this.setState({
+      isOpen: !this.state.isOpen
     })
   }
 
@@ -117,110 +107,109 @@ class Announcements extends Component {
 
           return (
             <div>
-              <div onClick={this.handleOpenAnnouncement}>
-                {count.length > 0 && (
-                  <Alert className="element">{count.length} </Alert>
-                )}
-                <span
-                  style={{
-                    position: 'absolute',
-                    top: '0.5rem',
-                    right: '4.5rem'
-                  }}
-                >
+              {/* {count.length > 0 && (
+                    <Alert className="element">{count.length} </Alert>
+                  )} */}
+              <Dropdown onToggle={this.toggle}>
+                <Dropdown.Toggle id="dropdown-annonucements">
                   <i
                     className="far fa-flag"
                     style={{
-                      color: '#ffffffa3',
-                      fontSize: '1.3em'
+                      color: count.length > 0 ? '#ec38bc' : '#ffffffa3',
+                      fontSize: count.length > 0 ? '1.5em' : '1.3em',
+                      marginBottom: '1.5rem',
+                      marginRight: '3rem'
                     }}
                   />
-                </span>
-              </div>
-              <ReactModal
-                isOpen={this.state.showModal}
-                contentLabel="modal"
-                overlayClassName="Overlay"
-                onRequestClose={this.handleCloseModal}
-                shouldCloseOnOverlayClick={true}
-                className="announcement-modal"
-              >
-                <>
-                  {announcements.length < 1 ? (
-                    <p style={{ background: '#fffcdf' }}>
-                      No Announcements Currently
-                    </p>
-                  ) : (
-                    <TableStyles style={{ border: '1px solid black' }}>
-                      <tbody style={{ background: 'black' }}>
-                        <tr>
-                          <ThStyles style={{ color: 'white' }}>Date</ThStyles>
-                          <ThStyles style={{ color: 'white' }}>
-                            Announcement
-                          </ThStyles>
-                          <ThStyles style={{ color: 'white' }}>Seen</ThStyles>
-                        </tr>
 
-                        {announcements.map(
-                          ({ text, date, id, clicked, course }) => (
-                            <Mutation
-                              mutation={UPDATE_ANNOUNCEMENT_MUTATION}
-                              variables={{
-                                id: id,
-                                clicked: false
-                              }}
-                              key={id}
-                            >
-                              {(updateAnnouncement, { loading, error }) => (
-                                <TrStyles key={id}>
-                                  <TdStyles style={{ color: 'white' }}>
-                                    {moment(date).format('MMM Do YYYY')}
-                                  </TdStyles>
-                                  <TdStyles
-                                    style={{
-                                      color: 'black',
-                                      background: course.color
-                                    }}
-                                  >
-                                    {ReactHtmlParser(text)}
-                                  </TdStyles>
+                  <Dropdown.Menu id="dropdown-announcement-items">
+                    <>
+                      {announcements.length < 1 ? (
+                        <p style={{ background: '#fffcdf' }}>
+                          No Announcements Currently
+                        </p>
+                      ) : (
+                        <TableStyles style={{ border: '1px solid black' }}>
+                          <tbody style={{ background: 'black' }}>
+                            <tr>
+                              <ThStyles style={{ color: 'white' }}>
+                                Date
+                              </ThStyles>
+                              <ThStyles style={{ color: 'white' }}>
+                                Announcement
+                              </ThStyles>
+                              <ThStyles style={{ color: 'white' }}>
+                                Seen
+                              </ThStyles>
+                            </tr>
 
-                                  <TdStyles style={{ color: 'white' }}>
-                                    <div
-                                      onClick={() => {
-                                        updateAnnouncement()
-                                      }}
-                                    >
-                                      {clicked ? (
-                                        <span
-                                          role="img"
-                                          style={{
-                                            marginLeft: '10px'
+                            {announcements.map(
+                              ({ text, date, id, clicked, course }) => (
+                                <Mutation
+                                  mutation={UPDATE_ANNOUNCEMENT_MUTATION}
+                                  variables={{
+                                    id: id,
+                                    clicked: false
+                                  }}
+                                  key={id}
+                                >
+                                  {(updateAnnouncement, { loading, error }) => (
+                                    <TrStyles key={id}>
+                                      <TdStyles
+                                        style={{
+                                          color: course.color,
+                                          marginBottom: '1rem'
+                                        }}
+                                      >
+                                        {moment(date).format('MMM Do YYYY')}
+                                      </TdStyles>
+                                      <TdStyles
+                                        style={{
+                                          color: 'white'
+                                          // background: course.color
+                                        }}
+                                      >
+                                        {ReactHtmlParser(text)}
+                                      </TdStyles>
+
+                                      <TdStyles style={{ color: 'white' }}>
+                                        <div
+                                          onClick={() => {
+                                            updateAnnouncement()
                                           }}
                                         >
-                                          ❌
-                                        </span>
-                                      ) : (
-                                        <span
-                                          style={{
-                                            marginLeft: '10px'
-                                          }}
-                                        >
-                                          ☑️
-                                        </span>
-                                      )}
-                                    </div>
-                                  </TdStyles>
-                                </TrStyles>
-                              )}
-                            </Mutation>
-                          )
-                        )}
-                      </tbody>
-                    </TableStyles>
-                  )}
-                </>
-              </ReactModal>
+                                          {clicked ? (
+                                            <span
+                                              role="img"
+                                              style={{
+                                                marginLeft: '10px'
+                                              }}
+                                            >
+                                              ❌
+                                            </span>
+                                          ) : (
+                                            <span
+                                              style={{
+                                                marginLeft: '10px'
+                                              }}
+                                            >
+                                              ☑️
+                                            </span>
+                                          )}
+                                        </div>
+                                      </TdStyles>
+                                    </TrStyles>
+                                  )}
+                                </Mutation>
+                              )
+                            )}
+                          </tbody>
+                        </TableStyles>
+                      )}
+                    </>
+                  </Dropdown.Menu>
+                </Dropdown.Toggle>
+              </Dropdown>
             </div>
           )
         }}
