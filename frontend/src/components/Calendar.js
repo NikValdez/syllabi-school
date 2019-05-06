@@ -95,7 +95,8 @@ class Calendar extends Component {
             <h4>Upload:</h4>
             <p>
               <a href={this.state.upload} target="blank">
-                {this.state.title} -- upload
+                {this.state.title}{' '}
+                <i class="fas fa-link" style={{ marginLeft: '10px' }} />
               </a>
             </p>
             <h4>Dates:</h4>

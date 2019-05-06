@@ -51,7 +51,7 @@ const NavStyles = styled.ul`
     padding-top: 10px;
   }
   #dropdown-basic {
-    padding-top: 10px;
+    /* padding-top: 10px; */
     margin-right: 7rem;
     border-radius: 0;
     padding-bottom: 10px;

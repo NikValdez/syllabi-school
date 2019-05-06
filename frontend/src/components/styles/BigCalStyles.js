@@ -49,6 +49,7 @@ const BigCalStyles = styled.div`
   }
   .rbc-toolbar-label {
     font-size: 17px;
+    margin-left: -85px;
   }
   .rbc-toolbar {
     background: transparent;

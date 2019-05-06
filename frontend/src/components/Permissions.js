@@ -48,7 +48,7 @@ const Permissions = props => (
                 {possiblePermissions.map(permission => (
                   <ThStyles key={permission}>{permission}</ThStyles>
                 ))}
-                <ThStyles>👇</ThStyles>
+                <ThStyles>Save Update</ThStyles>
               </TrStyles>
             </thead>
             <tbody>
@@ -57,7 +57,7 @@ const Permissions = props => (
               ))}
             </tbody>
           </TableStyles>
-          <div style={{ marginBottom: '20rem' }} />
+          <div style={{ marginBottom: '30rem' }} />
         </Container>
       )
     }}

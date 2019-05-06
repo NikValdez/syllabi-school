@@ -124,7 +124,7 @@ class Announcements extends Component {
                 <span
                   style={{
                     position: 'absolute',
-                    top: '0.75rem',
+                    top: '0.5rem',
                     right: '4.5rem'
                   }}
                 >

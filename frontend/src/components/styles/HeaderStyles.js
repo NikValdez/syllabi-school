@@ -6,8 +6,8 @@ const StyledHeader = styled.header`
   .bar {
     background: black;
     padding: 0 30px;
-    height: 40px;
-    width: 101vw;
+    height: 35px;
+    width: 100vw;
   }
   .bar-2 {
     background: #03001e; /* fallback for old browsers */
@@ -36,6 +36,7 @@ const StyledHeader = styled.header`
   }
   h3 {
     color: white;
+    margin-top: 10px;
   }
   .logo {
     color: white;
@@ -52,7 +53,7 @@ const StyledHeader = styled.header`
   }
 
   .nav-item {
-    padding-top: 10px;
+    /* padding-top: 10px; */
     margin-top: 5px;
   }
 `
