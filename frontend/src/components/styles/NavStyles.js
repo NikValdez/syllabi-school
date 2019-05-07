@@ -52,7 +52,6 @@ const NavStyles = styled.ul`
   }
   #dropdown-basic {
     /* padding-top: 10px; */
-    margin-right: 7rem;
     border-radius: 0;
     padding-bottom: 10px;
   }
@@ -69,7 +68,7 @@ const NavStyles = styled.ul`
     /* width: 15rem; */
     width: 30vw;
     top: -20px !important;
-    margin-right: 16rem;
+    margin-right: 23rem;
   }
   #dropdown-items {
     width: 30vw;

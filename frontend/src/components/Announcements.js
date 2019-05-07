@@ -118,7 +118,7 @@ class Announcements extends Component {
                       color: count.length > 0 ? '#ec38bc' : '#ffffffa3',
                       fontSize: count.length > 0 ? '1.5em' : '1.3em',
                       marginBottom: '1.5rem',
-                      marginRight: '3rem'
+                      marginRight: '1rem'
                     }}
                   />
 
