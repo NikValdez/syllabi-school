@@ -15,7 +15,6 @@ const stretch = keyframes`
     background-color: black;
     border-radius: 100%;
   }
-
    100% {
     transform: scale(.5);
     background-color: #fffcdf;
@@ -38,7 +37,6 @@ const Alert = styled.div`
   .element {
     margin-bottom: 20px;
   }
-
   box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
 `
 
@@ -115,7 +113,7 @@ class Announcements extends Component {
                   <i
                     className="far fa-flag"
                     style={{
-                      color: count.length > 0 ? '#ec38bc' : '#ffffffa3',
+                      color: count.length > 0 ? '#73c8a9' : '#ffffffa3',
                       fontSize: count.length > 0 ? '1.5em' : '1.3em',
                       marginBottom: '1.5rem',
                       marginRight: '1rem'
@@ -132,13 +130,19 @@ class Announcements extends Component {
                         <TableStyles style={{ border: '1px solid black' }}>
                           <tbody style={{ background: 'black' }}>
                             <tr>
-                              <ThStyles style={{ color: 'white' }}>
+                              <ThStyles
+                                style={{ color: 'white', textAlign: 'left' }}
+                              >
                                 Date
                               </ThStyles>
-                              <ThStyles style={{ color: 'white' }}>
+                              <ThStyles
+                                style={{ color: 'white', textAlign: 'left' }}
+                              >
                                 Announcement
                               </ThStyles>
-                              <ThStyles style={{ color: 'white' }}>
+                              <ThStyles
+                                style={{ color: 'white', textAlign: 'left' }}
+                              >
                                 Seen
                               </ThStyles>
                             </tr>
@@ -154,14 +158,16 @@ class Announcements extends Component {
                                   key={id}
                                 >
                                   {(updateAnnouncement, { loading, error }) => (
-                                    <TrStyles key={id}>
+                                    <tr key={id}>
                                       <TdStyles
                                         style={{
                                           color: course.color,
                                           marginBottom: '1rem'
                                         }}
                                       >
-                                        {moment(date).format('MMM Do YYYY')}
+                                        <p>
+                                          {moment(date).format('MMM Do YYYY')}
+                                        </p>
                                       </TdStyles>
                                       <TdStyles
                                         style={{
@@ -179,26 +185,17 @@ class Announcements extends Component {
                                           }}
                                         >
                                           {clicked ? (
-                                            <span
-                                              role="img"
-                                              style={{
-                                                marginLeft: '10px'
-                                              }}
-                                            >
-                                              ❌
+                                            <span role="img">
+                                              <p>❌</p>
                                             </span>
                                           ) : (
-                                            <span
-                                              style={{
-                                                marginLeft: '10px'
-                                              }}
-                                            >
-                                              ☑️
+                                            <span>
+                                              <p>☑️</p>
                                             </span>
                                           )}
                                         </div>
                                       </TdStyles>
-                                    </TrStyles>
+                                    </tr>
                                   )}
                                 </Mutation>
                               )

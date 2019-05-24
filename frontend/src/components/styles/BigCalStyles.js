@@ -37,7 +37,6 @@ const BigCalStyles = styled.div`
   .rbc-show-more {
     color: #f9c321ab;
   }
-
   .rbc-event {
     color: black;
     border-radius: 0;
@@ -60,7 +59,7 @@ const BigCalStyles = styled.div`
       color: white;
       border: none;
       position: absolute;
-      right: 5px;
+      right: 10px;
       &:before {
         content: url(${right});
         width: 50%;
@@ -68,31 +67,33 @@ const BigCalStyles = styled.div`
     }
     button:nth-child(2) {
       //back
-      color: white;
+      color: transparent;
       border: none;
+      position: relative;
+      float: left;
       &:before {
         content: url(${left});
+        width: 50%;
       }
     }
     button:first-child:not(:last-child) {
       display: none;
     }
-
     button:hover {
-      background: white;
+      background: transparent;
       color: white;
       border: none;
     }
     button:active {
-      background: white;
-      color: white;
+      background: transparent;
+      color: transparent;
       border: none;
       outline: none;
       box-shadow: none;
     }
     button:focus {
-      background: white;
-      color: white;
+      background: transparent;
+      color: transparent;
       border: none;
       outline: none;
       box-shadow: none;

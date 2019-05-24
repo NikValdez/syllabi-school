@@ -18,6 +18,9 @@ export const TdStyles = styled.td`
     font-size: 14px;
     margin-left: 10px;
   }
+  p {
+    margin-top: 1rem;
+  }
 `
 export const ThStyles = styled.th`
   border: 1px solid black;

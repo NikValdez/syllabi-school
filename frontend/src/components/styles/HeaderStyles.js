@@ -10,20 +10,17 @@ const StyledHeader = styled.header`
     width: 100vw;
   }
   .bar-2 {
-    background: #03001e; /* fallback for old browsers */
+    background: #73c8a9; /* fallback for old browsers */
     background: -webkit-linear-gradient(
       to right,
-      #ec38bc,
-      #7303c0,
-      #03001e
+      #373b44,
+      #73c8a9
     ); /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(
       to right,
-      #ec38bc,
-      #7303c0,
-      #03001e
+      #373b44,
+      #73c8a9
     ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
     padding: 0 30px;
     height: 70px;
     width: 101vw;
@@ -43,7 +40,6 @@ const StyledHeader = styled.header`
     text-decoration: none;
     font-weight: 700;
     font-size: 18px;
-
     &:hover {
       color: #fffcdf;
     }
@@ -51,7 +47,6 @@ const StyledHeader = styled.header`
   .d-flex justify-content-between {
     height: 40px;
   }
-
   .nav-item {
     /* padding-top: 10px; */
     margin-top: 5px;
