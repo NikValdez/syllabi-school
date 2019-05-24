@@ -2,4 +2,4 @@
 #endpoint: https://syllabi-film-5d37718e6a.herokuapp.com/syllabi-film-back/prod
 endpoint: https://syllabi-film-prod-57484b841b.herokuapp.com/syllabi-film-prod/prod
 datamodel: datamodel.graphql
-# secret: ${env:PRISMA_SECRET}
+secret: ${env:PRISMA_SECRET}
