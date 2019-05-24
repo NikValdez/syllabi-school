@@ -29,7 +29,9 @@ export class DeleteCourse extends Component {
           <Button
             onClick={() => {
               if (
-                window.confirm('Are you sure you want to delete this Course?')
+                window.confirm(
+                  'Are you sure you want to delete this Department?'
+                )
               ) {
                 deleteCourse()
                   .then(() => this.props.history.push('/'))

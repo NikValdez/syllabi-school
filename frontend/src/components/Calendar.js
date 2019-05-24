@@ -78,8 +78,7 @@ class Calendar extends Component {
             height: '40%',
             width: '40%',
             top: '50%',
-            left: ' 50%',
-            overflow: 'hidden'
+            left: ' 50%'
           }}
         >
           <Modal.Header
@@ -90,7 +89,11 @@ class Calendar extends Component {
           >
             <Modal.Title>{this.state.title}</Modal.Title>
           </Modal.Header>
-          <Modal.Body>
+          <Modal.Body
+            style={{
+              width: '35%'
+            }}
+          >
             <h4>Description:</h4> {ReactHtmlParser(this.state.description)}
             <h4>Upload:</h4>
             <p>

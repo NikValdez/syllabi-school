@@ -189,7 +189,7 @@ class CreateCourse extends Component {
                               type="text"
                               id="credits"
                               name="credits"
-                              placeholder="Credits"
+                              placeholder="Extension #"
                               required
                               value={this.state.credits}
                               onChange={this.onCreditsChange}
@@ -225,7 +225,7 @@ class CreateCourse extends Component {
                                 timeIntervals={15}
                                 dateFormat="h:mm aa"
                                 timeCaption="Time"
-                                placeholderText="Class starts"
+                                placeholderText="Start"
                               />
                             </div>
                             <div>
@@ -240,7 +240,7 @@ class CreateCourse extends Component {
                                 startDate={this.state.startDate}
                                 endDate={this.state.endDate}
                                 onChange={this.handleEndDateChange}
-                                placeholderText="Class ends"
+                                placeholderText="End"
                               />
                             </div>
                           </label>

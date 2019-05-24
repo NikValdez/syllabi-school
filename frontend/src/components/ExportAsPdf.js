@@ -76,7 +76,7 @@ class ExportAsPdf extends Component {
       tableWidth: 300
     })
     pdf.setFontSize(13)
-    pdf.text(40, 300, 'Course Calendar')
+    pdf.text(40, 300, 'Calendar')
     pdf.autoTable({
       styles: { fillColor: '#fff' },
       theme: 'grid',
