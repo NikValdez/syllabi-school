@@ -188,7 +188,7 @@ class CreateEvent extends Component {
                     />
                   </label>
                   <label htmlFor="start">
-                    <DatePick>Assignment Start</DatePick>
+                    <DatePick>Event Start</DatePick>
                     <DatePicker
                       selected={this.state.start}
                       onChange={this.handleStartDateChange}
@@ -196,7 +196,7 @@ class CreateEvent extends Component {
                     />
                   </label>
                   <label htmlFor="end">
-                    <DatePick>Assignment End</DatePick>
+                    <DatePick>Event End</DatePick>
                     <DatePicker
                       selected={this.state.end}
                       onChange={this.handleEndDateChange}
@@ -241,7 +241,7 @@ class CreateEvent extends Component {
                     disabled={this.state.loading}
                     style={{ marginBottom: '5px', marginRight: '10px' }}
                   >
-                    Add Assignment
+                    Add Event
                   </button>
                   <button
                     onClick={async e => {
