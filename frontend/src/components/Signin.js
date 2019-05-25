@@ -34,10 +34,9 @@ class Signin extends Component {
         {(signin, { error, loading }) => (
           <>
             <Col className="col-12 login-page">
-              <Card>
-                <Card.Header>Account</Card.Header>
+              <Card className="section">
                 <Form
-                  className="login-form"
+                  className="login-form container"
                   method="post"
                   onSubmit={async e => {
                     e.preventDefault()
@@ -46,55 +45,53 @@ class Signin extends Component {
                   }}
                 >
                   <fieldset disabled={loading} aria-busy={loading}>
-                    <h2>Sign In</h2>
+                    <h1 class="title is-spaced">Account</h1>
+                    <p className="has-text-right">
+                      <Link to="/signup" className="">
+                        Need an account? Sign Up
+                      </Link>
+                    </p>
+
                     <Error error={error} />
-                    <label htmlFor="email">
-                      Email
-                      <input
-                        type="email"
-                        name="email"
-                        placeholder="email"
-                        value={this.state.email}
-                        onChange={this.saveToState}
-                      />
-                    </label>
 
-                    <label htmlFor="password">
-                      Password
-                      <input
-                        type="password"
-                        name="password"
-                        placeholder="password"
-                        value={this.state.password}
-                        onChange={this.saveToState}
-                      />
-                    </label>
+                    <div className="field">
+                      <label className="label" htmlFor="email">
+                        Email
+                        <input
+                          className="input"
+                          type="email"
+                          name="email"
+                          placeholder="email"
+                          value={this.state.email}
+                          onChange={this.saveToState}
+                        />
+                      </label>
+                    </div>
 
-                    <button type="submit">Sign In!</button>
+                    <div className="field">
+                      <label className="label" htmlFor="password">
+                        Password
+                        <input
+                          className="input"
+                          type="password"
+                          name="password"
+                          placeholder="password"
+                          value={this.state.password}
+                          onChange={this.saveToState}
+                        />
+                      </label>
+
+                      <p className="has-text-right">
+                        <Link to="/request_reset">
+                          Forgot Password?
+                        </Link>
+                      </p>
+                    </div>
+
+                    <div className="field">
+                      <button className="button is-fullwidth is-medium is-black" type="submit">Sign In</button>
+                    </div>
                   </fieldset>
-                  <Link to="/signup" style={{ textDecoration: 'none' }}>
-                    <button
-                      style={{
-                        width: '80%',
-                        margin: '0 auto',
-                        marginTop: '10px'
-                      }}
-                    >
-                      Sign Up
-                    </button>
-                  </Link>
-                  <Link to="/request_reset" style={{ textDecoration: 'none' }}>
-                    <button
-                      style={{
-                        width: '70%',
-                        margin: '0 auto',
-                        marginTop: '10px',
-                        textDecoration: 'none'
-                      }}
-                    >
-                      Forgot Password?
-                    </button>
-                  </Link>
                 </Form>
               </Card>
             </Col>
