@@ -6,15 +6,7 @@ import Error from './ErrorMessage'
 import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
 
 const AddButton = styled.button`
-  justify-self: end;
-  background: black;
-  color: white;
-  cursor: pointer;
-  padding: 10px 15px 7px;
-  &:hover {
-    color: black;
-    background: #fffcdf;
-  }
+
 `
 
 const ADD_COURSE_MUTATION = gql`
