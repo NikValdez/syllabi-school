@@ -122,122 +122,124 @@ class UpdateCourse extends Component {
               refetchQueries={[{ query: ALL_COURSES_QUERY }]}
             >
               {(updateCourse, { loading, error }) => (
-                <form
-                  onSubmit={e =>
-                    this.updateCourse(e, updateCourse).catch(err => {
-                      alert(err.message)
-                    })
-                  }
-                >
-                  <fieldset disabled={loading} aria-busy={loading}>
-                    <label htmlFor="title">
-                      Title
-                      <input
-                        type="text"
-                        id="title"
-                        name="title"
-                        placeholder="title"
-                        required
-                        defaultValue={data.course.title}
-                        onChange={this.handleChange}
-                      />
-                    </label>
-                    <label htmlFor="courseCode">
-                      Owner(s)
-                      <input
-                        type="text"
-                        id="courseCode"
-                        name="courseCode"
-                        placeholder="Course Code"
-                        required
-                        defaultValue={data.course.courseCode}
-                        onChange={this.handleChange}
-                      />
-                    </label>
-                    <label htmlFor="credits">
-                      Extension
-                      <input
-                        type="text"
-                        id="credits"
-                        name="credits"
-                        placeholder="Credits"
-                        required
-                        defaultValue={data.course.credits}
-                        onChange={this.handleChange}
-                      />
-                    </label>
-                    <label htmlFor="description">
-                      Additional Information
-                      <textarea
-                        type="text"
-                        id="description"
-                        name="description"
-                        placeholder="description"
-                        required
-                        defaultValue={htmlToText.fromString(
-                          data.course.description
-                        )}
-                        onChange={this.handleChange}
-                      />
-                    </label>
-                    <label htmlFor="ClassTime">
-                      Office Days
-                      <Select
-                        onChange={this.handleSelectionChange}
-                        options={options}
-                        isMulti
-                        theme={theme => ({
-                          ...theme,
-                          borderRadius: 0,
-                          colors: {
-                            ...theme.colors,
-                            primary25: '#fffcdf',
-                            primary: 'black'
-                          }
-                        })}
-                      />
-                    </label>
-                    <label htmlFor="DateTime">
-                      Office Hours
-                      <div>
-                        <DatePicker
-                          selected={
-                            this.state.startDate ||
-                            moment(data.course.startDate).toDate()
-                          }
-                          onChange={this.handleStartDateChange}
-                          showTimeSelect
-                          showTimeSelectOnly
-                          timeIntervals={15}
-                          dateFormat="h:mm aa"
-                          timeCaption="Time"
-                          placeholderText="Class starts"
-                          openToDate={moment(data.course.startDate).toDate()}
+                <section className="container py-m">
+                  <form
+                    onSubmit={e =>
+                      this.updateCourse(e, updateCourse).catch(err => {
+                        alert(err.message)
+                      })
+                    }
+                  >
+                    <fieldset disabled={loading} aria-busy={loading}>
+                      <label htmlFor="title">
+                        Title
+                        <input
+                          type="text"
+                          id="title"
+                          name="title"
+                          placeholder="title"
+                          required
+                          defaultValue={data.course.title}
+                          onChange={this.handleChange}
                         />
-                      </div>
-                      <div>
-                        <DatePicker
-                          selected={
-                            this.state.endDate ||
-                            moment(data.course.endtDate).toDate()
-                          }
-                          showTimeSelect
-                          showTimeSelectOnly
-                          selectsEnd
-                          timeIntervals={15}
-                          dateFormat="h:mm aa"
-                          timeCaption="Time"
-                          startDate={this.state.startDate}
-                          endDate={this.state.endDate}
-                          onChange={this.handleEndDateChange}
-                          placeholderText="Class ends"
-                          openToDate={moment(data.course.endDate).toDate()}
+                      </label>
+                      <label htmlFor="courseCode">
+                        Owner(s)
+                        <input
+                          type="text"
+                          id="courseCode"
+                          name="courseCode"
+                          placeholder="Course Code"
+                          required
+                          defaultValue={data.course.courseCode}
+                          onChange={this.handleChange}
                         />
-                      </div>
-                    </label>
-                    <button type="submit">Save Changes</button>
-                  </fieldset>
-                </form>
+                      </label>
+                      <label htmlFor="credits">
+                        Extension
+                        <input
+                          type="text"
+                          id="credits"
+                          name="credits"
+                          placeholder="Credits"
+                          required
+                          defaultValue={data.course.credits}
+                          onChange={this.handleChange}
+                        />
+                      </label>
+                      <label htmlFor="description">
+                        Additional Information
+                        <textarea
+                          type="text"
+                          id="description"
+                          name="description"
+                          placeholder="description"
+                          required
+                          defaultValue={htmlToText.fromString(
+                            data.course.description
+                          )}
+                          onChange={this.handleChange}
+                        />
+                      </label>
+                      <label htmlFor="ClassTime">
+                        Office Days
+                        <Select
+                          onChange={this.handleSelectionChange}
+                          options={options}
+                          isMulti
+                          theme={theme => ({
+                            ...theme,
+                            borderRadius: 0,
+                            colors: {
+                              ...theme.colors,
+                              primary25: '#fffcdf',
+                              primary: 'black'
+                            }
+                          })}
+                        />
+                      </label>
+                      <label htmlFor="DateTime">
+                        Office Hours
+                        <div>
+                          <DatePicker
+                            selected={
+                              this.state.startDate ||
+                              moment(data.course.startDate).toDate()
+                            }
+                            onChange={this.handleStartDateChange}
+                            showTimeSelect
+                            showTimeSelectOnly
+                            timeIntervals={15}
+                            dateFormat="h:mm aa"
+                            timeCaption="Time"
+                            placeholderText="Class starts"
+                            openToDate={moment(data.course.startDate).toDate()}
+                          />
+                        </div>
+                        <div>
+                          <DatePicker
+                            selected={
+                              this.state.endDate ||
+                              moment(data.course.endtDate).toDate()
+                            }
+                            showTimeSelect
+                            showTimeSelectOnly
+                            selectsEnd
+                            timeIntervals={15}
+                            dateFormat="h:mm aa"
+                            timeCaption="Time"
+                            startDate={this.state.startDate}
+                            endDate={this.state.endDate}
+                            onChange={this.handleEndDateChange}
+                            placeholderText="Class ends"
+                            openToDate={moment(data.course.endDate).toDate()}
+                          />
+                        </div>
+                      </label>
+                      <button type="submit">Save Changes</button>
+                    </fieldset>
+                  </form>
+                </section>
               )}
             </Mutation>
           )

@@ -121,7 +121,8 @@ class CreateCourse extends Component {
     const { selectedOption } = this.state
     return (
       <IsAdminTeacher>
-        <div>
+        <section className="container py-m">
+          <h1 className="title is-spaced">New Department</h1>
           <Query query={CURRENT_USER_QUERY}>
             {({ data, error, loading }) => {
               if (error) return <p>Error : {error.message}</p>
@@ -147,99 +148,114 @@ class CreateCourse extends Component {
                     >
                       <Error error={error} />
                       <fieldset disabled={loading} aria-busy={loading}>
-                        <label htmlFor="title">
-                          Department
-                          <input
-                            maxLength="40"
-                            type="text"
-                            id="title"
-                            name="title"
-                            placeholder="Department"
-                            required
-                            value={this.state.title}
-                            onChange={this.handleChange}
-                          />
-                        </label>
-                        {this.state.title.length > 39 ? (
-                          <p>Title cannot be this long</p>
-                        ) : (
-                          ''
-                        )}
-                        <label htmlFor="courseCode">
-                          Owner(s)
-                          <input
-                            type="text"
-                            id="courseCode"
-                            name="courseCode"
-                            placeholder="ex) Matt Visser, matt@syllabi.com"
-                            required
-                            value={this.state.courseCode}
-                            onChange={this.handleChange}
-                          />
-                        </label>
-                        <label htmlFor="credits">
-                          Extension
-                          <input
-                            maxLength="20"
-                            type="text"
-                            id="credits"
-                            name="credits"
-                            placeholder="Extension #"
-                            required
-                            value={this.state.credits}
-                            onChange={this.onCreditsChange}
-                          />
-                        </label>
+                        <div className="field">
+                          <label className="label" htmlFor="title">
+                            Department
+                            <input
+                              className="input"
+                              maxLength="40"
+                              type="text"
+                              id="title"
+                              name="title"
+                              placeholder="Department"
+                              required
+                              value={this.state.title}
+                              onChange={this.handleChange}
+                            />
+                          </label>
+                          {this.state.title.length > 39 ? (
+                            <p>Title cannot be this long</p>
+                          ) : (
+                            ''
+                          )}
+                        </div>
 
-                        <label htmlFor="ClassTime">
-                          Office Days
-                          <Select
-                            value={selectedOption}
-                            onChange={this.handleSelectionChange}
-                            options={options}
-                            isMulti
-                            theme={theme => ({
-                              ...theme,
-                              borderRadius: 0,
-                              colors: {
-                                ...theme.colors,
-                                primary25: '#fffcdf',
-                                primary: 'black'
-                              }
-                            })}
-                          />
-                        </label>
-                        <label htmlFor="DateTime">
-                          Office Hours
-                          <div>
-                            <DatePicker
-                              selected={this.state.startDate}
-                              onChange={this.handleStartDateChange}
-                              showTimeSelect
-                              showTimeSelectOnly
-                              timeIntervals={15}
-                              dateFormat="h:mm aa"
-                              timeCaption="Time"
-                              placeholderText="Start"
+                        <div className="field">
+                          <label className="label" htmlFor="courseCode">
+                            Owner(s)
+                            <input
+                              className="input"
+                              type="text"
+                              id="courseCode"
+                              name="courseCode"
+                              placeholder="ex) Matt Visser, matt@syllabi.com"
+                              required
+                              value={this.state.courseCode}
+                              onChange={this.handleChange}
                             />
-                          </div>
-                          <div>
-                            <DatePicker
-                              selected={this.state.endDate}
-                              showTimeSelect
-                              showTimeSelectOnly
-                              selectsEnd
-                              timeIntervals={15}
-                              dateFormat="h:mm aa"
-                              timeCaption="Time"
-                              startDate={this.state.startDate}
-                              endDate={this.state.endDate}
-                              onChange={this.handleEndDateChange}
-                              placeholderText="End"
+                          </label>
+                        </div>
+
+                        <div className="field">
+                          <label className="label" htmlFor="credits">
+                            Extension
+                            <input
+                              className="input"
+                              maxLength="20"
+                              type="text"
+                              id="credits"
+                              name="credits"
+                              placeholder="Extension #"
+                              required
+                              value={this.state.credits}
+                              onChange={this.onCreditsChange}
                             />
-                          </div>
-                        </label>
-                        <label htmlFor="description">
+                          </label>
+                        </div>
+
+                        <div className="field">
+                          <label className="label" htmlFor="ClassTime">
+                            Office Days
+                            <Select
+                              value={selectedOption}
+                              onChange={this.handleSelectionChange}
+                              options={options}
+                              isMulti
+                              theme={theme => ({
+                                ...theme,
+                                borderRadius: 0,
+                                colors: {
+                                  ...theme.colors,
+                                  primary25: '#fffcdf',
+                                  primary: 'black'
+                                }
+                              })}
+                            />
+                          </label>
+                        </div>
+
+                        <div className="field">
+                          <label className="label" htmlFor="DateTime">
+                            Office Hours
+                                <DatePicker
+                                  selected={this.state.startDate}
+                                  onChange={this.handleStartDateChange}
+                                  showTimeSelect
+                                  showTimeSelectOnly
+                                  timeIntervals={15}
+                                  dateFormat="h:mm aa"
+                                  timeCaption="Time"
+                                  placeholderText="Start Time"
+                                  className="full-width"
+                                />
+                                <DatePicker
+                                  selected={this.state.endDate}
+                                  showTimeSelect
+                                  showTimeSelectOnly
+                                  selectsEnd
+                                  timeIntervals={15}
+                                  dateFormat="h:mm aa"
+                                  timeCaption="Time"
+                                  startDate={this.state.startDate}
+                                  endDate={this.state.endDate}
+                                  onChange={this.handleEndDateChange}
+                                  placeholderText="End Time"
+                                  className="full-width"
+                                />
+                          </label>
+                        </div>
+
+                        <label className="label py-s" htmlFor="description">
                           Additional Information
                           <div>
                             <ReactQuill
@@ -252,7 +268,8 @@ class CreateCourse extends Component {
                             />
                           </div>
                         </label>
-                        <button type="submit">Submit</button>
+
+                        <button className="button is-black" type="submit">Submit</button>
                       </fieldset>
                     </form>
                   )}
@@ -261,7 +278,7 @@ class CreateCourse extends Component {
             }}
           </Query>
 
-          <table>
+          <table className="table mt-m is-bordered is-fullwidth is-hoverable">
             <tbody>
               <tr>
                 <th>Department</th>
@@ -296,7 +313,7 @@ class CreateCourse extends Component {
             <h3>Additional Information</h3>
             {ReactHtmlParser(this.state.description)}
           </div>
-        </div>
+        </section>
       </IsAdminTeacher>
     )
   }

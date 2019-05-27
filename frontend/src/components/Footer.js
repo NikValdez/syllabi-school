@@ -6,15 +6,15 @@ const today = new Date()
 export class Footer extends React.Component {
   render() {
     return (
-      <div>
-        <div>
-          <Link to="/terms_and_conditions">Terms &amp; Conditions</Link>
-          <Link to="/privacy_policy">Privacy Policy</Link>
+      <footer className="footer">
+        <div className="content has-text-centered">
+          <div className="navbar-menu">
+            <Link className="navbar-item" to="/terms_and_conditions">Terms &amp; Conditions</Link>
+            <Link className="navbar-item" to="/privacy_policy">Privacy Policy</Link>
+          </div>
+          <p>Powered by &copy; Syllabi {today.getFullYear()}</p>
         </div>
-        <div>
-          <p>&copy; Syllabi {today.getFullYear()}</p>
-        </div>
-      </div>
+      </footer>
     )
   }
 }

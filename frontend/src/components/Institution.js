@@ -5,21 +5,21 @@ import { CURRENT_USER_QUERY } from './User'
 export default class Institution extends Component {
   render() {
     return (
-      <div>
+      <header>
         <Query query={CURRENT_USER_QUERY}>
           {({ error, loading, data }) => {
             if (error) return <p>Error</p>
             if (loading) return <p>Loading...</p>
 
             return (
-              <h3>
-                {data.me.institution.name}
+              <p>
                 <img src={data.me.institution.logo} alt="logo" />
-              </h3>
+                {data.me.institution.name}
+              </p>
             )
           }}
         </Query>
-      </div>
+      </header>
     )
   }
 }

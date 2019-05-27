@@ -34,10 +34,12 @@ export class Schedule extends Component {
           })
 
           return (
-            <div>
-              <h3>Full Schedule</h3>
-              <div>{color}</div>
-              <table>
+            <section className="container py-m">
+              <h1 className="title is-spaced">Full Schedule</h1>
+
+              <div className="colors pb-m">{color}</div>
+
+              <table className="table is-bordered is-fullwidth is-hoverable">
                 <thead>
                   <tr>
                     <td>Date</td>
@@ -66,7 +68,7 @@ export class Schedule extends Component {
                   </tbody>
                 ))}
               </table>
-            </div>
+            </section>
           )
         }}
       </Query>

@@ -58,18 +58,18 @@ body {
   line-height: 1.29;
 }
 
-a {
-  border-bottom: 1px solid;
-
-  &:hover {
-    text-decoration: none;
-  }
-}
-
 p {
   font-size: inherit;
   color: inherit;
   margin: 5px 0;
+
+  a {
+    border-bottom: 1px solid;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
 }
 
 code {
@@ -111,13 +111,11 @@ h3 {
 
 h4 {
   font-size: 12px;
-  font-weight: 700;
+  font-weight: normal;
   line-height: 1;
-  margin: 4px 0px;
 }
 
 h5 {
   font-size: 15px;
-  margin: 3px 0;
-  font-weight: 700;
+  font-weight: normal;
 }

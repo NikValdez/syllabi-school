@@ -67,8 +67,11 @@ class MyCourses extends Component {
   }
   render() {
     return (
-      <div>
-        <h3>Department</h3>
+      <aside className="menu">
+        <p className="menu-label">
+          Your Courses
+        </p>
+        <ul className="courses menu-list">
         <Query query={CURRENT_USER_QUERY_COURSES_EVENTS}>
           {({ data, error, loading }) => {
             if (loading) return <p />
@@ -77,53 +80,58 @@ class MyCourses extends Component {
 
             return courseData.map((course, i) => (
               <React.Fragment key={course.id}>
-                <ul>
-                  <DeleteMyCourse id={course.id} color={course.courses.color} />
-
-                  <Link to={`/courses/${course.courses.id}`}>
-                    <h5>{course.courses.title}</h5>
-                  </Link>
-
-                  <div>
+                <li className="course mb-s">
+                  <div className="full-width">
                     {course.id === this.state.showSyllabus && (
-                      <span
+                      <button
+                        className="button is-small"
                         onClick={this.hideSyllabus.bind(this, (i = course.id))}
                       >
-                        <i className="fas fa-minus" />
-                      </span>
+                        <i className="btr bt-minus" />
+                      </button>
                     )}
                     {course.id !== this.state.showSyllabus && (
-                      <span
+                      <button
+                        className="button is-small"
                         onClick={this.showSyllabus.bind(this, (i = course.id))}
                       >
-                        <i className="fas fa-plus" />
-                      </span>
+                        <i className="btr bt-plus" />
+                      </button>
                     )}
+
+                    <Link to={`/courses/${course.courses.id}`}>
+                      <h5>{course.courses.title}</h5>
+                    </Link>
+
+                    <DeleteMyCourse id={course.id} color={course.courses.color} />
                   </div>
-                </ul>
-                {course.id === this.state.showSyllabus &&
-                  (course.courses.days !== null &&
-                    JSON.parse(course.courses.days).map(day => (
-                      <div key={day}>
-                        <h6>{day.toUpperCase()}</h6>
 
-                        <h6>{moment(course.courses.startDate).format('LT')}</h6>
-                        <h6>{moment(course.courses.endDate).format('LT')}</h6>
-                      </div>
-                    )))}
-
-                {course.id === this.state.showSyllabus && (
-                  <ExportAsPdf
-                    id={course.courses.id}
-                    institutionName={data.me.institution.name}
-                    institutionLogo={data.me.institution.logo}
-                  />
-                )}
+                  <div className="columns py">
+                    {course.id === this.state.showSyllabus &&
+                      (course.courses.days !== null &&
+                        JSON.parse(course.courses.days).map(day => (
+                          <div className="day column" key={day}>
+                            <p>{day.toUpperCase()}</p>
+                            <p>{moment(course.courses.startDate).format('LT')}</p>
+                            <p>{moment(course.courses.endDate).format('LT')}</p>
+                          </div>
+                        )))
+                      }
+                  </div>
+                  {course.id === this.state.showSyllabus && (
+                    <ExportAsPdf
+                      id={course.courses.id}
+                      institutionName={data.me.institution.name}
+                      institutionLogo={data.me.institution.logo}
+                    />
+                  )}
+                </li>
               </React.Fragment>
             ))
           }}
         </Query>
-      </div>
+        </ul>
+      </aside>
     )
   }
 }

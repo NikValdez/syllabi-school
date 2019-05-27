@@ -20,7 +20,8 @@ export class DeleteMyCourse extends Component {
         refetchQueries={[{ query: CURRENT_USER_QUERY_COURSES_EVENTS }]}
       >
         {(deleteMyCourse, { error }) => (
-          <span
+          <button
+            className="delete"
             onClick={() => {
               if (
                 window.confirm('Are you sure you want to delete this Course?')
@@ -29,8 +30,7 @@ export class DeleteMyCourse extends Component {
               }
             }}
           >
-            <div>X</div>
-          </span>
+          </button>
         )}
       </Mutation>
     )

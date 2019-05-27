@@ -1,0 +1,36 @@
+/* Header */
+nav.navbar {
+  img {
+    margin-right: $spacer;
+  }
+
+  .buttons {
+    & > .dropdown {
+      margin-right: $spacer;
+    }
+  }
+}
+
+/* Footer */
+footer.footer {
+  padding: 3rem 1.5rem 3rem;
+
+  .navbar-menu {
+    justify-content: center;
+  }
+}
+
+/* Announcements */
+#dropdown-announcement-items {
+  top: 30px !important;
+  left: auto !important;
+  right: 0 !important;
+  transform: none !important;
+}
+
+/* Modal */
+body.modal-open {
+  .modal.show {
+    z-index: 9999;
+  }
+}

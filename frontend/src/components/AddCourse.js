@@ -27,8 +27,8 @@ class AddCourse extends Component {
         {(addCourseToUser, { loading, error }) => {
           if (error) return <Error error={error} />
           return (
-            <button disabled={loading} onClick={addCourseToUser}>
-              Add{loading && 'ing'}
+            <button className="button is-small" disabled={loading} onClick={addCourseToUser}>
+              Add
             </button>
           )
         }}

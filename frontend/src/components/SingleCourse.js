@@ -73,18 +73,16 @@ class SingleCourse extends Component {
           const email = data.course.myCourse.map(address => address.user.email)
 
           return (
-            <div>
+            <section className="container py-m">
               <IsAdminTeacher>
-                <span>
-                  <Link to={`/update/${course.id}`}>Update Department </Link>
-                  <span>
-                    <DeleteCourse id={this.state.id}>
-                      Delete Department
-                    </DeleteCourse>
-                  </span>
-                </span>
+                <div className="buttons mb-m">
+                  <Link className="button" to={`/update/${course.id}`}>Update Department </Link>
+                  <DeleteCourse id={this.state.id}>
+                    Delete Department
+                  </DeleteCourse>
+                </div>
               </IsAdminTeacher>
-              <table>
+              <table className="table full-width">
                 <tbody>
                   <tr>
                     <th>Title</th>
@@ -116,16 +114,18 @@ class SingleCourse extends Component {
                 </tbody>
               </table>
 
-              <div>
+              <div className="mb-m">
                 <h3>Additional Information</h3>
                 {ReactHtmlParser(course.description)}
               </div>
-              <div>
+
+              <div class="mb-m">
                 <CreateEvent course={course} email={email} />
               </div>
+
               <h2>Department Schedule</h2>
               {course.events < 1 && <p>No Events Scheduled</p>}
-              <table>
+              <table className="table full-width">
                 <thead>
                   <tr>
                     <td>Edit</td>
@@ -184,30 +184,32 @@ class SingleCourse extends Component {
                 )}
               </table>
 
-              <div>
-                <CreateAnnouncement course={course} email={email} />
-              </div>
-              <h2>Announcements</h2>
-              {course.announcements.length < 1 && (
-                <p>No Announcements Currently</p>
-              )}
+              <section className="announcements">
+                <h2>Announcements</h2>
 
-              <table>
-                <thead>
-                  <tr>
-                    <th>Date</th>
-                    <th>Announcement</th>
-                  </tr>
+                {course.announcements.length < 1 && (
+                  <p>There are currently no announcements.</p>
+                )}
 
-                  {course.announcements.map(({ text, date, id }) => (
-                    <tr key={id}>
-                      <td>{moment(date).format('MMM Do YYYY')}</td>
-                      <td>{ReactHtmlParser(text)}</td>
+                <table className="table full-width">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Announcement</th>
                     </tr>
-                  ))}
-                </thead>
-              </table>
-            </div>
+
+                    {course.announcements.map(({ text, date, id }) => (
+                      <tr key={id}>
+                        <td>{moment(date).format('MMM Do YYYY')}</td>
+                        <td>{ReactHtmlParser(text)}</td>
+                      </tr>
+                    ))}
+                  </thead>
+                </table>
+
+                <CreateAnnouncement course={course} email={email} />
+              </section>
+            </section>
           )
         }}
       </Query>

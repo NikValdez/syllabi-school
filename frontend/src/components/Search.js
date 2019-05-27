@@ -40,7 +40,11 @@ class Search extends Component {
   }, 300)
   render() {
     return (
-      <div>
+      <aside className="menu full-width pb">
+        <p className="menu-label">
+          Add a Course
+        </p>
+        <div className="field">
         <Downshift itemToString={item => (item === null ? '' : item.title)}>
           {({
             getInputProps,
@@ -49,15 +53,15 @@ class Search extends Component {
             inputValue,
             highlightedIndex
           }) => (
-            <div>
+            <div className="field">
               <ApolloConsumer>
                 {client => (
                   <input
                     {...getInputProps({
                       type: 'search',
-                      placeholder: 'Search Department...',
+                      placeholder: 'Search...',
                       id: 'search',
-                      className: this.state.loading ? <p>Loading...</p> : '',
+                      className: 'input is-rounded full-width',
                       onChange: e => {
                         e.persist()
                         this.onChange(e, client)
@@ -67,28 +71,27 @@ class Search extends Component {
                 )}
               </ApolloConsumer>
               {isOpen && (
-                <div>
+                <ul className="menu-list py-s">
                   {this.state.courses.map((item, index) => (
-                    <div
+                    <li
                       {...getItemProps({ item })}
                       key={item.id}
                       highlighted={index === highlightedIndex}
                     >
-                      <div>
-                        <Link to={`/courses/${item.id}`}>{item.title}</Link>
-                      </div>
+                      <Link to={`/courses/${item.id}`}>{item.title}</Link>
                       <AddCourse id={item.id} />
-                    </div>
+                    </li>
                   ))}
                   {!this.state.courses.length && !this.state.loading && (
-                    <div>Nothing Found for {inputValue}</div>
+                    <li>Nothing Found for {inputValue}</li>
                   )}
-                </div>
+                </ul>
               )}
             </div>
           )}
         </Downshift>
-      </div>
+        </div>
+      </aside>
     )
   }
 }

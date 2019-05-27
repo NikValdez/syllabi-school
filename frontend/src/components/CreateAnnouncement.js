@@ -77,7 +77,7 @@ class createAnnouncement extends Component {
   render() {
     return (
       <IsAdminTeacher>
-        <button onClick={this.handleOpenAnnouncement}>
+        <button className="button" onClick={this.handleOpenAnnouncement}>
           Create Announcement
         </button>
         <Mutation
@@ -143,7 +143,7 @@ class createAnnouncement extends Component {
                   </button>
                 </fieldset>
               </form>
-              <table bordered>
+              <table className="table full-width" bordered>
                 <thead>
                   <tr>
                     <td>Date</td>

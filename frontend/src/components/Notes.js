@@ -19,24 +19,24 @@ const NOTES_QUERY = gql`
 class Notes extends Component {
   render() {
     return (
-      <div>
-        <Query query={NOTES_QUERY}>
-          {({ data, error, loading }) => {
-            if (loading) return <p>Loading...</p>
-            if (error) return <p>Error : {error.message}</p>
-            const notes = data.me.notes.map(note => note)
+      <section className="notes mb-s full-width">
+        <div className="tags are-medium pt">
+          <Query query={NOTES_QUERY}>
+            {({ data, error, loading }) => {
+              if (loading) return <p>Loading...</p>
+              if (error) return <div className="error"><p>Error : {error.message}</p></div>
+              const notes = data.me.notes.map(note => note)
 
-            return notes.map(note => (
-              <ul key={note.id}>
-                <li>
+              return notes.map(note => (
+                <span className="note tag" key={note.id}>
                   {note.note}
                   <DeleteNote id={note.id} />
-                </li>
-              </ul>
-            ))
-          }}
-        </Query>
-      </div>
+                </span>
+              ))
+            }}
+          </Query>
+        </div>
+      </section>
     )
   }
 }

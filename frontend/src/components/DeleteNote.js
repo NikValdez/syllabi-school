@@ -20,7 +20,8 @@ class DeleteNote extends Component {
         refetchQueries={[{ query: NOTES_QUERY }]}
       >
         {(deleteNote, { error }) => (
-          <div
+          <button
+            className="delete is-small"
             onClick={() => {
               if (
                 window.confirm('Are you sure you want to delete this Note?')
@@ -29,8 +30,8 @@ class DeleteNote extends Component {
               }
             }}
           >
-            X
-          </div>
+            <i className="btr bt-times"></i>
+          </button>
         )}
       </Mutation>
     )

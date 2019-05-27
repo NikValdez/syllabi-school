@@ -109,7 +109,7 @@ class CreateEvent extends Component {
   render() {
     return (
       <IsAdminTeacher>
-        <button onClick={this.handleOpenEvent}>Create Event</button>
+        <button className="button" onClick={this.handleOpenEvent}>Create Event</button>
         <Mutation
           mutation={CREATE_EVENT_MUTATION}
           variables={this.state}
@@ -225,7 +225,7 @@ class CreateEvent extends Component {
                   </button>
                 </fieldset>
               </form>
-              <table>
+              <table className="table is-bordered is-fullwidth is-hoverable">
                 <thead>
                   <tr>
                     <td>Date</td>

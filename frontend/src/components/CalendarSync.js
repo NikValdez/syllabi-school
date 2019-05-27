@@ -145,14 +145,13 @@ export default class CalendarSync extends Component {
 
   render() {
     return (
-      <div>
-        <h4>Sync:</h4>
-        <h4 onClick={this.createIcal}>
-          <i className="far fa-calendar-alt" /> Apple
-        </h4>
-        <h4 onClick={this.authenticate}>
-          <i className="far fa-calendar-alt" /> Google
-        </h4>
+      <>
+        <button className="button is-small" onClick={this.createIcal}>
+          Apple Sync
+        </button>
+        <button className="button is-small" onClick={this.authenticate}>
+          Google Sync
+        </button>
 
         <Modal show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
@@ -170,7 +169,7 @@ export default class CalendarSync extends Component {
             </button>
           </Modal.Body>
         </Modal>
-      </div>
-    )
+      </>
+    );
   }
 }

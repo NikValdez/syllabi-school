@@ -25,30 +25,32 @@ class NewNav extends Component {
         {({ data }) => {
           const me = data ? data.me : null
           return (
-            <div>
-              <Announcements />
+            <div id="navbarMenu" className="navbar-menu">
               <>
-                <Dropdown onToggle={this.toggle}>
-                  <Dropdown.Toggle id="dropdown-basic">
-                    {!this.state.isOpen ? <div>Open</div> : <div>X</div>}
+                <div className="announcement">
 
-                    <Dropdown.Menu id="dropdown-items">
-                      <Link to="/schedule">Full Schedule</Link>
+                </div>
+                <div className="navbar-start">
+                  <Link className="navbar-item" to="/schedule">Full Schedule</Link>
+                  <IsAdminTeacher>
+                    <Link className="navbar-item" to="/create_course">Create Department</Link>
+                  </IsAdminTeacher>
+                  <IsAdmin>
+                    <Link className="navbar-item" to="/permissions">Permissions</Link>
+                    <Link className="navbar-item" to="/create_institution">Create Show</Link>
+                  </IsAdmin>
+                </div>
 
-                      <IsAdminTeacher>
-                        <Link to="/create_course">Create Department</Link>
-                      </IsAdminTeacher>
-                      <IsAdmin>
-                        <Link to="/permissions">Permissions</Link>
-                        <Link to="/create_institution">Create Show</Link>
-                      </IsAdmin>
-
-                      <a>
+                <div className="navbar-end">
+                  <div className="navbar-item">
+                    <div className="buttons">
+                      <Announcements />
+                      <a className="button">
                         <Signout />
                       </a>
-                    </Dropdown.Menu>
-                  </Dropdown.Toggle>
-                </Dropdown>
+                    </div>
+                  </div>
+                </div>
               </>
 
               {!me && (

@@ -33,11 +33,11 @@ const Permissions = props => (
     {({ data, loading, error }) => {
       if (loading) return <p>Loading...</p>
       return (
-        <div>
+        <section className="container py-m">
           <Error error={error} />
-          <h2>Manage Permissions</h2>
+          <h1 className="title is-spaced">Manage Permissions</h1>
 
-          <table>
+          <table className="table is-bordered is-fullwidth is-hoverable">
             <thead>
               <tr>
                 <th>Name</th>
@@ -45,7 +45,7 @@ const Permissions = props => (
                 {possiblePermissions.map(permission => (
                   <th key={permission}>{permission}</th>
                 ))}
-                <th>Save Update</th>
+                <th>Save</th>
               </tr>
             </thead>
             <tbody>
@@ -54,8 +54,7 @@ const Permissions = props => (
               ))}
             </tbody>
           </table>
-          <div />
-        </div>
+        </section>
       )
     }}
   </Query>
@@ -113,8 +112,9 @@ class UserPermissions extends React.Component {
               <td>{user.email}</td>
               {possiblePermissions.map(permission => (
                 <td key={permission}>
-                  <label htmlFor={`${user.id}-permission-${permission}`}>
+                  <label className="checkbox" htmlFor={`${user.id}-permission-${permission}`}>
                     <input
+                      className="checkbox"
                       id={`${user.id}-permission-${permission}`}
                       type="checkbox"
                       checked={this.state.permissions.includes(permission)}
@@ -126,6 +126,7 @@ class UserPermissions extends React.Component {
               ))}
               <td>
                 <button
+                  className="button"
                   type="button"
                   disabled={loading}
                   onClick={updatePermissions}

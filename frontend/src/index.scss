@@ -1,6 +1,6 @@
 // plugins
 @import 'node_modules/bulma/bulma';
-// @import 'node_modules/bulma-extensions/';
+@import 'styles/vendor/black-tie.min.css';
 
 // bulma variables
 $family-sans-serif: 'Neuzeit Office', sans-serif;
@@ -11,5 +11,7 @@ $input-shadow: none;
 
 // custom
 @import 'styles/_helpers.scss';
+@import 'styles/_global.scss';
 @import 'styles/_type.scss';
 @import 'styles/_forms.scss';
+@import 'styles/_calendar.scss';

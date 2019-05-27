@@ -24,13 +24,15 @@ class CreateNote extends Component {
   render() {
     return (
       <>
+        <Notes />
+
         <Mutation
           mutation={CREATE_NOTE_MUTATION}
           variables={this.state}
           refetchQueries={[{ query: NOTES_QUERY }]}
         >
           {(createNote, { loading, error }) => (
-            <div>
+            <div className="add-note full-width">
               <form
                 onSubmit={async e => {
                   e.preventDefault()
@@ -42,21 +44,26 @@ class CreateNote extends Component {
               >
                 <Error error={error} />
 
-                <input
-                  type="text"
-                  id="note"
-                  name="note"
-                  placeholder="Add a Note..."
-                  required
-                  value={this.state.note}
-                  onChange={this.handleChange}
-                />
-                <button>Add</button>
+                <div className="field">
+                  <input
+                    className="input is-rounded"
+                    type="text"
+                    id="note"
+                    name="note"
+                    placeholder="Create a Note..."
+                    required
+                    value={this.state.note}
+                    onChange={this.handleChange}
+                  />
+                </div>
+
+                <div className="field">
+                  <button className="button">Add Note</button>
+                </div>
               </form>
             </div>
           )}
         </Mutation>
-        <Notes />
       </>
     )
   }

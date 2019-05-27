@@ -26,6 +26,7 @@ export class DeleteCourse extends Component {
       >
         {(deleteCourse, { error }) => (
           <button
+            className="button"
             onClick={() => {
               if (
                 window.confirm(

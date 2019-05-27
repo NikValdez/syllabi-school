@@ -21,16 +21,37 @@ const ALL_COURSES_QUERY = gql`
 class Courses extends Component {
   render() {
     return (
-      <div>
-        <div>
-          <Search />
-          <MyCourses />
-          <CreateNote />
+      <section className="courses container py-l">
+        <div className="columns">
+          <div className="column left is-narrow">
+
+            <div className="panel">
+              <p className="panel-heading m0">
+                Courses
+              </p>
+              <div className="panel-block">
+                <Search />
+              </div>
+              <div className="panel-block">
+                <MyCourses />
+              </div>
+            </div>
+
+            <div className="panel">
+              <p className="panel-heading m0">
+                Notes
+              </p>
+              <div className="panel-block">
+                <CreateNote />
+              </div>
+            </div>
+
+          </div>
+          <div className="column right">
+            <Calendar />
+          </div>
         </div>
-        <div>
-          <Calendar />
-        </div>
-      </div>
+      </section>
     )
   }
 }
