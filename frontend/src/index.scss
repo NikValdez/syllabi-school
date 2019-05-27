@@ -2,5 +2,14 @@
 @import 'node_modules/bulma/bulma';
 // @import 'node_modules/bulma-extensions/';
 
+// bulma variables
+$family-sans-serif: 'Neuzeit Office', sans-serif;
+$blue: #0000d5;
+$yellow: #fff595;
+$input-border-color: transparent;
+$input-shadow: none;
+
 // custom
+@import 'styles/_helpers.scss';
 @import 'styles/_type.scss';
+@import 'styles/_forms.scss';

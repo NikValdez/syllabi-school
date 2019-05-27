@@ -31,66 +31,75 @@ class Signin extends Component {
       >
         {(signin, { error, loading }) => (
           <>
-            <form
-              method="post"
-              onSubmit={async e => {
-                e.preventDefault()
-                await signin()
-                this.setState({ email: '', password: '' })
-              }}
-            >
-              <fieldset disabled={loading} aria-busy={loading}>
-                <h1 class="title is-spaced">Account</h1>
-                <p className="has-text-right">
-                  <Link to="/signup" className="">
-                    Need an account? Sign Up
-                  </Link>
-                </p>
+            <section className="account">
+              <form
+                className="login-form"
+                method="post"
+                onSubmit={async e => {
+                  e.preventDefault()
+                  await signin()
+                  this.setState({ email: '', password: '' })
+                }}
+              >
+                <fieldset className="wrapper" disabled={loading} aria-busy={loading}>
+                  <header className="mb-m">
+                    <h1 className="title is-spaced">Account</h1>
+                    <p>
+                      <Link to="/signup" className="">
+                        Need an account? Sign Up
+                      </Link>
+                    </p>
+                  </header>
 
-                <Error error={error} />
+                  <div className="error">
+                    <Error error={error} />
+                  </div>
 
-                <div className="field">
-                  <label className="label" htmlFor="email">
-                    Email
-                    <input
-                      className="input"
-                      type="email"
-                      name="email"
-                      placeholder="email"
-                      value={this.state.email}
-                      onChange={this.saveToState}
-                    />
-                  </label>
-                </div>
+                  <div className="field">
+                    <label className="label" htmlFor="email">
+                      Email
+                      <input
+                        className="input"
+                        type="email"
+                        name="email"
+                        placeholder="email"
+                        value={this.state.email}
+                        onChange={this.saveToState}
+                        required
+                      />
+                    </label>
+                  </div>
 
-                <div className="field">
-                  <label className="label" htmlFor="password">
-                    Password
-                    <input
-                      className="input"
-                      type="password"
-                      name="password"
-                      placeholder="password"
-                      value={this.state.password}
-                      onChange={this.saveToState}
-                    />
-                  </label>
+                  <div className="field">
+                    <label className="label" htmlFor="password">
+                      Password
+                      <input
+                        className="input"
+                        type="password"
+                        name="password"
+                        placeholder="password"
+                        value={this.state.password}
+                        onChange={this.saveToState}
+                        required
+                      />
+                    </label>
 
-                  <p className="has-text-right">
-                    <Link to="/request_reset">Forgot Password?</Link>
-                  </p>
-                </div>
+                    <p className="has-text-right">
+                      <Link to="/request_reset">Forgot Password?</Link>
+                    </p>
+                  </div>
 
-                <div className="field">
-                  <button
-                    className="button is-fullwidth is-medium is-black"
-                    type="submit"
-                  >
-                    Sign In
-                  </button>
-                </div>
-              </fieldset>
-            </form>
+                  <div className="field mt-m">
+                    <button
+                      className="button is-fullwidth is-medium is-white is-outlined"
+                      type="submit"
+                    >
+                      Sign In
+                    </button>
+                  </div>
+                </fieldset>
+              </form>
+            </section>
           </>
         )}
       </Mutation>

@@ -50,42 +50,59 @@ class Reset extends Component {
         ]}
       >
         {(reset, { error, loading, called }) => (
-          <form
-            method="post"
-            onSubmit={async e => {
-              e.preventDefault()
-              await reset()
-              this.setState({ password: '', confirmPassword: '' })
-            }}
-          >
-            <fieldset disabled={loading} aria-busy={loading}>
-              <h2>Reset Your Password </h2>
-              <Error error={error} />
+          <section className="account">
+            <form
+              className="reset-form"
+              method="post"
+              onSubmit={async e => {
+                e.preventDefault()
+                await reset()
+                this.setState({ password: '', confirmPassword: '' })
+              }}
+            >
+              <fieldset className="wrapper" disabled={loading} aria-busy={loading}>
+                <header className="mb-m">
+                  <h2>Reset Your Password</h2>
+                </header>
 
-              <label htmlFor="password">
-                Password
-                <input
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                  value={this.state.password}
-                  onChange={this.saveToState}
-                />
-              </label>
-              <label htmlFor="confirmpassword">
-                Confirm Your Password
-                <input
-                  type="password"
-                  name="confirmPassword"
-                  placeholder="Confirm Password"
-                  value={this.state.confirmPassword}
-                  onChange={this.saveToState}
-                />
-              </label>
+                <div className="error">
+                  <Error error={error} />
+                </div>
 
-              <button type="submit">Reset Your Password</button>
-            </fieldset>
-          </form>
+                <div className="field">
+                  <label className="label" htmlFor="password">
+                    Password
+                    <input
+                      className="input"
+                      type="password"
+                      name="password"
+                      placeholder="Password"
+                      value={this.state.password}
+                      onChange={this.saveToState}
+                    />
+                  </label>
+                </div>
+                
+                <div className="field">
+                  <label className="label" htmlFor="confirmpassword">
+                    Confirm Your Password
+                    <input
+                      className="input"
+                      type="password"
+                      name="confirmPassword"
+                      placeholder="Confirm Password"
+                      value={this.state.confirmPassword}
+                      onChange={this.saveToState}
+                    />
+                  </label>
+                </div>
+
+                <button
+                  className="button is-fullwidth is-medium is-white is-outlined"
+                  type="submit">Reset Your Password</button>
+              </fieldset>
+            </form>
+          </section>
         )}
       </Mutation>
     )

@@ -2,6 +2,7 @@ import gql from 'graphql-tag'
 import React, { Component } from 'react'
 import { Mutation, Query } from 'react-apollo'
 import Error from './ErrorMessage'
+import { Link } from 'react-router-dom'
 import { CURRENT_USER_QUERY } from './User'
 
 const SIGNUP_MUTATION = gql`
@@ -61,88 +62,121 @@ class Signup extends Component {
       >
         {(signup, { error, loading }) => (
           <>
-            <h1>Account</h1>
-            <form
-              method="post"
-              onSubmit={async e => {
-                e.preventDefault()
-                await signup()
-                this.setState({
-                  name: '',
-                  email: '',
-                  password: '',
-                  institution: ''
-                })
-                this.props.history.push(`/`)
-              }}
-            >
-              <fieldset disabled={loading} aria-busy={loading}>
-                <h2>Sign Up for An Account</h2>
-                <Error error={error} />
-                <label htmlFor="Institution">
-                  Show
-                  <Query query={INSTITUTIONS_QUERY}>
-                    {({ data, error, loading }) => {
-                      if (loading) return <p>Loading...</p>
-                      if (error) return <p>Error : {error.message}</p>
-                      return (
-                        <select
-                          value={this.state.institution}
-                          onChange={this.handleChange}
-                        >
-                          <option defaultValue>-- select an option --</option>
-                          {data.institutions.map(institution => (
-                            <option
-                              key={institution.id}
-                              value={institution.id}
-                              required
-                            >
-                              {institution.name}
-                            </option>
-                          ))}
-                        </select>
-                      )
-                    }}
-                  </Query>
-                </label>
+            <section className="account">
+              <form
+                className="register-form"
+                method="post"
+                onSubmit={async e => {
+                  e.preventDefault()
+                  await signup()
+                  this.setState({
+                    name: '',
+                    email: '',
+                    password: '',
+                    institution: ''
+                  })
+                  this.props.history.push(`/`)
+                }}
+              >
+                <fieldset className="wrapper" disabled={loading} aria-busy={loading}>
 
-                <label htmlFor="email">
-                  Email
-                  <input
-                    type="email"
-                    name="email"
-                    placeholder="email"
-                    value={this.state.email}
-                    onChange={this.saveToState}
-                    required
-                  />
-                </label>
-                <label htmlFor="name">
-                  Name
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="name"
-                    value={this.state.name}
-                    onChange={this.saveToState}
-                    required
-                  />
-                </label>
-                <label htmlFor="password">
-                  Password
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="password"
-                    value={this.state.password}
-                    onChange={this.saveToState}
-                    required
-                  />
-                </label>
+                  <header className="mb-m">
+                    <h1 className="title is-spaced">Register</h1>
+                    <p>
+                      <Link to="/signin" className="">
+                        Already have an Account? Sign In
+                      </Link>
+                    </p>
+                  </header>
 
-                <button type="submit">Sign Up!</button>
-              </fieldset>
-            </form>
+                  <div className="error">
+                    <Error error={error} />
+                  </div>
+
+                  <div className="field">
+                    <label className="label" htmlFor="Institution">
+                      Show
+                      <Query query={INSTITUTIONS_QUERY}>
+                        {({ data, error, loading }) => {
+                          if (loading) return <p>Loading...</p>
+                          if (error) return <p>Error : {error.message}</p>
+                          return (
+                            <div className="select is-rounded">
+                              <select
+                                value={this.state.institution}
+                                onChange={this.handleChange}
+                              >
+                                <option defaultValue>-- select an option --</option>
+                                {data.institutions.map(institution => (
+                                  <option
+                                    key={institution.id}
+                                    value={institution.id}
+                                    required
+                                  >
+                                    {institution.name}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                          )
+                        }}
+                      </Query>
+                    </label>
+                  </div>
+
+                  <div className="field">
+                    <label className="label" htmlFor="name">
+                      Name
+                      <input
+                        className="input"
+                        type="text"
+                        name="name"
+                        placeholder="name"
+                        value={this.state.name}
+                        onChange={this.saveToState}
+                        required
+                      />
+                    </label>
+                  </div>
+
+                  <div className="field">
+                    <label className="label" htmlFor="email">
+                      Email
+                      <input
+                        className="input"
+                        type="email"
+                        name="email"
+                        placeholder="email"
+                        value={this.state.email}
+                        onChange={this.saveToState}
+                        required
+                      />
+                    </label>
+                  </div>
+
+                  <div className="field">
+                    <label className="label" htmlFor="password">
+                      Password
+                      <input
+                        className="input"
+                        type="password"
+                        name="password"
+                        placeholder="password"
+                        value={this.state.password}
+                        onChange={this.saveToState}
+                        required
+                      />
+                    </label>
+                  </div>
+
+                  <div className="field mt-m">
+                    <button
+                      className="button is-fullwidth is-medium is-white is-outlined"
+                      type="submit">Sign Up!</button>
+                  </div>
+                </fieldset>
+              </form>
+            </section>
           </>
         )}
       </Mutation>
