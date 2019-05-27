@@ -2,7 +2,6 @@ import gql from 'graphql-tag'
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import { SINGLE_COURSE_QUERY } from './SingleCourse'
-import Button from './styles/Button'
 
 const DELETE_EVENT_MUTATION = gql`
   mutation DELETE_EVENT_MUTATION($id: ID!) {
@@ -26,15 +25,13 @@ export class DeleteEvent extends Component {
           <span
             onClick={() => {
               if (
-                window.confirm(
-                  'Are you sure you want to delete this Assignment?'
-                )
+                window.confirm('Are you sure you want to delete this Event?')
               ) {
                 deleteEvent()
               }
             }}
           >
-            <Button>Delete</Button>
+            <button>Delete</button>
           </span>
         )}
       </Mutation>

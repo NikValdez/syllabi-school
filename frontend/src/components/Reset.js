@@ -1,9 +1,8 @@
+import gql from 'graphql-tag'
+import PropTypes from 'prop-types'
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
-import Form from './styles/Form'
 import Error from './ErrorMessage'
-import PropTypes from 'prop-types'
 import { CURRENT_USER_QUERY } from './User'
 
 const RESET_MUTATION = gql`
@@ -51,7 +50,7 @@ class Reset extends Component {
         ]}
       >
         {(reset, { error, loading, called }) => (
-          <Form
+          <form
             method="post"
             onSubmit={async e => {
               e.preventDefault()
@@ -86,7 +85,7 @@ class Reset extends Component {
 
               <button type="submit">Reset Your Password</button>
             </fieldset>
-          </Form>
+          </form>
         )}
       </Mutation>
     )

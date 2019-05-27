@@ -4,7 +4,6 @@ import { Mutation } from 'react-apollo'
 import { withRouter } from 'react-router-dom'
 import { ALL_COURSES_QUERY } from './Courses'
 import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
-import Button from './styles/Button'
 
 const DELETE_COURSE_MUTATION = gql`
   mutation DELETE_COURSE_MUTATION($id: ID!) {
@@ -26,7 +25,7 @@ export class DeleteCourse extends Component {
         ]}
       >
         {(deleteCourse, { error }) => (
-          <Button
+          <button
             onClick={() => {
               if (
                 window.confirm(
@@ -42,7 +41,7 @@ export class DeleteCourse extends Component {
             }}
           >
             {this.props.children}
-          </Button>
+          </button>
         )}
       </Mutation>
     )

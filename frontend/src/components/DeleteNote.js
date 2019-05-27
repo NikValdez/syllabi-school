@@ -1,16 +1,7 @@
+import gql from 'graphql-tag'
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
-import gql from 'graphql-tag'
 import { NOTES_QUERY } from './Notes'
-import styled from 'styled-components'
-import XIcon from './styles/XIcon'
-
-export const DeleteXStyles = styled.span`
-  &:hover {
-    transform: translate(2px, 0);
-    transition: 0.2s ease-in-out;
-  }
-`
 
 const DELETE_NOTE_MUTATION = gql`
   mutation DELETE_NOTE_MUTATION($id: ID!) {
@@ -29,7 +20,7 @@ class DeleteNote extends Component {
         refetchQueries={[{ query: NOTES_QUERY }]}
       >
         {(deleteNote, { error }) => (
-          <DeleteXStyles
+          <div
             onClick={() => {
               if (
                 window.confirm('Are you sure you want to delete this Note?')
@@ -38,8 +29,8 @@ class DeleteNote extends Component {
               }
             }}
           >
-            <XIcon />
-          </DeleteXStyles>
+            X
+          </div>
         )}
       </Mutation>
     )

@@ -2,30 +2,15 @@ import gql from 'graphql-tag'
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
-import { Table } from 'react-bootstrap'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import ReactHtmlParser from 'react-html-parser'
 import ReactModal from 'react-modal'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
-import styled from 'styled-components'
 import { ANNOUNCEMENTS_QUERY } from './Announcements'
 import IsAdminTeacher from './IsAdminTeacher'
 import { SINGLE_COURSE_QUERY } from './SingleCourse'
-import Button from './styles/Button'
-import Form from './styles/Form'
-import XIcon from './styles/XIcon'
-
-const DatePick = styled.div`
-  padding: 10px;
-`
-export const Quill = styled.div`
-  .quill {
-    height: 10rem;
-    margin-bottom: 5rem;
-  }
-`
 
 const CREATE_ANNOUNCEMENT_MUTATION = gql`
   mutation CREATE_ANNOUNCEMENT_MUTATION(
@@ -92,12 +77,9 @@ class createAnnouncement extends Component {
   render() {
     return (
       <IsAdminTeacher>
-        <Button
-          onClick={this.handleOpenAnnouncement}
-          style={{ marginBottom: '20px', marginTop: '20px' }}
-        >
+        <button onClick={this.handleOpenAnnouncement}>
           Create Announcement
-        </Button>
+        </button>
         <Mutation
           mutation={CREATE_ANNOUNCEMENT_MUTATION}
           variables={this.state}
@@ -117,13 +99,8 @@ class createAnnouncement extends Component {
               onRequestClose={this.handleCloseModal}
               shouldCloseOnOverlayClick={true}
             >
-              <span
-                onClick={this.handleCloseModal}
-                style={{ margin: '1rem', float: 'right' }}
-              >
-                <XIcon />
-              </span>
-              <Form
+              <span onClick={this.handleCloseModal}>X</span>
+              <form
                 onSubmit={async e => {
                   e.preventDefault()
                   this.setState({
@@ -139,7 +116,7 @@ class createAnnouncement extends Component {
               >
                 <fieldset disabled={loading} aria-busy={loading}>
                   <label htmlFor="date">
-                    <DatePick>Date</DatePick>
+                    <div>Date</div>
                     <DatePicker
                       selected={this.state.date}
                       onChange={this.handleDateChange}
@@ -149,19 +126,15 @@ class createAnnouncement extends Component {
 
                   <label htmlFor="text">
                     Anouncement
-                    <Quill>
-                      <ReactQuill
-                        placeholder="Add Announcement Here..."
-                        theme="snow"
-                        value={this.state.text}
-                        onChange={this.onTextChange}
-                        maxlength="10"
-                      />
-                    </Quill>
+                    <ReactQuill
+                      placeholder="Add Announcement Here..."
+                      theme="snow"
+                      value={this.state.text}
+                      onChange={this.onTextChange}
+                      maxlength="10"
+                    />
                     {this.state.error && (
-                      <p style={{ color: '#FF0033' }}>
-                        Announcement must be less than 260 characters
-                      </p>
+                      <p>Announcement must be less than 260 characters</p>
                     )}
                   </label>
 
@@ -169,8 +142,8 @@ class createAnnouncement extends Component {
                     Submit
                   </button>
                 </fieldset>
-              </Form>
-              <Table bordered>
+              </form>
+              <table bordered>
                 <thead>
                   <tr>
                     <td>Date</td>
@@ -183,7 +156,7 @@ class createAnnouncement extends Component {
                     <td>{ReactHtmlParser(this.state.text)}</td>
                   </tr>
                 </tbody>
-              </Table>
+              </table>
             </ReactModal>
           )}
         </Mutation>

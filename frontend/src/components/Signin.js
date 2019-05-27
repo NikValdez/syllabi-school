@@ -1,10 +1,8 @@
 import gql from 'graphql-tag'
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
-import { Card, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Error from './ErrorMessage'
-import Form from './styles/Form'
 import { CURRENT_USER_QUERY } from './User'
 const SIGNIN_MUTATION = gql`
   mutation SIGNIN_MUTATION($email: String!, $password: String!) {
@@ -33,68 +31,66 @@ class Signin extends Component {
       >
         {(signin, { error, loading }) => (
           <>
-            <Col className="col-12 login-page">
-              <Card className="section">
-                <Form
-                  className="login-form container"
-                  method="post"
-                  onSubmit={async e => {
-                    e.preventDefault()
-                    await signin()
-                    this.setState({ email: '', password: '' })
-                  }}
-                >
-                  <fieldset disabled={loading} aria-busy={loading}>
-                    <h1 class="title is-spaced">Account</h1>
-                    <p className="has-text-right">
-                      <Link to="/signup" className="">
-                        Need an account? Sign Up
-                      </Link>
-                    </p>
+            <form
+              method="post"
+              onSubmit={async e => {
+                e.preventDefault()
+                await signin()
+                this.setState({ email: '', password: '' })
+              }}
+            >
+              <fieldset disabled={loading} aria-busy={loading}>
+                <h1 class="title is-spaced">Account</h1>
+                <p className="has-text-right">
+                  <Link to="/signup" className="">
+                    Need an account? Sign Up
+                  </Link>
+                </p>
 
-                    <Error error={error} />
+                <Error error={error} />
 
-                    <div className="field">
-                      <label className="label" htmlFor="email">
-                        Email
-                        <input
-                          className="input"
-                          type="email"
-                          name="email"
-                          placeholder="email"
-                          value={this.state.email}
-                          onChange={this.saveToState}
-                        />
-                      </label>
-                    </div>
+                <div className="field">
+                  <label className="label" htmlFor="email">
+                    Email
+                    <input
+                      className="input"
+                      type="email"
+                      name="email"
+                      placeholder="email"
+                      value={this.state.email}
+                      onChange={this.saveToState}
+                    />
+                  </label>
+                </div>
 
-                    <div className="field">
-                      <label className="label" htmlFor="password">
-                        Password
-                        <input
-                          className="input"
-                          type="password"
-                          name="password"
-                          placeholder="password"
-                          value={this.state.password}
-                          onChange={this.saveToState}
-                        />
-                      </label>
+                <div className="field">
+                  <label className="label" htmlFor="password">
+                    Password
+                    <input
+                      className="input"
+                      type="password"
+                      name="password"
+                      placeholder="password"
+                      value={this.state.password}
+                      onChange={this.saveToState}
+                    />
+                  </label>
 
-                      <p className="has-text-right">
-                        <Link to="/request_reset">
-                          Forgot Password?
-                        </Link>
-                      </p>
-                    </div>
+                  <p className="has-text-right">
+                    <Link to="/request_reset">Forgot Password?</Link>
+                  </p>
+                </div>
 
-                    <div className="field">
-                      <button className="button is-fullwidth is-medium is-black" type="submit">Sign In</button>
-                    </div>
-                  </fieldset>
-                </Form>
-              </Card>
-            </Col>
+                <div className="field">
+                  <button
+                    className="button is-fullwidth is-medium is-black"
+                    type="submit"
+                  >
+                    Sign In
+                  </button>
+                </div>
+              </fieldset>
+            </form>
           </>
         )}
       </Mutation>

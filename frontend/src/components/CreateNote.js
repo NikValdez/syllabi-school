@@ -3,8 +3,6 @@ import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import Error from './ErrorMessage'
 import Notes, { NOTES_QUERY } from './Notes'
-import Button from './styles/Button'
-import { SearchStyles } from './styles/DropDown'
 
 const CREATE_NOTE_MUTATION = gql`
   mutation CREATE_NOTE_MUTATION($note: String!) {
@@ -32,7 +30,7 @@ class CreateNote extends Component {
           refetchQueries={[{ query: NOTES_QUERY }]}
         >
           {(createNote, { loading, error }) => (
-            <SearchStyles>
+            <div>
               <form
                 onSubmit={async e => {
                   e.preventDefault()
@@ -53,9 +51,9 @@ class CreateNote extends Component {
                   value={this.state.note}
                   onChange={this.handleChange}
                 />
-                <Button style={{ marginTop: '5px' }}>Add</Button>
+                <button>Add</button>
               </form>
-            </SearchStyles>
+            </div>
           )}
         </Mutation>
         <Notes />

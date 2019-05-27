@@ -1,13 +1,8 @@
 import gql from 'graphql-tag'
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
-import styled from 'styled-components'
 import Error from './ErrorMessage'
 import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
-
-const AddButton = styled.button`
-
-`
 
 const ADD_COURSE_MUTATION = gql`
   mutation ADD_COURSE_MUTATION($id: ID!) {
@@ -32,9 +27,9 @@ class AddCourse extends Component {
         {(addCourseToUser, { loading, error }) => {
           if (error) return <Error error={error} />
           return (
-            <AddButton disabled={loading} onClick={addCourseToUser}>
+            <button disabled={loading} onClick={addCourseToUser}>
               Add{loading && 'ing'}
-            </AddButton>
+            </button>
           )
         }}
       </Mutation>

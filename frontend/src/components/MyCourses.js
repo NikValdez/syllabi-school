@@ -3,17 +3,8 @@ import moment from 'moment'
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
 import { DeleteMyCourse } from './DeleteMyCourse'
 import ExportAsPdf from './ExportAsPdf'
-import './styles/Modal.css'
-import MyCoursesStyles from './styles/MyCoursesStyles'
-
-const List = styled.div`
-  margin-bottom: 1.5rem;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-`
 
 const CURRENT_USER_QUERY_COURSES_EVENTS = gql`
   query {
@@ -76,8 +67,8 @@ class MyCourses extends Component {
   }
   render() {
     return (
-      <MyCoursesStyles>
-        <h3 style={{ marginBottom: '2rem' }}>Department</h3>
+      <div>
+        <h3>Department</h3>
         <Query query={CURRENT_USER_QUERY_COURSES_EVENTS}>
           {({ data, error, loading }) => {
             if (loading) return <p />
@@ -86,13 +77,11 @@ class MyCourses extends Component {
 
             return courseData.map((course, i) => (
               <React.Fragment key={course.id}>
-                <List>
+                <ul>
                   <DeleteMyCourse id={course.id} color={course.courses.color} />
 
                   <Link to={`/courses/${course.courses.id}`}>
-                    <h5 style={{ marginLeft: '-6rem' }}>
-                      {course.courses.title}
-                    </h5>
+                    <h5>{course.courses.title}</h5>
                   </Link>
 
                   <div>
@@ -111,37 +100,15 @@ class MyCourses extends Component {
                       </span>
                     )}
                   </div>
-                </List>
+                </ul>
                 {course.id === this.state.showSyllabus &&
                   (course.courses.days !== null &&
                     JSON.parse(course.courses.days).map(day => (
-                      <div key={day} style={{ display: 'inline-block' }}>
-                        <h6
-                          style={{
-                            fontSize: '10px',
-                            color: '#a09e9e',
-                            marginLeft: '10px'
-                          }}
-                        >
-                          {day.toUpperCase()}
-                        </h6>
+                      <div key={day}>
+                        <h6>{day.toUpperCase()}</h6>
 
-                        <h6
-                          style={{
-                            fontSize: '10px',
-                            marginLeft: '10px'
-                          }}
-                        >
-                          {moment(course.courses.startDate).format('LT')}
-                        </h6>
-                        <h6
-                          style={{
-                            fontSize: '10px',
-                            marginLeft: '10px'
-                          }}
-                        >
-                          {moment(course.courses.endDate).format('LT')}
-                        </h6>
+                        <h6>{moment(course.courses.startDate).format('LT')}</h6>
+                        <h6>{moment(course.courses.endDate).format('LT')}</h6>
                       </div>
                     )))}
 
@@ -156,7 +123,7 @@ class MyCourses extends Component {
             ))
           }}
         </Query>
-      </MyCoursesStyles>
+      </div>
     )
   }
 }

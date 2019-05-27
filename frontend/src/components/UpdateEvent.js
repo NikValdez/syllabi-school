@@ -6,16 +6,6 @@ import React, { Component } from 'react'
 import { Mutation, Query } from 'react-apollo'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
-import styled from 'styled-components'
-import Form from './styles/Form'
-import UploadButton from './styles/UploadButton'
-
-const DatePick = styled.div`
-  padding: 10px;
-`
-const UploadPreview = styled.div`
-  width: 200px;
-`
 
 const EDIT_EVENT_QUERY = gql`
   query EDIT_EVENT_QUERY($id: ID!) {
@@ -142,7 +132,7 @@ class UpdateEvent extends Component {
           return (
             <Mutation mutation={UPDATE_EVENT_MUTATION} variables={this.state}>
               {(updateEvent, { loading, error }) => (
-                <Form
+                <form
                   onSubmit={e =>
                     this.updateEvent(e, updateEvent).catch(err => {
                       alert(err.message)
@@ -163,7 +153,7 @@ class UpdateEvent extends Component {
                       />
                     </label>
                     <label htmlFor="start">
-                      <DatePick>Event Start</DatePick>
+                      <div>Event Start</div>
                       <DatePicker
                         selected={
                           moment(this.state.start).toDate() ||
@@ -175,7 +165,7 @@ class UpdateEvent extends Component {
                       />
                     </label>
                     <label htmlFor="end">
-                      <DatePick>Event End</DatePick>
+                      <div>Event End</div>
                       <DatePicker
                         selected={
                           moment(this.state.end).toDate() ||
@@ -202,7 +192,7 @@ class UpdateEvent extends Component {
                       />
                     </label>
                     <label htmlFor="file">
-                      <UploadButton>
+                      <button>
                         <button>Upload a File</button>
                         <input
                           type="file"
@@ -211,25 +201,20 @@ class UpdateEvent extends Component {
                           placeholder="Upload a file or image"
                           onChange={this.uploadFile}
                         />
-                      </UploadButton>
+                      </button>
                       {this.state.loading ? <p>Loading...</p> : null}
                       {this.state.upload && (
-                        <UploadPreview>
+                        <div>
                           <a href={this.state.upload}>
                             {_.truncate(this.state.upload, {
                               length: 24
                             })}
                           </a>
-                        </UploadPreview>
+                        </div>
                       )}
                     </label>
 
-                    <button
-                      type="submit"
-                      style={{ marginBottom: '6rem', marginRight: '10px' }}
-                    >
-                      Update Changes
-                    </button>
+                    <button type="submit">Update Changes</button>
 
                     <button
                       onClick={async e => {
@@ -251,7 +236,7 @@ class UpdateEvent extends Component {
                       Update and Send Notification Email
                     </button>
                   </fieldset>
-                </Form>
+                </form>
               )}
             </Mutation>
           )

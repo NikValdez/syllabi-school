@@ -3,9 +3,6 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { Mutation, Query } from 'react-apollo'
 import Error from './ErrorMessage'
-import Button from './styles/Button'
-import Container from './styles/Container'
-import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
 
 const possiblePermissions = ['ADMIN', 'TEACHER', 'USER', 'PERMISSIONUPDATE']
 
@@ -36,29 +33,29 @@ const Permissions = props => (
     {({ data, loading, error }) => {
       if (loading) return <p>Loading...</p>
       return (
-        <Container>
+        <div>
           <Error error={error} />
-          <h2 style={{ marginTop: '20px' }}>Manage Permissions</h2>
+          <h2>Manage Permissions</h2>
 
-          <TableStyles>
+          <table>
             <thead>
-              <TrStyles>
-                <ThStyles>Name</ThStyles>
-                <ThStyles>Email</ThStyles>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
                 {possiblePermissions.map(permission => (
-                  <ThStyles key={permission}>{permission}</ThStyles>
+                  <th key={permission}>{permission}</th>
                 ))}
-                <ThStyles>Save Update</ThStyles>
-              </TrStyles>
+                <th>Save Update</th>
+              </tr>
             </thead>
             <tbody>
               {data.users.map(user => (
                 <UserPermissions user={user} key={user.id} />
               ))}
             </tbody>
-          </TableStyles>
-          <div style={{ marginBottom: '30rem' }} />
-        </Container>
+          </table>
+          <div />
+        </div>
       )
     }}
   </Query>
@@ -111,11 +108,11 @@ class UserPermissions extends React.Component {
                 </td>
               </tr>
             )}
-            <TrStyles>
-              <TdStyles>{user.name}</TdStyles>
-              <TdStyles>{user.email}</TdStyles>
+            <tr>
+              <td>{user.name}</td>
+              <td>{user.email}</td>
               {possiblePermissions.map(permission => (
-                <TdStyles key={permission}>
+                <td key={permission}>
                   <label htmlFor={`${user.id}-permission-${permission}`}>
                     <input
                       id={`${user.id}-permission-${permission}`}
@@ -125,18 +122,18 @@ class UserPermissions extends React.Component {
                       onChange={this.handlePermissionChange}
                     />
                   </label>
-                </TdStyles>
+                </td>
               ))}
-              <TdStyles>
-                <Button
+              <td>
+                <button
                   type="button"
                   disabled={loading}
                   onClick={updatePermissions}
                 >
                   Updat{loading ? 'ing' : 'e'}
-                </Button>
-              </TdStyles>
-            </TrStyles>
+                </button>
+              </td>
+            </tr>
           </>
         )}
       </Mutation>

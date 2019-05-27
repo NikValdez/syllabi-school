@@ -1,6 +1,5 @@
 import gql from 'graphql-tag'
 import React, { Component } from 'react'
-import styled from 'styled-components'
 import Calendar from './Calendar'
 import CreateNote from './CreateNote'
 import MyCourses from './MyCourses'
@@ -18,34 +17,20 @@ const ALL_COURSES_QUERY = gql`
     }
   }
 `
-const Center = styled.div`
-  display: grid;
-  grid-template-columns: repeat(6, 1fr);
-  @media (max-width: 620px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-`
-const LeftSide = styled.div`
-  grid-column-start: span 2;
-`
-
-const RightSide = styled.div`
-  grid-column-end: span 4;
-`
 
 class Courses extends Component {
   render() {
     return (
-      <Center>
-        <LeftSide>
+      <div>
+        <div>
           <Search />
           <MyCourses />
           <CreateNote />
-        </LeftSide>
-        <RightSide>
+        </div>
+        <div>
           <Calendar />
-        </RightSide>
-      </Center>
+        </div>
+      </div>
     )
   }
 }

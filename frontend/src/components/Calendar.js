@@ -6,7 +6,6 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 import { Modal } from 'react-bootstrap'
 import ReactHtmlParser from 'react-html-parser'
 import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
-import BigCalStyles from './styles/BigCalStyles'
 
 const localizer = BigCalendar.momentLocalizer(moment)
 
@@ -48,7 +47,7 @@ class Calendar extends Component {
             const calEvents = [].concat.apply([], eventData)
 
             return (
-              <BigCalStyles>
+              <div>
                 <BigCalendar
                   popup
                   onSelectEvent={event => {
@@ -66,43 +65,23 @@ class Calendar extends Component {
                     }
                   })}
                 />
-              </BigCalStyles>
+              </div>
             )
           }}
         </Query>
 
-        <Modal
-          show={this.state.show}
-          onHide={this.handleClose}
-          style={{
-            height: '40%',
-            width: '40%',
-            top: '50%',
-            left: ' 50%'
-          }}
-        >
-          <Modal.Header
-            closeButton
-            style={{
-              width: '38%'
-            }}
-          >
+        <Modal show={this.state.show} onHide={this.handleClose}>
+          <Modal.Header closeButton>
             <Modal.Title>{this.state.title}</Modal.Title>
           </Modal.Header>
-          <Modal.Body
-            style={{
-              width: '35%'
-            }}
-          >
+          <Modal.Body>
             <h4>Description:</h4> {ReactHtmlParser(this.state.description)}
             <h4>Upload:</h4>
             <p>
               <a href={this.state.upload} target="blank">
                 {this.state.upload && this.state.title}{' '}
               </a>
-              {this.state.upload && (
-                <i className="fas fa-link" style={{ marginLeft: '10px' }} />
-              )}
+              {this.state.upload && <i className="fas fa-link" />}
             </p>
             <h4>Dates:</h4>
             <p>

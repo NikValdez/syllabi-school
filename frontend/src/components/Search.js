@@ -4,13 +4,7 @@ import debounce from 'lodash.debounce'
 import React, { Component } from 'react'
 import { ApolloConsumer } from 'react-apollo'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
 import AddCourse from './AddCourse'
-import { DropDown, DropDownItem, SearchStyles } from './styles/DropDown'
-
-const LinkStyles = styled.div`
-  justify-self: start;
-`
 
 const SEARCH_COURSES_QUERY = gql`
   query SEARCH_COURSES_QUERY($searchTerm: String!) {
@@ -46,7 +40,7 @@ class Search extends Component {
   }, 300)
   render() {
     return (
-      <SearchStyles>
+      <div>
         <Downshift itemToString={item => (item === null ? '' : item.title)}>
           {({
             getInputProps,
@@ -73,28 +67,28 @@ class Search extends Component {
                 )}
               </ApolloConsumer>
               {isOpen && (
-                <DropDown>
+                <div>
                   {this.state.courses.map((item, index) => (
-                    <DropDownItem
+                    <div
                       {...getItemProps({ item })}
                       key={item.id}
                       highlighted={index === highlightedIndex}
                     >
-                      <LinkStyles>
+                      <div>
                         <Link to={`/courses/${item.id}`}>{item.title}</Link>
-                      </LinkStyles>
+                      </div>
                       <AddCourse id={item.id} />
-                    </DropDownItem>
+                    </div>
                   ))}
                   {!this.state.courses.length && !this.state.loading && (
-                    <DropDownItem>Nothing Found for {inputValue}</DropDownItem>
+                    <div>Nothing Found for {inputValue}</div>
                   )}
-                </DropDown>
+                </div>
               )}
             </div>
           )}
         </Downshift>
-      </SearchStyles>
+      </div>
     )
   }
 }

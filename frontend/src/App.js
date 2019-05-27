@@ -19,9 +19,6 @@ import Schedule from './components/Schedule'
 import Signin from './components/Signin'
 import Signup from './components/Signup'
 import SingleCourse from './components/SingleCourse'
-import Container from './components/styles/Container'
-import GlobalStyles from './components/styles/GlobalStyles'
-import './components/styles/Login.css'
 import TermsAndConditions from './components/TermsAndConditions'
 import UpdateCourse from './components/UpdateCourse'
 import UpdateEvent from './components/UpdateEvent'
@@ -32,34 +29,26 @@ const client = new ApolloClient({
   credentials: 'include'
 })
 
-// const PermissionsContainer = () => (
-//   <PleaseSignIn>
-//     <Route exact path="/permissions" component={Permissions} />
-//   </PleaseSignIn>
-// )
-
 const DefaultContainer = () => (
   <>
     <PleaseSignIn>
       <Header />
-      <Container>
-        <Switch>
-          <Route exact path="/" component={Courses} />
-          <Route path="/courses/:id" component={SingleCourse} />
-          <Route path="/create_institution" component={CreateInstitution} />
-          <Route path="/create_course" component={CreateCourse} />
-          <Route path="/update/:id" component={UpdateCourse} />
-          <Route path="/update_event/:id" component={UpdateEvent} />
-          <Route path="/create_event" component={CreateEvent} />
-          <Route exact path="/permissions" component={Permissions} />
-          <Route path="/schedule" component={Schedule} />
-          <Route path="/permissions" component={Permissions} />
-          <Route path="/create_announcement" component={CreateAnnouncement} />
-          <Route path="/privacy_policy" component={PrivacyPolicy} />
-          <Route path="/terms_and_conditions" component={TermsAndConditions} />
-          <Route component={NoMatch} />
-        </Switch>
-      </Container>
+      <Switch>
+        <Route exact path="/" component={Courses} />
+        <Route path="/courses/:id" component={SingleCourse} />
+        <Route path="/create_institution" component={CreateInstitution} />
+        <Route path="/create_course" component={CreateCourse} />
+        <Route path="/update/:id" component={UpdateCourse} />
+        <Route path="/update_event/:id" component={UpdateEvent} />
+        <Route path="/create_event" component={CreateEvent} />
+        <Route exact path="/permissions" component={Permissions} />
+        <Route path="/schedule" component={Schedule} />
+        <Route path="/permissions" component={Permissions} />
+        <Route path="/create_announcement" component={CreateAnnouncement} />
+        <Route path="/privacy_policy" component={PrivacyPolicy} />
+        <Route path="/terms_and_conditions" component={TermsAndConditions} />
+        <Route component={NoMatch} />
+      </Switch>
       <Footer />
     </PleaseSignIn>
   </>
@@ -71,17 +60,11 @@ class App extends Component {
       <ApolloProvider client={client}>
         <Router>
           <>
-            <GlobalStyles />
             <Switch>
               <Route exact path="/signin" component={Signin} />
               <Route exact path="/signup" component={Signup} />
               <Route path="/request_reset" component={RequestReset} />
               <Route path="/reset/:resetToken" component={Reset} />
-              {/* <Route
-                exact
-                path="/permissions"
-                component={PermissionsContainer}
-              /> */}
               <Route component={DefaultContainer} />
             </Switch>
           </>

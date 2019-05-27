@@ -1,11 +1,8 @@
 import gql from 'graphql-tag'
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
-import { UploadPreview } from './CreateEvent'
 import Error from './ErrorMessage'
 import IsAdminTeacher from './IsAdminTeacher'
-import Form from './styles/Form'
-import UploadButton from './styles/UploadButton'
 
 const CREATE_INSTITUTION_MUTATION = gql`
   mutation CREATE_INSTITUTION_MUTATION($name: String!, $logo: String) {
@@ -56,7 +53,7 @@ class CreateInstitution extends Component {
             variables={this.state}
           >
             {(createInstitution, { loading, error }) => (
-              <Form
+              <form
                 onSubmit={async e => {
                   e.preventDefault()
                   await createInstitution()
@@ -78,7 +75,7 @@ class CreateInstitution extends Component {
                     />
                   </label>
                   <label htmlFor="file">
-                    <UploadButton>
+                    <button>
                       <button>Upload an Image</button>
                       <input
                         type="file"
@@ -87,28 +84,20 @@ class CreateInstitution extends Component {
                         placeholder="Upload an image"
                         onChange={this.uploadFile}
                       />
-                    </UploadButton>
+                    </button>
                     {this.state.loading ? <p>Loading...</p> : null}
                     {this.state.logo && (
-                      <UploadPreview>
-                        <img
-                          src={this.state.logo}
-                          alt="School logo"
-                          style={{ width: '40px' }}
-                        />
-                      </UploadPreview>
+                      <div>
+                        <img src={this.state.logo} alt="School logo" />
+                      </div>
                     )}
                   </label>
 
-                  <button
-                    type="submit"
-                    disabled={this.state.loading}
-                    style={{ marginBottom: '25rem' }}
-                  >
+                  <button type="submit" disabled={this.state.loading}>
                     Submit
                   </button>
                 </fieldset>
-              </Form>
+              </form>
             )}
           </Mutation>
         </IsAdminTeacher>

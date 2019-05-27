@@ -1,16 +1,7 @@
 import gql from 'graphql-tag'
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
-import styled from 'styled-components'
 import DeleteNote from './DeleteNote'
-
-const NotesStyles = styled.div`
-  li {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-  }
-  margin-top: 2rem;
-`
 
 const NOTES_QUERY = gql`
   query {
@@ -28,7 +19,7 @@ const NOTES_QUERY = gql`
 class Notes extends Component {
   render() {
     return (
-      <NotesStyles>
+      <div>
         <Query query={NOTES_QUERY}>
           {({ data, error, loading }) => {
             if (loading) return <p>Loading...</p>
@@ -37,11 +28,7 @@ class Notes extends Component {
 
             return notes.map(note => (
               <ul key={note.id}>
-                <li
-                  style={{
-                    listStyleType: 'none'
-                  }}
-                >
+                <li>
                   {note.note}
                   <DeleteNote id={note.id} />
                 </li>
@@ -49,7 +36,7 @@ class Notes extends Component {
             ))
           }}
         </Query>
-      </NotesStyles>
+      </div>
     )
   }
 }

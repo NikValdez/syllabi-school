@@ -2,43 +2,8 @@ import gql from 'graphql-tag'
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Mutation, Query } from 'react-apollo'
-import ReactHtmlParser from 'react-html-parser'
-import ReactModal from 'react-modal'
-import styled, { keyframes } from 'styled-components'
-import './styles/Modal.css'
-import { TableStyles, TdStyles, ThStyles, TrStyles } from './styles/Table'
 import { Dropdown } from 'react-bootstrap'
-
-const stretch = keyframes`
-  0% {
-    transform: scale(.3);
-    background-color: black;
-    border-radius: 100%;
-  }
-   100% {
-    transform: scale(.5);
-    background-color: #fffcdf;
-    border-radius: 100%;
-  }
-`
-const Alert = styled.div`
-  width: 50px;
-  margin: 0 auto;
-  background-color: #fffcdf;
-  animation-name: ${stretch};
-  animation-duration: 1.5s;
-  animation-timing-function: ease-out;
-  animation-delay: 0;
-  animation-direction: alternate;
-  animation-iteration-count: infinite;
-  animation-fill-mode: none;
-  animation-play-state: running;
-  font-size: 30px;
-  .element {
-    margin-bottom: 20px;
-  }
-  box-shadow: 0 0 5px 3px rgba(0, 0, 0, 0.05);
-`
+import ReactHtmlParser from 'react-html-parser'
 
 const ANNOUNCEMENTS_QUERY = gql`
   query {
@@ -105,46 +70,21 @@ class Announcements extends Component {
 
           return (
             <div>
-              {/* {count.length > 0 && (
-                    <Alert className="element">{count.length} </Alert>
-                  )} */}
               <Dropdown onToggle={this.toggle}>
                 <Dropdown.Toggle id="dropdown-annonucements">
-                  <i
-                    className="far fa-flag"
-                    style={{
-                      color: count.length > 0 ? '#73c8a9' : '#ffffffa3',
-                      fontSize: count.length > 0 ? '1.5em' : '1.3em',
-                      marginBottom: '1.5rem',
-                      marginRight: '1rem'
-                    }}
-                  />
+                  <i className="far fa-flag" />
 
                   <Dropdown.Menu id="dropdown-announcement-items">
                     <>
                       {announcements.length < 1 ? (
-                        <p style={{ background: '#fffcdf' }}>
-                          No Announcements Currently
-                        </p>
+                        <p>No Announcements Currently</p>
                       ) : (
-                        <TableStyles style={{ border: '1px solid black' }}>
-                          <tbody style={{ background: 'black' }}>
+                        <table>
+                          <tbody>
                             <tr>
-                              <ThStyles
-                                style={{ color: 'white', textAlign: 'left' }}
-                              >
-                                Date
-                              </ThStyles>
-                              <ThStyles
-                                style={{ color: 'white', textAlign: 'left' }}
-                              >
-                                Announcement
-                              </ThStyles>
-                              <ThStyles
-                                style={{ color: 'white', textAlign: 'left' }}
-                              >
-                                Seen
-                              </ThStyles>
+                              <th>Date</th>
+                              <th>Announcement</th>
+                              <th>Seen</th>
                             </tr>
 
                             {announcements.map(
@@ -159,26 +99,14 @@ class Announcements extends Component {
                                 >
                                   {(updateAnnouncement, { loading, error }) => (
                                     <tr key={id}>
-                                      <TdStyles
-                                        style={{
-                                          color: course.color,
-                                          marginBottom: '1rem'
-                                        }}
-                                      >
+                                      <td>
                                         <p>
                                           {moment(date).format('MMM Do YYYY')}
                                         </p>
-                                      </TdStyles>
-                                      <TdStyles
-                                        style={{
-                                          color: 'white'
-                                          // background: course.color
-                                        }}
-                                      >
-                                        {ReactHtmlParser(text)}
-                                      </TdStyles>
+                                      </td>
+                                      <td>{ReactHtmlParser(text)}</td>
 
-                                      <TdStyles style={{ color: 'white' }}>
+                                      <td>
                                         <div
                                           onClick={() => {
                                             updateAnnouncement()
@@ -194,14 +122,14 @@ class Announcements extends Component {
                                             </span>
                                           )}
                                         </div>
-                                      </TdStyles>
+                                      </td>
                                     </tr>
                                   )}
                                 </Mutation>
                               )
                             )}
                           </tbody>
-                        </TableStyles>
+                        </table>
                       )}
                     </>
                   </Dropdown.Menu>

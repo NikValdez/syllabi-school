@@ -8,10 +8,6 @@ import { Col, Modal, Row, Table } from 'react-bootstrap'
 import ReactHtmlParser from 'react-html-parser'
 import FilePlaceholder from '../images/filePlaceholder.png'
 import CalendarSync from './CalendarSync'
-import Button from './styles/Button'
-import './styles/Modal.css'
-import SingleCourseStyles from './styles/SingleCourseStyles'
-import TextExtension from './styles/TextExtension'
 
 const SINGLE_COURSE_QUERY = gql`
   query SINGLE_COURSE_QUERY($id: ID!) {
@@ -135,13 +131,13 @@ class ExportAsPdf extends Component {
           const course = data.course
 
           return (
-            <SingleCourseStyles>
+            <div>
               <h4
                 variant="primary"
                 onClick={this.handleShow}
                 style={{ cursor: 'pointer' }}
               >
-                <span style={{ marginRight: '10px' }}>
+                <span>
                   <i className="fas fa-book-open" />
                 </span>
                 View Schedule
@@ -157,34 +153,24 @@ class ExportAsPdf extends Component {
                 bsPrefix="my-modal"
                 style={{ overflow: 'scroll' }}
               >
-                <Modal.Header closeButton style={{ borderBottom: 'none' }} />
-                <Button
+                <Modal.Header closeButton />
+                <button
                   onClick={() => {
                     this.generate()
                     this.handleClose()
                   }}
-                  style={{ width: '10%', marginTop: '2rem' }}
                 >
                   Export PDF
-                </Button>
-                <div id="html-2-pdfwrapper" style={{ zIndex: '999' }}>
-                  <span
-                    style={{
-                      position: 'absolute',
-                      top: '5px'
-                    }}
-                  >
-                    <img
-                      src={this.props.institutionLogo}
-                      style={{ width: '50px' }}
-                      alt="logo"
-                    />
+                </button>
+                <div id="html-2-pdfwrapper">
+                  <span>
+                    <img src={this.props.institutionLogo} alt="logo" />
                   </span>
                 </div>
 
                 <Row>
                   <Col md={6} xs={6}>
-                    <Table bordered responsive id="course-table">
+                    <table bordered responsive id="course-table">
                       <tbody>
                         <tr>
                           <th>Title</th>
@@ -199,7 +185,7 @@ class ExportAsPdf extends Component {
                           <td>{course.credits}</td>
                         </tr>
                       </tbody>
-                    </Table>
+                    </table>
                   </Col>
                 </Row>
                 <div id="course-description">
@@ -241,9 +227,7 @@ class ExportAsPdf extends Component {
                                       alt="File download"
                                       style={{ textAlign: 'center' }}
                                     />
-                                    <TextExtension>
-                                      {upload.split('.').pop()}
-                                    </TextExtension>
+                                    <span>{upload.split('.').pop()}</span>
                                   </div>
                                 </a>
                               )}
@@ -255,16 +239,9 @@ class ExportAsPdf extends Component {
                   </Table>
                 )}
 
-                <Button
-                  onClick={this.handleClose}
-                  style={{
-                    width: '50%'
-                  }}
-                >
-                  Close
-                </Button>
+                <button onClick={this.handleClose}>Close</button>
               </Modal>
-            </SingleCourseStyles>
+            </div>
           )
         }}
       </Query>

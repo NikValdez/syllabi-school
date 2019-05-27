@@ -2,35 +2,15 @@ import gql from 'graphql-tag'
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
-import { Table } from 'react-bootstrap'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import ReactHtmlParser from 'react-html-parser'
 import ReactModal from 'react-modal'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
-import styled from 'styled-components'
 import FilePlaceholder from '../images/filePlaceholder.png'
 import IsAdminTeacher from './IsAdminTeacher'
 import { SINGLE_COURSE_QUERY } from './SingleCourse'
-import Button from './styles/Button'
-import Form from './styles/Form'
-import TextExtension from './styles/TextExtension'
-import UploadButton from './styles/UploadButton'
-import XIcon from './styles/XIcon'
-
-const DatePick = styled.div`
-  padding: 10px;
-`
-export const UploadPreview = styled.div`
-  width: 200px;
-`
-export const Quill = styled.div`
-  .quill {
-    height: 10rem;
-    margin-bottom: 5rem;
-  }
-`
 
 const CREATE_EVENT_MUTATION = gql`
   mutation CREATE_EVENT_MUTATION(
@@ -129,12 +109,7 @@ class CreateEvent extends Component {
   render() {
     return (
       <IsAdminTeacher>
-        <Button
-          onClick={this.handleOpenEvent}
-          style={{ marginTop: '2rem', marginBottom: '1rem' }}
-        >
-          Create Event
-        </Button>
+        <button onClick={this.handleOpenEvent}>Create Event</button>
         <Mutation
           mutation={CREATE_EVENT_MUTATION}
           variables={this.state}
@@ -153,13 +128,8 @@ class CreateEvent extends Component {
               onRequestClose={this.handleCloseModal}
               shouldCloseOnOverlayClick={true}
             >
-              <span
-                onClick={this.handleCloseModal}
-                style={{ margin: '1rem', float: 'right' }}
-              >
-                <XIcon />
-              </span>
-              <Form
+              <span onClick={this.handleCloseModal}>X</span>
+              <form
                 onSubmit={async e => {
                   e.preventDefault()
                   await createEvent()
@@ -188,7 +158,7 @@ class CreateEvent extends Component {
                     />
                   </label>
                   <label htmlFor="start">
-                    <DatePick>Event Start</DatePick>
+                    <div>Event Start</div>
                     <DatePicker
                       selected={this.state.start}
                       onChange={this.handleStartDateChange}
@@ -196,7 +166,7 @@ class CreateEvent extends Component {
                     />
                   </label>
                   <label htmlFor="end">
-                    <DatePick>Event End</DatePick>
+                    <div>Event End</div>
                     <DatePicker
                       selected={this.state.end}
                       onChange={this.handleEndDateChange}
@@ -205,19 +175,17 @@ class CreateEvent extends Component {
                   </label>
                   <label htmlFor="description">
                     Description
-                    <Quill>
-                      <ReactQuill
-                        placeholder="Add a description..."
-                        theme="snow"
-                        value={this.state.description}
-                        onChange={this.onDescriptionChange}
-                        modules={CreateEvent.modules}
-                        formats={CreateEvent.formats}
-                      />
-                    </Quill>
+                    <ReactQuill
+                      placeholder="Add a description..."
+                      theme="snow"
+                      value={this.state.description}
+                      onChange={this.onDescriptionChange}
+                      modules={CreateEvent.modules}
+                      formats={CreateEvent.formats}
+                    />
                   </label>
                   <label htmlFor="file">
-                    <UploadButton>
+                    <button>
                       <button>Upload a File </button>
                       <input
                         type="file"
@@ -226,21 +194,17 @@ class CreateEvent extends Component {
                         placeholder="Upload a file or image"
                         onChange={this.uploadFile}
                       />
-                    </UploadButton>
+                    </button>
                     {this.state.loading ? <p>Loading...</p> : null}
                     {this.state.upload && (
-                      <UploadPreview>
+                      <div>
                         <a href={this.state.upload}>
                           {this.state.title}-Upload
                         </a>
-                      </UploadPreview>
+                      </div>
                     )}
                   </label>
-                  <button
-                    type="submit"
-                    disabled={this.state.loading}
-                    style={{ marginBottom: '5px', marginRight: '10px' }}
-                  >
+                  <button type="submit" disabled={this.state.loading}>
                     Add Event
                   </button>
                   <button
@@ -260,8 +224,8 @@ class CreateEvent extends Component {
                     Add and Send Notification Email
                   </button>
                 </fieldset>
-              </Form>
-              <Table bordered>
+              </form>
+              <table>
                 <thead>
                   <tr>
                     <td>Date</td>
@@ -280,27 +244,16 @@ class CreateEvent extends Component {
                     <td>
                       {this.state.upload && (
                         <a href={this.state.upload}>
-                          <div
-                            style={{
-                              position: 'relative',
-                              textAlign: 'center'
-                            }}
-                          >
-                            <img
-                              src={FilePlaceholder}
-                              alt="File download"
-                              style={{ textAlign: 'center' }}
-                            />
-                            <TextExtension>
-                              {this.state.upload.split('.').pop()}
-                            </TextExtension>
+                          <div>
+                            <img src={FilePlaceholder} alt="File download" />
+                            <span>{this.state.upload.split('.').pop()}</span>
                           </div>
                         </a>
                       )}
                     </td>
                   </tr>
                 </tbody>
-              </Table>
+              </table>
             </ReactModal>
           )}
         </Mutation>

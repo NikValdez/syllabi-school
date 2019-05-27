@@ -6,7 +6,6 @@ import { Mutation, Query } from 'react-apollo'
 import DatePicker from 'react-datepicker'
 import Select from 'react-select'
 import { ALL_COURSES_QUERY } from './Courses'
-import Form from './styles/Form'
 
 const EDIT_COURSE_QUERY = gql`
   query EDIT_COURSE_QUERY($id: ID!) {
@@ -123,7 +122,7 @@ class UpdateCourse extends Component {
               refetchQueries={[{ query: ALL_COURSES_QUERY }]}
             >
               {(updateCourse, { loading, error }) => (
-                <Form
+                <form
                   onSubmit={e =>
                     this.updateCourse(e, updateCourse).catch(err => {
                       alert(err.message)
@@ -200,7 +199,7 @@ class UpdateCourse extends Component {
                     </label>
                     <label htmlFor="DateTime">
                       Office Hours
-                      <div style={{ marginRight: '20px' }}>
+                      <div>
                         <DatePicker
                           selected={
                             this.state.startDate ||
@@ -236,11 +235,9 @@ class UpdateCourse extends Component {
                         />
                       </div>
                     </label>
-                    <button type="submit" style={{ margin: '2rem 0 10rem 0' }}>
-                      Save Changes
-                    </button>
+                    <button type="submit">Save Changes</button>
                   </fieldset>
-                </Form>
+                </form>
               )}
             </Mutation>
           )

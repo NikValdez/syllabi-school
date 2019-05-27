@@ -2,7 +2,6 @@ import gql from 'graphql-tag'
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
 import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
-import XIcon from './styles/XIcon'
 
 const DELETE_MYCOURSE_MUTATION = gql`
   mutation DELETE_MYCOURSE_MUTATION($id: ID!) {
@@ -30,15 +29,7 @@ export class DeleteMyCourse extends Component {
               }
             }}
           >
-            <div
-              style={{
-                background: this.props.color,
-                width: '35px',
-                padding: '5px'
-              }}
-            >
-              <XIcon />
-            </div>
+            <div>X</div>
           </span>
         )}
       </Mutation>

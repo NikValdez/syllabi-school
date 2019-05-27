@@ -9,10 +9,8 @@ import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import Select from 'react-select'
 import { ALL_COURSES_QUERY } from './Courses'
-import { Quill } from './CreateEvent'
 import Error from './ErrorMessage'
 import IsAdminTeacher from './IsAdminTeacher'
-import Form from './styles/Form'
 import { CURRENT_USER_QUERY } from './User'
 
 const CREATE_COURSE_MUTATION = gql`
@@ -123,215 +121,182 @@ class CreateCourse extends Component {
     const { selectedOption } = this.state
     return (
       <IsAdminTeacher>
-        <Row>
-          <Col md={7} className="col-12">
-            <Query query={CURRENT_USER_QUERY}>
-              {({ data, error, loading }) => {
-                if (error) return <p>Error : {error.message}</p>
-                return (
-                  <Mutation
-                    mutation={CREATE_COURSE_MUTATION}
-                    variables={this.state}
-                    refetchQueries={[{ query: ALL_COURSES_QUERY }]}
-                  >
-                    {(createCourse, { loading, error }) => (
-                      <Form
-                        style={{ width: '100%' }}
-                        onSubmit={async e => {
-                          e.preventDefault()
-                          await this.setState({
-                            institution: data.me.institution.id
-                          })
-                          const res = await createCourse()
-                          this.props.history.push(
-                            `/courses/${res.data.createCourse.id}`
-                          )
-                        }}
-                      >
-                        <Error error={error} />
-                        <fieldset disabled={loading} aria-busy={loading}>
-                          <label htmlFor="title">
-                            Department
-                            <input
-                              maxLength="40"
-                              type="text"
-                              id="title"
-                              name="title"
-                              placeholder="Department"
-                              required
-                              value={this.state.title}
-                              onChange={this.handleChange}
-                            />
-                          </label>
-                          {this.state.title.length > 39 ? (
-                            <p style={{ color: '#f17070' }}>
-                              Title cannot be this long
-                            </p>
-                          ) : (
-                            ''
-                          )}
-                          <label htmlFor="courseCode">
-                            Owner(s)
-                            <input
-                              type="text"
-                              id="courseCode"
-                              name="courseCode"
-                              placeholder="ex) Matt Visser, matt@syllabi.com"
-                              required
-                              value={this.state.courseCode}
-                              onChange={this.handleChange}
-                            />
-                          </label>
-                          <label htmlFor="credits">
-                            Extension
-                            <input
-                              maxLength="20"
-                              type="text"
-                              id="credits"
-                              name="credits"
-                              placeholder="Extension #"
-                              required
-                              value={this.state.credits}
-                              onChange={this.onCreditsChange}
-                            />
-                          </label>
+        <div>
+          <Query query={CURRENT_USER_QUERY}>
+            {({ data, error, loading }) => {
+              if (error) return <p>Error : {error.message}</p>
+              return (
+                <Mutation
+                  mutation={CREATE_COURSE_MUTATION}
+                  variables={this.state}
+                  refetchQueries={[{ query: ALL_COURSES_QUERY }]}
+                >
+                  {(createCourse, { loading, error }) => (
+                    <form
+                      style={{ width: '100%' }}
+                      onSubmit={async e => {
+                        e.preventDefault()
+                        await this.setState({
+                          institution: data.me.institution.id
+                        })
+                        const res = await createCourse()
+                        this.props.history.push(
+                          `/courses/${res.data.createCourse.id}`
+                        )
+                      }}
+                    >
+                      <Error error={error} />
+                      <fieldset disabled={loading} aria-busy={loading}>
+                        <label htmlFor="title">
+                          Department
+                          <input
+                            maxLength="40"
+                            type="text"
+                            id="title"
+                            name="title"
+                            placeholder="Department"
+                            required
+                            value={this.state.title}
+                            onChange={this.handleChange}
+                          />
+                        </label>
+                        {this.state.title.length > 39 ? (
+                          <p>Title cannot be this long</p>
+                        ) : (
+                          ''
+                        )}
+                        <label htmlFor="courseCode">
+                          Owner(s)
+                          <input
+                            type="text"
+                            id="courseCode"
+                            name="courseCode"
+                            placeholder="ex) Matt Visser, matt@syllabi.com"
+                            required
+                            value={this.state.courseCode}
+                            onChange={this.handleChange}
+                          />
+                        </label>
+                        <label htmlFor="credits">
+                          Extension
+                          <input
+                            maxLength="20"
+                            type="text"
+                            id="credits"
+                            name="credits"
+                            placeholder="Extension #"
+                            required
+                            value={this.state.credits}
+                            onChange={this.onCreditsChange}
+                          />
+                        </label>
 
-                          <label htmlFor="ClassTime">
-                            Office Days
-                            <Select
-                              value={selectedOption}
-                              onChange={this.handleSelectionChange}
-                              options={options}
-                              isMulti
-                              theme={theme => ({
-                                ...theme,
-                                borderRadius: 0,
-                                colors: {
-                                  ...theme.colors,
-                                  primary25: '#fffcdf',
-                                  primary: 'black'
-                                }
-                              })}
+                        <label htmlFor="ClassTime">
+                          Office Days
+                          <Select
+                            value={selectedOption}
+                            onChange={this.handleSelectionChange}
+                            options={options}
+                            isMulti
+                            theme={theme => ({
+                              ...theme,
+                              borderRadius: 0,
+                              colors: {
+                                ...theme.colors,
+                                primary25: '#fffcdf',
+                                primary: 'black'
+                              }
+                            })}
+                          />
+                        </label>
+                        <label htmlFor="DateTime">
+                          Office Hours
+                          <div>
+                            <DatePicker
+                              selected={this.state.startDate}
+                              onChange={this.handleStartDateChange}
+                              showTimeSelect
+                              showTimeSelectOnly
+                              timeIntervals={15}
+                              dateFormat="h:mm aa"
+                              timeCaption="Time"
+                              placeholderText="Start"
                             />
-                          </label>
-                          <label htmlFor="DateTime">
-                            Office Hours
-                            <div style={{ marginRight: '20px' }}>
-                              <DatePicker
-                                selected={this.state.startDate}
-                                onChange={this.handleStartDateChange}
-                                showTimeSelect
-                                showTimeSelectOnly
-                                timeIntervals={15}
-                                dateFormat="h:mm aa"
-                                timeCaption="Time"
-                                placeholderText="Start"
-                              />
-                            </div>
-                            <div>
-                              <DatePicker
-                                selected={this.state.endDate}
-                                showTimeSelect
-                                showTimeSelectOnly
-                                selectsEnd
-                                timeIntervals={15}
-                                dateFormat="h:mm aa"
-                                timeCaption="Time"
-                                startDate={this.state.startDate}
-                                endDate={this.state.endDate}
-                                onChange={this.handleEndDateChange}
-                                placeholderText="End"
-                              />
-                            </div>
-                          </label>
-                          <label htmlFor="description">
-                            Additional Information
-                            <Quill>
-                              <ReactQuill
-                                placeholder="Add a description..."
-                                theme="snow"
-                                value={this.state.description}
-                                onChange={this.onDescriptionChange}
-                                modules={CreateCourse.modules}
-                                formats={CreateCourse.formats}
-                              />
-                            </Quill>
-                          </label>
-                          <button
-                            type="submit"
-                            style={{ marginTop: '1rem', marginBottom: '6rem' }}
-                          >
-                            Submit
-                          </button>
-                        </fieldset>
-                      </Form>
-                    )}
-                  </Mutation>
-                )
-              }}
-            </Query>
-          </Col>
-
-          <Col md={5} className="col-12" style={{ marginTop: '5rem' }}>
-            <Table bordered>
-              <tbody>
-                <tr>
-                  <th>Department</th>
-                  <td>{this.state.title}</td>
-                </tr>
-                <tr>
-                  <th>Owner(s)</th>
-                  <td>{this.state.courseCode}</td>
-                </tr>
-                <tr>
-                  <th>Extension</th>
-                  <td>{this.state.credits}</td>
-                </tr>
-                <tr>
-                  <th>Office Hours</th>
-                  <td>
-                    {this.state.days !== '' &&
-                      JSON.parse(this.state.days).map(day => (
-                        <div key={day} style={{ display: 'inline-block' }}>
-                          <h6
-                            style={{
-                              marginRight: '5px',
-                              fontSize: '10px',
-                              color: '#a09e9e'
-                            }}
-                          >
-                            {day.toUpperCase()}
-                          </h6>
-                          <div style={{ display: 'inline-block' }}>
-                            <h6
-                              style={{
-                                marginRight: '20px',
-                                fontSize: '10px'
-                              }}
-                            >
-                              {moment(this.state.startDate).format('LT')}
-                            </h6>
-                            <h6
-                              style={{
-                                marginRight: '20px',
-                                fontSize: '10px'
-                              }}
-                            >
-                              {moment(this.state.endDate).format('LT')}
-                            </h6>
                           </div>
+                          <div>
+                            <DatePicker
+                              selected={this.state.endDate}
+                              showTimeSelect
+                              showTimeSelectOnly
+                              selectsEnd
+                              timeIntervals={15}
+                              dateFormat="h:mm aa"
+                              timeCaption="Time"
+                              startDate={this.state.startDate}
+                              endDate={this.state.endDate}
+                              onChange={this.handleEndDateChange}
+                              placeholderText="End"
+                            />
+                          </div>
+                        </label>
+                        <label htmlFor="description">
+                          Additional Information
+                          <div>
+                            <ReactQuill
+                              placeholder="Add a description..."
+                              theme="snow"
+                              value={this.state.description}
+                              onChange={this.onDescriptionChange}
+                              modules={CreateCourse.modules}
+                              formats={CreateCourse.formats}
+                            />
+                          </div>
+                        </label>
+                        <button type="submit">Submit</button>
+                      </fieldset>
+                    </form>
+                  )}
+                </Mutation>
+              )
+            }}
+          </Query>
+
+          <table>
+            <tbody>
+              <tr>
+                <th>Department</th>
+                <td>{this.state.title}</td>
+              </tr>
+              <tr>
+                <th>Owner(s)</th>
+                <td>{this.state.courseCode}</td>
+              </tr>
+              <tr>
+                <th>Extension</th>
+                <td>{this.state.credits}</td>
+              </tr>
+              <tr>
+                <th>Office Hours</th>
+                <td>
+                  {this.state.days !== '' &&
+                    JSON.parse(this.state.days).map(day => (
+                      <div key={day}>
+                        <h6>{day.toUpperCase()}</h6>
+                        <div>
+                          <h6>{moment(this.state.startDate).format('LT')}</h6>
+                          <h6>{moment(this.state.endDate).format('LT')}</h6>
                         </div>
-                      ))}
-                  </td>
-                </tr>
-              </tbody>
-            </Table>
-            <div>
-              <h3>Additional Information</h3>
-              {ReactHtmlParser(this.state.description)}
-            </div>
-          </Col>
-        </Row>
+                      </div>
+                    ))}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div>
+            <h3>Additional Information</h3>
+            {ReactHtmlParser(this.state.description)}
+          </div>
+        </div>
       </IsAdminTeacher>
     )
   }

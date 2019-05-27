@@ -3,7 +3,6 @@ import htmlToText from 'html-to-text'
 import ical from 'ical-generator'
 import React, { Component } from 'react'
 import { Modal } from 'react-bootstrap'
-import Button from './styles/Button'
 
 gapi.load('client:auth2', function() {
   gapi.auth2.init({
@@ -148,60 +147,19 @@ export default class CalendarSync extends Component {
     return (
       <div>
         <h4>Sync:</h4>
-        <h4
-          onClick={this.createIcal}
-          style={{
-            display: 'inline-block',
-            cursor: 'pointer',
-            marginBottom: '25px'
-          }}
-        >
+        <h4 onClick={this.createIcal}>
           <i className="far fa-calendar-alt" /> Apple
         </h4>
-        <h4
-          onClick={this.authenticate}
-          style={{
-            display: 'inline-block',
-            marginLeft: '10px',
-            marginBottom: '15px',
-            cursor: 'pointer'
-          }}
-        >
+        <h4 onClick={this.authenticate}>
           <i className="far fa-calendar-alt" /> Google
         </h4>
-        {/* <h4
-          onClick={this.createOulookCal}
-          style={{
-            display: 'inline-block',
-            cursor: 'pointer',
-            marginLeft: '10px'
-          }}
-        >
-          <i className="far fa-calendar-alt" /> Outlook
-        </h4> */}
 
-        <Modal
-          show={this.state.show}
-          onHide={this.handleClose}
-          style={{
-            height: '30%',
-            width: '40%',
-            top: '50%',
-            left: ' 50%',
-            overflow: 'hidden',
-            minHeight: 0
-          }}
-        >
-          <Modal.Header
-            closeButton
-            style={{
-              width: '38%'
-            }}
-          >
+        <Modal show={this.state.show} onHide={this.handleClose}>
+          <Modal.Header closeButton>
             <h2>Add Schedule to Google Calendar</h2>
           </Modal.Header>
           <Modal.Body>
-            <Button
+            <button
               onClick={() => {
                 this.addScheduleToCalendar()
                 this.handleClose()
@@ -209,7 +167,7 @@ export default class CalendarSync extends Component {
             >
               Add to <i className="fab fa-google" />
               oogle
-            </Button>
+            </button>
           </Modal.Body>
         </Modal>
       </div>

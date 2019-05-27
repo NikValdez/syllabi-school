@@ -1,21 +1,9 @@
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Query } from 'react-apollo'
-import { Table } from 'react-bootstrap'
 import ReactHtmlParser from 'react-html-parser'
-import styled from 'styled-components'
 import FilePlaceholder from '../images/filePlaceholder.png'
 import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
-import TextExtension from './styles/TextExtension'
-
-const ScheduleStyles = styled.div`
-  margin: 20px;
-
-  h3 {
-    margin-top: 30px;
-  }
-  margin-bottom: 25rem;
-`
 
 export class Schedule extends Component {
   render() {
@@ -30,14 +18,7 @@ export class Schedule extends Component {
 
           const courseColor = data.me.myCourses.map(course => {
             return (
-              <div
-                key={course.courses.id}
-                style={{
-                  display: 'inline-block',
-                  marginRight: '15px',
-                  float: 'right'
-                }}
-              >
+              <div key={course.courses.id}>
                 <p style={{ background: course.courses.color, padding: '5px' }}>
                   {course.courses.title}
                 </p>
@@ -53,10 +34,10 @@ export class Schedule extends Component {
           })
 
           return (
-            <ScheduleStyles>
+            <div>
               <h3>Full Schedule</h3>
               <div>{color}</div>
-              <Table bordered>
+              <table>
                 <thead>
                   <tr>
                     <td>Date</td>
@@ -68,32 +49,15 @@ export class Schedule extends Component {
                 {sortedByDates.map(course => (
                   <tbody key={course.id}>
                     <tr>
-                      <td
-                        style={{
-                          background: course.color
-                        }}
-                      >
-                        {moment(course.end).format('MMM Do YYYY')}
-                      </td>
+                      <td>{moment(course.end).format('MMM Do YYYY')}</td>
                       <td>{course.title}</td>
                       <td>{ReactHtmlParser(course.description)}</td>
                       <td>
                         {course.upload && (
                           <a href={course.upload} target="blank">
-                            <div
-                              style={{
-                                position: 'relative',
-                                textAlign: 'center'
-                              }}
-                            >
-                              <img
-                                src={FilePlaceholder}
-                                alt="File download"
-                                style={{ textAlign: 'center' }}
-                              />
-                              <TextExtension>
-                                {course.upload.split('.').pop()}
-                              </TextExtension>
+                            <div>
+                              <img src={FilePlaceholder} alt="File download" />
+                              <span>{course.upload.split('.').pop()}</span>
                             </div>
                           </a>
                         )}
@@ -101,8 +65,8 @@ export class Schedule extends Component {
                     </tr>
                   </tbody>
                 ))}
-              </Table>
-            </ScheduleStyles>
+              </table>
+            </div>
           )
         }}
       </Query>

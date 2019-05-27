@@ -5,9 +5,7 @@ import Announcements from './Announcements'
 import IsAdmin from './IsAdmin'
 import IsAdminTeacher from './IsAdminTeacher'
 import Signout from './Signout'
-import MenuIcon from './styles/menu'
-import NavStyles from './styles/NavStyles'
-import XIcon from './styles/XIcon'
+
 import User from './User'
 
 class NewNav extends Component {
@@ -27,12 +25,12 @@ class NewNav extends Component {
         {({ data }) => {
           const me = data ? data.me : null
           return (
-            <NavStyles>
+            <div>
               <Announcements />
               <>
                 <Dropdown onToggle={this.toggle}>
                   <Dropdown.Toggle id="dropdown-basic">
-                    {!this.state.isOpen ? <MenuIcon /> : <XIcon />}
+                    {!this.state.isOpen ? <div>Open</div> : <div>X</div>}
 
                     <Dropdown.Menu id="dropdown-items">
                       <Link to="/schedule">Full Schedule</Link>
@@ -58,7 +56,7 @@ class NewNav extends Component {
                   Sign In
                 </Link>
               )}
-            </NavStyles>
+            </div>
           )
         }}
       </User>
