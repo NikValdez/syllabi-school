@@ -109,7 +109,9 @@ class CreateEvent extends Component {
   render() {
     return (
       <IsAdminTeacher>
-        <button className="button" onClick={this.handleOpenEvent}>Create Event</button>
+        <button className="button" onClick={this.handleOpenEvent}>
+          Create Event
+        </button>
         <Mutation
           mutation={CREATE_EVENT_MUTATION}
           variables={this.state}
@@ -186,7 +188,7 @@ class CreateEvent extends Component {
                   </label>
                   <label htmlFor="file">
                     <button>
-                      <button>Upload a File </button>
+                      Upload a File
                       <input
                         type="file"
                         id="file"

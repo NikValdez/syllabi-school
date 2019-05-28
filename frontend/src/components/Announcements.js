@@ -60,19 +60,18 @@ class Announcements extends Component {
             : null
 
           //get current count for number of announcements
-          const count = announcements
-            .map(announcement => {
-              if (announcement.clicked === true) {
-                return +1
-              }
-            })
-            .filter(Boolean)
+          // const count = announcements
+          //   .map(announcement => {
+          //     if (announcement.clicked === true) {
+          //       return +1
+          //     }
+          //   })
+          //   .filter(Boolean)
 
           return (
             <Dropdown onToggle={this.toggle}>
               <Dropdown.Toggle className="button" id="dropdown-annonucements">
                 Alerts
-
                 <Dropdown.Menu id="dropdown-announcement-items">
                   <>
                     {announcements.length < 1 ? (
@@ -112,12 +111,15 @@ class Announcements extends Component {
                                         }}
                                       >
                                         {clicked ? (
-                                          <span role="img">
-                                            <p>❌</p>
+                                          <span
+                                            role="img"
+                                            aria-label="not-seen"
+                                          >
+                                            ❌
                                           </span>
                                         ) : (
-                                          <span>
-                                            <p>☑️</p>
+                                          <span role="img" aria-label="seen">
+                                            ☑️
                                           </span>
                                         )}
                                       </div>

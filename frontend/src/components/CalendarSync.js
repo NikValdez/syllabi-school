@@ -53,26 +53,26 @@ export default class CalendarSync extends Component {
     return link.click()
   }
 
-  createOulookCal = () => {
-    this.state.appleEvents.map(course => {
-      course.summary = course.title
-      delete course.title
-      course.description = htmlToText.fromString(course.description)
-      course.background = course.color
-      delete course.color
+  // createOulookCal = () => {
+  //   this.state.appleEvents.map(course => {
+  //     course.summary = course.title
+  //     delete course.title
+  //     course.description = htmlToText.fromString(course.description)
+  //     course.background = course.color
+  //     delete course.color
 
-      this.setState({
-        appleEvents: this.state.appleEvents
-      })
-    })
-    const calendar = ical({
-      domain: 'gosyllabi.com',
-      prodId: '//Syllabi//ical-generator//EN',
-      events: this.props.courseEvents
-    })
+  //     this.setState({
+  //       appleEvents: this.state.appleEvents
+  //     })
+  //   })
+  //   const calendar = ical({
+  //     domain: 'gosyllabi.com',
+  //     prodId: '//Syllabi//ical-generator//EN',
+  //     events: this.props.courseEvents
+  //   })
 
-    return window.open('data:text/calendar;charset=utf8,' + escape(calendar))
-  }
+  //   return window.open('data:text/calendar;charset=utf8,' + escape(calendar))
+  // }
 
   authenticate = () => {
     return gapi.auth2
@@ -170,6 +170,6 @@ export default class CalendarSync extends Component {
           </Modal.Body>
         </Modal>
       </>
-    );
+    )
   }
 }

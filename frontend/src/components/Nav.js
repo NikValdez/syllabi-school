@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Dropdown } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Announcements from './Announcements'
 import IsAdmin from './IsAdmin'
@@ -27,17 +26,23 @@ class NewNav extends Component {
           return (
             <div id="navbarMenu" className="navbar-menu">
               <>
-                <div className="announcement">
-
-                </div>
+                <div className="announcement" />
                 <div className="navbar-start">
-                  <Link className="navbar-item" to="/schedule">Full Schedule</Link>
+                  <Link className="navbar-item" to="/schedule">
+                    Full Schedule
+                  </Link>
                   <IsAdminTeacher>
-                    <Link className="navbar-item" to="/create_course">Create Department</Link>
+                    <Link className="navbar-item" to="/create_course">
+                      Create Department
+                    </Link>
                   </IsAdminTeacher>
                   <IsAdmin>
-                    <Link className="navbar-item" to="/permissions">Permissions</Link>
-                    <Link className="navbar-item" to="/create_institution">Create Show</Link>
+                    <Link className="navbar-item" to="/permissions">
+                      Permissions
+                    </Link>
+                    <Link className="navbar-item" to="/create_institution">
+                      Create Show
+                    </Link>
                   </IsAdmin>
                 </div>
 
@@ -45,9 +50,9 @@ class NewNav extends Component {
                   <div className="navbar-item">
                     <div className="buttons">
                       <Announcements />
-                      <a className="button">
+                      <button className="button">
                         <Signout />
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>

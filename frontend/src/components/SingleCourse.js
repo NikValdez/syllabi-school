@@ -76,7 +76,9 @@ class SingleCourse extends Component {
             <section className="container py-m">
               <IsAdminTeacher>
                 <div className="buttons mb-m">
-                  <Link className="button" to={`/update/${course.id}`}>Update Department </Link>
+                  <Link className="button" to={`/update/${course.id}`}>
+                    Update Department{' '}
+                  </Link>
                   <DeleteCourse id={this.state.id}>
                     Delete Department
                   </DeleteCourse>
@@ -119,7 +121,7 @@ class SingleCourse extends Component {
                 {ReactHtmlParser(course.description)}
               </div>
 
-              <div class="mb-m">
+              <div className="mb-m">
                 <CreateEvent course={course} email={email} />
               </div>
 

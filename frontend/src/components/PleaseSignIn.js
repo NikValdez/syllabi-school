@@ -7,7 +7,7 @@ const PleaseSignIn = props => (
   <Query query={CURRENT_USER_QUERY}>
     {({ data, loading, error }) => {
       if (loading) return <p>Loading...</p>
-      if (error) return <p>Cannot find current user</p>
+      if (error) return <p className="error-message">Cannot fetch data</p>
       if (!data.me) {
         return <Signin />
       }

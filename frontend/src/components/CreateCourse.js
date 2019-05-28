@@ -2,7 +2,6 @@ import gql from 'graphql-tag'
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Mutation, Query } from 'react-apollo'
-import { Col, Row, Table } from 'react-bootstrap'
 import DatePicker from 'react-datepicker'
 import ReactHtmlParser from 'react-html-parser'
 import ReactQuill from 'react-quill'
@@ -227,31 +226,31 @@ class CreateCourse extends Component {
                         <div className="field">
                           <label className="label" htmlFor="DateTime">
                             Office Hours
-                                <DatePicker
-                                  selected={this.state.startDate}
-                                  onChange={this.handleStartDateChange}
-                                  showTimeSelect
-                                  showTimeSelectOnly
-                                  timeIntervals={15}
-                                  dateFormat="h:mm aa"
-                                  timeCaption="Time"
-                                  placeholderText="Start Time"
-                                  className="full-width"
-                                />
-                                <DatePicker
-                                  selected={this.state.endDate}
-                                  showTimeSelect
-                                  showTimeSelectOnly
-                                  selectsEnd
-                                  timeIntervals={15}
-                                  dateFormat="h:mm aa"
-                                  timeCaption="Time"
-                                  startDate={this.state.startDate}
-                                  endDate={this.state.endDate}
-                                  onChange={this.handleEndDateChange}
-                                  placeholderText="End Time"
-                                  className="full-width"
-                                />
+                            <DatePicker
+                              selected={this.state.startDate}
+                              onChange={this.handleStartDateChange}
+                              showTimeSelect
+                              showTimeSelectOnly
+                              timeIntervals={15}
+                              dateFormat="h:mm aa"
+                              timeCaption="Time"
+                              placeholderText="Start Time"
+                              className="full-width"
+                            />
+                            <DatePicker
+                              selected={this.state.endDate}
+                              showTimeSelect
+                              showTimeSelectOnly
+                              selectsEnd
+                              timeIntervals={15}
+                              dateFormat="h:mm aa"
+                              timeCaption="Time"
+                              startDate={this.state.startDate}
+                              endDate={this.state.endDate}
+                              onChange={this.handleEndDateChange}
+                              placeholderText="End Time"
+                              className="full-width"
+                            />
                           </label>
                         </div>
 
@@ -269,7 +268,9 @@ class CreateCourse extends Component {
                           </div>
                         </label>
 
-                        <button className="button is-black" type="submit">Submit</button>
+                        <button className="button is-black" type="submit">
+                          Submit
+                        </button>
                       </fieldset>
                     </form>
                   )}

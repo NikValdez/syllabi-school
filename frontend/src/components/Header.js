@@ -22,9 +22,16 @@ const Header = () => (
                   </Link>
                 </div>
 
-                <a role="button" className="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
-                  <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
-                </a>
+                <button
+                  className="navbar-burger burger"
+                  aria-label="menu"
+                  aria-expanded="false"
+                  data-target="navbarMenu"
+                >
+                  <span aria-hidden="true" />
+                  <span aria-hidden="true" />
+                  <span aria-hidden="true" />
+                </button>
               </div>
 
               <HeaderNav />

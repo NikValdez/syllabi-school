@@ -1,7 +1,7 @@
 import gql from 'graphql-tag'
 import React, { Component } from 'react'
 import { Mutation } from 'react-apollo'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import Error from './ErrorMessage'
 import { CURRENT_USER_QUERY } from './User'
 const SIGNIN_MUTATION = gql`
@@ -39,9 +39,14 @@ class Signin extends Component {
                   e.preventDefault()
                   await signin()
                   this.setState({ email: '', password: '' })
+                  this.props.history.push(`/`)
                 }}
               >
-                <fieldset className="wrapper" disabled={loading} aria-busy={loading}>
+                <fieldset
+                  className="wrapper"
+                  disabled={loading}
+                  aria-busy={loading}
+                >
                   <header className="mb-m">
                     <h1 className="title is-spaced">Account</h1>
                     <p>
@@ -107,5 +112,5 @@ class Signin extends Component {
   }
 }
 
-export default Signin
+export default withRouter(Signin)
 export { SIGNIN_MUTATION }
