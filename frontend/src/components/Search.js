@@ -31,7 +31,7 @@ class Search extends Component {
     this.setState({ loading: true })
     const res = await client.query({
       query: SEARCH_COURSES_QUERY,
-      variables: { searchTerm: e.target.value.toLowerCase() }
+      variables: { searchTerm: e.target.value }
     })
     this.setState({
       courses: res.data.courses,
@@ -43,7 +43,11 @@ class Search extends Component {
       <aside className="menu full-width pb">
         <p className="menu-label">Add a Course</p>
         <div className="field">
-          <Downshift itemToString={item => (item === null ? '' : item.title)}>
+          <Downshift
+            itemToString={item =>
+              item === null ? '' : item.title.toLowerCase()
+            }
+          >
             {({
               getInputProps,
               getItemProps,
@@ -74,7 +78,7 @@ class Search extends Component {
                       <li
                         {...getItemProps({ item })}
                         key={item.id}
-                        highlighted={index === highlightedIndex}
+                        // highlighted={index === highlightedIndex}
                       >
                         <Link to={`/courses/${item.id}`}>{item.title}</Link>
                         <AddCourse id={item.id} />
