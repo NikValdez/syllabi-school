@@ -31,7 +31,7 @@ class Search extends Component {
     this.setState({ loading: true })
     const res = await client.query({
       query: SEARCH_COURSES_QUERY,
-      variables: { searchTerm: e.target.value.toUpperCase() }
+      variables: { searchTerm: e.target.value }
     })
     this.setState({
       courses: res.data.courses,
@@ -43,11 +43,7 @@ class Search extends Component {
       <aside className="menu full-width pb">
         <p className="menu-label">Add a Course</p>
         <div className="field">
-          <Downshift
-            itemToString={item =>
-              item === null ? '' : item.title.toUpperCase()
-            }
-          >
+          <Downshift itemToString={item => (item ? item.title : '')}>
             {({
               getInputProps,
               getItemProps,
