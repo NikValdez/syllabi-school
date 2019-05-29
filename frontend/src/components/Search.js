@@ -80,9 +80,9 @@ class Search extends Component {
                         <AddCourse id={item.id} />
                       </li>
                     ))}
-                    {/* {!this.state.courses.length && !this.state.loading && (
+                    {!this.state.courses.length && !this.state.loading && (
                       <li>Nothing Found for {inputValue}</li>
-                    )} */}
+                    )}
                   </ul>
                 )}
               </div>
