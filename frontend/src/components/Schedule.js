@@ -51,7 +51,9 @@ export class Schedule extends Component {
                 {sortedByDates.map(course => (
                   <tbody key={course.id}>
                     <tr>
-                      <td>{moment(course.end).format('MMM Do YYYY')}</td>
+                      <td style={{ background: course.color }}>
+                        {moment(course.end).format('MMM Do YYYY')}
+                      </td>
                       <td>{course.title}</td>
                       <td>{ReactHtmlParser(course.description)}</td>
                       <td>

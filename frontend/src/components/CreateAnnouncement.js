@@ -110,7 +110,8 @@ class createAnnouncement extends Component {
                   await this.handleCloseModal()
                   this.setState({
                     text: '',
-                    date: null
+                    date: null,
+                    loading: false
                   })
                 }}
               >
@@ -143,7 +144,7 @@ class createAnnouncement extends Component {
                   </button>
                 </fieldset>
               </form>
-              <table className="table full-width" bordered>
+              <table className="table full-width">
                 <thead>
                   <tr>
                     <td>Date</td>
