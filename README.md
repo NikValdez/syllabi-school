@@ -1,34 +1,33 @@
 # Schedule
-Schedule is a scheduling app with multiple applications from education to business 
 
+Schedule is a scheduling app with multiple applications from education to business
 
 ## Getting Started
 
-Local Development: 
+Local Development:
+
 1. Git clone the project
-`git clone https://github.com/NikValdez/schedule.git`
+   `git clone https://github.com/NikValdez/schedule.git`
 
 2. Run Backend:
-`cd backend && npm run dev`
-Backend is available at localhost:4444
+   `cd backend && npm run dev`
+   Backend is available at localhost:4444
 
 3. Install Frontend:
-`cd frontend && npm install`
+   `cd frontend && npm install`
 
 4. Run Frontend:
-`npm run start`
-Frontend should now be available at localhost:3000
+   `npm run start`
+   Frontend should now be available at localhost:3000
 
 ## Built With
 
-Frontend: 
+Frontend:
 React, Apollo
 
 Backend:
-Graphql, prisma, yoga, 
+Graphql, prisma, yoga,
 
 ## Authors
 
-Nik Cochran
-
-
+Nik Cochran, Art Shostak

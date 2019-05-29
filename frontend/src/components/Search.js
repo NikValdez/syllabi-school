@@ -31,7 +31,7 @@ class Search extends Component {
     this.setState({ loading: true })
     const res = await client.query({
       query: SEARCH_COURSES_QUERY,
-      variables: { searchTerm: e.target.value }
+      variables: { searchTerm: e.target.value.toLowerCase() }
     })
     this.setState({
       courses: res.data.courses,
@@ -41,55 +41,53 @@ class Search extends Component {
   render() {
     return (
       <aside className="menu full-width pb">
-        <p className="menu-label">
-          Add a Course
-        </p>
+        <p className="menu-label">Add a Course</p>
         <div className="field">
-        <Downshift itemToString={item => (item === null ? '' : item.title)}>
-          {({
-            getInputProps,
-            getItemProps,
-            isOpen,
-            inputValue,
-            highlightedIndex
-          }) => (
-            <div className="field">
-              <ApolloConsumer>
-                {client => (
-                  <input
-                    {...getInputProps({
-                      type: 'search',
-                      placeholder: 'Search...',
-                      id: 'search',
-                      className: 'input is-rounded full-width',
-                      onChange: e => {
-                        e.persist()
-                        this.onChange(e, client)
-                      }
-                    })}
-                  />
-                )}
-              </ApolloConsumer>
-              {isOpen && (
-                <ul className="menu-list py-s">
-                  {this.state.courses.map((item, index) => (
-                    <li
-                      {...getItemProps({ item })}
-                      key={item.id}
-                      highlighted={index === highlightedIndex}
-                    >
-                      <Link to={`/courses/${item.id}`}>{item.title}</Link>
-                      <AddCourse id={item.id} />
-                    </li>
-                  ))}
-                  {!this.state.courses.length && !this.state.loading && (
-                    <li>Nothing Found for {inputValue}</li>
+          <Downshift itemToString={item => (item === null ? '' : item.title)}>
+            {({
+              getInputProps,
+              getItemProps,
+              isOpen,
+              inputValue,
+              highlightedIndex
+            }) => (
+              <div className="field">
+                <ApolloConsumer>
+                  {client => (
+                    <input
+                      {...getInputProps({
+                        type: 'search',
+                        placeholder: 'Search...',
+                        id: 'search',
+                        className: 'input is-rounded full-width',
+                        onChange: e => {
+                          e.persist()
+                          this.onChange(e, client)
+                        }
+                      })}
+                    />
                   )}
-                </ul>
-              )}
-            </div>
-          )}
-        </Downshift>
+                </ApolloConsumer>
+                {isOpen && (
+                  <ul className="menu-list py-s">
+                    {this.state.courses.map((item, index) => (
+                      <li
+                        {...getItemProps({ item })}
+                        key={item.id}
+                        highlighted={index === highlightedIndex}
+                      >
+                        <Link to={`/courses/${item.id}`}>{item.title}</Link>
+                        <AddCourse id={item.id} />
+                      </li>
+                    ))}
+                    {!this.state.courses.length && !this.state.loading && (
+                      <li>Nothing Found for {inputValue}</li>
+                    )}
+                  </ul>
+                )}
+              </div>
+            )}
+          </Downshift>
         </div>
       </aside>
     )
