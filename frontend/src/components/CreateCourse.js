@@ -11,6 +11,7 @@ import { ALL_COURSES_QUERY } from './Courses'
 import Error from './ErrorMessage'
 import IsAdminTeacher from './IsAdminTeacher'
 import { CURRENT_USER_QUERY } from './User'
+import randomColor from 'randomcolor'
 
 const CREATE_COURSE_MUTATION = gql`
   mutation CREATE_COURSE_MUTATION(
@@ -65,17 +66,26 @@ class CreateCourse extends Component {
     days: ''
   }
 
+  // getRandomColor = () => {
+  //   let hue = Math.floor(Math.random() * 360)
+  //   let pastel = 'hsl(' + hue + ', 100%, 87.5%)'
+  //   return pastel
+  // }
+
   getRandomColor = () => {
-    let hue = Math.floor(Math.random() * 360)
-    let pastel = 'hsl(' + hue + ', 100%, 87.5%)'
-    return pastel
+    const color = 'hsl(' + Math.random() * 360 + ', 100%, 75%)'
+    return color
   }
+
   handleChange = e => {
     const { name, type, value } = e.target
     const val = type === 'number' ? parseFloat(value) : value
     this.setState({
       [name]: val.toUpperCase(),
-      color: this.getRandomColor()
+      color: randomColor({
+        luminosity: 'bright',
+        format: 'rgb'
+      })
     })
   }
 

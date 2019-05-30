@@ -101,7 +101,7 @@ class SingleCourse extends Component {
                   <tr>
                     <th>Office Hours</th>
                     <td>
-                      {course.days !== null &&
+                      {course.days &&
                         JSON.parse(course.days).map(day => (
                           <div key={day} style={{ display: 'inline-block' }}>
                             <h6>{day.toUpperCase()}</h6>

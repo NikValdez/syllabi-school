@@ -117,7 +117,7 @@ class MyCourses extends Component {
 
                     <div className="columns py">
                       {course.id === this.state.showSyllabus &&
-                        (course.courses.days !== null &&
+                        (course.courses.days &&
                           JSON.parse(course.courses.days).map(day => (
                             <div className="day column" key={day}>
                               <p>{day.toUpperCase()}</p>

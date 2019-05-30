@@ -97,7 +97,7 @@ class Announcements extends Component {
                               >
                                 {(updateAnnouncement, { loading, error }) => (
                                   <tr key={id}>
-                                    <td>
+                                    <td style={{ background: course.color }}>
                                       <p>
                                         {moment(date).format('MMM Do YYYY')}
                                       </p>

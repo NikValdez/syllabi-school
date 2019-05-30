@@ -435,8 +435,8 @@ const Mutations = {
     const mailRes = await transport.sendMail({
       from: 'syllabi@syllabi.com',
       to: args.email,
-      subject: 'Change to one of your syllabi',
-      html: emailAnnouncement(`Announcement: ${args.text}`)
+      subject: 'New Announcement',
+      html: emailAnnouncement(args.text)
     })
 
     const announcement = await ctx.db.mutation.createAnnouncement(
