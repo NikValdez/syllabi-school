@@ -95,3 +95,4 @@ class Search extends Component {
 }
 
 export default Search
+export { SEARCH_COURSES_QUERY }

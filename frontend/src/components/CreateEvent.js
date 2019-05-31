@@ -5,7 +5,6 @@ import { Mutation } from 'react-apollo'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import ReactHtmlParser from 'react-html-parser'
-import ReactModal from 'react-modal'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import FilePlaceholder from '../images/filePlaceholder.png'
@@ -54,12 +53,11 @@ class CreateEvent extends Component {
     showModal: false,
     email: ''
   }
-
-  handleOpenEvent = () => {
+  handleOpen = () => {
     this.setState({ showModal: true })
   }
 
-  handleCloseModal = () => {
+  handleClose = () => {
     this.setState({ showModal: false })
   }
 
@@ -109,7 +107,7 @@ class CreateEvent extends Component {
   render() {
     return (
       <IsAdminTeacher>
-        <button className="button" onClick={this.handleOpenEvent}>
+        <button className="button" onClick={this.handleOpen}>
           Create Event
         </button>
         <Mutation
@@ -123,140 +121,153 @@ class CreateEvent extends Component {
           ]}
         >
           {(createEvent, { loading, error }) => (
-            <ReactModal
-              isOpen={this.state.showModal}
-              contentLabel="modal"
-              overlayClassName="Overlay"
-              onRequestClose={this.handleCloseModal}
-              shouldCloseOnOverlayClick={true}
+            <div
+              className={!this.state.showModal ? 'modal' : 'modal is-active'}
             >
-              <span onClick={this.handleCloseModal}>X</span>
-              <form
-                onSubmit={async e => {
-                  e.preventDefault()
-                  await createEvent()
-                  await this.handleCloseModal()
-                  this.setState({
-                    title: '',
-                    description: '',
-                    start: null,
-                    end: null,
-                    allDay: false,
-                    upload: ''
-                  })
-                }}
-              >
-                <fieldset disabled={loading} aria-busy={loading}>
-                  <label htmlFor="title">
-                    Title
-                    <input
-                      type="text"
-                      id="title"
-                      name="title"
-                      placeholder="title"
-                      required
-                      value={this.state.title}
-                      onChange={this.handleChange}
-                    />
-                  </label>
-                  <label htmlFor="start">
-                    <div>Event Start</div>
-                    <DatePicker
-                      selected={this.state.start}
-                      onChange={this.handleStartDateChange}
-                      placeholderText="Select start date"
-                    />
-                  </label>
-                  <label htmlFor="end">
-                    <div>Event End</div>
-                    <DatePicker
-                      selected={this.state.end}
-                      onChange={this.handleEndDateChange}
-                      placeholderText="Select end date"
-                    />
-                  </label>
-                  <label htmlFor="description">
-                    Description
-                    <ReactQuill
-                      placeholder="Add a description..."
-                      theme="snow"
-                      value={this.state.description}
-                      onChange={this.onDescriptionChange}
-                      modules={CreateEvent.modules}
-                      formats={CreateEvent.formats}
-                    />
-                  </label>
-                  <label htmlFor="file">
-                    <button>
-                      Upload a File
-                      <input
-                        type="file"
-                        id="file"
-                        name="file"
-                        placeholder="Upload a file or image"
-                        onChange={this.uploadFile}
-                      />
-                    </button>
-                    {this.state.loading ? <p>Loading...</p> : null}
-                    {this.state.upload && (
-                      <div>
-                        <a href={this.state.upload}>
-                          {this.state.title}-Upload
-                        </a>
-                      </div>
-                    )}
-                  </label>
-                  <button type="submit" disabled={this.state.loading}>
-                    Add Event
-                  </button>
+              <div className="modal-background" onClick={this.handleClose} />
+              <div className="modal-card">
+                <header className="modal-card-head">
+                  <p className="modal-card-title">Add Announcement</p>
                   <button
-                    onClick={async e => {
+                    className="delete"
+                    aria-label="close"
+                    onClick={this.handleClose}
+                  />
+                </header>
+                <section className="modal-card-body">
+                  <form
+                    onSubmit={async e => {
                       e.preventDefault()
-                      await this.setState({
-                        email: this.props.email.join(', '),
-                        loading: true
-                      })
-
                       await createEvent()
-
                       await this.handleCloseModal()
+                      this.setState({
+                        title: '',
+                        description: '',
+                        start: null,
+                        end: null,
+                        allDay: false,
+                        upload: ''
+                      })
                     }}
-                    disabled={this.state.loading}
                   >
-                    Add and Send Notification Email
-                  </button>
-                </fieldset>
-              </form>
-              <table className="table is-bordered is-fullwidth is-hoverable">
-                <thead>
-                  <tr>
-                    <td>Date</td>
-                    <td>Title</td>
-                    <td>Description</td>
-
-                    <td>Upload</td>
-                  </tr>
-                </thead>
-                <tbody key={this.state.title}>
-                  <tr>
-                    <td>{moment(this.state.end).format('MMM Do YYYY')}</td>
-                    <td>{this.state.title}</td>
-                    <td>{ReactHtmlParser(this.state.description)}</td>
-                    {/* <td>{moment(start).format('MMM Do YYYY')}</td> */}
-                    <td>
-                      {this.state.upload && (
-                        <a href={this.state.upload}>
+                    <fieldset disabled={loading} aria-busy={loading}>
+                      <label htmlFor="title">
+                        Title
+                        <input
+                          type="text"
+                          id="title"
+                          name="title"
+                          placeholder="title"
+                          required
+                          value={this.state.title}
+                          onChange={this.handleChange}
+                        />
+                      </label>
+                      <label htmlFor="start">
+                        <div>Event Start</div>
+                        <DatePicker
+                          selected={this.state.start}
+                          onChange={this.handleStartDateChange}
+                          placeholderText="Select start date"
+                        />
+                      </label>
+                      <label htmlFor="end">
+                        <div>Event End</div>
+                        <DatePicker
+                          selected={this.state.end}
+                          onChange={this.handleEndDateChange}
+                          placeholderText="Select end date"
+                        />
+                      </label>
+                      <label htmlFor="description">
+                        Description
+                        <ReactQuill
+                          placeholder="Add a description..."
+                          theme="snow"
+                          value={this.state.description}
+                          onChange={this.onDescriptionChange}
+                          modules={CreateEvent.modules}
+                          formats={CreateEvent.formats}
+                        />
+                      </label>
+                      <label htmlFor="file">
+                        <button>
+                          Upload a File
+                          <input
+                            type="file"
+                            id="file"
+                            name="file"
+                            placeholder="Upload a file or image"
+                            onChange={this.uploadFile}
+                          />
+                        </button>
+                        {this.state.loading ? <p>Loading...</p> : null}
+                        {this.state.upload && (
                           <div>
-                            <img src={FilePlaceholder} alt="File download" />
-                            <span>{this.state.upload.split('.').pop()}</span>
+                            <a href={this.state.upload}>
+                              {this.state.title}-Upload
+                            </a>
                           </div>
-                        </a>
-                      )}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </ReactModal>
+                        )}
+                      </label>
+                      <button type="submit" disabled={this.state.loading}>
+                        Add Event
+                      </button>
+                      <button
+                        onClick={async e => {
+                          e.preventDefault()
+                          await this.setState({
+                            email: this.props.email.join(', '),
+                            loading: true
+                          })
+
+                          await createEvent()
+
+                          await this.handleClose()
+                        }}
+                        disabled={this.state.loading}
+                      >
+                        Add and Send Notification Email
+                      </button>
+                    </fieldset>
+                  </form>
+                  <table className="table is-bordered is-fullwidth is-hoverable">
+                    <thead>
+                      <tr>
+                        <td>Date</td>
+                        <td>Title</td>
+                        <td>Description</td>
+
+                        <td>Upload</td>
+                      </tr>
+                    </thead>
+                    <tbody key={this.state.title}>
+                      <tr>
+                        <td>{moment(this.state.end).format('MMM Do YYYY')}</td>
+                        <td>{this.state.title}</td>
+                        <td>{ReactHtmlParser(this.state.description)}</td>
+                        {/* <td>{moment(start).format('MMM Do YYYY')}</td> */}
+                        <td>
+                          {this.state.upload && (
+                            <a href={this.state.upload}>
+                              <div>
+                                <img
+                                  src={FilePlaceholder}
+                                  alt="File download"
+                                />
+                                <span>
+                                  {this.state.upload.split('.').pop()}
+                                </span>
+                              </div>
+                            </a>
+                          )}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </section>
+              </div>
+            </div>
           )}
         </Mutation>
       </IsAdminTeacher>

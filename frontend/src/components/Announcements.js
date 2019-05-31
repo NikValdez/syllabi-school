@@ -2,7 +2,6 @@ import gql from 'graphql-tag'
 import moment from 'moment'
 import React, { Component } from 'react'
 import { Mutation, Query } from 'react-apollo'
-import { Dropdown } from 'react-bootstrap'
 import ReactHtmlParser from 'react-html-parser'
 
 const ANNOUNCEMENTS_QUERY = gql`
@@ -37,7 +36,7 @@ class Announcements extends Component {
     isOpen: false
   }
 
-  toggle = () => {
+  toggleDropDown = () => {
     this.setState({
       isOpen: !this.state.isOpen
     })
@@ -69,73 +68,94 @@ class Announcements extends Component {
           //   .filter(Boolean)
 
           return (
-            <Dropdown onToggle={this.toggle}>
-              <Dropdown.Toggle className="button" id="dropdown-annonucements">
-                Alerts
-                <Dropdown.Menu id="dropdown-announcement-items">
-                  <>
-                    {announcements.length < 1 ? (
-                      <p>No Announcements Currently</p>
-                    ) : (
-                      <table className="table is-bordered is-fullwidth is-hoverable">
-                        <tbody>
-                          <tr>
-                            <th>Date</th>
-                            <th>Announcement</th>
-                            <th>Seen</th>
-                          </tr>
+            <div
+              className={this.state.isOpen ? 'dropdown is-active' : 'dropdown'}
+            >
+              {!this.state.isOpen && (
+                <button
+                  className="button"
+                  aria-haspopup="true"
+                  aria-controls="dropdown-menu"
+                  onClick={this.toggleDropDown}
+                >
+                  <span>Alerts</span>
+                  <span className="icon is-small">
+                    <i className="fas fa-angle-down" aria-hidden="true" />
+                  </span>
+                </button>
+              )}
+              {this.state.isOpen && (
+                <button
+                  className="button"
+                  aria-haspopup="true"
+                  aria-controls="dropdown-menu"
+                  onClick={this.toggleDropDown}
+                >
+                  <span>Close</span>
+                  <span className="icon is-small">
+                    <i className="fas fa-angle-up" aria-hidden="true" />
+                  </span>
+                </button>
+              )}
 
-                          {announcements.map(
-                            ({ text, date, id, clicked, course }) => (
-                              <Mutation
-                                mutation={UPDATE_ANNOUNCEMENT_MUTATION}
-                                variables={{
-                                  id: id,
-                                  clicked: false
-                                }}
-                                key={id}
-                              >
-                                {(updateAnnouncement, { loading, error }) => (
-                                  <tr key={id}>
-                                    <td style={{ background: course.color }}>
-                                      <p>
-                                        {moment(date).format('MMM Do YYYY')}
-                                      </p>
-                                    </td>
-                                    <td>{ReactHtmlParser(text)}</td>
+              <div className="dropdown-menu" id="dropdown-menu" role="menu">
+                <>
+                  {announcements.length < 1 ? (
+                    <p>No Announcements Currently</p>
+                  ) : (
+                    <table className="table is-bordered is-fullwidth is-hoverable">
+                      <tbody>
+                        <tr>
+                          <th>Date</th>
+                          <th>Announcement</th>
+                          <th>Seen</th>
+                        </tr>
 
-                                    <td>
-                                      <div
-                                        onClick={() => {
-                                          updateAnnouncement()
-                                        }}
-                                      >
-                                        {clicked ? (
-                                          <span
-                                            role="img"
-                                            aria-label="not-seen"
-                                          >
-                                            ❌
-                                          </span>
-                                        ) : (
-                                          <span role="img" aria-label="seen">
-                                            ☑️
-                                          </span>
-                                        )}
-                                      </div>
-                                    </td>
-                                  </tr>
-                                )}
-                              </Mutation>
-                            )
-                          )}
-                        </tbody>
-                      </table>
-                    )}
-                  </>
-                </Dropdown.Menu>
-              </Dropdown.Toggle>
-            </Dropdown>
+                        {announcements.map(
+                          ({ text, date, id, clicked, course }) => (
+                            <Mutation
+                              mutation={UPDATE_ANNOUNCEMENT_MUTATION}
+                              variables={{
+                                id: id,
+                                clicked: false
+                              }}
+                              key={id}
+                            >
+                              {(updateAnnouncement, { loading, error }) => (
+                                <tr key={id}>
+                                  <td style={{ background: course.color }}>
+                                    <p>{moment(date).format('MMM Do YYYY')}</p>
+                                  </td>
+                                  <td>{ReactHtmlParser(text)}</td>
+
+                                  <td>
+                                    <div
+                                      onClick={() => {
+                                        updateAnnouncement()
+                                      }}
+                                    >
+                                      {clicked ? (
+                                        <span role="img" aria-label="not-seen">
+                                          ❌
+                                        </span>
+                                      ) : (
+                                        <span role="img" aria-label="seen">
+                                          ☑️
+                                        </span>
+                                      )}
+                                    </div>
+                                  </td>
+                                </tr>
+                              )}
+                            </Mutation>
+                          )
+                        )}
+                      </tbody>
+                    </table>
+                  )}
+                </>
+              </div>
+            </div>
           )
         }}
       </Query>

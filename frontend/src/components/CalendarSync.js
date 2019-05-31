@@ -39,6 +39,7 @@ export default class CalendarSync extends Component {
       this.setState({
         appleEvents: this.state.appleEvents
       })
+      return this.state.appleEvents
     })
     const calendar = ical({
       domain: 'gosyllabi.com',
@@ -118,6 +119,7 @@ export default class CalendarSync extends Component {
       this.setState({
         googleEvents: this.state.googleEvents
       })
+      return this.state.googleEvents
     })
     this.state.googleEvents.map(event => {
       return gapi.client.calendar.events

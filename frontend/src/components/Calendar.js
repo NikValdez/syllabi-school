@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import BigCalendar from 'react-big-calendar'
 import 'react-big-calendar/lib/css/react-big-calendar.css'
-import { Modal } from 'react-bootstrap'
 import ReactHtmlParser from 'react-html-parser'
 import { CURRENT_USER_QUERY_COURSES_EVENTS } from './MyCourses'
 
@@ -11,7 +10,7 @@ const localizer = BigCalendar.momentLocalizer(moment)
 
 class Calendar extends Component {
   state = {
-    show: false,
+    showModal: false,
     title: '',
     description: '',
     start: '',
@@ -20,11 +19,11 @@ class Calendar extends Component {
   }
 
   handleClose = () => {
-    this.setState({ show: false })
+    this.setState({ showModal: false })
   }
 
   handleShow = () => {
-    this.setState({ show: true })
+    this.setState({ showModal: true })
   }
   details = event => {
     this.setState({
@@ -70,29 +69,39 @@ class Calendar extends Component {
           }}
         </Query>
 
-        <Modal show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header closeButton>
-            <Modal.Title>{this.state.title}</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <h3 className="subtitle mt-s is-spaced">Description:</h3>
-            {ReactHtmlParser(this.state.description)}
+        <div className={!this.state.showModal ? 'modal' : 'modal is-active'}>
+          <div className="modal-background" onClick={this.handleClose} />
+          <div className="modal-card">
+            <header className="modal-card-head">
+              <p className="modal-card-title">{this.state.title}</p>
+              <button
+                className="delete"
+                aria-label="close"
+                onClick={this.handleClose}
+              />
+            </header>
+            <section className="modal-card-body">
+              <h3 className="subtitle mt-s is-spaced">Description:</h3>
+              {ReactHtmlParser(this.state.description)}
 
-            <h3 className="subtitle mt-m is-spaced">Upload:</h3>
-            <p>
+              <h3 className="subtitle mt-m is-spaced">Upload:</h3>
+
               <a href={this.state.upload} target="blank">
-                {this.state.upload && this.state.title}{' '}
+                {this.state.upload && (
+                  <p>
+                    {this.state.title} <i className="fas fa-link" />{' '}
+                  </p>
+                )}
               </a>
-              {this.state.upload && <i className="fas fa-link" />}
-            </p>
 
-            <h3 className="subtitle mt-m is-spaced">Dates:</h3>
-            <p>
-              {moment(this.state.start).format('MMM Do YYYY')} -{' '}
-              {moment(this.state.end).format('MMM Do YYYY')}
-            </p>
-          </Modal.Body>
-        </Modal>
+              <h3 className="subtitle mt-m is-spaced">Dates:</h3>
+              <p>
+                {moment(this.state.start).format('MMM Do YYYY')} -{' '}
+                {moment(this.state.end).format('MMM Do YYYY')}
+              </p>
+            </section>
+          </div>
+        </div>
       </>
     )
   }

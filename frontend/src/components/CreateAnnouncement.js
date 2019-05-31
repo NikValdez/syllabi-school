@@ -46,11 +46,11 @@ class createAnnouncement extends Component {
     email: this.props.email.join(', ')
   }
 
-  handleOpenAnnouncement = () => {
+  handleOpen = () => {
     this.setState({ showModal: true })
   }
 
-  handleCloseModal = () => {
+  handleClose = () => {
     this.setState({ showModal: false })
   }
 
@@ -77,7 +77,7 @@ class createAnnouncement extends Component {
   render() {
     return (
       <IsAdminTeacher>
-        <button className="button" onClick={this.handleOpenAnnouncement}>
+        <button className="button" onClick={this.handleOpen}>
           Create Announcement
         </button>
         <Mutation
@@ -92,73 +92,81 @@ class createAnnouncement extends Component {
           ]}
         >
           {(createAnnouncement, { loading, error }) => (
-            <ReactModal
-              isOpen={this.state.showModal}
-              contentLabel="modal"
-              overlayClassName="Overlay"
-              onRequestClose={this.handleCloseModal}
-              shouldCloseOnOverlayClick={true}
+            <div
+              className={!this.state.showModal ? 'modal' : 'modal is-active'}
             >
-              <span onClick={this.handleCloseModal}>X</span>
-              <form
-                onSubmit={async e => {
-                  e.preventDefault()
-                  this.setState({
-                    loading: true
-                  })
-                  await createAnnouncement()
-                  await this.handleCloseModal()
-                  this.setState({
-                    text: '',
-                    date: null,
-                    loading: false
-                  })
-                }}
-              >
-                <fieldset disabled={loading} aria-busy={loading}>
-                  <label htmlFor="date">
-                    <div>Date</div>
-                    <DatePicker
-                      selected={this.state.date}
-                      onChange={this.handleDateChange}
-                      placeholderText="Select Date"
-                    />
-                  </label>
+              <div className="modal-background" onClick={this.handleClose} />
+              <div className="modal-card">
+                <header className="modal-card-head">
+                  <p className="modal-card-title">Add Announcement</p>
+                  <button
+                    className="delete"
+                    aria-label="close"
+                    onClick={this.handleClose}
+                  />
+                </header>
+                <section className="modal-card-body">
+                  <form
+                    onSubmit={async e => {
+                      e.preventDefault()
+                      this.setState({
+                        loading: true
+                      })
+                      await createAnnouncement()
+                      await this.handleCloseModal()
+                      this.setState({
+                        text: '',
+                        date: null,
+                        loading: false
+                      })
+                    }}
+                  >
+                    <fieldset disabled={loading} aria-busy={loading}>
+                      <label htmlFor="date">
+                        <div>Date</div>
+                        <DatePicker
+                          selected={this.state.date}
+                          onChange={this.handleDateChange}
+                          placeholderText="Select Date"
+                        />
+                      </label>
 
-                  <label htmlFor="text">
-                    Anouncement
-                    <ReactQuill
-                      placeholder="Add Announcement Here..."
-                      theme="snow"
-                      value={this.state.text}
-                      onChange={this.onTextChange}
-                      maxlength="10"
-                    />
-                    {this.state.error && (
-                      <p>Announcement must be less than 260 characters</p>
-                    )}
-                  </label>
+                      <label htmlFor="text">
+                        Anouncement
+                        <ReactQuill
+                          placeholder="Add Announcement Here..."
+                          theme="snow"
+                          value={this.state.text}
+                          onChange={this.onTextChange}
+                          maxlength="10"
+                        />
+                        {this.state.error && (
+                          <p>Announcement must be less than 260 characters</p>
+                        )}
+                      </label>
 
-                  <button type="submit" disabled={this.state.loading}>
-                    Submit
-                  </button>
-                </fieldset>
-              </form>
-              <table className="table full-width">
-                <thead>
-                  <tr>
-                    <td>Date</td>
-                    <td>Announcement</td>
-                  </tr>
-                </thead>
-                <tbody key={this.state.title}>
-                  <tr>
-                    <td>{moment(this.state.date).format('MMM Do YYYY')}</td>
-                    <td>{ReactHtmlParser(this.state.text)}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </ReactModal>
+                      <button type="submit" disabled={this.state.loading}>
+                        Submit
+                      </button>
+                    </fieldset>
+                  </form>
+                  <table className="table full-width">
+                    <thead>
+                      <tr>
+                        <td>Date</td>
+                        <td>Announcement</td>
+                      </tr>
+                    </thead>
+                    <tbody key={this.state.title}>
+                      <tr>
+                        <td>{moment(this.state.date).format('MMM Do YYYY')}</td>
+                        <td>{ReactHtmlParser(this.state.text)}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </section>
+              </div>
+            </div>
           )}
         </Mutation>
       </IsAdminTeacher>
