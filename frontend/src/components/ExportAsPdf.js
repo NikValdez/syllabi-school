@@ -46,7 +46,7 @@ const margins = {
 class ExportAsPdf extends Component {
   state = {
     id: this.props.id,
-    showModal: false
+    show: false
   }
 
   generate = () => {
@@ -109,11 +109,11 @@ class ExportAsPdf extends Component {
   }
 
   handleClose = () => {
-    this.setState({ showModal: false })
+    this.setState({ show: false })
   }
 
   handleShow = () => {
-    this.setState({ showModal: true })
+    this.setState({ show: true })
   }
 
   render() {
@@ -144,110 +144,107 @@ class ExportAsPdf extends Component {
                 courseEvents={course.events}
               />
 
-              <div
-                className={!this.state.showModal ? 'modal' : 'modal is-active'}
+              <Modal
+                className="modal"
+                show={this.state.show}
+                onHide={this.handleClose}
+                bsPrefix="my-modal"
+                style={{ overflow: 'scroll' }}
               >
-                <div className="modal-background" onClick={this.handleClose} />
-                <div className="modal-card">
-                  <header className="modal-card-head">
-                    <span className="modal-card-title">
-                      {' '}
-                      <img
-                        className="image is-32x32"
-                        src={this.props.institutionLogo}
-                        alt="logo"
-                      />
-                    </span>
-                    <button
-                      className="delete"
-                      aria-label="close"
-                      onClick={this.handleClose}
-                    />
-                  </header>
-                  <section className="modal-card-body">
-                    <table id="course-table">
-                      <tbody>
-                        <tr>
-                          <th>Title</th>
-                          <td>{course.title}</td>
-                        </tr>
-                        <tr>
-                          <th>Owner(s)</th>
-                          <td>{course.courseCode}</td>
-                        </tr>
-                        <tr>
-                          <th>Extension</th>
-                          <td>{course.credits}</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                <Modal.Header closeButton>
+                  <img
+                    className="image is-32x32"
+                    src={this.props.institutionLogo}
+                    alt="logo"
+                  />
+                </Modal.Header>
 
-                    <div id="course-description" className="py-m">
-                      <h3>Additional Information</h3>
-                      {ReactHtmlParser(course.description)}
-                    </div>
-
-                    <div id="html-2-pdfwrapper">
-                      <button
-                        className="button"
-                        onClick={() => {
-                          this.generate()
-                          this.handleClose()
-                        }}
-                      >
-                        Export PDF
-                      </button>
-                    </div>
-
-                    <h2 className="mt-m">Department Schedule</h2>
-                    {course.events.length < 1 ? (
-                      <p>No Events Currently</p>
-                    ) : (
-                      <table id="course-calendar">
+                <Modal.Body>
+                  <Row>
+                    <Col md={6} xs={6}>
+                      <table bordered responsive id="course-table">
                         <tbody>
                           <tr>
-                            <th>Date</th>
                             <th>Title</th>
-                            <th>Description</th>
-                            <th>Upload</th>
+                            <td>{course.title}</td>
+                          </tr>
+                          <tr>
+                            <th>Owner(s)</th>
+                            <td>{course.courseCode}</td>
+                          </tr>
+                          <tr>
+                            <th>Extension</th>
+                            <td>{course.credits}</td>
                           </tr>
                         </tbody>
-
-                        {course.events.map(
-                          ({ title, description, start, end, id, upload }) => (
-                            <tbody key={id}>
-                              <tr>
-                                <td>{moment(end).format('MMM Do YYYY')}</td>
-                                <td>{title}</td>
-                                <td>{ReactHtmlParser(description)}</td>
-                                <td>
-                                  {upload && (
-                                    <a href={upload} target="blank">
-                                      <div
-                                        style={{
-                                          position: 'relative',
-                                          textAlign: 'center'
-                                        }}
-                                      >
-                                        <img
-                                          src={FilePlaceholder}
-                                          alt="File download"
-                                          style={{ textAlign: 'center' }}
-                                        />
-                                        <span>{upload.split('.').pop()}</span>
-                                      </div>
-                                    </a>
-                                  )}
-                                </td>
-                              </tr>
-                            </tbody>
-                          )
-                        )}
                       </table>
-                    )}
-                  </section>
-                </div>
-              </div>
+                    </Col>
+                  </Row>
+                  <div id="course-description" className="py-m">
+                    <h3>Additional Information</h3>
+                    {ReactHtmlParser(course.description)}
+                  </div>
+
+                  <div id="html-2-pdfwrapper">
+                    <button
+                      className="button"
+                      onClick={() => {
+                        this.generate()
+                        this.handleClose()
+                      }}
+                    >
+                      Export PDF
+                    </button>
+                  </div>
+
+                  <h2 className="mt-m">Department Schedule</h2>
+                  {course.events.length < 1 ? (
+                    <p>No Events Currently</p>
+                  ) : (
+                    <Table bordered id="course-calendar">
+                      <tbody>
+                        <tr>
+                          <th>Date</th>
+                          <th>Title</th>
+                          <th>Description</th>
+                          <th>Upload</th>
+                        </tr>
+                      </tbody>
+
+                      {course.events.map(
+                        ({ title, description, start, end, id, upload }) => (
+                          <tbody key={id}>
+                            <tr>
+                              <td>{moment(end).format('MMM Do YYYY')}</td>
+                              <td>{title}</td>
+                              <td>{ReactHtmlParser(description)}</td>
+                              <td>
+                                {upload && (
+                                  <a href={upload} target="blank">
+                                    <div
+                                      style={{
+                                        position: 'relative',
+                                        textAlign: 'center'
+                                      }}
+                                    >
+                                      <img
+                                        src={FilePlaceholder}
+                                        alt="File download"
+                                        style={{ textAlign: 'center' }}
+                                      />
+                                      <span>{upload.split('.').pop()}</span>
+                                    </div>
+                                  </a>
+                                )}
+                              </td>
+                            </tr>
+                          </tbody>
+                        )
+                      )}
+                    </Table>
+                  )}
+                </Modal.Body>
+              </Modal>
             </div>
           )
         }}
