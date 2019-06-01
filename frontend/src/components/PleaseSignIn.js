@@ -6,7 +6,13 @@ import { CURRENT_USER_QUERY } from './User'
 const PleaseSignIn = props => (
   <Query query={CURRENT_USER_QUERY}>
     {({ data, loading, error }) => {
-      if (loading) return <p>Loading...</p>
+      if (loading)
+        return (
+          <progress class="progress is-small is-primary" max="100">
+            45%
+          </progress>
+        )
+
       if (error) return <p className="error-message">Cannot fetch data</p>
       if (!data.me) {
         return <Signin />

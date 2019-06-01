@@ -11,7 +11,12 @@ const Header = () => (
       <Query query={CURRENT_USER_QUERY}>
         {({ data, error, loading }) => {
           if (error) return <p>Error : {error.message}</p>
-          if (loading) return <p>Loading</p>
+          if (loading)
+            return (
+              <progress class="progress is-small is-primary" max="100">
+                15%
+              </progress>
+            )
 
           return (
             <>

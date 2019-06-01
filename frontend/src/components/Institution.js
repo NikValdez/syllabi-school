@@ -9,7 +9,12 @@ export default class Institution extends Component {
         <Query query={CURRENT_USER_QUERY}>
           {({ error, loading, data }) => {
             if (error) return <p>Error</p>
-            if (loading) return <p>Loading...</p>
+            if (loading)
+              return (
+                <progress class="progress is-small is-primary" max="100">
+                  15%
+                </progress>
+              )
 
             return (
               <p>
