@@ -4,6 +4,7 @@ import { Mutation } from 'react-apollo'
 import { Link, withRouter } from 'react-router-dom'
 import Error from './ErrorMessage'
 import { CURRENT_USER_QUERY } from './User'
+import SyllabiLogo from '../images/syllabi.png'
 const SIGNIN_MUTATION = gql`
   mutation SIGNIN_MUTATION($email: String!, $password: String!) {
     signin(email: $email, password: $password) {
@@ -49,6 +50,14 @@ class Signin extends Component {
                 >
                   <header className="mb-m">
                     <h1 className="title is-spaced">Account</h1>
+                    <img
+                      src={SyllabiLogo}
+                      alt="Syllabi Logo"
+                      style={{
+                        float: 'right',
+                        marginTop: '-50px'
+                      }}
+                    />
                     <p>
                       <Link to="/signup" className="">
                         Need an account? Sign Up

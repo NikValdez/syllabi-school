@@ -4,6 +4,7 @@ import { Mutation, Query } from 'react-apollo'
 import Error from './ErrorMessage'
 import { Link } from 'react-router-dom'
 import { CURRENT_USER_QUERY } from './User'
+import SyllabiLogo from '../images/syllabi.png'
 
 const SIGNUP_MUTATION = gql`
   mutation SIGNUP_MUTATION(
@@ -78,10 +79,21 @@ class Signup extends Component {
                   this.props.history.push(`/`)
                 }}
               >
-                <fieldset className="wrapper" disabled={loading} aria-busy={loading}>
-
+                <fieldset
+                  className="wrapper"
+                  disabled={loading}
+                  aria-busy={loading}
+                >
                   <header className="mb-m">
                     <h1 className="title is-spaced">Register</h1>
+                    <img
+                      src={SyllabiLogo}
+                      alt="Syllabi Logo"
+                      style={{
+                        float: 'right',
+                        marginTop: '-60px'
+                      }}
+                    />
                     <p>
                       <Link to="/signin" className="">
                         Already have an Account? Sign In
@@ -106,7 +118,9 @@ class Signup extends Component {
                                 value={this.state.institution}
                                 onChange={this.handleChange}
                               >
-                                <option defaultValue>-- select an option --</option>
+                                <option defaultValue>
+                                  -- select an option --
+                                </option>
                                 {data.institutions.map(institution => (
                                   <option
                                     key={institution.id}
@@ -172,7 +186,10 @@ class Signup extends Component {
                   <div className="field mt-m">
                     <button
                       className="button is-fullwidth is-medium is-white is-outlined"
-                      type="submit">Sign Up!</button>
+                      type="submit"
+                    >
+                      Sign Up!
+                    </button>
                   </div>
                 </fieldset>
               </form>
