@@ -2,7 +2,7 @@
 import htmlToText from 'html-to-text'
 import ical from 'ical-generator'
 import React, { Component } from 'react'
-import { Modal } from 'react-bootstrap'
+// import { Modal } from 'react-bootstrap'
 
 gapi.load('client:auth2', function() {
   gapi.auth2.init({
@@ -16,16 +16,16 @@ export default class CalendarSync extends Component {
     courseId: this.props.courseId,
     appleEvents: this.props.courseEvents,
     googleEvents: this.props.courseEvents,
-    show: false,
+    showModal: false,
     linkUrl: ''
   }
 
-  handleClose = () => {
-    this.setState({ show: false })
+  handleOpen = () => {
+    this.setState({ showModal: true })
   }
 
-  handleShow = () => {
-    this.setState({ show: true })
+  handleClose = () => {
+    this.setState({ showModal: false })
   }
 
   createIcal = () => {
@@ -131,7 +131,7 @@ export default class CalendarSync extends Component {
           response => {
             this.setState({
               linkUrl: response.result.htmlLink,
-              show: true
+              showModal: true
             })
           },
           err => {
@@ -155,22 +155,32 @@ export default class CalendarSync extends Component {
           Google Sync
         </button>
 
-        <Modal show={this.state.show} onHide={this.handleClose}>
-          <Modal.Header closeButton>
-            <h2>Add Schedule to Google Calendar</h2>
-          </Modal.Header>
-          <Modal.Body>
-            <button
-              onClick={() => {
-                this.addScheduleToCalendar()
-                this.handleClose()
-              }}
-            >
-              Add to <i className="fab fa-google" />
-              oogle
-            </button>
-          </Modal.Body>
-        </Modal>
+        <div className={!this.state.showModal ? 'modal' : 'modal is-active'}>
+          <div className="modal-background" onClick={this.handleClose} />
+          <div className="modal-card">
+            <header className="modal-card-head">
+              <p className="modal-card-title">
+                Add Schedule to Google Calendar
+              </p>
+              <button
+                className="delete"
+                aria-label="close"
+                onClick={this.handleClose}
+              />
+            </header>
+            <section className="modal-card-body">
+              <button
+                onClick={() => {
+                  this.addScheduleToCalendar()
+                  this.handleClose()
+                }}
+              >
+                Add to <i className="fab fa-google" />
+                oogle
+              </button>
+            </section>
+          </div>
+        </div>
       </>
     )
   }

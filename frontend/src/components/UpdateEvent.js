@@ -130,115 +130,141 @@ class UpdateEvent extends Component {
           if (!data)
             return <p>No Events Found For ID {this.props.match.params.id}</p>
           return (
-            <Mutation mutation={UPDATE_EVENT_MUTATION} variables={this.state}>
-              {(updateEvent, { loading, error }) => (
-                <form
-                  onSubmit={e =>
-                    this.updateEvent(e, updateEvent).catch(err => {
-                      alert(err.message)
-                    })
-                  }
-                >
-                  <fieldset disabled={loading} aria-busy={loading}>
-                    <label htmlFor="title">
-                      Title
-                      <input
-                        type="text"
-                        id="title"
-                        name="title"
-                        placeholder="title"
-                        required
-                        defaultValue={data.event.title}
-                        onChange={this.handleChange}
-                      />
-                    </label>
-                    <label htmlFor="start">
-                      <div>Event Start</div>
-                      <DatePicker
-                        selected={
-                          moment(this.state.start).toDate() ||
-                          moment(data.event.start).toDate()
-                        }
-                        openToDate={moment(data.event.start).toDate()}
-                        onChange={this.handleStartDateChange}
-                        placeholderText="Click to select start date"
-                      />
-                    </label>
-                    <label htmlFor="end">
-                      <div>Event End</div>
-                      <DatePicker
-                        selected={
-                          moment(this.state.end).toDate() ||
-                          moment(data.event.end).toDate()
-                        }
-                        openToDate={moment(data.event.end).toDate()}
-                        onChange={this.handleEndDateChange}
-                        placeholderText="Click to select end date"
-                      />
-                    </label>
-
-                    <label htmlFor="description">
-                      Description
-                      <textarea
-                        type="text"
-                        id="description"
-                        name="description"
-                        placeholder="description"
-                        required
-                        defaultValue={htmlToText.fromString(
-                          data.event.description
-                        )}
-                        onChange={this.handleChange}
-                      />
-                    </label>
-                    <label htmlFor="file">
-                      <button>
-                        <button>Upload a File</button>
-                        <input
-                          type="file"
-                          id="file"
-                          name="file"
-                          placeholder="Upload a file or image"
-                          onChange={this.uploadFile}
-                        />
-                      </button>
-                      {this.state.loading ? <p>Loading...</p> : null}
-                      {this.state.upload && (
-                        <div>
-                          <a href={this.state.upload}>
-                            {_.truncate(this.state.upload, {
-                              length: 24
-                            })}
-                          </a>
-                        </div>
-                      )}
-                    </label>
-
-                    <button type="submit">Update Changes</button>
-
-                    <button
-                      onClick={async e => {
-                        this.setState({
-                          title: data.event.title,
-                          description: data.event.description,
-                          start: data.event.start,
-                          end: data.event.end,
-                          loading: true
-                        })
-                        await this.updateEventWithEmail(e, updateEvent).catch(
-                          err => {
-                            alert(err.message)
+            <section className="container py-m">
+              <Mutation mutation={UPDATE_EVENT_MUTATION} variables={this.state}>
+                {(updateEvent, { loading, error }) => (
+                  <form
+                    onSubmit={e =>
+                      this.updateEvent(e, updateEvent).catch(err => {
+                        alert(err.message)
+                      })
+                    }
+                  >
+                    <fieldset disabled={loading} aria-busy={loading}>
+                      <div className="field">
+                        <label className="label" htmlFor="title">
+                          Title
+                          <input
+                            className="input"
+                            type="text"
+                            id="title"
+                            name="title"
+                            placeholder="title"
+                            required
+                            defaultValue={data.event.title}
+                            onChange={this.handleChange}
+                          />
+                        </label>
+                      </div>
+                      <label className="label" htmlFor="start">
+                        <div>Event Start</div>
+                        <DatePicker
+                          className="input"
+                          selected={
+                            moment(this.state.start).toDate() ||
+                            moment(data.event.start).toDate()
                           }
-                        )
-                      }}
-                      disabled={this.state.loading}
-                    >
-                      Update and Send Notification Email
-                    </button>
-                  </fieldset>
-                </form>
-              )}
-            </Mutation>
+                          openToDate={moment(data.event.start).toDate()}
+                          onChange={this.handleStartDateChange}
+                          placeholderText="Click to select start date"
+                        />
+                      </label>
+                      <label className="label" htmlFor="end">
+                        <div>Event End</div>
+                        <DatePicker
+                          className="input"
+                          selected={
+                            moment(this.state.end).toDate() ||
+                            moment(data.event.end).toDate()
+                          }
+                          openToDate={moment(data.event.end).toDate()}
+                          onChange={this.handleEndDateChange}
+                          placeholderText="Click to select end date"
+                        />
+                      </label>
+
+                      <div className="field">
+                        <label className="label" htmlFor="description">
+                          Description
+                          <textarea
+                            cols="60"
+                            className="textarea"
+                            type="text"
+                            id="description"
+                            name="description"
+                            placeholder="description"
+                            required
+                            defaultValue={htmlToText.fromString(
+                              data.event.description
+                            )}
+                            onChange={this.handleChange}
+                          />
+                        </label>
+                      </div>
+                      <div className="field">
+                        <label className="label" htmlFor="file">
+                          <div className="file">
+                            <label className="file-label">
+                              <input
+                                className="file-input"
+                                type="file"
+                                id="file"
+                                name="file"
+                                onChange={this.uploadFile}
+                              />
+                              <span className="file-cta">
+                                <span className="file-icon">
+                                  <i className="fas fa-upload" />
+                                </span>
+                                <span className="file-label">
+                                  Upload a file…
+                                </span>
+                              </span>
+                            </label>
+                          </div>
+                          {this.state.loading ? <p>Loading...</p> : null}
+                          {this.state.upload && (
+                            <div>
+                              <a href={this.state.upload}>
+                                {_.truncate(this.state.upload, {
+                                  length: 24
+                                })}
+                              </a>
+                            </div>
+                          )}
+                        </label>
+                      </div>
+                      <div className="field">
+                        <button className="button" type="submit">
+                          Update Changes
+                        </button>
+                      </div>
+
+                      <button
+                        className="button"
+                        onClick={async e => {
+                          this.setState({
+                            title: data.event.title,
+                            description: data.event.description,
+                            start: data.event.start,
+                            end: data.event.end,
+                            loading: true
+                          })
+                          await this.updateEventWithEmail(e, updateEvent).catch(
+                            err => {
+                              alert(err.message)
+                            }
+                          )
+                        }}
+                        disabled={this.state.loading}
+                      >
+                        Update and Send Notification Email
+                      </button>
+                    </fieldset>
+                  </form>
+                )}
+              </Mutation>
+            </section>
           )
         }}
       </Query>

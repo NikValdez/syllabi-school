@@ -134,7 +134,7 @@ class ExportAsPdf extends Component {
               <button
                 className="button is-small is-black"
                 onClick={this.handleShow}
-                style={{ cursor: 'pointer' }}
+                style={{ cursor: 'pointer', marginLeft: '-0.5rem' }}
               >
                 View Schedule
               </button>
@@ -142,7 +142,6 @@ class ExportAsPdf extends Component {
                 courseTitle={course.title}
                 courseEvents={course.events}
               />
-
               <div
                 className={!this.state.showModal ? 'modal' : 'modal is-active'}
               >
@@ -164,7 +163,10 @@ class ExportAsPdf extends Component {
                     />
                   </header>
                   <section className="modal-card-body">
-                    <table bordered responsive id="course-table">
+                    <table
+                      className="table is-bordered is-fullwidth is-hoverable"
+                      id="course-table"
+                    >
                       <tbody>
                         <tr>
                           <th>Title</th>
@@ -202,7 +204,10 @@ class ExportAsPdf extends Component {
                     {course.events.length < 1 ? (
                       <p>No Events Currently</p>
                     ) : (
-                      <table className="table is-bordered" id="course-calendar">
+                      <table
+                        className="table is-bordered is-fullwidth is-hoverable"
+                        id="course-calendar"
+                      >
                         <tbody>
                           <tr>
                             <th>Date</th>

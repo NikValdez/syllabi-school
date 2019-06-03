@@ -127,7 +127,7 @@ class CreateEvent extends Component {
               <div className="modal-background" onClick={this.handleClose} />
               <div className="modal-card">
                 <header className="modal-card-head">
-                  <p className="modal-card-title">Add Announcement</p>
+                  <p className="modal-card-title">Add Event</p>
                   <button
                     className="delete"
                     aria-label="close"
@@ -139,33 +139,38 @@ class CreateEvent extends Component {
                     onSubmit={async e => {
                       e.preventDefault()
                       await createEvent()
-                      await this.handleCloseModal()
                       this.setState({
                         title: '',
                         description: '',
                         start: null,
                         end: null,
                         allDay: false,
-                        upload: ''
+                        upload: '',
+                        loading: false
                       })
+                      await this.handleClose()
                     }}
                   >
                     <fieldset disabled={loading} aria-busy={loading}>
-                      <label htmlFor="title">
-                        Title
-                        <input
-                          type="text"
-                          id="title"
-                          name="title"
-                          placeholder="title"
-                          required
-                          value={this.state.title}
-                          onChange={this.handleChange}
-                        />
-                      </label>
+                      <div className="field">
+                        <label className="label" htmlFor="title">
+                          Title
+                          <input
+                            className="input"
+                            type="text"
+                            id="title"
+                            name="title"
+                            placeholder="title"
+                            required
+                            value={this.state.title}
+                            onChange={this.handleChange}
+                          />
+                        </label>
+                      </div>
                       <label htmlFor="start">
                         <div>Event Start</div>
                         <DatePicker
+                          className="input"
                           selected={this.state.start}
                           onChange={this.handleStartDateChange}
                           placeholderText="Select start date"
@@ -174,6 +179,7 @@ class CreateEvent extends Component {
                       <label htmlFor="end">
                         <div>Event End</div>
                         <DatePicker
+                          className="input"
                           selected={this.state.end}
                           onChange={this.handleEndDateChange}
                           placeholderText="Select end date"
@@ -182,6 +188,7 @@ class CreateEvent extends Component {
                       <label htmlFor="description">
                         Description
                         <ReactQuill
+                          style={{ height: '100px' }}
                           placeholder="Add a description..."
                           theme="snow"
                           value={this.state.description}
@@ -190,38 +197,65 @@ class CreateEvent extends Component {
                           formats={CreateEvent.formats}
                         />
                       </label>
-                      <label htmlFor="file">
-                        <button>
-                          Upload a File
-                          <input
-                            type="file"
-                            id="file"
-                            name="file"
-                            placeholder="Upload a file or image"
-                            onChange={this.uploadFile}
-                          />
-                        </button>
-                        {this.state.loading ? <p>Loading...</p> : null}
-                        {this.state.upload && (
-                          <div>
-                            <a href={this.state.upload}>
-                              {this.state.title}-Upload
-                            </a>
+                      <div className="field">
+                        <label className="label" htmlFor="file">
+                          <div className="file">
+                            <label className="file-label">
+                              <input
+                                className="file-input"
+                                type="file"
+                                id="file"
+                                name="file"
+                                onChange={this.uploadFile}
+                              />
+                              <span className="file-cta">
+                                <span className="file-icon">
+                                  <i className="fas fa-upload" />
+                                </span>
+                                <span className="file-label">
+                                  Upload a file…
+                                </span>
+                              </span>
+                            </label>
                           </div>
-                        )}
-                      </label>
-                      <button type="submit" disabled={this.state.loading}>
-                        Add Event
-                      </button>
+                          {this.state.loading ? <p>Loading...</p> : null}
+                          {this.state.upload && (
+                            <div>
+                              <a href={this.state.upload}>
+                                {this.state.title}-Upload
+                              </a>
+                            </div>
+                          )}
+                        </label>
+                      </div>
+                      <div className="field">
+                        <button
+                          className="button is-black"
+                          type="submit"
+                          disabled={this.state.loading}
+                        >
+                          Add Event
+                        </button>
+                      </div>
+
                       <button
+                        className="button is-black"
                         onClick={async e => {
                           e.preventDefault()
                           await this.setState({
-                            email: this.props.email.join(', '),
-                            loading: true
+                            email: this.props.email.join(', ')
                           })
 
                           await createEvent()
+                          await this.setState({
+                            title: '',
+                            description: '',
+                            start: null,
+                            end: null,
+                            allDay: false,
+                            upload: '',
+                            loading: false
+                          })
 
                           await this.handleClose()
                         }}

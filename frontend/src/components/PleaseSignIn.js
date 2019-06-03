@@ -8,7 +8,7 @@ const PleaseSignIn = props => (
     {({ data, loading, error }) => {
       if (loading)
         return (
-          <progress class="progress is-small is-primary" max="100">
+          <progress className="progress is-small is-primary" max="100">
             45%
           </progress>
         )

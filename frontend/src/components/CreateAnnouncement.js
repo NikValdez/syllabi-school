@@ -5,7 +5,6 @@ import { Mutation } from 'react-apollo'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import ReactHtmlParser from 'react-html-parser'
-import ReactModal from 'react-modal'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 import { ANNOUNCEMENTS_QUERY } from './Announcements'
@@ -31,8 +30,6 @@ const CREATE_ANNOUNCEMENT_MUTATION = gql`
     }
   }
 `
-
-ReactModal.setAppElement('#root')
 
 class createAnnouncement extends Component {
   state = {
@@ -113,7 +110,7 @@ class createAnnouncement extends Component {
                         loading: true
                       })
                       await createAnnouncement()
-                      await this.handleCloseModal()
+                      await this.handleClose()
                       this.setState({
                         text: '',
                         date: null,
@@ -122,16 +119,20 @@ class createAnnouncement extends Component {
                     }}
                   >
                     <fieldset disabled={loading} aria-busy={loading}>
-                      <label htmlFor="date">
-                        <div>Date</div>
-                        <DatePicker
-                          selected={this.state.date}
-                          onChange={this.handleDateChange}
-                          placeholderText="Select Date"
-                        />
-                      </label>
+                      <div className="field">
+                        <label className="label" htmlFor="date">
+                          <div>Date</div>
+                          <DatePicker
+                            className="input"
+                            selected={this.state.date}
+                            onChange={this.handleDateChange}
+                            placeholderText="Select Date"
+                            required
+                          />
+                        </label>
+                      </div>
 
-                      <label htmlFor="text">
+                      <label className="label" htmlFor="text">
                         Anouncement
                         <ReactQuill
                           placeholder="Add Announcement Here..."
@@ -139,18 +140,24 @@ class createAnnouncement extends Component {
                           value={this.state.text}
                           onChange={this.onTextChange}
                           maxlength="10"
+                          style={{ height: '100px' }}
                         />
                         {this.state.error && (
                           <p>Announcement must be less than 260 characters</p>
                         )}
                       </label>
-
-                      <button type="submit" disabled={this.state.loading}>
-                        Submit
-                      </button>
+                      <div className="field" style={{ marginTop: '60px' }}>
+                        <button
+                          className="button is-black"
+                          type="submit"
+                          disabled={this.state.loading}
+                        >
+                          Submit
+                        </button>
+                      </div>
                     </fieldset>
                   </form>
-                  <table className="table full-width">
+                  <table className="table is-bordered is-fullwidth is-hoverable">
                     <thead>
                       <tr>
                         <td>Date</td>

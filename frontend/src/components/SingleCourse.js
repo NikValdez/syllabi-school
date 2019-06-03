@@ -152,7 +152,7 @@ class SingleCourse extends Component {
                                 state: { email }
                               }}
                             >
-                              <button>Edit</button>
+                              <button className="button">Edit</button>
                             </Link>
                           </IsAdminTeacher>
                         </td>

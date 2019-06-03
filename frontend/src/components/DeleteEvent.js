@@ -31,7 +31,7 @@ export class DeleteEvent extends Component {
               }
             }}
           >
-            <button>Delete</button>
+            <button className="button">Delete</button>
           </span>
         )}
       </Mutation>

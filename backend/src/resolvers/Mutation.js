@@ -118,11 +118,13 @@ const Mutations = {
         from: 'syllabi@syllabi.com',
         to: args.email,
         subject: 'Change to one of your syllabi',
-        html: emailAnnouncement(` <h1>Assignment Added</h1>
+        html: emailAnnouncement(`
         <h3>${args.title}</h3>
-        <p>Description: ${args.description} </p>
-        <p>Start Date: ${moment(args.start).format('LL')}</p>
-        <p>End Date: ${moment(args.end).format('LL')}</p>
+        <p>${args.description} </p>
+        <p>${moment(args.start).format('LL')} - ${moment(args.end).format(
+          'LL'
+        )}</p>
+
            `)
       })
     }

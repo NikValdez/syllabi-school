@@ -143,7 +143,6 @@ class CreateCourse extends Component {
                 >
                   {(createCourse, { loading, error }) => (
                     <form
-                      style={{ width: '100%' }}
                       onSubmit={async e => {
                         e.preventDefault()
                         await this.setState({
@@ -237,6 +236,7 @@ class CreateCourse extends Component {
                           <label className="label" htmlFor="DateTime">
                             Office Hours
                             <DatePicker
+                              className="input"
                               selected={this.state.startDate}
                               onChange={this.handleStartDateChange}
                               showTimeSelect
@@ -245,9 +245,9 @@ class CreateCourse extends Component {
                               dateFormat="h:mm aa"
                               timeCaption="Time"
                               placeholderText="Start Time"
-                              className="full-width"
                             />
                             <DatePicker
+                              className="input"
                               selected={this.state.endDate}
                               showTimeSelect
                               showTimeSelectOnly
@@ -259,7 +259,6 @@ class CreateCourse extends Component {
                               endDate={this.state.endDate}
                               onChange={this.handleEndDateChange}
                               placeholderText="End Time"
-                              className="full-width"
                             />
                           </label>
                         </div>
@@ -268,6 +267,7 @@ class CreateCourse extends Component {
                           Additional Information
                           <div>
                             <ReactQuill
+                              style={{ height: '100px' }}
                               placeholder="Add a description..."
                               theme="snow"
                               value={this.state.description}
