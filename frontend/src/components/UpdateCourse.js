@@ -15,6 +15,7 @@ const EDIT_COURSE_QUERY = gql`
       description
       credits
       courseCode
+      days
     }
   }
 `
@@ -125,7 +126,6 @@ class UpdateCourse extends Component {
                 <section className="container py-m">
                   <h1 className="title is-spaced">Update Course</h1>
                   <form
-                    style={{ width: '100%' }}
                     onSubmit={e =>
                       this.updateCourse(e, updateCourse).catch(err => {
                         alert(err.message)

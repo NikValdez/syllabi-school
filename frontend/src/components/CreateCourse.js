@@ -88,6 +88,13 @@ class CreateCourse extends Component {
       })
     })
   }
+  handleInstructorChange = e => {
+    const { name, type, value } = e.target
+    const val = type === 'number' ? parseFloat(value) : value
+    this.setState({
+      [name]: val
+    })
+  }
 
   onCreditsChange = e => {
     this.setState({
@@ -189,7 +196,7 @@ class CreateCourse extends Component {
                               placeholder="Instructor"
                               required
                               value={this.state.courseCode}
-                              onChange={this.handleChange}
+                              onChange={this.handleInstructorChange}
                             />
                           </label>
                         </div>
