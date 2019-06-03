@@ -48,7 +48,7 @@ class CreateInstitution extends Component {
     return (
       <>
         <section className="container py-m">
-          <h1 className="title is-spaced">New Show</h1>
+          <h1 className="title is-spaced">New School</h1>
           <IsAdminTeacher>
             <Mutation
               mutation={CREATE_INSTITUTION_MUTATION}
@@ -92,11 +92,9 @@ class CreateInstitution extends Component {
                         />
                         <span className="file-cta">
                           <span className="file-icon">
-                            <i className="fas fa-upload"></i>
+                            <i className="fas fa-upload" />
                           </span>
-                          <span className="file-label">
-                            Upload a file…
-                          </span>
+                          <span className="file-label">Upload a file…</span>
                         </span>
                       </label>
                     </div>
@@ -104,12 +102,20 @@ class CreateInstitution extends Component {
                     <div className="py-s">
                       {this.state.loading ? <p>Loading...</p> : null}
                       {this.state.logo && (
-                        <img className="image is-64x64" src={this.state.logo} alt="School logo" />
+                        <img
+                          className="image is-64x64"
+                          src={this.state.logo}
+                          alt="School logo"
+                        />
                       )}
                     </div>
 
                     <div className="field">
-                      <button className="button is-black" type="submit" disabled={this.state.loading}>
+                      <button
+                        className="button is-black"
+                        type="submit"
+                        disabled={this.state.loading}
+                      >
                         Submit
                       </button>
                     </div>

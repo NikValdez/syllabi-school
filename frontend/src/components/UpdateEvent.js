@@ -131,6 +131,7 @@ class UpdateEvent extends Component {
             return <p>No Events Found For ID {this.props.match.params.id}</p>
           return (
             <section className="container py-m">
+              <h1 className="title is-spaced">Update Assignment</h1>
               <Mutation mutation={UPDATE_EVENT_MUTATION} variables={this.state}>
                 {(updateEvent, { loading, error }) => (
                   <form
@@ -157,7 +158,7 @@ class UpdateEvent extends Component {
                         </label>
                       </div>
                       <label className="label" htmlFor="start">
-                        <div>Event Start</div>
+                        <div>Assignment Start</div>
                         <DatePicker
                           className="input"
                           selected={
@@ -170,7 +171,7 @@ class UpdateEvent extends Component {
                         />
                       </label>
                       <label className="label" htmlFor="end">
-                        <div>Event End</div>
+                        <div>Assignment End</div>
                         <DatePicker
                           className="input"
                           selected={

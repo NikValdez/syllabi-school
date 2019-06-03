@@ -62,8 +62,7 @@ class SingleCourse extends Component {
         {({ error, loading, data }) => {
           if (error) return <p>Error</p>
           if (loading) return <p>Loading...</p>
-          if (!data.course)
-            return <p>No Department Found for {this.state.id}</p>
+          if (!data.course) return <p>No Course Found for {this.state.id}</p>
           const course = data.course
           //sort events by date
           const eventsByDate = course.events.sort(function(a, b) {
@@ -77,25 +76,23 @@ class SingleCourse extends Component {
               <IsAdminTeacher>
                 <div className="buttons mb-m">
                   <Link className="button" to={`/update/${course.id}`}>
-                    Update Department{' '}
+                    Update Course{' '}
                   </Link>
-                  <DeleteCourse id={this.state.id}>
-                    Delete Department
-                  </DeleteCourse>
+                  <DeleteCourse id={this.state.id}>Delete Course</DeleteCourse>
                 </div>
               </IsAdminTeacher>
               <table className="table full-width">
                 <tbody>
                   <tr>
-                    <th>Title</th>
+                    <th>Course Name</th>
                     <td>{course.title}</td>
                   </tr>
                   <tr>
-                    <th>Owner(s)</th>
+                    <th>Instructor</th>
                     <td>{course.courseCode}</td>
                   </tr>
                   <tr>
-                    <th>Extension</th>
+                    <th>Room</th>
                     <td>{course.credits}</td>
                   </tr>
                   <tr>
@@ -105,7 +102,7 @@ class SingleCourse extends Component {
                         JSON.parse(course.days).map(day => (
                           <div key={day} style={{ display: 'inline-block' }}>
                             <h6>{day.toUpperCase()}</h6>
-                            <div>
+                            <div style={{ marginRight: '10px' }}>
                               <h6>{moment(course.startDate).format('LT')}</h6>
                               <h6>{moment(course.endDate).format('LT')}</h6>
                             </div>
@@ -117,7 +114,7 @@ class SingleCourse extends Component {
               </table>
 
               <div className="mb-m">
-                <h3>Additional Information</h3>
+                <h3>Course Description</h3>
                 {ReactHtmlParser(course.description)}
               </div>
 
@@ -125,7 +122,7 @@ class SingleCourse extends Component {
                 <CreateEvent course={course} email={email} />
               </div>
 
-              <h2>Department Schedule</h2>
+              <h2>Course Schedule</h2>
               {course.events < 1 && <p>No Events Scheduled</p>}
               <table className="table full-width">
                 <thead>

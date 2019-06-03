@@ -108,7 +108,7 @@ class CreateEvent extends Component {
     return (
       <IsAdminTeacher>
         <button className="button" onClick={this.handleOpen}>
-          Create Event
+          Create Assignment
         </button>
         <Mutation
           mutation={CREATE_EVENT_MUTATION}
@@ -127,7 +127,7 @@ class CreateEvent extends Component {
               <div className="modal-background" onClick={this.handleClose} />
               <div className="modal-card">
                 <header className="modal-card-head">
-                  <p className="modal-card-title">Add Event</p>
+                  <p className="modal-card-title">Add Assignment</p>
                   <button
                     className="delete"
                     aria-label="close"
@@ -168,7 +168,7 @@ class CreateEvent extends Component {
                         </label>
                       </div>
                       <label htmlFor="start">
-                        <div>Event Start</div>
+                        <div>Assignment Start</div>
                         <DatePicker
                           className="input"
                           selected={this.state.start}
@@ -177,7 +177,7 @@ class CreateEvent extends Component {
                         />
                       </label>
                       <label htmlFor="end">
-                        <div>Event End</div>
+                        <div>Assignment End</div>
                         <DatePicker
                           className="input"
                           selected={this.state.end}
@@ -234,7 +234,7 @@ class CreateEvent extends Component {
                           type="submit"
                           disabled={this.state.loading}
                         >
-                          Add Event
+                          Add Assignment
                         </button>
                       </div>
 

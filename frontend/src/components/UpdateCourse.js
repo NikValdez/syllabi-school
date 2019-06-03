@@ -123,6 +123,7 @@ class UpdateCourse extends Component {
             >
               {(updateCourse, { loading, error }) => (
                 <section className="container py-m">
+                  <h1 className="title is-spaced">Update Course</h1>
                   <form
                     style={{ width: '100%' }}
                     onSubmit={e =>
@@ -134,13 +135,13 @@ class UpdateCourse extends Component {
                     <fieldset disabled={loading} aria-busy={loading}>
                       <div className="field">
                         <label className="label" htmlFor="title">
-                          Title
+                          Course Name
                           <input
                             className="input"
                             type="text"
                             id="title"
                             name="title"
-                            placeholder="title"
+                            placeholder="Name"
                             required
                             defaultValue={data.course.title}
                             onChange={this.handleChange}
@@ -149,13 +150,13 @@ class UpdateCourse extends Component {
                       </div>
                       <div className="field">
                         <label className="label" htmlFor="courseCode">
-                          Owner(s)
+                          Instructor
                           <input
                             className="input"
                             type="text"
                             id="courseCode"
                             name="courseCode"
-                            placeholder="Course Code"
+                            placeholder="Instructor"
                             required
                             defaultValue={data.course.courseCode}
                             onChange={this.handleChange}
@@ -164,13 +165,13 @@ class UpdateCourse extends Component {
                       </div>
                       <div className="field">
                         <label className="label" htmlFor="credits">
-                          Extension
+                          Room
                           <input
                             className="input"
                             type="text"
                             id="credits"
                             name="credits"
-                            placeholder="Credits"
+                            placeholder="Room #"
                             required
                             defaultValue={data.course.credits}
                             onChange={this.handleChange}
@@ -179,14 +180,14 @@ class UpdateCourse extends Component {
                       </div>
                       <div className="field">
                         <label className="label" htmlFor="description">
-                          Additional Information
+                          Course Description
                           <textarea
                             className="textarea"
                             cols="60"
                             type="text"
                             id="description"
                             name="description"
-                            placeholder="description"
+                            placeholder="Description"
                             required
                             defaultValue={htmlToText.fromString(
                               data.course.description
@@ -258,7 +259,7 @@ class UpdateCourse extends Component {
                           </div>
                         </label>
                       </div>
-                      <button className="button" type="submit">
+                      <button className="button is-black" type="submit">
                         Save Changes
                       </button>
                     </fieldset>

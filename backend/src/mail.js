@@ -123,9 +123,9 @@ exports.emailAnnouncement = text => `
                                 >
                                   <img
                                     height="auto"
-                                    src='https://res.cloudinary.com/nikcochran/image/upload/v1559173289/52502c952f52935c81b8bf2605d3e644.png'
-                                    style="border: 0;display: block;outline: none;text-decoration: none;height: auto;width: 100%;line-height: 100%;-ms-interpolation-mode: bicubic;"
-                                    width="550"
+                                    src='https://res.cloudinary.com/nikcochran/image/upload/v1559576139/iconfinder_set_of_three_books_1741315.png'
+                                    style="border: 0;display: block;outline: none;margin: 0 auto;none;height: auto;width: auto;line-height: 100%;-ms-interpolation-mode: bicubic;"
+                                    width="350"
                                   />
                                 </a>
                               </td>

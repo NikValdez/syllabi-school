@@ -29,11 +29,11 @@ class NewNav extends Component {
                 <div className="announcement" />
                 <div className="navbar-start">
                   <Link className="navbar-item" to="/schedule">
-                    Full Schedule
+                    Agenda
                   </Link>
                   <IsAdminTeacher>
                     <Link className="navbar-item" to="/create_course">
-                      Create Department
+                      Create Course
                     </Link>
                   </IsAdminTeacher>
                   <IsAdmin>
@@ -41,7 +41,7 @@ class NewNav extends Component {
                       Permissions
                     </Link>
                     <Link className="navbar-item" to="/create_institution">
-                      Create Show
+                      Create School
                     </Link>
                   </IsAdmin>
                 </div>

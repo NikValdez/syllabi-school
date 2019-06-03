@@ -131,7 +131,7 @@ class CreateCourse extends Component {
     return (
       <IsAdminTeacher>
         <section className="container py-m">
-          <h1 className="title is-spaced">New Department</h1>
+          <h1 className="title is-spaced">New Course</h1>
           <Query query={CURRENT_USER_QUERY}>
             {({ data, error, loading }) => {
               if (error) return <p>Error : {error.message}</p>
@@ -158,14 +158,14 @@ class CreateCourse extends Component {
                       <fieldset disabled={loading} aria-busy={loading}>
                         <div className="field">
                           <label className="label" htmlFor="title">
-                            Department
+                            Course
                             <input
                               className="input"
                               maxLength="40"
                               type="text"
                               id="title"
                               name="title"
-                              placeholder="Department"
+                              placeholder="Name"
                               required
                               value={this.state.title}
                               onChange={this.handleChange}
@@ -180,13 +180,13 @@ class CreateCourse extends Component {
 
                         <div className="field">
                           <label className="label" htmlFor="courseCode">
-                            Owner(s)
+                            Instructor
                             <input
                               className="input"
                               type="text"
                               id="courseCode"
                               name="courseCode"
-                              placeholder="ex) Matt Visser, matt@syllabi.com"
+                              placeholder="Instructor"
                               required
                               value={this.state.courseCode}
                               onChange={this.handleChange}
@@ -196,14 +196,14 @@ class CreateCourse extends Component {
 
                         <div className="field">
                           <label className="label" htmlFor="credits">
-                            Extension
+                            Room
                             <input
                               className="input"
                               maxLength="20"
                               type="text"
                               id="credits"
                               name="credits"
-                              placeholder="Extension #"
+                              placeholder="Room #"
                               required
                               value={this.state.credits}
                               onChange={this.onCreditsChange}
@@ -264,7 +264,7 @@ class CreateCourse extends Component {
                         </div>
 
                         <label className="label py-s" htmlFor="description">
-                          Additional Information
+                          Course Description
                           <div>
                             <ReactQuill
                               style={{ height: '100px' }}
@@ -278,7 +278,11 @@ class CreateCourse extends Component {
                           </div>
                         </label>
 
-                        <button className="button is-black" type="submit">
+                        <button
+                          style={{ marginTop: '20px' }}
+                          className="button is-black"
+                          type="submit"
+                        >
                           Submit
                         </button>
                       </fieldset>
@@ -292,15 +296,15 @@ class CreateCourse extends Component {
           <table className="table mt-m is-bordered is-fullwidth is-hoverable">
             <tbody>
               <tr>
-                <th>Department</th>
+                <th>Course Name</th>
                 <td>{this.state.title}</td>
               </tr>
               <tr>
-                <th>Owner(s)</th>
+                <th>Instructor</th>
                 <td>{this.state.courseCode}</td>
               </tr>
               <tr>
-                <th>Extension</th>
+                <th>Room</th>
                 <td>{this.state.credits}</td>
               </tr>
               <tr>
@@ -321,7 +325,7 @@ class CreateCourse extends Component {
             </tbody>
           </table>
           <div>
-            <h3>Additional Information</h3>
+            <h3>Course Description</h3>
             {ReactHtmlParser(this.state.description)}
           </div>
         </section>

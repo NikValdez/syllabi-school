@@ -169,22 +169,22 @@ class ExportAsPdf extends Component {
                     >
                       <tbody>
                         <tr>
-                          <th>Title</th>
+                          <th>Course Name</th>
                           <td>{course.title}</td>
                         </tr>
                         <tr>
-                          <th>Owner(s)</th>
+                          <th>Instructor</th>
                           <td>{course.courseCode}</td>
                         </tr>
                         <tr>
-                          <th>Extension</th>
+                          <th>Room</th>
                           <td>{course.credits}</td>
                         </tr>
                       </tbody>
                     </table>
 
                     <div id="course-description" className="py-m">
-                      <h3>Additional Information</h3>
+                      <h3>Course Description</h3>
                       {ReactHtmlParser(course.description)}
                     </div>
 
@@ -200,7 +200,7 @@ class ExportAsPdf extends Component {
                       </button>
                     </div>
 
-                    <h2 className="mt-m">Department Schedule</h2>
+                    <h2 className="mt-m">Course Schedule</h2>
                     {course.events.length < 1 ? (
                       <p>No Events Currently</p>
                     ) : (
