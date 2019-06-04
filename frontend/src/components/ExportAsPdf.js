@@ -53,7 +53,6 @@ class ExportAsPdf extends Component {
 
     pdf.setFontSize(12)
     pdf.setTextColor('black')
-    // pdf.text(20, 20, 'This is a title')
     pdf.setTextColor('black')
 
     pdf.setFont('times')
@@ -67,8 +66,7 @@ class ExportAsPdf extends Component {
       bodyStyles: { lineColor: [0, 0, 0] },
       margin: { top: 100 },
       html: '#course-table',
-      showHead: 'firstPage',
-      tableWidth: 300
+      showHead: 'firstPage'
     })
     pdf.setFontSize(13)
     pdf.text(40, 300, 'Calendar')
@@ -80,7 +78,19 @@ class ExportAsPdf extends Component {
       html: '#course-calendar',
       showHead: 'firstPage',
       lineColor: 'black',
-      lineWidth: 4
+      cellPadding: 10.5,
+      columnStyles: {
+        0: { columnWidth: 20 },
+        1: {
+          columnWidth: 40
+        },
+        2: {
+          columnWidth: 100
+        },
+        3: {
+          columnWidth: 20
+        }
+      }
     })
 
     pdf.fromHTML(
