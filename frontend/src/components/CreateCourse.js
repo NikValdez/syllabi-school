@@ -11,7 +11,6 @@ import { ALL_COURSES_QUERY } from './Courses'
 import Error from './ErrorMessage'
 import IsAdminTeacher from './IsAdminTeacher'
 import { CURRENT_USER_QUERY } from './User'
-// import randomColor from 'randomcolor'
 
 const CREATE_COURSE_MUTATION = gql`
   mutation CREATE_COURSE_MUTATION(
@@ -51,6 +50,14 @@ const options = [
   { value: 'fri', label: 'Friday' }
 ]
 
+const palette = [
+  '#FFE7ED', //pink
+  '#D9FFF7', //teal
+  '#CBF3FF', //blue
+  '#FCE8FF', //purple
+  '#DAFFB5' //green
+]
+
 class CreateCourse extends Component {
   state = {
     title: '',
@@ -66,30 +73,24 @@ class CreateCourse extends Component {
     days: ''
   }
 
-  getRandomColor = () => {
-    let hue = Math.floor(Math.random() * 360)
-    let pastel = 'hsl(' + hue + ', 100%, 87.5%)'
-    return pastel
-  }
-
-  // getRandomColor = () => {
-  //   const color = 'hsl(' + Math.random() * 360 + ', 100%, 75%)'
-  //   return color
-  // }
-
-  handleChange = e => {
+  handleChange = (colors, e) => {
     const { name, type, value } = e.target
     const val = type === 'number' ? parseFloat(value) : value
     this.setState({
-      [name]: val.toUpperCase(),
-      color: this.getRandomColor()
+      [name]: val.toUpperCase()
     })
+
+    for (let i = 0; i <= palette.length; i++) {
+      if (!colors.includes(palette[i])) {
+        return this.setState({
+          color: palette[i]
+        })
+      }
+    }
   }
   handleInstructorChange = e => {
-    const { name, type, value } = e.target
-    const val = type === 'number' ? parseFloat(value) : value
     this.setState({
-      [name]: val
+      courseCode: e.target.value
     })
   }
 
@@ -136,163 +137,179 @@ class CreateCourse extends Component {
       <IsAdminTeacher>
         <section className="container py-m">
           <h1 className="title is-spaced">New Course</h1>
-          <Query query={CURRENT_USER_QUERY}>
+          <Query query={ALL_COURSES_QUERY}>
             {({ data, error, loading }) => {
               if (error) return <p>Error : {error.message}</p>
+              if (loading) return <p>Loading...</p>
+              console.log(data.courses.map(course => course.color))
+              const courseColors = data.courses.map(course => course.color)
+
               return (
-                <Mutation
-                  mutation={CREATE_COURSE_MUTATION}
-                  variables={this.state}
-                  refetchQueries={[{ query: ALL_COURSES_QUERY }]}
-                >
-                  {(createCourse, { loading, error }) => (
-                    <form
-                      onSubmit={async e => {
-                        e.preventDefault()
-                        await this.setState({
-                          institution: data.me.institution.id
-                        })
-                        const res = await createCourse()
-                        this.props.history.push(
-                          `/courses/${res.data.createCourse.id}`
-                        )
-                      }}
-                    >
-                      <Error error={error} />
-                      <fieldset disabled={loading} aria-busy={loading}>
-                        <div className="field">
-                          <label className="label" htmlFor="title">
-                            Course
-                            <input
-                              className="input"
-                              maxLength="40"
-                              type="text"
-                              id="title"
-                              name="title"
-                              placeholder="Name"
-                              required
-                              value={this.state.title}
-                              onChange={this.handleChange}
-                            />
-                          </label>
-                          {this.state.title.length > 39 ? (
-                            <p>Title cannot be this long</p>
-                          ) : (
-                            ''
-                          )}
-                        </div>
+                <Query query={CURRENT_USER_QUERY}>
+                  {({ data, error, loading }) => {
+                    if (error) return <p>Error : {error.message}</p>
+                    return (
+                      <Mutation
+                        mutation={CREATE_COURSE_MUTATION}
+                        variables={this.state}
+                        refetchQueries={[{ query: ALL_COURSES_QUERY }]}
+                      >
+                        {(createCourse, { loading, error }) => (
+                          <form
+                            onSubmit={async e => {
+                              e.preventDefault()
+                              await this.setState({
+                                institution: data.me.institution.id
+                              })
+                              const res = await createCourse()
+                              this.props.history.push(
+                                `/courses/${res.data.createCourse.id}`
+                              )
+                            }}
+                          >
+                            <Error error={error} />
+                            <fieldset disabled={loading} aria-busy={loading}>
+                              <div className="field">
+                                <label className="label" htmlFor="title">
+                                  Course
+                                  <input
+                                    className="input"
+                                    maxLength="40"
+                                    type="text"
+                                    id="title"
+                                    name="title"
+                                    placeholder="Name"
+                                    required
+                                    value={this.state.title}
+                                    onChange={e =>
+                                      this.handleChange(courseColors, e)
+                                    }
+                                  />
+                                </label>
+                                {this.state.title.length > 39 ? (
+                                  <p>Title cannot be this long</p>
+                                ) : (
+                                  ''
+                                )}
+                              </div>
 
-                        <div className="field">
-                          <label className="label" htmlFor="courseCode">
-                            Instructor
-                            <input
-                              className="input"
-                              type="text"
-                              id="courseCode"
-                              name="courseCode"
-                              placeholder="Instructor"
-                              required
-                              value={this.state.courseCode}
-                              onChange={this.handleInstructorChange}
-                            />
-                          </label>
-                        </div>
+                              <div className="field">
+                                <label className="label" htmlFor="courseCode">
+                                  Instructor
+                                  <input
+                                    className="input"
+                                    type="text"
+                                    id="courseCode"
+                                    name="courseCode"
+                                    placeholder="Instructor"
+                                    required
+                                    value={this.state.courseCode}
+                                    onChange={this.handleInstructorChange}
+                                  />
+                                </label>
+                              </div>
 
-                        <div className="field">
-                          <label className="label" htmlFor="credits">
-                            Room
-                            <input
-                              className="input"
-                              maxLength="20"
-                              type="text"
-                              id="credits"
-                              name="credits"
-                              placeholder="Room #"
-                              required
-                              value={this.state.credits}
-                              onChange={this.onCreditsChange}
-                            />
-                          </label>
-                        </div>
+                              <div className="field">
+                                <label className="label" htmlFor="credits">
+                                  Room
+                                  <input
+                                    className="input"
+                                    maxLength="20"
+                                    type="text"
+                                    id="credits"
+                                    name="credits"
+                                    placeholder="Room #"
+                                    required
+                                    value={this.state.credits}
+                                    onChange={this.onCreditsChange}
+                                  />
+                                </label>
+                              </div>
 
-                        <div className="field">
-                          <label className="label" htmlFor="ClassTime">
-                            Office Days
-                            <Select
-                              value={selectedOption}
-                              onChange={this.handleSelectionChange}
-                              options={options}
-                              isMulti
-                              theme={theme => ({
-                                ...theme,
-                                borderRadius: 0,
-                                colors: {
-                                  ...theme.colors,
-                                  primary25: '#fffcdf',
-                                  primary: 'black'
-                                }
-                              })}
-                            />
-                          </label>
-                        </div>
+                              <div className="field">
+                                <label className="label" htmlFor="ClassTime">
+                                  Office Days
+                                  <Select
+                                    value={selectedOption}
+                                    onChange={this.handleSelectionChange}
+                                    options={options}
+                                    isMulti
+                                    theme={theme => ({
+                                      ...theme,
+                                      borderRadius: 0,
+                                      colors: {
+                                        ...theme.colors,
+                                        primary25: '#fffcdf',
+                                        primary: 'black'
+                                      }
+                                    })}
+                                  />
+                                </label>
+                              </div>
 
-                        <div className="field">
-                          <label className="label" htmlFor="DateTime">
-                            Office Hours
-                            <DatePicker
-                              className="input"
-                              selected={this.state.startDate}
-                              onChange={this.handleStartDateChange}
-                              showTimeSelect
-                              showTimeSelectOnly
-                              timeIntervals={15}
-                              dateFormat="h:mm aa"
-                              timeCaption="Time"
-                              placeholderText="Start Time"
-                            />
-                            <DatePicker
-                              className="input"
-                              selected={this.state.endDate}
-                              showTimeSelect
-                              showTimeSelectOnly
-                              selectsEnd
-                              timeIntervals={15}
-                              dateFormat="h:mm aa"
-                              timeCaption="Time"
-                              startDate={this.state.startDate}
-                              endDate={this.state.endDate}
-                              onChange={this.handleEndDateChange}
-                              placeholderText="End Time"
-                            />
-                          </label>
-                        </div>
+                              <div className="field">
+                                <label className="label" htmlFor="DateTime">
+                                  Office Hours
+                                  <DatePicker
+                                    className="input"
+                                    selected={this.state.startDate}
+                                    onChange={this.handleStartDateChange}
+                                    showTimeSelect
+                                    showTimeSelectOnly
+                                    timeIntervals={15}
+                                    dateFormat="h:mm aa"
+                                    timeCaption="Time"
+                                    placeholderText="Start Time"
+                                  />
+                                  <DatePicker
+                                    className="input"
+                                    selected={this.state.endDate}
+                                    showTimeSelect
+                                    showTimeSelectOnly
+                                    selectsEnd
+                                    timeIntervals={15}
+                                    dateFormat="h:mm aa"
+                                    timeCaption="Time"
+                                    startDate={this.state.startDate}
+                                    endDate={this.state.endDate}
+                                    onChange={this.handleEndDateChange}
+                                    placeholderText="End Time"
+                                  />
+                                </label>
+                              </div>
 
-                        <label className="label py-s" htmlFor="description">
-                          Course Description
-                          <div>
-                            <ReactQuill
-                              style={{ height: '100px' }}
-                              placeholder="Add a description..."
-                              theme="snow"
-                              value={this.state.description}
-                              onChange={this.onDescriptionChange}
-                              modules={CreateCourse.modules}
-                              formats={CreateCourse.formats}
-                            />
-                          </div>
-                        </label>
+                              <label
+                                className="label py-s"
+                                htmlFor="description"
+                              >
+                                Course Description
+                                <div>
+                                  <ReactQuill
+                                    style={{ height: '100px' }}
+                                    placeholder="Add a description..."
+                                    theme="snow"
+                                    value={this.state.description}
+                                    onChange={this.onDescriptionChange}
+                                    modules={CreateCourse.modules}
+                                    formats={CreateCourse.formats}
+                                  />
+                                </div>
+                              </label>
 
-                        <button
-                          style={{ marginTop: '20px' }}
-                          className="button is-black"
-                          type="submit"
-                        >
-                          Submit
-                        </button>
-                      </fieldset>
-                    </form>
-                  )}
-                </Mutation>
+                              <button
+                                style={{ marginTop: '20px' }}
+                                className="button is-black"
+                                type="submit"
+                              >
+                                Submit
+                              </button>
+                            </fieldset>
+                          </form>
+                        )}
+                      </Mutation>
+                    )
+                  }}
+                </Query>
               )
             }}
           </Query>

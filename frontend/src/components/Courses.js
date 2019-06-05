@@ -14,6 +14,7 @@ const ALL_COURSES_QUERY = gql`
       courseCode
       credits
       image
+      color
     }
   }
 `
@@ -24,11 +25,8 @@ class Courses extends Component {
       <section className="courses container py-l">
         <div className="columns">
           <div className="column left is-narrow">
-
             <div className="panel">
-              <p className="panel-heading m0">
-                Courses
-              </p>
+              <p className="panel-heading m0">Courses</p>
               <div className="panel-block">
                 <Search />
               </div>
@@ -38,14 +36,11 @@ class Courses extends Component {
             </div>
 
             <div className="panel">
-              <p className="panel-heading m0">
-                Notes
-              </p>
+              <p className="panel-heading m0">Notes</p>
               <div className="panel-block">
                 <CreateNote />
               </div>
             </div>
-
           </div>
           <div className="column right">
             <Calendar />
