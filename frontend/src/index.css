@@ -7456,3 +7456,7 @@ section.courses .left {
   display: flex;
   align-items: center;
   justify-content: center; }
+
+.note {
+  white-space: pre-line !important;
+  height: auto !important; }

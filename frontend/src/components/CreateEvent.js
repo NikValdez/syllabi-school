@@ -185,19 +185,21 @@ class CreateEvent extends Component {
                           placeholderText="Select end date"
                         />
                       </label>
-                      <label htmlFor="description">
-                        Description
-                        <ReactQuill
-                          style={{ height: '100px' }}
-                          placeholder="Add a description..."
-                          theme="snow"
-                          value={this.state.description}
-                          onChange={this.onDescriptionChange}
-                          modules={CreateEvent.modules}
-                          formats={CreateEvent.formats}
-                        />
-                      </label>
                       <div className="field">
+                        <label htmlFor="description">
+                          Description
+                          <ReactQuill
+                            style={{ height: '100px' }}
+                            placeholder="Add a description..."
+                            theme="snow"
+                            value={this.state.description}
+                            onChange={this.onDescriptionChange}
+                            modules={CreateEvent.modules}
+                            formats={CreateEvent.formats}
+                          />
+                        </label>
+                      </div>
+                      <div className="field" style={{ marginTop: '50px' }}>
                         <label className="label" htmlFor="file">
                           <div className="file">
                             <label className="file-label">

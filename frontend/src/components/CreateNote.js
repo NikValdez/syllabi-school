@@ -36,9 +36,14 @@ class CreateNote extends Component {
               <form
                 onSubmit={async e => {
                   e.preventDefault()
-                  if (this.state.note.length > 0) {
+                  if (
+                    this.state.note.length > 0 &&
+                    this.state.note.length < 100
+                  ) {
                     await createNote()
                     this.setState({ note: '' })
+                  } else {
+                    alert('Note must be between 1 and 99 characters long')
                   }
                 }}
               >

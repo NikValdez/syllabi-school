@@ -24,7 +24,12 @@ class Notes extends Component {
           <Query query={NOTES_QUERY}>
             {({ data, error, loading }) => {
               if (loading) return <p>Loading...</p>
-              if (error) return <div className="error"><p>Error : {error.message}</p></div>
+              if (error)
+                return (
+                  <div className="error">
+                    <p>Error : {error.message}</p>
+                  </div>
+                )
               const notes = data.me.notes.map(note => note)
 
               return notes.map(note => (

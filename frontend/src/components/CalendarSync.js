@@ -2,7 +2,6 @@
 import htmlToText from 'html-to-text'
 import ical from 'ical-generator'
 import React, { Component } from 'react'
-// import { Modal } from 'react-bootstrap'
 
 gapi.load('client:auth2', function() {
   gapi.auth2.init({
@@ -170,13 +169,16 @@ export default class CalendarSync extends Component {
             </header>
             <section className="modal-card-body">
               <button
+                className="button"
                 onClick={() => {
                   this.addScheduleToCalendar()
                   this.handleClose()
                 }}
               >
-                Add to <i className="fab fa-google" />
-                oogle
+                <p>
+                  Add to <i className="fab fa-google" />
+                  oogle
+                </p>
               </button>
             </section>
           </div>
